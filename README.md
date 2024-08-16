@@ -22,3 +22,29 @@ W3School : https://www.w3schools.com/
   
 maven : https://mvnrepository.com/    
 MyBatis : https://mybatis.org/mybatis-3/  
+  
+  
+intellij setting
+
+플러그인 설정  
+plugins  
+lombok (롬복 사용시 필수)  
+spring boot assistant  
+  
+utf-8 설정  
+encoding 검색 utf-8 check  
+Editor-> File Encodings -> utf-8  
+  
+어노테이션 활성화  
+build->compiler->annotation processors  
+enable annotation processing  
+  
+설정시 대소문자 구분없이 요소가 검색됨.  
+Editor-> Code Completion -> Match Case  uncheck  
+  
+gradle사용 설정  
+실행시 문제 있으면 (앵간하면 기본값으로)  
+build and run using intellij IDEA  
+run tests using intellij IDEA  
+이 설정 뭔가 문제있음 기본값 gradle로 (기본설정 gradle)  
+build->buildTools->gradle  
