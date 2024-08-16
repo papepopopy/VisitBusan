@@ -24,7 +24,7 @@ maven : https://mvnrepository.com/
 MyBatis : https://mybatis.org/mybatis-3/  
   
   
-intellij setting
+인텔리제이 설정
 
 플러그인 설정  
 plugins  
