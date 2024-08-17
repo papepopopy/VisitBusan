@@ -178,7 +178,7 @@ header {
         padding: 35px 15px;
         display: inline-block;
     }
-
+}
 @media (min-width: 1200px) {
     .header-inner {
         max-width:1140px
