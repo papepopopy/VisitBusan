@@ -48,30 +48,7 @@ h4 {
     padding: 70px 0;
 }
 
-.menu-list>li {
-    padding: 39px 0;
-    font-size: 22px;
-    font-weight: 600;
-}
-.link-box>li {
-    padding: 42px 0;
-}
-.link-box>li>a {
-    font-size: 14px;
-    font-weight: 400;
-}
-
-.sub-menu01 {
-    display: none;
-}
-.sub-menu01>li>a {
-    font-size: 18px;
-    font-weight: 700;
-}
-.sub-menu02>li>a {
-    font-size: 14px;
-    font-weight: 400;
-}
+.body {}
 
 
 @media (min-width: 576px) {
