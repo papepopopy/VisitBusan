@@ -15,6 +15,14 @@ visit busan : https://www.visitbusan.net/kr/index.do
 각종 링크  
 W3School : https://www.w3schools.com/  
 부트스트랩 :  https://getbootstrap.com/  
+심플사이드바 : https://startbootstrap.com/template/simple-sidebar  
+폰트어썸아이콘 : https://fontawesome.com/v6/search?o=r&m=free  
+ - v6 적용시 링크 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">  
+  
+제이쿼리 : https://jquery.com/  
+제이쿼리 doc : https://api.jquery.com/  
+리엑트 : https://react.dev/  
+리엑트 doc : https://react.dev/reference/react  
   
 인텔리제이(커뮤니티버전 다운) : https://www.jetbrains.com/ko-kr/idea/download/?section=windows  
 이클립스(JEE버전 다운) : https://www.eclipse.org/downloads/packages/  
@@ -24,12 +32,13 @@ W3School : https://www.w3schools.com/
 자바 1.8 doc : https://docs.oracle.com/javase/8/docs/api/  
 타임리프 doc : https://www.thymeleaf.org/doc/tutorials/3.1/usingthymeleaf.html  
   
-maven : https://mvnrepository.com/    
+maven : https://mvnrepository.com/  
+npm : https://www.npmjs.com/  
 MyBatis : https://mybatis.org/mybatis-3/  
   
   
-인텔리제이 설정
-
+인텔리제이 설정  
+  
 플러그인 설정  
 plugins  
 lombok (롬복 사용시 필수)  
