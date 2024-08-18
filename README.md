@@ -17,7 +17,7 @@ W3School : https://www.w3schools.com/
 부트스트랩 :  https://getbootstrap.com/  
 심플사이드바 : https://startbootstrap.com/template/simple-sidebar  
 폰트어썸아이콘 : https://fontawesome.com/v6/search?o=r&m=free  
- - v6 적용시 링크 클릭해서 수정하기하면 보임 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">  
+ - v6 적용시 링크 수정하기하면 보임 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">  
   
 제이쿼리 : https://jquery.com/  
 제이쿼리 doc : https://api.jquery.com/  
