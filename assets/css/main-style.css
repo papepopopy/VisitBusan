@@ -1,0 +1,179 @@
+
+/* 기본설정 */
+@font-face {
+    font-family: 'NotoSansKR';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/portfolio-main/fonts/NotoSansKR-Regular.ttf') format('truetype');
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #333;
+    font-family: 'NotoSansKR', sans-serif;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 38px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+h4 {
+    font-size: 14px;
+}
+
+ /* 기본틀 설정 */
+.myContainer {
+    width: 100%;
+}
+.myBox {
+    margin: auto;
+    width: 1900px;
+    height: 1000px;
+    overflow: hidden;
+}
+
+/* 이미지 설정 */
+.imgBox {
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img {object-fit: cover;}
+    .x_img { width: 120%;}
+    .y_img { height: 120%;}
+}
+
+/* 지금 부산에 가면 */
+.festivalList {
+    width: 100%; height: 100%;
+    display: flex;
+}
+.f_leftBox {
+    flex: 35%;
+    padding-left: 200px;
+}
+.f_leftBox .f_title1, .f_title2, .f_skipLeft, .f_skipRight {
+    font-size: 45px;
+}
+.f_rightImgBox {
+    flex: 65%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.f_sliderBox {
+    width:1800px;
+    border-top-left-radius: 300px;
+    overflow: hidden;
+    display: flex;
+    gap: 30px;
+}
+.f_post {
+    overflow: hidden;
+    width: 600px; height: 700px;
+}
+.f_imgBox{
+    width: 110%; height: 110%;
+}
+
+
+/* 찾아가는 명소 */
+.goodPlaces {
+    width: 100%; height: 100%;
+    background-color: #E2F2FF;
+    padding: 80px 0;
+}
+.g_titleBox {text-align: center;}
+.g_title {font-size: 35px}
+.g_link { color: #54A3C4}
+.g_imgBox {
+    height: 700px;
+}
+.g_imgLine {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.line1 {
+    width: 30%;
+}
+.line2 {
+    width: 35%;
+}
+.line3 {
+    width: 20%;
+}
+
+
+/* 가이드 메뉴 */
+.guideMenu {
+    width: 100%; height: 100%;
+}
+.guide_imgBox {
+    width: 100%; height: 100%;
+    overflow: hidden;
+}
+
+
+/* 부산 여행 사진집 */
+.travelPictures {
+    width: 100%; height: 100%;
+    padding: 80px 0;
+}
+.t_titleBox {text-align: center;}
+.t_title {font-size: 35px}
+.t_link { color: #54A3C4}
+.t_imgBox {
+    display: flex;
+    gap: 70px;
+    justify-content: center;
+}
+    
+
+/* 색다른 테마여행 */
+.outOfOrdinary {
+    width: 100%; height: 100%;
+    padding: 80px 0;
+}
+.o_titleBox {text-align: center;}
+.o_title {font-size: 35px}
+.o_category {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.o_category button {
+    padding: 10px 25px;
+    border-radius: 25px;
+    margin-bottom: 130px;
+}
+.o_imgSlide {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+}
