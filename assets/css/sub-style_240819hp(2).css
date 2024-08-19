@@ -104,13 +104,6 @@ h4 {
     color: #fff;
 }
 
-
-/* 게시판 이미지박스 */
-.img-box img {
-    width: 100%;
-    text-align: center;
-}
-
 /* 게시판 레이아웃 4*3 */
 .postsBox {
     margin: 40px 0;
@@ -140,6 +133,7 @@ h4 {
     margin-bottom: 20px;
     color: #777;
 }
+
 /* mypage */
 .mypage .mypage-top-box img {
     width: 160px;
@@ -395,45 +389,6 @@ h4 {
     background-color: white;
     color: rgb(45, 45, 45);
     padding: 10px 30px;
-}
-.FestivalPost .downloadBox {
-    gap: 10px;
-}
-.FestivalPost .downloadBox button {
-    border: 1px solid #333;
-    font-size: 16px;
-}
-.FestivalPost .informationBox {
-    border: 1px solid #dee2e6;
-    padding: 25px 40px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-    position: relative;
-}
-.FestivalPost .infor-inner-box {
-    display: flex;
-    margin-bottom: 10px;
-}
-.FestivalPost .infor-inner-box div {
-    flex: 1 1 50%;
-}
-.FestivalPost .informationBox::after {
-    content: "";
-    display: block;
-    position: absolute;
-    width: 1px;
-    height: 80%;
-    left: 17%;
-    top: 10px;
-    background: #ddd;
-    z-index: -1;
-}
-.FestivalPost .informationBox p {
-    margin-bottom: 0.5rem;
-}
-.FestivalPost .infor-title {
-    font-weight: 600;
-    margin-right: 15px;
 }
 
 /* place */

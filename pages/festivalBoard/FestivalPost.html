@@ -5,9 +5,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>FestivalPost</title>
-    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../assets/css/main-style.css" rel="stylesheet">
-    <link href="../assets/css/header.css" rel="stylesheet">
+    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/sub-style.css" rel="stylesheet">
+    <link href="../../assets/css/header.css" rel="stylesheet">
   </head>
   <body>
     <div class="container FestivalPost">
@@ -77,18 +77,18 @@
             </div>
         </header>
         <!-- /header -->
-        <div class="body">
+        <div class="body FestivalPost">
             <!-- 카테고리, 제목, 기간 -->
             <div class="topBox text-center">
                 <div class="category text-center my-5"><h2>축제·행사</h2></div>
-                <div class="postTitle mb-3"><h1>2024 부산나이트워크42K</h1></div>
+                <h1 class="postTitle">2024 부산나이트워크42K</h1>
                 <div class="postPeriod mb-4">기간 2024.08.31.(토) ~ 2024.09.01.(일)</div>
             </div>
             <hr>
     
             <!-- 내용 -->
             <div class="contentBox mb-5">
-                <div class="text-center"><img src="../../images/festivalpage/festival_img01.png" alt="사진"></div><br><br>
+                <div class="img-box"><img src="../../assets/images/festivalpage/festival_img01.png" alt="사진"></div><br><br>
                 <div class="content">장거리 걷기를 하며 가족, 친구, 연인 그리고 혼자 온 참가자까지 모두가 함께 즐길 수 있는 '2024 부산나이트워크42K'<br>
     
                     국내 유일 밤샘 걷기 대회로 부산 APEC 나루공원에서 진행된다.<br>
@@ -128,28 +128,27 @@
             </div>
     
             <!-- 정보 -->
-            <div class="imformationBox border rounded-4 py-4 px-5 mb-5">
-                <div class="d-flex mb-3">
-                    <div class="col">
-                        <div class="d-flex mb-3"><div class="col-2">일자</div><div>2024.08.31.(토) ~ 2024.09.01.(일)</div></div>
-                        <div class="d-flex mb-3"><div class="col-2">주최</div><div>㈜블렌트, 부산일보사</div></div>
-                        <div class="d-flex mb-3"><div class="col-2">주관</div><div>어반스포츠</div></div>
+            <div class="informationBox">
+                <div class="infor-inner-box">
+                    <div>
+                        <p><span class="infor-title">일자</span>2024.08.31.(토) ~ 2024.09.01.(일)</p>
+                        <p><span class="infor-title">주최</span>㈜블렌트, 부산일보사</p>
+                        <p><span class="infor-title">주관</span>어반스포츠</p>
                     </div>
-                    <div class="v-line"></div>
-                    <div class="col">
-                        <div class="d-flex mb-3"><div class="col-2">문의처</div><div>070-4705-2008</div></div>
-                        <div class="d-flex mb-3"><div class="col-2">장소</div><div>APEC 나루공원 일대</div></div>
+                    <div>
+                        <p><span class="infor-title">문의처</span>070-4705-2008</p>
+                        <p><span class="infor-title">장소</span>APEC 나루공원 일대</p>
                     </div>
                 </div>
-                <div><button class="btnHomepage">홈페이지 -></button></div>
+                <div><button class="btnHomepage">홈페이지 ></button></div>
             </div>
     
             <!-- 첨부파일 -->
-            <div class="downloadBox border rounded-4 py-4 px-5 mb-5">
+            <div class="border rounded-4 py-4 px-5 mb-5">
                 <h3 class="mb-3">첨부파일 다운로드</h3>
-                <div class="d-flex ">
-                    <div><button class="btnDownload me-3">2024부산나이트워크42k포스터.png</button></div>
-                    <div><button class="btnDownload me-3">2024부산나이트워크42k포스터.pdf</button></div>
+                <div class="row downloadBox">
+                    <button class="col-md btnDownload">2024부산나이트워크42k포스터.png</button>
+                    <button class="col-md btnDownload">2024부산나이트워크42k포스터.pdf</button>
                 </div>
             </div>
     
@@ -157,16 +156,14 @@
             <div class="mb-5">
                 <h3>찾아오시는 길</h3>
                 <div>
-                    <div>
-                        지도
-                        <svg version="1.1" style="stroke: none; stroke-dashoffset: 0.5; stroke-linejoin: round; fill: none; transform: translateZ(0px); position: absolute; left: -1778px; top: -800px; width: 4445px; height: 2000px;" viewBox="0 0 4445 2000"><defs></defs></svg>
-                    </div>
+                    지도
+                    <svg version="1.1" style="stroke: none; stroke-dashoffset: 0.5; stroke-linejoin: round; fill: none; transform: translateZ(0px); position: absolute; left: -1778px; top: -800px; width: 100%; height: 100px;" viewBox="0 0 4445 2000"><defs></defs></svg>
                 </div>
             </div>
     
             <!-- 목록으로 되돌아가는 버튼 -->
             <div class="d-flex mb-5">
-                <div class="ms-auto"><button class="btnList">목록</button></div>
+                <div class="ms-auto"><button class="btn-secondary btn">목록</button></div>
             </div>
         </div>
     </div>
