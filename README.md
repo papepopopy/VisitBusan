@@ -5,7 +5,7 @@
 작업전후 동기화 잊지말기~ (잘못하면 분기점생김)  
   
 팀 공지사항, 하고싶은말 여기 올리기 :b  
-참고로 스페이스바 2번하면 엔터  
+참고로 스페이스바 2번하면 엔터, HTML 태그 적용됨  
   
 visit busan : https://www.visitbusan.net/kr/index.do  
 팀 포폴 : https://spark-lily-0cd.notion.site/da860fb2a5eb4b72a0a8455a8a44eb69  
