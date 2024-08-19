@@ -1,17 +1,16 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>palce_inner</title>
-
+    <title>memberjoin</title>
     <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
     <link href="../../assets/css/sub-style.css" rel="stylesheet">
     <link href="../../assets/css/header.css" rel="stylesheet">
 </head>
-
 <body>
-    <div class="container place1">
+    <div class="container memberjoin">
         <!-- header -->
         <header class="header-inner">
             <div class="logo-box">
@@ -78,69 +77,47 @@
             </div>
         </header>
         <!-- /header -->
-        <div class="body">
-            <div class="top">
-                <h1 class="mt-5">부산 트래블라운지가 말아주는 찐 부산체험 프로그램</h1>
-                <br>
-                <h4>부산트래블라운지</h4>
-            </div>
-            <div class="middle">
-                <div class="d-flex justify-content-center">
-                    <img src="../../assets/images/travelInfoBoard/bigimg.jfif" alt="">
+        <div class="login-box mt-4 mb-6">
+            <h1 class="text-center">회원가입</h1>
+
+            <div class="row mb-5 join-box">
+                <div class="col text-center">
+                    본인확인
                 </div>
-                <div class="d-flex justify-content-between px-5 mt-3">
-                    <div class="d-flex">
-                        <div>평점 5.0</div>
-                        <div class="ps-3">조회 1,597</div>
-                        <div class="ps-3">
-                            <a href="#">리뷰 1</a>
-                        </div>
-                    </div>
-                    <div class="d-flex">
-                        <div class="pe-3">
-                            <a href="#">찜하기</a>
-                        </div>
-                        <div>
-                            <a href="#">좋아요</a>
-                        </div>
-                    </div>
+                <div class="col text-center active">
+                    정보입력
                 </div>
-                <div class="information">
-                    <img src="../../assets/images/travelInfoBoard/bigimg2.jfif" alt="">
-                    <div>
-                        설명
-                    </div>
-                </div>
-                <div class="use">
-                    <h3>이용안내</h3>
-                    <div class="d-flex">
-                        <div class="col-2">
-                            <div>주소</div>
-                            <div>홈페이지</div>
-                            <div>이용요금</div>
-                        </div>
-                        <div class="col-4">
-                            <div>부산광역시 동구 대영로243번길 38 1, 2층</div>
-                            <div>https://smartstore.naver.com/travelloungebusan</div>
-                            <div>무료</div>
-                        </div>
-                        <div class="col-2">
-                            <div>전화번호</div>
-                            <div>운영요일, 시간</div>
-                            <div>교통정보</div>
-    
-                        </div>
-                        <div class="col-4">
-                            <div>051-441-3121</div>
-                            <div>매일 09:00~18:00 (12:00~13:00 휴게)</div>
-                            <div>도시철도 부산 1호선 부산역 1번 출구→도보 2분(차이나타운 공영주차장 유료주차가능)</div>
-                        </div>
-                    </div>
+                <div class="col text-center">
+                    가입완료
                 </div>
             </div>
+
+            <h2>회원정보 입력</h2>
+            <hr>
+            <form>
+                <div class="form-floating mb-2">
+                    <input type="id" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">아이디 필수</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                    <label for="floatingPassword">비밀번호 필수(대/소문자 구분)</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="id" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">이름 필수</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input type="id" class="form-control" id="floatingInput" placeholder="name@example.com">
+                    <label for="floatingInput">이메일 주소(필수, 아이디 찾기에 사용됩니다.)</label>
+                </div>
+                <div class="row align-items-end">
+                    <div class="col"><button type="submit" class="btn btn-primary w-100">이메일 본인 인증</button></div>
+                </div>
+            </form>
         </div>
-        <div class="footer">푸터</div>
     </div>
-    <script src="../assets/js/bootstrap.min.js"></script>
 </body>
+<script src="/assets/js/bootstrap.min.js"></script>
+
 </html>
