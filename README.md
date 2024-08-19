@@ -5,14 +5,15 @@
 작업전후 동기화 잊지말기~ (잘못하면 분기점생김)  
   
 팀 공지사항, 하고싶은말 여기 올리기 :b  
-참고로 스페이스바 2번하면 엔터, HTML 태그 적용됨  
+참고로 스페이스바 2번하면 엔터, <b>HTML 태그 적용됨<b>  
   
 visit busan : https://www.visitbusan.net/kr/index.do  
 팀 포폴 : https://spark-lily-0cd.notion.site/da860fb2a5eb4b72a0a8455a8a44eb69  
 작업 계획 : https://hapohees-team.monday.com/boards/1902534665  
   
-  
 각종 링크  
+깃 명령어 : https://bacassf.tistory.com/28  
+깃 브랜치 : https://coduking.tistory.com/entry/Git-branch-%EA%B8%B0%EB%B3%B8-%EC%82%AC%EC%9A%A9%EB%B2%95-%EB%B0%8F-Github-%ED%98%91%EC%97%85-%EB%B0%A9%EB%B2%95  
 W3School : https://www.w3schools.com/  
 부트스트랩 :  https://getbootstrap.com/  
 심플사이드바 : https://startbootstrap.com/template/simple-sidebar  
