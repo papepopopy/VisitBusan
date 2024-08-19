@@ -1,3 +1,5 @@
+/* 아이콘 링크 */
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 
 /* 기본설정 */
 @font-face {
@@ -5,6 +7,7 @@
     font-style: normal;
     font-weight: 400;
     src: url('/portfolio-main/fonts/NotoSansKR-Regular.ttf') format('truetype');
+    letter-spacing: -0.003em;
 }
 * {
     padding: 0;
@@ -13,7 +16,6 @@
     color: #333;
     font-family: 'NotoSansKR', sans-serif;
     font-size: 18px;
-    letter-spacing: 0.5px;
 }
 ul, li {
     list-style: none;
