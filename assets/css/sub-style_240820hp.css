@@ -108,13 +108,7 @@ h4 {
     border: #38aed6;
     color: #fff;
 }
-/* 제목 스타일 */
-.topBox {
-    text-align: center;
-}
-.topBox .controlBox {
-    justify-content: center;
-}
+
 
 /* 게시판 이미지박스 */
 .img-box img {
@@ -150,87 +144,6 @@ h4 {
     font-size: 15px;
     color: #777;
 }
-.postsBox .postText {
-    display: flex;
-    gap: 10px;
-}
-.postsBox .postText li {
-    font-size: 15px;
-    color: #555;
-}
-.postsBox .postText span {
-    font-size: 15px;
-    color: #f72c3d;
-}
-.postImgBox {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 300px;
-}
-.postImgBox img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-/* post 박스 */
-.informationBox .infor-inner-box  {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0;
-}
-.informationBox .infor-inner-box  div {
-    flex: 1 1 50%;
-}
-.informationBox .infor-inner-box  .L-box {
-    position: relative;
-}
-
-.informationBox .infor-inner-box  .R-box, .informationBox .infor-inner-box  .L-box {
-    padding: 0;
-}
-.informationBox .infor-inner-box .L-box::after {
-    content: "";
-    display: none;
-    position: absolute;
-    width: 1px;
-    height: 100%;
-    right: 0;
-    top: 0;
-    background: #ddd;
-    z-index: -1;
-}
-.informationBox .infor-inner-box .infor-title {
-    font-weight: 600;
-    margin-right: 15px;
-}
-/* 다운로드, 목록 버튼 설정 */
-.informationBox .btnDownload, .btnList {
-    background-color: white;
-    color: rgb(45, 45, 45);
-    padding: 10px 30px;
-}
-.informationBox .downloadBox {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-.informationBox .downloadBox .btnDownload {
-    border: 1px solid #333;
-    font-size: 16px;
-}
-.informationBox {
-    border: 1px solid #dee2e6;
-    padding: 25px 40px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-}
-.informationBox p {
-    margin-bottom: 0.5rem;
-}
-/* 공통스타일 end */
-
 /* mypage */
 .mypage .mypage-top-box img {
     width: 160px;
@@ -431,6 +344,17 @@ h4 {
 }
 
 /* 박스안 이미지 가득차게 수평 수직 가운데 정렬 1 */
+.FestivalBoard .postImgBox {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+}
 .FestivalBoard button {
     border: none;
     background-color: transparent;
@@ -472,6 +396,60 @@ h4 {
     margin-top: 10px;
 }
 
+/* 다운로드, 목록 버튼 설정 */
+.FestivalPost .btnDownload, .btnList {
+    background-color: white;
+    color: rgb(45, 45, 45);
+    padding: 10px 30px;
+}
+.FestivalPost .downloadBox {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.FestivalPost .downloadBox .btnDownload {
+    border: 1px solid #333;
+    font-size: 16px;
+}
+.FestivalPost .informationBox {
+    border: 1px solid #dee2e6;
+    padding: 25px 40px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+.FestivalPost .infor-inner-box {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+}
+.FestivalPost .infor-inner-box div {
+    flex: 1 1 50%;
+}
+.FestivalPost .L-box {
+    position: relative;
+}
+
+.FestivalPost .R-box, .FestivalPost .L-box {
+    padding: 0;
+}
+.FestivalPost .L-box::after {
+    content: "";
+    display: none;
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background: #ddd;
+    z-index: -1;
+}
+.FestivalPost .informationBox p {
+    margin-bottom: 0.5rem;
+}
+.FestivalPost .infor-title {
+    font-weight: 600;
+    margin-right: 15px;
+}
 
 /* place */
 .place .top{
@@ -480,24 +458,11 @@ h4 {
 .place .cate{
     justify-content: center;
 }
-.place .search {
+.place .search{
     display: flex;
     justify-content: center;
-    margin-top: 20px;
 }
-.place .search .form-control {
-    width: 50%;
-    border-radius: 50px 0 0 50px;
-    padding: 10px 20px;
-    border-right: 0px;
-}
-.place .search button {
-    border-radius: 0 50px 50px 0;
-    padding: 10px 20px;
-    background: #999;
-    color: #fff;
-}
-.place .up {
+.place .up{
     display: flex;
     justify-content:space-between
 }
@@ -597,7 +562,7 @@ h4 {
 
 @media (min-width: 576px) {
     .postsBox .post {
-        width: 100%;
+        max-width: 100%;
     }
 }
 
@@ -607,7 +572,7 @@ h4 {
         font-size: 20px;
     }
     .postsBox .post {
-        width: 48.5%;
+        max-width: 48%;
     }
     h1 {
         font-size: 38px;
@@ -621,26 +586,26 @@ h4 {
 
 @media (min-width: 992px) {
     .postsBox .post {
-        width: 31.9%;
+        max-width: 31%;
     }
-    .informationBox .infor-inner-box {
+    .FestivalPost .infor-inner-box {
         flex-direction: row;
         margin-bottom: 10px;
     }
-    .informationBox .infor-inner-box .L-box {
+    .FestivalPost .L-box {
         padding-right: 20px;
     }
-    .informationBox .infor-inner-box .R-box {
+    .FestivalPost .R-box {
         padding-left: 20px;
     }
-    .informationBox .infor-inner-box .L-box::after {
+    .FestivalPost .L-box::after {
         display: block;
     }
 }
 
 @media (min-width: 1200px) {
     .postsBox .post {
-        width: 23.6%;
+        max-width: 23%;
     }
 }
 @media (min-width: 1400px) {
