@@ -160,7 +160,7 @@ h4 {
 }
 .postsBox .postText span {
     font-size: 15px;
-    color: #f72c3d;
+    color: #38aed6;
 }
 .postImgBox {
     display: flex;
@@ -175,6 +175,9 @@ h4 {
 }
 
 /* post 박스 */
+.informationBox {
+    margin: 20px 0;
+}
 .informationBox .infor-inner-box  {
     display: flex;
     flex-direction: column;
@@ -228,6 +231,14 @@ h4 {
 }
 .informationBox p {
     margin-bottom: 0.5rem;
+}
+/* 홈페이지 버튼 설정 */
+.informationBox .home-btn {
+    background-color: rgb(45, 45, 45);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    margin-top: 10px;
 }
 /* 공통스타일 end */
 
@@ -463,15 +474,6 @@ h4 {
     margin: 0px 30px;
 }
 
-/* 홈페이지 버튼 설정 */
-.FestivalPost .home-btn {
-    background-color: rgb(45, 45, 45);
-    color: white;
-    border: none;
-    padding: 10px 30px;
-    margin-top: 10px;
-}
-
 
 /* place */
 .place .top{
@@ -520,9 +522,26 @@ h4 {
     align-items: center;
 }
 .place1 .information{
-    margin-top: 100px;
+    margin-top: 50px;
 }
-
+.place1 .place-box {
+    padding: 10px 0;
+    display: flex;
+    justify-content: space-between;
+}
+.place1 .place-sit {
+    display: flex;
+    gap: 20px
+}
+.place1 .place-sit li, .place1 .place-save li {
+    font-size: 18px;
+    font-weight: 500;
+}
+.place1 .place-sit span {
+    font-size: 18px;
+    margin-left: 5px;
+    color: #38aed6;
+}
 /* userBoard */
 /* 박스안 이미지 가득차게 수평 수직 가운데 정렬 */
 .userBoard .imgBox {
