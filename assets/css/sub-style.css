@@ -174,6 +174,63 @@ h4 {
     object-fit: cover;
 }
 
+/* post 박스 */
+.informationBox .infor-inner-box  {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 0;
+}
+.informationBox .infor-inner-box  div {
+    flex: 1 1 50%;
+}
+.informationBox .infor-inner-box  .L-box {
+    position: relative;
+}
+
+.informationBox .infor-inner-box  .R-box, .informationBox .infor-inner-box  .L-box {
+    padding: 0;
+}
+.informationBox .infor-inner-box .L-box::after {
+    content: "";
+    display: none;
+    position: absolute;
+    width: 1px;
+    height: 100%;
+    right: 0;
+    top: 0;
+    background: #ddd;
+    z-index: -1;
+}
+.informationBox .infor-inner-box .infor-title {
+    font-weight: 600;
+    margin-right: 15px;
+}
+/* 다운로드, 목록 버튼 설정 */
+.informationBox .btnDownload, .btnList {
+    background-color: white;
+    color: rgb(45, 45, 45);
+    padding: 10px 30px;
+}
+.informationBox .downloadBox {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+.informationBox .downloadBox .btnDownload {
+    border: 1px solid #333;
+    font-size: 16px;
+}
+.informationBox {
+    border: 1px solid #dee2e6;
+    padding: 25px 40px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+}
+.informationBox p {
+    margin-bottom: 0.5rem;
+}
+/* 공통스타일 end */
+
 /* mypage */
 .mypage .mypage-top-box img {
     width: 160px;
@@ -415,60 +472,6 @@ h4 {
     margin-top: 10px;
 }
 
-/* 다운로드, 목록 버튼 설정 */
-.FestivalPost .btnDownload, .btnList {
-    background-color: white;
-    color: rgb(45, 45, 45);
-    padding: 10px 30px;
-}
-.FestivalPost .downloadBox {
-    display: flex;
-    gap: 10px;
-    flex-wrap: wrap;
-}
-.FestivalPost .downloadBox .btnDownload {
-    border: 1px solid #333;
-    font-size: 16px;
-}
-.FestivalPost .informationBox {
-    border: 1px solid #dee2e6;
-    padding: 25px 40px;
-    border-radius: 20px;
-    margin-bottom: 10px;
-}
-.FestivalPost .infor-inner-box {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 0;
-}
-.FestivalPost .infor-inner-box div {
-    flex: 1 1 50%;
-}
-.FestivalPost .L-box {
-    position: relative;
-}
-
-.FestivalPost .R-box, .FestivalPost .L-box {
-    padding: 0;
-}
-.FestivalPost .L-box::after {
-    content: "";
-    display: none;
-    position: absolute;
-    width: 1px;
-    height: 100%;
-    right: 0;
-    top: 0;
-    background: #ddd;
-    z-index: -1;
-}
-.FestivalPost .informationBox p {
-    margin-bottom: 0.5rem;
-}
-.FestivalPost .infor-title {
-    font-weight: 600;
-    margin-right: 15px;
-}
 
 /* place */
 .place .top{
@@ -620,17 +623,17 @@ h4 {
     .postsBox .post {
         width: 31.9%;
     }
-    .FestivalPost .infor-inner-box {
+    .informationBox .infor-inner-box {
         flex-direction: row;
         margin-bottom: 10px;
     }
-    .FestivalPost .L-box {
+    .informationBox .infor-inner-box .L-box {
         padding-right: 20px;
     }
-    .FestivalPost .R-box {
+    .informationBox .infor-inner-box .R-box {
         padding-left: 20px;
     }
-    .FestivalPost .L-box::after {
+    .informationBox .infor-inner-box .L-box::after {
         display: block;
     }
 }
