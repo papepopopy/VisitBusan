@@ -15,7 +15,7 @@
     box-sizing: border-box;
     color: #333;
     font-family: 'NotoSansKR', sans-serif;
-    font-size: 18px;
+    letter-spacing: -0.5px;
 }
 ul, li {
     list-style: none;
@@ -28,14 +28,17 @@ a {
 }
 
 h1 {
-    font-size: 38px;
+    font-size: 32px;
     font-weight: 800;
     margin-bottom: 30px;
 }
+
 h2 {
     font-size: 24px;
     margin-bottom: 10px;
+    font-weight: 600;
 }
+
 h3 {
     font-size: 18px;
     margin-bottom: 5px;
@@ -44,6 +47,11 @@ h3 {
 }
 h4 {
     font-size: 14px;
+}
+
+
+.body {
+    margin: 60px 0;
 }
 
  /* 기본틀 설정 */
