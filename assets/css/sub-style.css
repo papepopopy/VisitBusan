@@ -87,7 +87,12 @@ h4 {
     display: flex;
     padding: 0 10px;
 }
-
+.right {
+    text-align: right;
+}
+.left {
+    text-align: left;
+}
 /* 버튼 */
 .controlBox {
     display: flex;
@@ -135,13 +140,14 @@ h4 {
     font-size: 16px;
     color: #000;
     line-height: 20px;
-    font-weight: 500;
+    font-weight: 545;
     height: 20px;
     overflow: hidden;
-    margin: 12px 0 8px;
+    margin: 15px 0 5px;
     display: -webkit-box;
     text-overflow: ellipsis;
-    #fff-space: normal;
+    #fff-space:
+    normal;
     -webkit-line-clamp: 1;
     -webkit-box-orient: vertical;
 }
@@ -159,6 +165,11 @@ h4 {
 }
 .postsBox .postText span {
     color: #38aed6;
+}
+.postsBox .postDate {
+    font-size: 14px;
+    color: #999;
+    margin: 10px 0;
 }
 .postImgBox {
     display: flex;
@@ -261,8 +272,7 @@ h4 {
 .search-inner .btn-search {
     background-color: #333;
     color: #fff;
-    padding: 5px 15px;
-    flex: 1 1 100%;
+    padding: 7px 15px;
 }
 .search-inner .form-control {
     min-width: 185px;
@@ -278,9 +288,11 @@ h4 {
 .search_array .sort {
     display: flex;
     gap: 10px;
+    align-items: center;
 }
 .search_array .sort a {
     font-size: 16px;
+    display: inline-block;
 }
 .search_array .search-inner {
     font-weight: 500;
@@ -712,4 +724,7 @@ h4 {
     }
 }
 @media (min-width: 1400px) {
+    .postsBox .post {
+        width: 23.8%;
+    }
 }

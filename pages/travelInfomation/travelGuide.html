@@ -88,19 +88,22 @@
                     <div class="">현재페이지 <span>1/6</span></div>
                 </div>
                 <div class="search-inner">
-                    <select class="select-box form-select" aria-label="Default select example">
-                        <option selected  value="">전체</option>
-                        <option value="G01">부산여행</option>
-                        <option value="G02">테마여행</option>
-                        <option value="G03">음식</option>
-                        <option value="G04">지역</option>
-                    </select>
-                    <select class="select-box form-select" aria-label="Default select example">
-                        <option selected  value="DATA_TITLE">제목</option>
-                        <option value="USER_NICK">작성자</option>
-                        <option value="DATA_CONTENT">내용</option>
-                    </select>
-                    <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="">
+                    <div class="sort">
+                        <select class="select-box form-select" aria-label="Default select example">
+                            <option selected="" value="">전체</option>
+                            <option value="G01">부산여행</option>
+                            <option value="G02">테마여행</option>
+                            <option value="G03">음식</option>
+                            <option value="G04">지역</option>
+                        </select>
+                        <select class="select-box form-select" aria-label="Default select example">
+                            <option selected="" value="DATA_TITLE">제목</option>
+                            <option value="USER_NICK">작성자</option>
+                            <option value="DATA_CONTENT">내용</option>
+                        </select>
+                        <input class="form-control" list="datalistOptions" id="exampleDataList" placeholder="">
+                        
+                    </div>
                     <button class="btn btn-search" type="submit">검색</button>
                 </div>
             </div>

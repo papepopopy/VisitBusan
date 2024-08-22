@@ -79,205 +79,126 @@
       <!-- /header -->
       <div class="body">
         <!-- 페이지 이름 -->
-        <h1 class="text-center">여행공유</h1>
+        <div class="topBox">
+                <h1>여행공유</h1>
+                <ul class="controlBox">
+                    <li class="aBtn active">#전체</li>
+                    <li class="Btn1">#맛집</li>
+                    <li class="Btn2">#해수욕장</li>
+                    <li class="Btn3">#축제</li>
+                    <li class="Btn4">#마켓</li>
+                </ul>
+                <form role="search" class="search">
+                    <input class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-light" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="search-box">
+              <div class="search-inner right">
+                <button class="btn btn-search" type="submit">글쓰기</button>
+              </div>
+              <div class="search_array">
+                <div class="search-inner">
+                  <div class="all">전체 <span>3,852</span>건</div>
+                  
+                </div>
+                <div class="search-inner">
+                  <div class="sort">
+                    <a href="#">최신순</a>
+                    <a href="#">조회순</a>
+                    <a href="#">좋아요순</a>
+                  </div>
+                </div>
+              </div>
+            </div>
   
         <!-- 카테고리 탭 (여행공유,여행일정,후기) -->
-        <div class="tabBox mt-5">
-          <nav>
-            <div class="nav nav-tabs justify-content-center" id="nav-tab" role="tablist">
-              <!-- 여행 정보 -->
-              <button class="nav-link active" id="travel-info-tab" data-bs-toggle="tab" data-bs-target="#travel-info" type="button" role="tab" aria-controls="travel-info" aria-selected="true">여행정보</button>
-              <!-- 여행 일정 -->
-              <button class="nav-link" id="travel-schedule-tab" data-bs-toggle="tab" data-bs-target="#travel-schedule" type="button" role="tab" aria-controls="travel-schedule" aria-selected="false">여행일정</button>
-              <!-- 여행 후기-->
-              <button class="nav-link" id="review-tab" data-bs-toggle="tab" data-bs-target="#review" type="button" role="tab" aria-controls="review" aria-selected="false">후기</button>
-            </div>
-          </nav>
           <div class="tab-content" id="nav-tabContent">
-            <div class="tab-pane fade show active" id="travel-info" role="tabpanel" aria-labelledby="travel-info-tab" tabindex="0">
-  
-              <div class="d-flex mt-4">
-                <div class="">전체(1000)</div>
-                <div  class="input-group w-50 mx-auto text-center">
-                  <input class="form-control" type="text" id="search">
-                  <button class="btn btn-outline-secondary" type="button">search</button>
+            <div class="postsBox">
+                <!-- 게시글 (가로4 * 세로3) -->
+                <div class="post">
+                    <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
+                    <div class="postTitle">여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</div>
+                    <ul class="postText">
+                        <li>방문: <span>1588</span></li>
+                        <li>댓글: <span>1</span></li>
+                        <li>좋아요: <span>8</span></li>
+                    </ul>
+                <div class="postDate">2024.08.22</div>
                 </div>
-                <div class=""><button class="btn btn-outline-primary">글쓰기</button></div>
-              </div>
-  
-              <!-- 내부 탭(최신순, 추천순), 태그 -->
-              <nav> 
-                <div class="nav nav-tabs" id="nav-tab1" role="tablist">
-                  <div class="orderBy">
-                    <button class="btn active" id="new1-tab" data-bs-toggle="tab" data-bs-target="#new1" type="button" role="tab" aria-controls="new1" aria-selected="true">최신순</button>
-                    <button class="btn" id="recommended1-tab" data-bs-toggle="tab" data-bs-target="#recommended1" type="button" role="tab" aria-controls="recommended1" aria-selected="false">추천순</button>
-                  </div>
-                  <div class="tags d-flex gap-3 mx-auto">태그:
-                    <div class="tag">맛집</div>
-                    <div class="tag">해수욕장</div>
-                    <div class="tag">축제</div>
-                    <div class="tag">마켓</div>
-                  </div>
+                <div class="post">
+                    <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
+                    <div class="postTitle">여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</div>
+                    <ul class="postText">
+                        <li>방문: <span>1588</span></li>
+                        <li>댓글: <span>1</span></li>
+                        <li>좋아요: <span>8</span></li>
+                    </ul>
+                <div class="postDate">2024.08.22</div>
                 </div>
-              </nav>
-              <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active d-flex row mt-4" id="new1" role="tabpanel" aria-labelledby="new1-tab" tabindex="0">
-  
-                  <!-- 리스트 목록 (6개)(바꿔도 상관없음) -->
-                  <div class="content text-center col-4 px-4 mt-3">
-                    <div class="border">
-                      <div class="imgBox"><img src="../../assets/images/userBoard/busan1.jpg" alt="사진"></div>
-                      <div>제목</div>
-                      <div class="d-flex justify-content-center">
-                        <div>날짜/</div>
-                        <div>작성자</div>
-                      </div>
-                      <div>
-                        <button class="btn btn-outline-danger">좋아요</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="content text-center col-4 px-4 mt-3">
-                    <div class="border">
-                      <div class="imgBox"><img src="../../assets/images/userBoard/busan2.jpg" alt="사진"></div>
-                      <div>제목</div>
-                      <div class="d-flex justify-content-center">
-                        <div>날짜/</div>
-                        <div>작성자</div>
-                      </div>
-                      <div>
-                        <button class="btn btn-outline-danger">좋아요</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="content text-center col-4 px-4 mt-3">
-                    <div class="border">
-                      <div class="imgBox"><img src="../../assets/images/userBoard/busan3.jpg" alt="사진"></div>
-                      <div>제목</div>
-                      <div class="d-flex justify-content-center">
-                        <div>날짜/</div>
-                        <div>작성자</div>
-                      </div>
-                      <div>
-                        <button class="btn btn-outline-danger">좋아요</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="content text-center col-4 px-4 mt-3">
-                    <div class="border">
-                      <div class="imgBox"><img src="../../assets/images/userBoard/gwanganli1.jpg" alt="사진"></div>
-                      <div>제목</div>
-                      <div class="d-flex justify-content-center">
-                        <div>날짜/</div>
-                        <div>작성자</div>
-                      </div>
-                      <div>
-                        <button class="btn btn-outline-danger">좋아요</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="content text-center col-4 px-4 mt-3">
-                    <div class="border">
-                      <div class="imgBox"><img src="../../assets/images/userBoard/gwanganli2.jpg" alt="사진"></div>
-                      <div>제목</div>
-                      <div class="d-flex justify-content-center">
-                        <div>날짜/</div>
-                        <div>작성자</div>
-                      </div>
-                      <div>
-                        <button class="btn btn-outline-danger">좋아요</button>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="content text-center col-4 px-4 mt-3">
-                    <div class="border">
-                      <div class="imgBox"><img src="../../assets/images/userBoard/gwanganli3.jpg" alt="사진"></div>
-                      <div>제목</div>
-                      <div class="d-flex justify-content-center">
-                        <div>날짜/</div>
-                        <div>작성자</div>
-                      </div>
-                      <div>
-                        <button class="btn btn-outline-danger">좋아요</button>
-                      </div>
-                    </div>
-                  </div>
-  
+                <div class="post">
+                  <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
+                  <div class="postTitle">여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</div>
+                    <ul class="postText">
+                        <li>방문: <span>1588</span></li>
+                        <li>댓글: <span>1</span></li>
+                        <li>좋아요: <span>8</span></li>
+                    </ul>
+                   <div class="postDate">2024.08.22</div>
                 </div>
-                <div class="tab-pane fade" id="recommended1" role="tabpanel" aria-labelledby="recommended1-tab" tabindex="0">.1-2..</div>
-              </div>
+                <div class="post">
+                  <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
+                  <div class="postTitle">여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</div>
+                    <ul class="postText">
+                        <li>방문: <span>1588</span></li>
+                        <li>댓글: <span>1</span></li>
+                        <li>좋아요: <span>8</span></li>
+                    </ul>
+                   <div class="postDate">2024.08.22</div>
+                </div>
+                <div class="post">
+                    <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
+                    <div class="postTitle">여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</div>
+                                        <ul class="postText">
+                        <li>방문: <span>1588</span></li>
+                        <li>댓글: <span>1</span></li>
+                        <li>좋아요: <span>8</span></li>
+                    </ul>
+<div class="postDate">2024.08.22</div>
+                </div>
+                <div class="post">
+                  <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
+                  <div class="postTitle">여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</div>
+                    <ul class="postText">
+                        <li>방문: <span>1588</span></li>
+                        <li>댓글: <span>1</span></li>
+                        <li>좋아요: <span>8</span></li>
+                    </ul>
+                   <div class="postDate">2024.08.22</div>
+                </div>
+                <div class="post">
+                  <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
+                  <div class="postTitle">여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</div>
+                    <ul class="postText">
+                        <li>방문: <span>1588</span></li>
+                        <li>댓글: <span>1</span></li>
+                        <li>좋아요: <span>8</span></li>
+                    </ul>
+                   <div class="postDate">2024.08.22</div>
+                </div>
+                <div class="post">
+                  <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
+                  <div class="postTitle">여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</div>
+                    <ul class="postText">
+                        <li>방문: <span>1588</span></li>
+                        <li>댓글: <span>1</span></li>
+                        <li>좋아요: <span>8</span></li>
+                    </ul>
+                   <div class="postDate">2024.08.22</div>
+                </div>
             </div>
-  
-            <div class="tab-pane fade" id="travel-schedule" role="tabpanel" aria-labelledby="travel-schedule-tab" tabindex="0">
-              <div class="d-flex mt-4">
-                <div class="">전체(1000)</div>
-                <div  class="input-group w-50 mx-auto text-center">
-                  <input class="form-control" type="text" id="search">
-                  <button class="btn btn-outline-secondary" type="button">search</button>
-                </div>
-                <div class=""><button class="btn btn-outline-primary">글쓰기</button></div>
-              </div>
-              
-              <!-- 내부 탭(최신순, 추천순), 태그 -->  
-              <nav>
-                <div class="nav nav-tabs" id="nav-tab2" role="tablist">
-                  <div class="orderBy">
-                    <button class="btn active" id="new2-tab" data-bs-toggle="tab" data-bs-target="#new2" type="button" role="tab" aria-controls="new2" aria-selected="true">최신순</button>
-                    <button class="btn" id="recommended2-tab" data-bs-toggle="tab" data-bs-target="#recommended2" type="button" role="tab" aria-controls="recommended2" aria-selected="false">추천순</button>
-                  </div>
-                  <div class="tags d-flex gap-3 mx-auto">태그:
-                    <div class="tag">맛집</div>
-                    <div class="tag">해수욕장</div>
-                    <div class="tag">축제</div>
-                    <div class="tag">마켓</div>
-                  </div>
-                </div>
-              </nav>
-  
-              <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="new2" role="tabpanel" aria-labelledby="new2-tab" tabindex="0">.2-1.</div>
-                <div class="tab-pane fade" id="recommended2" role="tabpanel" aria-labelledby="recommended2-tab" tabindex="0">.2-2..</div>
-              </div>
-            </div>
-  
-            <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab" tabindex="0">
-  
-              <div class="d-flex mt-4">
-                <div class="">전체(1000)</div>
-                <div  class="input-group w-50 mx-auto text-center">
-                  <input class="form-control" type="text" id="search">
-                  <button class="btn btn-outline-secondary" type="button">search</button>
-                </div>
-                <div class=""><button class="btn btn-outline-primary">글쓰기</button></div>
-              </div>
-              
-              
-              <!-- 내부 탭(최신순, 추천순), 태그 -->            
-              <nav>
-                <div class="nav nav-tabs" id="nav-tab3" role="tablist">
-                  <div class="orderBy">
-                    <button class="btn active" id="new3-tab" data-bs-toggle="tab" data-bs-target="#new3" type="button" role="tab" aria-controls="new3" aria-selected="true">최신순</button>
-                    <button class="btn" id="recommended3-tab" data-bs-toggle="tab" data-bs-target="#recommended3" type="button" role="tab" aria-controls="recommended3" aria-selected="false">추천순</button>
-                  </div>
-                  <div class="tags d-flex gap-3 mx-auto">태그:
-                    <div class="tag">맛집</div>
-                    <div class="tag">해수욕장</div>
-                    <div class="tag">축제</div>
-                    <div class="tag">마켓</div>
-                  </div>
-                </div>
-              </nav>
-  
-              <div class="tab-content" id="nav-tabContent">
-                <div class="tab-pane fade show active" id="new3" role="tabpanel" aria-labelledby="new3-tab" tabindex="0">.3-1.</div>
-                <div class="tab-pane fade" id="recommended3" role="tabpanel" aria-labelledby="recommended3-tab" tabindex="0">.3-2..</div>
-              </div>
-            </div>
-  
-          </div> <!-- class="tab-content" -->
-  
-        </div> <!-- end class="tabBox" -->
-  
+          </div>
+          <!-- class="tab-content" -->
         <!-- 페이지 버튼 -->
         <nav aria-label="Page navigation example">
           <ul class="pagination justify-content-center mt-4">
