@@ -58,6 +58,9 @@ h4 {
 
 /* 공통 스타일 */
 /* 카테고리 */
+.with-4 {
+    flex: 1 1 100%;
+}
 .title {
     text-align: center;
 }
@@ -66,17 +69,11 @@ h4 {
     justify-content: center;
     margin: 45px 0 70px;
 }
-.tag-list {
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    margin-bottom: 1%;
-}
 .tag-list a {
     display: block;
     text-align: center;
     font-size: 17px;
-    padding: 10px 35px;
+    padding: 10px 0;
     color: #777;
     border-bottom: 1px solid #777;
     outline-offset: -3px;
@@ -664,11 +661,14 @@ h4 {
         flex-wrap: nowrap;
         width: auto;
     }
+    .with-4 {
+        flex: 1 1 50%;
+    }
 }
 
 @media (min-width: 768px) {
     .tag-list a {
-        padding: 20px 60px;
+        padding: 20px 0;
         font-size: 20px;
     }
     .postsBox .post {
@@ -700,6 +700,9 @@ h4 {
     }
     .informationBox .infor-inner-box .L-box::after {
         display: block;
+    }
+    .with-4 {
+        flex: 1 1 25%;
     }
 }
 
