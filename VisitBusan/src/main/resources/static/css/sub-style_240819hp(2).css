@@ -415,16 +415,16 @@ h4 {
     gap: 20px;
 }
 
-/* place1 */
-.place1 .top{
+/* sharingList */
+.sharingList .top{
     text-align: center;
 }
-.place1 .middle{
+.sharingList .middle{
     margin-top: 150px;
 
     align-items: center;
 }
-.place1 .information{
+.sharingList .information{
     margin-top: 100px;
 }
 

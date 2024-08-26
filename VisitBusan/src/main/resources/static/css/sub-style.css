@@ -500,24 +500,24 @@ h4 {
 }
 
 
-/* FestivalBoard */
+/* festivalBoard */
 
-.FestivalBoard .dates > li > a , .days > li > a {
+.festivalBoard .dates > li > a , .days > li > a {
     border: none;
 }
 
 /* 박스안 이미지 가득차게 수평 수직 가운데 정렬 1 */
-.FestivalBoard button {
+.festivalBoard button {
     border: none;
     background-color: transparent;
     font-size: 16px;
 }
-.FestivalBoard .pagination {
+.festivalBoard .pagination {
     overflow: hidden;
 }
 
 /*  박스안 이미지 가득차게 수평 수직 가운데 정렬 2
-.FestivalBoard .postImgBox {
+.festivalBoard .postImgBox {
     position: relative;
     overflow: hidden;
     height: 300px;
@@ -531,16 +531,16 @@ h4 {
 }
 */
 
-/* FestivalPost */
+/* festivalPost */
 /* v-line 정보 창 세로 줄 */
-.FestivalPost .v-line {
+.festivalPost .v-line {
     border-left : 1px solid lightgray;
     height : 130px;
     margin: 0px 30px;
 }
 
 
-/* place */
+/* destinationsList */
 .topBox .search {
     display: flex;
     justify-content: center;
@@ -559,32 +559,32 @@ h4 {
     color: #fff;
 }
 
-/* place1 */
-.place1 .top{
+/* sharingList */
+.sharingList .top{
     text-align: center;
 }
-.place1 .middle{
+.sharingList .middle{
     margin-top: 150px;
 
     align-items: center;
 }
-.place1 .information{
+.sharingList .information{
     margin-top: 50px;
 }
-.place1 .place-box {
+.sharingList .place-box {
     padding: 10px 0;
     display: flex;
     justify-content: space-between;
 }
-.place1 .place-sit {
+.sharingList .place-sit {
     display: flex;
     gap: 20px
 }
-.place1 .place-sit li, .place1 .place-save li {
+.sharingList .place-sit li, .sharingList .place-save li {
     font-size: 18px;
     font-weight: 500;
 }
-.place1 .place-sit span {
+.sharingList .place-sit span {
     font-size: 18px;
     margin-left: 5px;
     color: #38aed6;
