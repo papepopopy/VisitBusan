@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 //exclude를 하지 않으면 board가 ToString가지고 있을 시 board도 ToString해서 읽어옴
-@ToString(exclude = "bno")  // Board Entity에 존재하는 toString()은 작동 중지
+@ToString//(exclude = "board_id")  // Board Entity에 존재하는 toString()은 작동 중지
 //@ToString
 public class ReplyDTO {  // spring-boot-starter-validation: 서버 유효성 검사 라이브러리
 
