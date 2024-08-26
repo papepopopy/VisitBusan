@@ -29,6 +29,8 @@ dependencies {
 	//test중엔 잠시
 //	implementation 'org.springframework.boot:spring-boot-starter-security' 		// 시큐리티
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'  	// 타임리프
+	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'		// 타임리프 레이아웃
+
 	implementation 'org.springframework.boot:spring-boot-starter-validation' 	// 서버 유효성 검사
 	implementation 'org.springframework.boot:spring-boot-starter-web'  			// web
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
