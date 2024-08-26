@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/main-style.css}" rel="stylesheet">
+    <link th:href="@{/css/header.css}" rel="stylesheet">
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container memberjoin" layout:fragment="content">
+        <div class="body">
+            <div class="login-box mt-4">
+                <h1 class="text-center">회원가입</h1>
+    
+                <div class="row mb-5 join-box">
+                    <div class="col text-center">
+                        본인확인
+                    </div>
+                    <div class="col text-center">
+                        정보입력
+                    </div>
+                    <div class="col text-center active">
+                        가입완료
+                    </div>
+                </div>
+                <h3 class="mb-4 text-center">
+                     홍길동님 회원가입이 완료되었어요.
+                     <br>다양한 콘텐츠를 감상해보세요
+                </h3>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="/assets/js/bootstrap.min.js"></script>
+
+</html>

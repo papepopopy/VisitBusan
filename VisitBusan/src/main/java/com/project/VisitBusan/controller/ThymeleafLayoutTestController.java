@@ -5,10 +5,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/layout")
+@RequestMapping("/visitbusan")
 public class ThymeleafLayoutTestController {
-    @GetMapping("base")
+    @GetMapping("/main")
+    public String main() {
+        return "main";
+    }
+    @GetMapping("/base")
     public String base() {
-        return "fragment/main";
+        return "layout/base";
     }
 }
