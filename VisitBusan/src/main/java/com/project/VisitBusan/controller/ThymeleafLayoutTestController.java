@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/layout")
 public class ThymeleafLayoutTestController {
     @GetMapping("base")
-    public String fragmenttest() {
+    public String base() {
         return "fragment/main";
     }
 }
