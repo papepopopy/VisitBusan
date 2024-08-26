@@ -21,10 +21,11 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String userId;
+    private String password;
     private String name;
     @Column(unique = true)  //  중복 허용 x
     private String email;
-    private String password;
     private String address;
 
     @OneToOne(fetch = FetchType.LAZY,

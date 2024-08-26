@@ -23,6 +23,7 @@ SHOW COLUMNS FROM board_like;
 SELECT * FROM board_like;
 DELETE FROM board_like;
 DROP TABLE board_like;
+SELECT count(board_id) AS b_count FROM board_like ;
 
 SHOW COLUMNS FROM member;
 SELECT * FROM member;

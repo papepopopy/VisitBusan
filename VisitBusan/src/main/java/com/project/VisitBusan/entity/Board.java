@@ -8,9 +8,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 // Entity 정의 : 테이블에 적용될 구조설계 정의하여 테이블과 entity 1:1 맵핑
-@Entity@Table(name="Board")  // name을 따로 설정하지 않으면 자동으로 엔티티명과 동일한 이름의 테이블을 만듬
+@Entity@Table(name="board")  // name을 따로 설정하지 않으면 자동으로 엔티티명과 동일한 이름의 테이블을 만듬
 @Getter@Setter
-@ToString//(exclude = "fileSet")
+@ToString(exclude = "boardFileSet")
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -34,8 +34,9 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
     private String[] tags;
 //    @Column(name = "view_count")
     private int viewCount;
+
 //    @Column(name = "like_count")
-    private int likeCount;
+//    private int likeCount;
 
     // 데이터 수정하는 메서드
     public void change(String title, String content) {
@@ -60,12 +61,12 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
     // ~~ board_bno in (?,?,?,...) 형식으로
     // 지정된 수만큼 BoardImage를 조회할 때 한번에 in조건으로 사용
     @OneToMany(mappedBy = "board",
-            cascade = {CascadeType.ALL},  // cascade 영속성 전이(Board가 변화할 때 imageSet도 같이 변화) // 두개 이상 설정 시 {}
-            fetch = FetchType.LAZY,  // LAZY속성 때문에 imageSet값을 읽어올때 에러남. // Repository에서 @EntityGrap 설정.
+            cascade = {CascadeType.ALL},  // cascade 영속성 전이(Board가 변화할 때 boardFileSet도 같이 변화) // 두개 이상 설정 시 {}
+            fetch = FetchType.LAZY,  // LAZY속성 때문에 boardFileSet값을 읽어올때 에러남. // Repository에서 @EntityGrap 설정.
             orphanRemoval = true)  // 고아객체 발생시 자동 삭제  // 옵션 넣기 전 기존의 고아 객체들한텐 발동안함
     @Builder.Default
     // 'N+1' 쿼리문 실행, N: 게시물 마다 각각 실행되는 쿼리, 1은 목을 가져오는 쿼리
-    // BoardImage를 조회할 때 한번에 in 조건으로 사용
+    // BoardFile을 조회할 때 한번에 in 조건으로 사용
     @BatchSize(size=20)  // 20개를 한번에 검색
     private Set<BoardFile> boardFileSet = new HashSet<>();
 
@@ -74,7 +75,7 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
 
     // Board 객체에서 BoardImage객체를 관리하도록 하기 위해
     // addImage(), clearImage() 작성
-    public void addImage(String uuid, String fileName) {
+    public void addFile(String uuid, String fileName) {
 
         // 상위 엔티티에서 하위 엔티티 생성
         BoardFile boardFile = BoardFile.builder()
@@ -90,7 +91,7 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
     } // end addImage
 
     // 삭제 처리 기능
-    public void clearImage(){
+    public void clearFiles(){
 
         // boardImage에 있는 boardBno에 연관관계를 무효화시킴. 고아 객체로 설정
         // 고아 객체는 자동 삭제로 설정해놓음.
