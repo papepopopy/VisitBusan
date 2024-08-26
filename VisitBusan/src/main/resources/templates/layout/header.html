@@ -4,8 +4,8 @@
 <!-- header -->
 <header class="header-inner" th:fragment="header-inner">
     <div class="logo-box">
-        <a href="#" class="logo">
-            <img src="../images/mainpage/header_logo.png" alt="로고이미지" class="mo">
+        <a th:href="@{/visitbusan/main}" class="logo">
+            <img th:src="@{/images/mainpage/header_logo.png}" alt="로고이미지">
         </a>
     </div>
     <div class="menu_open">
@@ -23,47 +23,47 @@
             </div>
         </div>
         <ul class="menu-list">
-            <li><a href="#">부산에 가면</a>
+            <li><a th:href="@{/board/destinationsList}">부산에 가면</a>
                 <ul class="sub-menu01">
                     <li><a href="#">추천여행</a>
                         <ul class="sub-menu02">
-                            <li><a href="#">명소</a></li>
-                            <li><a href="#">음식</a></li>
-                            <li><a href="#">숙박</a></li>
+                            <li><a th:href="@{/board/destinationsList}">명소</a></li>
+                            <li><a th:href="@{/board/food}">음식</a></li>
+                            <li><a th:href="@{/board/destinationsList}">숙박</a></li>
                         </ul>
                     </li>
                     <li><a href="#">여행코스</a>
                         <ul>
-                            <li><a href="#">일정여행</a></li>
-                            <li><a href="#">테마여행</a></li>
+                            <li><a th:href="@{/board/itineraries}">일정여행</a></li>
+                            <li><a th:href="@{/board/thematic-trips}">테마여행</a></li>
                         </ul>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="#">여행정보</a>
+                <a th:href="@{board/travel-info}">여행정보</a>
                 <ul class="sub-menu01">
-                    <li><a href="#">가이드북</a></li>
-                    <li><a href="#">여행준비정보</a></li>
+                    <li><a th:href="@{/board/travel-info/guidebooks}">가이드북</a></li>
+                    <li><a th:href="@{/board/travel-info/preparation-info}">여행준비정보</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#">여행공유</a>
+                <a th:href="@{/travel-share}">여행공유</a>
                 <ul class="sub-menu01">
-                    <li><a href="#">리뷰</a></li>
+                    <li><a th:href="@{/reviews}">리뷰</a></li>
                 </ul>
             </li>
             <li>
-                <a href="#">페스티벌</a>
+                <a th:href="@{/board/festival}">페스티벌</a>
                 <ul class="sub-menu01">
-                    <li><a href="#">축제행사</a></li>
+                    <li><a th:href="@{/board/festival}">축제행사</a></li>
                 </ul>
             </li>
         </ul>
         <ul class="link-box">
-            <li><a href="#">로그인</a></li>
-            <li><a href="#">마이페이지</a></li>
-            <li><a href="#">회원가입</a></li>
+            <li><a th:href="@{/user/login}">로그인</a></li>
+            <li><a th:href="@{/user/mypage}">마이페이지</a></li>
+            <li><a th:href="@{/user/signup_1}">회원가입</a></li>
         </ul>
     </div>
 </header>

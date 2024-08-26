@@ -11,8 +11,20 @@ public class ThymeleafLayoutTestController {
     public String main() {
         return "main";
     }
-    @GetMapping("/base")
-    public String base() {
-        return "layout/base";
+    @GetMapping("/boardlist")
+    public String boardList() {
+        return "components/boardList";
+    }
+    @GetMapping("/boardpage")
+    public String boardPage() {
+        return "components/boardPage";
+    }
+    @GetMapping("/posteditor")
+    public String postEditor() {
+        return "components/postEditor";
+    }
+    @GetMapping("/postpage")
+    public String postPage() {
+        return "components/postPage";
     }
 }
