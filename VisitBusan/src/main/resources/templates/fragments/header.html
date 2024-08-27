@@ -1,5 +1,8 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/basic}"    >
 <body>
 <!-- header -->
 <header class="header-inner" th:fragment="header-inner">
@@ -67,16 +70,18 @@
     </div>
 </header>
 <!-- /header -->
-<th:block layout:fragment="myscript">
-    const menuOpen = document.getElementByClass(".menu_open")
-    const menuClose = document.getElementByClass(".menu_close")
+<script layout:fragment="myscript" th:inline="javascript">
+    //메뉴 관련
+    const menuBox = document.querySelector(".menu-box");
 
     function handleOnClick() {
-        menuOpen.classList.add("active")
-    menuClose.classList.remove("active")
+        menuBox.classList.add("active");
     }
-
-</th:block>
-<script th:src="@{/js/bootstrap.min.js}"></script>
+    function handleOnClick2() {
+        menuBox.classList.remove("active");
+    }
+    document.querySelector(".menu_open").addEventListener("click", handleOnClick);
+    document.querySelector(".menu_close").addEventListener("click", handleOnClick2);
+</script>
 </body>
 </html>
