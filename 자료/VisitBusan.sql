@@ -2,7 +2,8 @@
 
 -- 데이터베이스 생성
 CREATE DATABASE visit_busan;
-
+-- 데이터베이스 삭제
+DROP DATABASE visit_busan;
 -- 데이터베이스 선택
 USE visit_busan;
 SHOW TABLES;
@@ -23,7 +24,8 @@ SHOW COLUMNS FROM board_like;
 SELECT * FROM board_like;
 DELETE FROM board_like;
 DROP TABLE board_like;
-SELECT count(board_id) AS b_count FROM board_like ;
+SELECT COUNT(bl.id) AS b_count FROM board_like bl;
+SELECT COUNT(bl.id) AS b_count FROM board_like bl WHERE bl.board_id =1;
 
 SHOW COLUMNS FROM member;
 SELECT * FROM member;

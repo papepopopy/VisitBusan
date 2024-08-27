@@ -58,6 +58,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.security:spring-security-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// assertJ
+	// https://mvnrepository.com/artifact/org.assertj/assertj-core
+//	testImplementation 'org.assertj:assertj-core:3.26.3'
 
 
 	// 2. QueryDsl 관련 라이브러리

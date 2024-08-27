@@ -1,12 +1,12 @@
 package com.project.VisitBusan.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 
-// Entity 정의 : 테이블에 적용될 구조설계 정의하여 테이블과 entity 1:1 맵핑
 @Entity
 @Getter
 @Setter
@@ -14,16 +14,33 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Warning {
+public class Alarm {
 
     @Id  // 기본키로 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @NotNull
     private Member member;
 
-    private String text;
+    @OneToOne(fetch = FetchType.LAZY)
+    private Reply reply;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private SubReply subReply;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private BoardLike boardLike;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private ReplyLike replyLike;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private SubReplyLike subReplyLike;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    private Warning warning;
 
     @CreatedDate
     @Column(name="reg_date", updatable=false)

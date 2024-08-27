@@ -14,9 +14,6 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch
     // @OneToMany: 기본적으로 지연로딩을 이용: fetch = FetchType.LAZY
     // @EntityGraph: LAZY설정(지연로딩)일지라도 한번에 조인 처리해서 select처리하도록 설정(boardFileSet이 불려오면 읽어짐)
 
-//    @EntityGraph(attributePaths = {"boardFileSet"})
-//    @Query ("SELECT count(board_id) AS b_count FROM board_like bl where bl.bno = :bno")
-//    Optional<Board> countBoardLike(Long bno);
 }
 
 /*
