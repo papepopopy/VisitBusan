@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 @RequestMapping("/board/user")
 public class UserBoardController {
+    //여행공유
     @GetMapping("/list")
     public String userList() {
         return "/board/userBoard/userList";

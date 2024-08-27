@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 @RequestMapping("/board/festivalBoard")
 public class FestivalBoardController {
+    //공연전시
     @GetMapping("/exhibitions/list")
     public String exhibitionsList() {
         return "/board/festivalBoard/exhibitionsCreate";
@@ -28,6 +29,7 @@ public class FestivalBoardController {
         return "/board/festivalBoard/exhibitionsRead";
     }
 
+    //축제행사
     @GetMapping("/festival/list")
     public String festivalList() {
         return "/board/festivalBoard/festivalCreate";

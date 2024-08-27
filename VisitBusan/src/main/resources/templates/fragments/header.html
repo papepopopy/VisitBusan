@@ -23,25 +23,25 @@
             </div>
         </div>
         <ul class="menu-list">
-            <li><a th:href="@{/board/destinationsList}">부산에 가면</a>
+            <li><a th:href="@{/board/travelInfo/destinations/list}">부산에 가면</a>
                 <ul class="sub-menu01">
-                    <li><a th:href="@{/board/destinationsList}">명소</a></li>
-                    <li><a th:href="@{/board/foodList}">음식</a></li>
-                    <li><a th:href="@{/board/destinationsList}">숙박</a></li>
+                    <li><a th:href="@{/board/travelInfo/destinations/list}">명소</a></li>
+                    <li><a th:href="@{/board/travelInfo/food/list}">음식</a></li>
+                    <li><a th:href="@{/board/travelInfo/hotels/list}">숙박</a></li>
                 </ul>
             </li>
             <li><a href="#">추천여행</a>
                 <ul class="sub-menu02">
-                    <li><a th:href="@{/board/itinerariesList}">일정여행</a></li>
-                    <li><a th:href="@{/board/thematicList}">테마여행</a></li>
+                    <li><a th:href="@{/board/travelRecommend/itineraries/list}">일정여행</a></li>
+                    <li><a th:href="@{/board/travelRecommend/themeTravel/list}">테마여행</a></li>
                     <!--<li><a th:href="@{/board/}">미식투어</a></li>-->
                 </ul>
             </li>
             <li>
                 <a th:href="@{board/travel-info}">여행준비</a>
                 <ul class="sub-menu01">
-                    <li><a th:href="@{/board/travel-info/preparation-info}">여행준비정보</a></li>
-                    <li><a th:href="@{/board/travel-info/guidebooks}">가이드북</a></li>
+                    <li><a th:href="@{/board/travelGuide/read}">여행준비정보</a></li>
+                    <li><a th:href="@{/board/travelGuide/list}">가이드북</a></li>
                 </ul>
             </li>
             <li>
@@ -53,16 +53,16 @@
             <li>
                 <a th:href="@{/board/festival}">페스티벌</a>
                 <ul class="sub-menu01">
-                    <li><a th:href="@{/board/festival}">공연전시</a></li>
-                    <li><a th:href="@{/board/festival}">축제행사</a></li>
+                    <li><a th:href="@{/board/festivalBoard/exhibitions/list}">공연전시</a></li>
+                    <li><a th:href="@{/board/festivalBoard/festival/list}">축제행사</a></li>
                 </ul>
             </li>
         </ul>
         <ul class="link-box">
             <li><a th:href="@{/user/login}">로그인</a></li>
             <li><a th:href="@{/user/mypage}">마이페이지</a></li>
-            <li><a th:href="@{/user/mypage}">관리자</a></li>
-            <li><a th:href="@{/user/signup_1}">회원가입</a></li>
+            <li><a th:href="@{/admin}">관리자</a></li>
+            <li><a th:href="@{/user/signup/1}">회원가입</a></li>
         </ul>
     </div>
 </header>

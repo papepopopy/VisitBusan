@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 @RequestMapping("/board/travelRecommend")
 public class TravelRecommendController {
+    //일정여행
     @GetMapping("/itineraries/list")
     public String ItinerariesList() {
         return "/board/travelRecommend/itinerariesCreate";
@@ -28,6 +29,7 @@ public class TravelRecommendController {
         return "/board/travelRecommend/itinerariesRead";
     }
 
+    //테마여행
     @GetMapping("/themeTravel/list")
     public String ThemeTravelList() {
         return "/board/travelRecommend/themeTravelCreate";
@@ -45,3 +47,6 @@ public class TravelRecommendController {
         return "/board/travelRecommend/themeTravelRead";
     }
 }
+
+
+

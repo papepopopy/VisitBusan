@@ -12,38 +12,43 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/user")
 public class UserController {
 
+    //로그인
     @GetMapping("/login")
     public String showLoginForm() {
         return "/user/login";
     }
 
+    //프로필 수정페이지
     @GetMapping("/modify")
     public String showModifyForm() {
         return "/user/modify";
     }
 
+    //마이페이지
     @GetMapping("/mypage")
     public String showMyPage() {
-        return "/user/mypage";
+        return "/user/myPage";
     }
 
+    //알림함
     @GetMapping("/mypageMail")
     public String showMyPageMail() {
-        return "/user/mypageMail";
+        return "/user/myPageMail";
     }
 
+    //회원가입(정보입력)
     @GetMapping("/signup/1")
-    public String showsignup1() {
-        return "/user/signup_1";
+    public String showSignUp1() {
+        return "/user/signUp_1";
     }
-
+    //회원가입(정보입력)
     @GetMapping("/signup/2")
-    public String showsignup2() {
+    public String showSignUp2() {
         return "/user/signup_2";
     }
-
+    //회원가입(정보입력)
     @GetMapping("/signup/3")
-    public String showsignup3() {
+    public String showSignUp3() {
         return "/user/signup_3";
     }
 }

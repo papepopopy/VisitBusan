@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 @RequestMapping("/board/travelGuide")
 public class TravelGuideController {
+    //가이드북
     @GetMapping("/list")
     public String travelGuideList() {
         return "/board/travelGuide/travelGuideList";
@@ -23,8 +24,10 @@ public class TravelGuideController {
     public String travelGuideModify() {
         return "/board/travelGuide/travelGuideModify";
     }
+
+    //여행준비정보
     @GetMapping("/read")
     public String travelGuideRead() {
-        return "/board/travelGuide/travelGuideRead";
+        return "/board/travelGuide/travelInformation";
     }
 }

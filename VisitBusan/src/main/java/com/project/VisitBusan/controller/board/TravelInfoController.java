@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Log4j2
 @RequestMapping("/board/travelInfo")
 public class TravelInfoController {
+    //명소
     @GetMapping("/destinations/list")
     public String destinationsList() {
         return "/board/travelInfo/destinationsList";
@@ -28,6 +29,7 @@ public class TravelInfoController {
         return "/board/travelInfo/destinationsRead";
     }
 
+    //음식
     @GetMapping("/food/list")
     public String foodList() {
         return "/board/travelInfo/foodList";
@@ -45,6 +47,7 @@ public class TravelInfoController {
         return "/board/travelInfo/foodRead";
     }
 
+    //숙박
     @GetMapping("/hotels/list")
     public String hotelsList() {
         return "/board/travelInfo/hotelsList";
