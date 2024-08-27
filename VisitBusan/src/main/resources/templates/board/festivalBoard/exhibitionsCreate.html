@@ -72,8 +72,12 @@
 
             <!-- 하단 버튼 -->
             <div class="buttonBox d-flex mt-3">
-                <div class="ms-auto"><button type="button" class="form-control border d-inline cancelBtn" id="cancel">취소</div>
-                <div class="ms-2"><button type="button" class="form-control border d-inline submitBtn" id="submit">등록</div>
+                <div class="ms-auto">
+                    <button type="button" class="form-control border d-inline cancelBtn" id="cancel">취소</button>
+                </div>
+                <div class="ms-2">
+                    <button type="button" class="form-control border d-inline submitBtn" id="submit">등록</button>
+                </div>
             </div>
 
         </div>
@@ -81,14 +85,8 @@
 </div>
 
 <!-- 부트 스트랩 -->
-<script src="../assets/js/bootstrap.min.js"></script>
-<script>
-    document.querySelector('.UIBox').addEventListener('click', function(e) {
-        e.preventDefault();  // 기본 이벤트 제거
-        e.stopPropagation();  // 버블링(현재 이벤트가 발생한 요소의 상위 요소들에 대해서 이벤트 감지되는 현상) 방지
-        console.log(e.target);
-    })
-</script>
+<th:block layout:fragment="myscript"></th:block>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 
 </body>
 </html>

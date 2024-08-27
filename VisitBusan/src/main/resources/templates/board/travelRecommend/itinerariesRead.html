@@ -1,83 +1,19 @@
 <!DOCTYPE html>
-<html lang="ko">
-
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/base}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>travelGuide</title>
-    <link href="../../assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="../../assets/css/sub-style.css" rel="stylesheet">
-    <link href="../../assets/css/header.css" rel="stylesheet">
+    <title>main</title>
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link th:href="@{/css/main-style.css}" rel="stylesheet">
+    <link th:href="@{/css/header.css}" rel="stylesheet">
+    <link th:href="@{/css/footer.css}" rel="stylesheet">
 </head>
-
 <body>
-<div class="container">
-    <!-- header -->
-    <header class="header-inner">
-        <div class="logo-box">
-            <a href="#" class="logo">
-                <img src="../../assets/images/mainpage/header_logo.png" alt="로고이미지" class="mo">
-            </a>
-        </div>
-        <div class="menu_open">
-            <span></span>
-            <span></span>
-            <span></span>
-        </div>
-        <!-- <div class="menu-box active"> -->
-        <div class="menu-box">
-            <div class="menu-btn">
-                <div class="menu_close">
-                    <span></span>
-                    <span></span>
-                </div>
-            </div>
-            <ul class="menu-list">
-                <li><a href="#">부산에 가면</a>
-                    <ul class="sub-menu01">
-                        <li><a href="#">추천여행</a>
-                            <ul class="sub-menu02">
-                                <li><a href="#">명소</a></li>
-                                <li><a href="#">음식</a></li>
-                                <li><a href="#">숙박</a></li>
-                            </ul>
-                        </li>
-                        <li><a href="#">여행코스</a>
-                            <ul>
-                                <li><a href="#">일정여행</a></li>
-                                <li><a href="#">테마여행</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">여행정보</a>
-                    <ul class="sub-menu01">
-                        <li><a href="#">가이드북</a></li>
-                        <li><a href="#">여행준비정보</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">여행공유</a>
-                    <ul class="sub-menu01">
-                        <li><a href="#">리뷰</a></li>
-                    </ul>
-                </li>
-                <li>
-                    <a href="#">페스티벌</a>
-                    <ul class="sub-menu01">
-                        <li><a href="#">축제행사</a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="link-box">
-                <li><a href="#">로그인</a></li>
-                <li><a href="#">마이페이지</a></li>
-                <li><a href="#">회원가입</a></li>
-            </ul>
-        </div>
-    </header>
-    <!-- /header -->
+<div class="container" layout:fragment="content">
     <div class="body">
         <div class="topBox">
             <h1>가이드북</h1>
@@ -142,7 +78,8 @@
         </div>
     </div>
 </div>
-<script src="../../assets/js/bootstrap.min.js"></script>
+<th:block layout:fragment="myscript"></th:block>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 
 </html>
