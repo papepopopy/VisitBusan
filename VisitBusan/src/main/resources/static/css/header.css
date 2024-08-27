@@ -76,7 +76,7 @@ header {
     display: flex;
     justify-content: space-around;
     margin-bottom: 28px;
-    gap: 80px;
+    gap: 40px;
 }
 .header-inner {
     width: 100%;
