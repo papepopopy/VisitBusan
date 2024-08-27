@@ -6,14 +6,7 @@
     <title>complaint</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <style>
-        li {
-            list-style-type: none;
-            margin-right: 40px;
-        }
-        .more {
-            color: inherit;
-            text-decoration: none;
-        }
+        
         .box{
             border: 2px solid black;
             width: 500px;
@@ -33,7 +26,6 @@
             margin: auto;
         }
         .list {
-
         }
         .list_in {
             display: flex;
@@ -51,48 +43,25 @@
             padding: 10px 150px;
         }
 
-
+        .accordion-button {
+            width: 40px;
+        }
         
-        .text-wrapper {
-        /* 임의의 넓이 설정 (200px이 넘어갈 경우 텍스트 줄바꿈) */
-        width : 200px;
-        }
-        .text {
-            /* 요소의 내용이 영역을 벗어날 경우 그 부분은 숨겨지게 처리 */ 
-            overflow: hidden;
-            /* 요소의 표시 방법을 -webkit-box로 표시 */
-            display: -webkit-box;
-            /* webkit-box로 표시된 자식 요소들의 배치 방법 결정 (여기서는 수직) */ 
-            -webkit-box-orient: vertical;
-            /* 요소 내 텍스트를 지정한 라인수까지만 표시 */
-            -webkit-line-clamp: 2;
-            /* 텍스트 양쪽정렬 */ 
-            text-align :justify;
-        }   
-
-        .more-text {
-            /* 글씨 크기,색상 지정 */ 
-            font-size: 16px;
-            color:blue;
-
-            /* 마우스 포인트가 올라갔을 때 커서 모양을 포인터로 변경 */
-            cursor: pointer;
-
-        }
-        .text_box {
-            visibility: hidden;
-        }
-        .less-text {
-
-            /* 글씨 크기,색상 지정 */
-            font-size: 16px;
-            color:blue;
-            /* 마우스 포인트가 올라갔을 때 커서 모양을 포인터로 변경 */ 
-            cursor: pointer;
-            /* 줄이기 버튼 (처음에는 안보이게) */
-            display: none;    
+        .ul_padding{
+            padding: 0;
         }
 
+        .accordion_label{
+            font-size: 19px;
+        }
+
+        .etc {
+            
+        }
+        .etc_text{
+            
+            font-size: 20px;
+        }
 
 
     </style>
@@ -101,168 +70,217 @@
     <div class="container">
         <div class="box">
             <div class="title">
-                <h2 class="text-center text-white py-3">신고하기</h2>
+                <h2 class="text-center text-white py-3 fw-bold">신고하기</h2>
             </div>
             <br>
             <div>
-                <p class="ms-2">작성자 | (신고담당자)</p>
-                <p class="ms-2 pb-3">내용 | 카페 게시물 신고 방법</p>
+                <div class="d-flex gap-2">
+                    <p class="ms-2 fw-bold">작성자</p>
+                    <p class="ms-2 fw-bold">:</p>
+                    <p class="ms-2 fw-bold">(신고담당자)</p>
+                </div>
+                <div class="d-flex gap-2">
+                    <p class="ms-2 fw-bold">내용</p>
+                    <p class="ms-2 fw-bold">:</p>
+                    <p class="ms-2 fw-bold">카페 게시물 신고 방법</p>
+                </div>
             </div>
             <hr>
             <div class="check_box">
-                <h4>사유선택</h4>
+                <h4 class="fw-bold">사유선택</h4>
                 <br>
                 <div class="list_type">
-                    <ul>
-                        <li class="list mb-2 border border-3 p-2 mb-2 border-opacity-25 border-black rounded-2">
-                            <div class="list_in">
-                                <input type="radio" name="select" id="0" class="report_reason p-2">
+                    <ul class="ul_padding">
+
+                        <div class="accordion" id="accordionPanelsStayOpenExample">
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header d-flex justify-content-center ps-3">
+                                    <input type="radio" name="select" id="0" class="report_reason p-2">
+                                    <div class="check_area p-2">
+                                        <label for="0" class="fw-bolder ps-2 pb-3">
+                                            <div class="accordion_label">
+                                                스팸홍보/도배입니다.
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <button class="accordion-button collapsed ms-auto p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="false" aria-controls="panelsStayOpen-collapseOne">
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>사행성 오락이나 도박을 홍보하거나 권장하는 내용 등의 부적절한 스팸 홍보 행위</li>
+                                            <li>동일하거나 유사한 내용 반복 게시</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- item -->
+
+                            <div class="accordion-item">
+                              <h2 class="accordion-header d-flex justify-content-center ps-3">
+                                <input type="radio" name="select" id="1" class="report_reason p-2">
                                 <div class="check_area p-2">
-                                    <label for="0" class="fw-bolder">
-                                        "스팸홍보/도배입니다."
+                                    <label for="1" class="fw-bolder ps-2 pb-3">
+                                        <div class="accordion_label">
+                                            음란물 입니다.
+                                        </div>
                                     </label>
                                 </div>
-                                <div class="ms-auto p-2">
-                                    <button class="more-text text-dark" onclick="btnClick">▽</button>
-                                    <!-- <span class="more-text text-dark" onclick="btnClick">▽</span> -->
-                                    <!-- <span class="less-text text-dark" onclick="btnClick">△</span> -->
+                                <button class="accordion-button collapsed ms-auto p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+                                </button>
+                              </h2>
+                              <div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li>성적 수치심을 일으키는 내용</li>
+                                        <li>아동이나 청소년을 성 대상화한 표현</li>
+                                        <li>과도하거나 의도적인 신체 노출</li>
+                                        <li>음란한 행위와 관련된 부적절한 내용</li>
+                                    </ul>
                                 </div>
-                            </div>
-                            <div class="text_box mt-4" id="text_box">
-                                <ul>
-                                    <li>- 사행성 오락이나 도박을 홍보하거나 권장하는 내용 등의 부적절한 스팸 홍보 행위</li>
-                                    <li>- 동일하거나 유사한 내용 반복 게시</li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="list mb-2 border border-3 p-2 mb-2 border-opacity-25 border-black rounded-2">
-                            <input type="radio" name="select" id="1" class="report_reason p-2">
-                            <div class="check_area p-2">
-                                <label for="1" class="fw-bolder">
-                                    "음란물 입니다."
-                                </label>
-                            </div>
-                            <button type="button" class="more btn btn-link ms-auto p-2">
-                                ▽
-                            </button>
-                        </li>
-                        <li class="list mb-2 border border-3 p-2 mb-2 border-opacity-25 border-black rounded-2">
-                            <input type="radio" name="select" id="2" class="report_reason p-2">
-                            <div class="check_area p-2">
-                                <label for="2" class="fw-bolder">
-                                    "불법정보를 포함하고 있습니다."
-                                </label>
-                            </div>
-                            <button type="button" class="more btn btn-link ms-auto p-2">
-                                ▽
-                            </button>
-                        </li>
-                        <li class="list mb-2 border border-3 p-2 mb-2 border-opacity-25 border-black rounded-2">
-                            <input type="radio" name="select" id="3" class="report_reason p-2">
-                            <div class="check_area p-2">
-                                <label for="3" class="fw-bolder">
-                                    "청소년에게 유해한 내용입니다."
-                                </label>
-                            </div>
-                            <button type="button" class="more btn btn-link ms-auto p-2">
-                                ▽
-                            </button>
-                        </li>
-                        <li class="list mb-2 border border-3 p-2 mb-2 border-opacity-25 border-black rounded-2 ">
-                            <input type="radio" name="select" id="4" class="report_reason p-2">
-                            <div class="check_area p-2">
-                                <label for="4" class="fw-bolder">
-                                    "욕설/생명경시/혐오/차별적 표현입니다."
-                                </label>
-                            </div>
-                            <button type="button" class="more btn btn-link ms-auto p-2">
-                                ▽
-                            </button>
-                        </li>
-                        <li class="list mb-2 border border-3 p-2 mb-2 border-opacity-25 border-black rounded-2">
-                            <input type="radio" name="select" id="5" class="report_reason p-2">
-                            <div class="check_area p-2">
-                                <label for="5" class="fw-bolder">
-                                    "개인정보가 노출되었습니다."
-                                </label>
-                            </div>
-                            <button type="button" class="more btn btn-link ms-auto p-2">
-                                ▽
-                            </button>
-                        </li>
-                        <li class="list mb-2 border border-3 p-2 mb-2 border-opacity-25 border-black rounded-2">
-                            <input type="radio" name="select" id="6" class="report_reason p-2">
-                            <div class="check_area p-2">
-                                <label for="6" class="fw-bolder">
-                                    "불쾌한 표현이 있습니다."
-                                </label>
-                            </div>
-                            <button type="button" class="more btn btn-link ms-auto p-2">
-                                ▽
-                            </button>
-                        </li>
-                        <li class="list mb-2 border border-3 p-2 mb-2 border-opacity-25 border-black rounded-2">
-                            <input type="radio" name="select" id="6" class="report_reason p-2">
-                            <div class="check_area p-2">
-                                <label for="7" class="fw-bolder">
-                                    "test"
-                                </label>
-                            </div>
-                            <div class="text-wrapper"> 
-                                <!-- 텍스트 내용 -->
-                                <span class="text">긴 텍스트 내용이 들어갑니다.긴 텍스트 내용이 들어갑니다.긴 텍스트 내용이 들어갑니다.긴 텍스트 내용이 들어갑니다.</span>     
-                                <!-- 더보기, 줄이기 텍스트 -->
-                                <span class="more-text">더보기</span>
-                                <span class="less-text">줄이기</span>      
-                            </div>
-                        </li>
+                              </div>
+                            </div> <!-- item -->
+
+                            <div class="accordion-item">
+                              <h2 class="accordion-header d-flex justify-content-center ps-3">
+                                <input type="radio" name="select" id="2" class="report_reason p-2">
+                                <div class="check_area p-2">
+                                    <label for="2" class="fw-bolder ps-2 pb-3">
+                                        <div class="accordion_label">
+                                            불법정보를 포함하고 있습니다.
+                                        </div>
+                                    </label>
+                                </div>
+                                <button class="accordion-button collapsed ms-auto p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseThree" aria-expanded="false" aria-controls="panelsStayOpen-collapseThree">
+                                </button>
+                              </h2>
+                              <div id="panelsStayOpen-collapseThree" class="accordion-collapse collapse">
+                                <div class="accordion-body">
+                                    <ul>
+                                        <li>불법 행위, 불법 링크에 대한 정보 제공</li>
+                                        <li>불법 상품을 판매하거나 유도하는 내용</li>
+                                    </ul>
+                                </div>
+                              </div>
+                            </div> <!-- item -->
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header d-flex justify-content-center ps-3">
+                                    <input type="radio" name="select" id="3" class="report_reason p-2">
+                                    <div class="check_area p-2">
+                                        <label for="3" class="fw-bolder ps-2 pb-3">
+                                            <div class="accordion_label">
+                                                청소년에게 유해한 내용입니다.
+                                            </div>
+                                        </label>
+                                    </div>
+                                  <button class="accordion-button collapsed ms-auto p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFour" aria-expanded="false" aria-controls="panelsStayOpen-collapseFour">
+                                  </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseFour" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>가출/왕따/학교폭력/자살 등 청소년에게 부정적인 영향을 조성하는 내용</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- item -->
+                            
+                            <div class="accordion-item">
+                                <h2 class="accordion-header d-flex justify-content-center ps-3">
+                                    <input type="radio" name="select" id="4" class="report_reason p-2">
+                                    <div class="check_area p-2">
+                                        <label for="4" class="fw-bolder ps-2 pb-3">
+                                            <div class="accordion_label">
+                                                욕설/생명경시/혐오/차별적 표현입니다.
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <button class="accordion-button collapsed ms-auto p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseFive" aria-expanded="false" aria-controls="panelsStayOpen-collapseFive">
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseFive" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>직·간접적인 욕설을 사용하여 타인에게 모욕감을 주는 내용</li>
+                                            <li>생명을 경시여기거나 비하하는 내용</li>
+                                            <li>계층/지역/종교/성별 등을 혐오하거나 비하하는 표현</li>
+                                            <li>신체/외모/취향 등을 경멸하는 표현</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- item -->
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header d-flex justify-content-center ps-3">
+                                    <input type="radio" name="select" id="5" class="report_reason p-2">
+                                    <div class="check_area p-2">
+                                        <label for="5" class="fw-bolder ps-2 pb-3">
+                                            <div class="accordion_label">
+                                                개인정보가 노출되었습니다
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <button class="accordion-button collapsed ms-auto p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSix" aria-expanded="false" aria-controls="panelsStayOpen-collapseSix">
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseSix" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>법적으로 중요한 타인의 개인정보를 게재</li>
+                                            <li>당사자 동의 없는 특정 개인을 인지할 수 있는 정보</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- item -->
+
+                            <div class="accordion-item">
+                                <h2 class="accordion-header d-flex justify-content-center ps-3">
+                                    <input type="radio" name="select" id="6" class="report_reason p-2">
+                                    <div class="check_area p-2">
+                                        <label for="6" class="fw-bolder ps-2 pb-3">
+                                            <div class="accordion_label">
+                                                불쾌한 표현이 있습니다.
+                                            </div>
+                                        </label>
+                                    </div>
+                                    <button class="accordion-button collapsed ms-auto p-2" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseSeven" aria-expanded="false" aria-controls="panelsStayOpen-collapseSeven">
+                                    </button>
+                                </h2>
+                                <div id="panelsStayOpen-collapseSeven" class="accordion-collapse collapse">
+                                    <div class="accordion-body">
+                                        <ul>
+                                            <li>불쾌한 표현 포함 (해당 사유는 클린봇 학습에 도움이 될 수 있습니다.)</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> <!-- item -->
+
+                          </div> <!-- end accordion -->
+                          
                     </ul>
+
+                    
                 </div>
             </div> <!-- end check_box -->
+            <br>
+            <hr>
+            <div class="etc">
+                
+                <div class="mb-3 mx-4">
+                    <label for="exampleFormControlTextarea1" class="form-label fw-bolder ps-2">기타 신고사항</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                  </div>
+            </div>
+            
             <div class="comp_btn">
                 <button type="button" class="btn btn-outline-danger btn1">신고하기</button>
             </div>
         </div>
     </div>
 
-    <script>
-        // 코드에 필요한 요소들 변수에 할당 (전체 ui를 감싸는 div, 내용 텍스트, 더보기/줄이기 텍스트)
-        /*
-        const textWrapper = document.querySelector('.text-wrapper');
-        const text = document.querySelector('.text');
-        const moreText = document.querySelector('.more-text');
-        const lessText = document.querySelector('.less-text');        
-        */
-        
-
-
-        function btnClick () {
-            const textBox = document.getElementById('text_box');
-            if (textBox.style.visibility === 'hidden') {
-                textBox.style.visibility = 'visible';
-            } else {
-                textBox.style.visibility = 'hidden';
-            }
-        }
-        /*
-        // 더보기 텍스트 클릭시 이벤트
-        moreText.addEventListener('click', () => {
-
-        moreText.style.display = 'none'; // 더보기 텍스트 삭제
-        lessText.style.display = 'inline-block'; // 줄이기 텍스트 표시
-        text.style.display = 'inline-block'; // 텍스트의 속성을 -webkit-box에서 일반 inline-block 으로 변경
-        });
-
-        // 줄이기 텍스트 클릭시 이벤트
-        lessText.addEventListener('click', () => {
-
-        lessText.style.display = 'none'; // 줄이기 텍스트 삭제
-        moreText.style.display = 'inline-block'; // 더보기 텍스트 표시
-        text.style.display = '-webkit-box'; // 텍스트의 속성을 다시 -webkit-box로 표시
-        });
-        */
-
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
 </body>
 </html>
