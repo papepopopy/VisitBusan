@@ -67,5 +67,16 @@
     </div>
 </header>
 <!-- /header -->
+<th:block layout:fragment="myscript">
+    const menuOpen = document.getElementByClass(".menu_open")
+    const menuClose = document.getElementByClass(".menu_close")
+
+    function handleOnClick() {
+        menuOpen.classList.add("active")
+    menuClose.classList.remove("active")
+    }
+
+</th:block>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 </body>
 </html>
