@@ -1,0 +1,226 @@
+/---------------------/
+     DB,백엔드 설계
+/---------------------/
+
+기본설정(application.properties, build.gradle)
+설정같은거(advice)
+설정(config)
+시큐리티(security)
+컨스턴트(constant)
+
+엔티티(entity)
+DTO(dto)
+ - 업로드(upload)
+ - 리퀘스트(request)
+ - 리스폰스(response)
+리포짓토리(repository)
+ - 검색(search)
+서비스(service)
+컨트롤러(controller)
+
+템플릿(templates)
+ - layouts
+ - fragments
+ - member
+ - boards
+ - adminPage
+
+테스트(test)
+
+
+Base - CustomRestController, RootConfig, PageRequestDTO, PageResponseDTO
+security - CustomSecurityConfig, CustomServletConfig, Role, AuthMemberDTO, Custom403Handler ...
+
+upload  - UploadFileDTO, UploadRequestDTO, UpDownController
+
+Member  - Member(Entity), MemberDTO, MemberRepository, MemberService, MemberContoller 
+Board   - Entity, DTO, Repository, Service, Controller, Test
+Reply   - Entity, DTO, Repository, Service, Controller, Test
+Like    - Entity, DTO, Repository, Service, Contorller, Test
+Alarm   - Entity, DTO, Repository, Service, Controller, Test
+Report  - Entity, DTO, Repository, Service, Controller, Test
+Warning - Entity, DTO, Repository, Service, Controller, Test
+
+templates
+ - layouts : basic, adminBasic
+ - fragments : header, footer, alarm(modal), report(modal)
+ - member : login(All), signUp(All), modify(User, Admin), myPage(User, Admin)
+ - boards : travelInfo, travelRecommend, travelGuide, festivalBoard, userBoard
+            - travelInfo        :  list(All), create(Admin), read(All), modify(Admin)
+            - travelRecommend   :  list(All), create(Admin), read(All), modify(Admin)
+            - travelGuide       :  list(All), create(Admin), read(All), modify(Admin), travelPreparation(All)
+            - festivalBoard     :  list(All), create(Admin), read(All), modify(Admin)
+            - userBoard         :  list(All), create(User),  read(All), modify(User)
+ - adminPage(Admin) : main, config, report, board, member
+
+
+스타일 있는 게시판 구현(보류)(어려움)
+
+
+/----------------------------------/
+    엔티티(Entity)(DBTable) 설계
+/----------------------------------/
+
+베이스 엔티티 (BaseEntity)
+regDate, modDate
+
+회원 (Member extends BaseEntity)(id 또는 email을 유저 식별용으로 사용)
+id, userId, password, name, email, address, profileImage, roleSet
+
+프로필 이미지 (ProfileImage)
+uuid, fileName, ord, member
+
+게시물 (Board extends BaseEntity)
+id, category, title, content, boardFileSet(Set<BoardFile>), writer, email, tags, viewCount, // likeCount
+
+카테고리:
+ - 관리자 게시판 : 축제행사, 공연전시,명소, 가이드
+ - 유저 게시판 :  여행공유, 여행
+
+게시물 파일 (BoardFile)
+uuid, fileName, ord, board(FK)
+
+댓글 (Reply extends BaseEntity)
+id, board(FK), replyText, replier(유저이름), replierEmail
+
+대댓글 (SubReply extends BaseEntity)
+id, reply(FK), replyText, replier(유저이름), replierEmail
+
+게시물 좋아요 (boardLike)
+id, board(FK), member(FK), regDate
+
+댓글 좋아요 (ReplyLike)
+id, reply(FK), member(FK), regDate
+
+대댓글 좋아요 (SubReplyLike)
+id, subReply(FK), member(FK), regDate
+
+// 좋아요 (Like)
+// id, board(FK), reply(FK), subReply(FK), member(FK), regDate
+
+알람 (Alarm)
+// id, member(FK), like(FK), regDate
+// id, member(FK), category, objectId, regDate
+id, member(FK)(알람받는 유저), Reply(FK), SubReply(FK), boardLike(FK), replyLike(FK), subReplyLike(FK), warning(FK), regDate
+
+
+경고 (Warning)
+id, member(FK), text, regDate
+
+신고 (Report)
+id, category(1,2,3,4...), reportText(기타), reporter, reporterId, regDate
+
+
+/--------------/
+    DTO 설계
+/--------------/
+
+엔티티와 DTO가 같으면 1:1 맵핑 가능
+다르면 dtoToEntity entityToDto 제작
+
+페이지 리퀘스트 (PageRequestDTO)
+page, size, type, keyword, link
+
+페이지 리스폰스 (PageResponseDTO)
+page, size, total, start, end, prev, next, dtoList
+
+로그인 유저 (AuthMemberDTO extends User)
+username, password, authorities, name, email, address 
+
+회원 (MemberDTO)
+name, password, email, address, role
+
+프로필 이미지 (ProfileImageDTO)
+uuid, fileName, ord, member
+
+게시물 (BoardDTO)
+bno, category, title, content, fileNames(List<String>), writer, email, regDate, modDate, tags, viewCount
+
+게시물 파일 (BoardFileDTO)
+uuid, fileName, ord
+
+게시물 좋아요 (BoardLikeDTO)
+id, board, member, regDate
+
+댓글 (ReplyDTO)
+id, board, replyText, replier, replierEmail, regDate, modDate
+
+대댓글 (SubReplyDTO)
+id, reply, replyText, replier, replierEmail regDate, modDate
+
+댓글 좋아요 (ReplyLikeDTO)
+id, reply, member, regDate
+
+대댓글 좋아요 (SubReplyLikeDTO)
+id, subReply, member, regDate
+
+알람 (AlarmDTO)
+id, member(알람받는 유저), Reply, SubReply, boardLike, replyLike, subReplyLike, warning, regDate
+
+경고 (WarningDTO)
+id, member, text, regDate
+
+신고 (ReportDTO)
+id, category(1,2,3,4...), reportText(자동입력, 기타 수동입력), reporter, reporterId, regDate
+
+
+/----------------/
+    권한(Role)
+/----------------/
+
+권한 : root, admin, user
+
+root(최고관리자) : 관리자와 유저를 관리, 탈퇴 불가
+
+admin(관리자) : 유저 기능 + 관리 기능 (유저 관리, 게시물 관리, 신고처리, 경고알람) + 관리자 게시물(등록, 수정, 삭제)
+ - 유저 관리 : 유저 조회, 등록, 수정, 삭제
+ - 게시물 관리 : 공지사항, 유저 게시물 삭제 및 경고 알람
+ - 신고처리 : 신고들어온 게시글 조회, 삭제 및 유저에게 경고 알람
+ - 관리자 게시물 : 관리자 게시판은 관리자만 게시물 등록, 수정, 삭제 됨. 조회는 제약없음.
+
+user(유저) : 비사용자 기능 + 유저 게시물(등록, 수정, 삭제, 신고, 좋아요) + 댓글(등록, 수정, 삭제, 신고, 좋아요) + 마이페이지
+ - 유저 게시물 : 유저가 자신의 게시물을 등록, 수정, 삭제 할 수 있고 다른 유저 게시물을 신고, 좋아요 할 수 있음
+ - 댓글 : 유저가 자신의 댓글을 등록, 수정, 삭제 할 수 있고 다른 유저 댓글을 신고, 좋아요 할 수 있음
+ - 마이페이지 : 자신의 회원 정보 수정, 탈퇴, 유저게시판 (내게시글 확인, 내댓글 확인, 내좋아요 확인), 좋아요 누른 여행지 확인, 알람 확인
+
+비로그인 사용자 : 모든 게시물, 댓글 조회만 가능
+
+
+/---------------------/
+    페이지 권한 설계
+/---------------------/
+
+최고관리자 : 모든 기능에 제약이 없지만 유저의 글과 댓글 수정은 불가능
+
+유저 게시글, 댓글 수정 : 유저 자신만 가능
+
+main페이지 : 모든 사용자 조회 및 클릭 가능
+
+관리자 게시판 : 모든 사용자 조회 가능, 등록 버튼(관리자)
+ - 관리자 게시물 조회 : 모든 사용자 조회 가능, 리스트 버튼(모두) 수정 버튼(관리자), 삭제 버튼(관리자)
+ - 관리자 게시물 등록 : 관리자만 가능
+ - 관리자 게시물 수정 : 관리자만 가능
+
+유저 게시판 : 모든 사용자 조회 가능, 등록 버튼(유저, 관리자), 자기 자신의 글만 수정, 삭제됨(관리자는 삭제 제약없음)
+ - 공지사항 : 모든 사용자 조회 가능, 리스트 버튼(모두), 수정 버튼(관리자), 삭제 버튼(관리자), 댓글 등록 버튼(유저, 관리자)
+ - 유저 게시물 조회 : 모든 사용자 조회 가능, 리스트 버튼(모두), 수정 버튼(유저, 관리자), 삭제 버튼(유저, 관리자), 댓글 등록 버튼(유저, 관리자)
+   - 댓글 조회 : 모든 사용자 조회 가능, 수정 버튼(유저, 관리자), 삭제 버튼(유저, 관리자) 자기 자신의 댓글만 수정, 삭제됨(관리자는 삭제 제약없음)
+   - 댓글 등록 : 유저, 관리자만 등록 가능
+   - 댓글 수정 : 유저, 관리자만 수정 가능
+   - 댓글 삭제 : 유저, 관리자만 삭제 가능
+ - 유저 게시물 등록 : 유저, 관리자만 가능, 공지사항 체크(관리자)
+ - 유저 게시물 수정 : 유저, 관리자만 가능
+ - 유저 게시물 신고 : 유저만 가능
+ - 유저 게시물 좋아요 : 유저, 관리자만 가능
+
+마이페이지 : 유저, 관리자만 조회 가능
+
+관리자 페이지 : 관리자만 조회 가능, 관리자 임명(최고관리자)
+
+
+
+
+
+첨부파일 등록
+1. 사용자가 파일 업로드 -> 서버에 파일 업로드 -> 화면출력 -> 등록하면 
+첨부
