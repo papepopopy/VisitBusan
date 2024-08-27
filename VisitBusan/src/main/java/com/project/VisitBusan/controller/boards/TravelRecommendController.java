@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/board/travelRecommend")
+@RequestMapping("/boards/travelRecommend")
 public class TravelRecommendController {
     //일정여행 테마여행
     @GetMapping("/list")
     public String ItinerariesList() {
-        return "/board/travelRecommend/list";
+        return "/boards/travelRecommend/list";
     }
     @GetMapping("/create")
     public String ItinerariesCreate() {
-        return "/board/travelRecommend/create";
+        return "/boards/travelRecommend/create";
     }
     @GetMapping("/modify")
     public String ItinerariesModify() {
-        return "/board/travelRecommend/modify";
+        return "/boards/travelRecommend/modify";
     }
-    @GetMapping("/board")
+    @GetMapping("/read")
     public String ItinerariesRead() {
-        return "/board/travelRecommend/board";
+        return "/boards/travelRecommend/read";
     }
 
 }

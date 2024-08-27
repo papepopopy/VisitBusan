@@ -9,24 +9,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/board/festivalBoard")
+@RequestMapping("/boards/festivalBoard")
 public class FestivalBoardController {
     //공연전시 축제행사
     @GetMapping("/list")
     public String festivalBoardList() {
-        return "/board/festivalBoard/list";
+        return "/boards/festivalBoard/list";
     }
     @GetMapping("/create")
     public String festivalBoardCreate() {
-        return "/board/festivalBoard/create";
+        return "/boards/festivalBoard/create";
     }
     @GetMapping("/modify")
     public String festivalBoardModify() {
-        return "/board/festivalBoard/modify";
+        return "/boards/festivalBoard/modify";
     }
     @GetMapping("/read")
     public String festivalBoardRead() {
-        return "/board/festivalBoard/read";
+        return "/boards/festivalBoard/read";
     }
 
 }

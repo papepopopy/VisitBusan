@@ -9,23 +9,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/board/travelInfo")
+@RequestMapping("/boards/travelInfo")
 public class TravelInfoController {
     //명소
     @GetMapping("/list")
     public String travelInfoList() {
-        return "/board/travelInfo/list";
+        return "/boards/travelInfo/list";
     }
     @GetMapping("/create")
     public String travelInfoCreate() {
-        return "/board/travelInfo/create";
+        return "/boards/travelInfo/create";
     }
     @GetMapping("/modify")
     public String travelInfoModify() {
-        return "/board/travelInfo/modify";
+        return "/boards/travelInfo/modify";
     }
     @GetMapping("/read")
     public String travelInfoRead() {
-        return "/board/travelInfo/read";
+        return "/boards/travelInfo/read";
     }
 }

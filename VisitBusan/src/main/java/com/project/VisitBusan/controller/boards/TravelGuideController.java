@@ -9,26 +9,26 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/board/travelGuide")
+@RequestMapping("/boards/travelGuide")
 public class TravelGuideController {
 
     //가이드북
     @GetMapping("/list")
     public String travelGuideList() {
-        return "/board/travelGuide/list";
+        return "/boards/travelGuide/list";
     }
     @GetMapping("/create")
     public String travelGuideCreate() {
-        return "/board/travelGuide/create";
+        return "/boards/travelGuide/create";
     }
     @GetMapping("/modify")
     public String travelGuideModify() {
-        return "/board/travelGuide/modify";
+        return "/boards/travelGuide/modify";
     }
 
     //여행준비정보
     @GetMapping("/travelPreparation")
     public String showTravelPreparation() {
-        return "/board/travelGuide/travelPreparation";
+        return "/boards/travelGuide/travelPreparation";
     }
 }
