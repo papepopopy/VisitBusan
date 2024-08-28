@@ -1,4 +1,5 @@
 //package com.project.VisitBusan.config;
+//package com.spring.MyProject.config;
 //
 //import com.spring.MyProject.security.Custom403Handler;
 //import com.spring.MyProject.service.CustomUserDetailsService;
@@ -7,6 +8,7 @@
 //import jakarta.servlet.http.HttpServletResponse;
 //import lombok.RequiredArgsConstructor;
 //import lombok.extern.log4j.Log4j2;
+//import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 //import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
@@ -16,6 +18,7 @@
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 //import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+//import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer;
 //import org.springframework.security.core.Authentication;
 //import org.springframework.security.core.AuthenticationException;
 //import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -61,12 +64,12 @@
 //        // 4-2 자동 로그인에 필요한 설정
 //
 //        http.rememberMe(rememberMe->
-//                        rememberMe
-//                                .key("12345678")
-//                                .tokenRepository(persistentTokenRepository())  // rememberMe 쿠키의 값을 인코딩하기 위한 키(key), 필요한 정보를 저장하는 tokenRepository를 지정
-//                                .userDetailsService(customUserDetailsService)
+//                rememberMe
+//                        .key("12345678")
+//                        .tokenRepository(persistentTokenRepository())  // rememberMe 쿠키의 값을 인코딩하기 위한 키(key), 필요한 정보를 저장하는 tokenRepository를 지정
+//                        .userDetailsService(customUserDetailsService)
 ////                        .tokenValiditySeconds(10)  // 10초
-//                                .tokenValiditySeconds(60*60*24*30)  // 30일 유효(초*분*시간*일)
+//                        .tokenValiditySeconds(60*60*24*30)  // 30일 유효(초*분*시간*일)
 ////                        .rememberMeParameter("remember")  // 생략시 기본파라미터 명은 "remember-me", <input type='checked' name='파라미터명'>
 ////                        .alwaysRemember(true)  // 리멤버 미 기능이 활성화되지 않아도 항상 실행
 //        );
@@ -114,7 +117,7 @@
 //
 //        http.authorizeHttpRequests( auth -> {
 //            // 사용자 인증없이 접근할 수 있도록 설정
-//            auth.requestMatchers("/", "/members/**").permitAll();
+//            auth.requestMatchers("/", "/members/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
 //            // Role이 ADMIN 경우에만 접근
 //            auth.requestMatchers("/admin/**").hasRole("ADMIN");
 //            // Role이 ADMIN, USER 경우에만 접근
@@ -125,6 +128,24 @@
 //            auth.anyRequest().permitAll();
 //        });
 //
+//        // ---------------------------------------------------------------------- //
+//        // 2. h2설정 => H2 웹콘솔의 iframe이 정상적으로 작동하려면 Origin에 대해 허용하도록 설정
+//        // ---------------------------------------------------------------------- //
+//        /*
+//          - Spring Security는 CsrfFilter를 기본적으로 Default Filter로 설정하고 있다.
+//          - CsrfFilter가 H2 웹콘솔 관련 경로를 무시하도록 설정
+//          - Spring Security는 기본적으로 HeaderWriterFilter를 활성화.
+//            HeaderWriterFilter는 XFrameOptionsHeaderWriter를 이용해 설정에 따라
+//            X-Frame-Options헤더에 DENY, SAMEORIGIN 등의 값을 설정
+//        */
+////        http.csrf(csrf -> csrf
+////                    .ignoringRequestMatchers("/api/**","/members/**","/board/**")  // "/api/**" 경로의 CSRF 보호 비활성화
+////                    .ignoringRequestMatchers(PathRequest.toH2Console())  // H2 콘솔 경로의 CSRF 보호 비활성화
+////            )
+////            .headers(headers -> headers.frameOptions(HeadersConfigurer.FrameOptionsConfig::sameOrigin));
+//
+//
+//
 //        /* RoleController 테스트 */   // 수정필요
 ////        http.authorizeHttpRequests(  httpReq ->
 ////            httpReq.requestMatchers("/role/test1").permitAll()
@@ -134,7 +155,9 @@
 ////                  .anyRequest().permitAll()
 ////        );
 //
+//        //----------------------------------- //
 //        // 4. 로그아웃 관련 설정
+//        //----------------------------------- //
 //        // 로그아웃을 기본으로 설정 =>  url: "/logout" 로그아웃 수행
 ////        http.logout(Customizer.withDefaults());
 //        http.logout(logout -> {
@@ -192,6 +215,22 @@
 //                                .atCommonLocations());
 //
 //    } // end WebSecurityCustomizer
+//
+//    // ---------------------------------------------------------------------- //
+//    // 3. h2설정 => Spring Security를 통과하지 않도록 하기
+//    // ---------------------------------------------------------------------- //
+//    /*
+//    @ConditionalOnProperty를 통해 스프링 설정에 h2-console이 enable되어 있을때만 작동하도록 설정
+//    H2 Console에 대한 요청은 시큐리티 필터를 지나지 않으므로 H2 Console을 자유롭게 이용
+//    개발 환경이나 운영 환경에서는 spring.h2.console.enabled를 사용하지 않거나 false로 설정 할 겨우
+//    해당 빈이 생성되지 않아 h2에 대한 흔적을 지울 수 있다.
+//    */
+////    @Bean
+////    @ConditionalOnProperty(name = "spring.h2.console.enabled",havingValue = "true")
+////    public WebSecurityCustomizer configureH2ConsoleEnable() {
+////        return web -> web.ignoring()
+////                .requestMatchers(PathRequest.toH2Console());
+////    }
 //
 //}
 //
@@ -258,3 +297,24 @@
 // );
 // *
 // */
+//
+///*
+//
+//Vary:	Origin
+//Vary:	Access-Control-Request-Method
+//Vary:	Access-Control-Request-Headers
+//X-Content-Type-Options:	nosniff
+//X-XSS-Protection:	0
+//Cache-Control:
+//no-cache, no-store, max-age=0, must-revalidate
+//Pragma:	no-cache
+//Expires:	0
+//X-Frame-Options:	DENY
+//Content-Type:	application/json
+//Transfer-Encoding:	chunked
+//Date:
+//Wed, 28 Aug 2024 08:01:18 GMT
+//Keep-Alive:	timeout=60
+//Connection:	keep-alive
+//
+//*/
