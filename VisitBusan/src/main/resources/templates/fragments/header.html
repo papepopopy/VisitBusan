@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/basic}"    >
+      layout:decorate="~{layouts/basic}">
 <body>
 <!-- header -->
 <header class="header-inner" th:fragment="header-inner">
@@ -18,7 +18,7 @@
     </div>
 
     <!-- <div class="menu-box active"> -->
-    <div class="menu-box active">
+    <div class="menu-box">
         <div class="menu-btn">
             <div class="menu_close">
                 <span></span>
@@ -68,20 +68,28 @@
             <li><a th:href="@{/signup/1}">회원가입</a></li>
         </ul>
     </div>
+<style layout:fragment="mystyle" th:inline="css">
+</style>
+
+<script th:inline="javascript">
+    //메뉴 반응형
+    const menuBox = document.querySelector(".menu-box");
+    //열기
+    document.querySelector('.menu_open').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        menuBox.classList.add("active");
+    });
+    //닫기
+    document.querySelector('.menu_close').addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        menuBox.classList.remove("active");
+    });
+</script>
 </header>
 <!-- /header -->
-<script layout:fragment="myscript" th:inline="javascript">
-    //메뉴 관련
-    const menuBox = document.querySelector(".menu-box");
-
-    function handleOnClick() {
-        menuBox.classList.add("active");
-    }
-    function handleOnClick2() {
-        menuBox.classList.remove("active");
-    }
-    document.querySelector(".menu_open").addEventListener("click", handleOnClick);
-    document.querySelector(".menu_close").addEventListener("click", handleOnClick2);
-</script>
 </body>
 </html>
