@@ -38,7 +38,7 @@ public interface BoardService {
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
                 .writer(boardDTO.getWriter())
-                .email(boardDTO.getEmail())
+                .writerId(boardDTO.getWriterId())
                 .build();
 
         // 첨부파일이 있을 경우  // imageSet에 추가
@@ -62,7 +62,7 @@ public interface BoardService {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())
-                .email(board.getEmail())
+                .writerId(board.getWriterId())
                 .regDate(board.getRegDate())
                 .modDate(board.getModDate())
                 .build();

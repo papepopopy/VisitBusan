@@ -6,6 +6,7 @@ CREATE DATABASE visit_busan;
 DROP DATABASE visit_busan;
 -- 데이터베이스 선택
 USE visit_busan;
+-- 선택된 데이터베이스의 테이블 목록 표시
 SHOW TABLES;
 
 SHOW COLUMNS FROM board;

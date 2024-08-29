@@ -25,9 +25,12 @@ public class Reply extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     private Board board;
 
+    @Column(length = 2000, nullable = false)
     private String replyText;
+    @Column(length = 50, nullable = false)
     private String replier;
-    private String replierEmail;
+    @Column(length = 50, nullable = false)
+    private String replierId;
 
     // 수정 작업을 위한 메서드 정의
     public void changeText(String text) {

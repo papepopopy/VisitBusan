@@ -3,6 +3,7 @@ package com.project.VisitBusan.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -29,10 +30,12 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
     private String writer;
 
     // 현재 로그인 사용자와 게시글 작성자가 동일한지 판별하기 위한 항목
-    private String email;
+    @Column(length = 50, nullable = false)
+    private String writerId;
 
     private String[] tags;
 //    @Column(name = "view_count")
+    @ColumnDefault("0")  // 기본값 설정, null일 때 에러걸려서 설정.
     private int viewCount;
 
 //    @Column(name = "like_count")

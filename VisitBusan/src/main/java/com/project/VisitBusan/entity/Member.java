@@ -21,10 +21,13 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String userId;
+    @Column(nullable = false)
     private String password;
+    @Column(nullable = false)
     private String name;
-    @Column(unique = true)  //  중복 허용 x
+    @Column(unique = true, nullable = false)  //  중복 허용 x
     private String email;
     private String address;
 
