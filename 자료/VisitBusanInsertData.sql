@@ -15,8 +15,14 @@ INSERT INTO member
 (address, email, NAME, PASSWORD, user_id)
 VALUES
 ('root','root@test.com', 'root', '1234', 'root'),
-('admin','admin@test.com', 'admin', '1234', 'admin'),
-('test','test@test.com', 'test', '1234', 'testid');
+('admin1','admin@test.com', 'admin1', '1234', 'admin1'),
+('admin2','admin2@test.com', 'admin2', '1234', 'admin2'),
+('address1','test1@test.com', 'test1', '1234', 'testid1'),
+('address2','test2@test.com', 'test2', '1234', 'testid2'),
+('address3','test3@test.com', 'test3', '1234', 'testid3'),
+('address4','test4@test.com', 'test4', '1234', 'testid4'),
+('address5','test5@test.com', 'test5', '1234', 'testid5'),
+('address6','test6@test.com', 'test6', '1234', 'testid6');
 SHOW COLUMNS FROM member;
 SELECT * FROM member;
 
@@ -34,7 +40,13 @@ VALUES
 (1,2),
 (1,1),
 (2,1),
-(3,0);
+(3,1),
+(4,0),
+(5,0),
+(6,0),
+(7,0),
+(8,0),
+(9,0);
 SHOW COLUMNS FROM member_role_set;
 SELECT * FROM member_role_set;
 
