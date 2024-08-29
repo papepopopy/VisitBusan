@@ -42,3 +42,8 @@ SHOW COLUMNS FROM profile_image;
 SELECT * FROM profile_image;
 DELETE FROM profile_image;
 DROP TABLE profile_image;
+
+SHOW COLUMNS FROM reply;
+SELECT * FROM reply;
+DELETE FROM reply;
+DROP TABLE reply;

@@ -57,26 +57,26 @@ SELECT * FROM member_role_set;
 INSERT INTO board
 (category,title,content,writer,writer_id,tags,reg_date,mod_date)
 VALUES
-('Festival','title1','content1','admin','admin','good',SYSDATE(),SYSDATE()),
-('Festival','title2','content2','admin','admin','bad',SYSDATE(),SYSDATE()),
-('Performance','title3','content3','admin','admin','good',SYSDATE(),SYSDATE()),
-('Performance','title4','content4','admin','admin','bad',SYSDATE(),SYSDATE()),
-('Place','title5','content5','admin','admin','good',SYSDATE(),SYSDATE()),
-('Place','title6','content6','admin','admin','bad',SYSDATE(),SYSDATE()),
-('Food','title7','content7','admin','admin','good',SYSDATE(),SYSDATE()),
-('Food','title8','content8','admin','admin','bad',SYSDATE(),SYSDATE()),
-('Accommodation','title9','content9','admin','admin','good',SYSDATE(),SYSDATE()),
-('Accommodation','title10','content10','admin','admin','good',SYSDATE(),SYSDATE()),
-('Guide','title11','content11','admin','admin','bad',SYSDATE(),SYSDATE()),
-('Guide','title12','content12','admin','admin','good',SYSDATE(),SYSDATE()),
-('Preparation','title13','content13','admin','admin','bad',SYSDATE(),SYSDATE()),
-('Preparation','title14','content14','admin','admin','good',SYSDATE(),SYSDATE()),
-('Infomation','title15','content15','user','user','bad',SYSDATE(),SYSDATE()),
-('Infomation','title16','content16','user','user','good',SYSDATE(),SYSDATE()),
-('Schedule','title17','content17','user','user','good',SYSDATE(),SYSDATE()),
-('Schedule','title18','content18','user','user','good',SYSDATE(),SYSDATE()),
-('Review','title19','content19','user','user','good',SYSDATE(),SYSDATE()),
-('Review','title20','content20','user','user','good',SYSDATE(),SYSDATE());
+('festival','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('festival','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
+('performance','title3','content3','admin','admin',SYSDATE(),SYSDATE()),
+('performance','title4','content4','admin','admin',SYSDATE(),SYSDATE()),
+('place','title5','content5','admin','admin',SYSDATE(),SYSDATE()),
+('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
+('food','title7','content7','admin','admin',SYSDATE(),SYSDATE()),
+('food','title8','content8','admin','admin',SYSDATE(),SYSDATE()),
+('accommodation','title9','content9','admin','admin',SYSDATE(),SYSDATE()),
+('accommodation','title10','content10','admin','admin',SYSDATE(),SYSDATE()),
+('guide','title11','content11','admin','admin',SYSDATE(),SYSDATE()),
+('guide','title12','content12','admin','admin',SYSDATE(),SYSDATE()),
+('preparation','title13','content13','admin','admin',SYSDATE(),SYSDATE()),
+('preparation','title14','content14','admin','admin',SYSDATE(),SYSDATE()),
+('infomation','title15','content15','user','user',SYSDATE(),SYSDATE()),
+('infomation','title16','content16','user','user',SYSDATE(),SYSDATE()),
+('schedule','title17','content17','user','user',SYSDATE(),SYSDATE()),
+('schedule','title18','content18','user','user',SYSDATE(),SYSDATE()),
+('review','title19','content19','user','user',SYSDATE(),SYSDATE()),
+('review','title20','content20','user','user',SYSDATE(),SYSDATE());
 SHOW COLUMNS FROM board;
 SELECT * FROM board;
 

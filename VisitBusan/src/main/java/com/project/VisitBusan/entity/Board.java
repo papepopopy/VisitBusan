@@ -33,7 +33,6 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
     @Column(length = 50, nullable = false)
     private String writerId;
 
-    private String[] tags;
 //    @Column(name = "view_count")
     @ColumnDefault("0")  // 기본값 설정, null일 때 에러걸려서 설정.
     private int viewCount;

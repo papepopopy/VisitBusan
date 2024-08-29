@@ -29,7 +29,7 @@ public class BoardDTO {
     @NotEmpty
     private String writer;
 
-    // 현재 로그인 사용자 이메일과 게시글 작성자 이메일이 동일한지 판별하기위한 항목
+    // 현재 로그인 사용자 ID와 게시글 작성자 ID가 동일한지 판별하기위한 항목
     @NotEmpty
     private String writerId;
 
