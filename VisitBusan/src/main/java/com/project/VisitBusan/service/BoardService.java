@@ -34,7 +34,7 @@ public interface BoardService {
 
         // getter DTO -> setter Entity -> DB table 저장
         Board board = Board.builder()
-                .id(boardDTO.getBno())
+                .id(boardDTO.getId())
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
                 .writer(boardDTO.getWriter())
@@ -58,7 +58,7 @@ public interface BoardService {
 
         // getter Entity -> setter DTO
         BoardDTO boardDTO = BoardDTO.builder()
-                .bno(board.getId())
+                .id(board.getId())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())

@@ -19,7 +19,7 @@ public class BoardFile implements Comparable<BoardFile> {
     private int ord;            // 순번
 
     @ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name="board_bno")  // 생략시 자동 설정
+    //@JoinColumn(name="board_id")  // 생략시 자동 설정
     private Board board;
 
     @Override

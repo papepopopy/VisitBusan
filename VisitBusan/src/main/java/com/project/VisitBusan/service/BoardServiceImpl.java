@@ -72,7 +72,7 @@ public class BoardServiceImpl implements BoardService {
     public Board modify(BoardDTO boardDTO) {
 
         // 수정할 글번호 유무 체크
-        Optional<Board> result = boardRepository.findById(boardDTO.getBno());
+        Optional<Board> result = boardRepository.findById(boardDTO.getId());
         Board board = result.orElseThrow();
         log.info("==> from service board: "+board);
 
