@@ -55,7 +55,7 @@ SELECT * FROM member_role_set;
 -- 유저 게시판 :  여행정보(Infomation), 여행일정(Schedule), 후기(Review)
 
 INSERT INTO board
-(category,title,content,writer,writer_id,tags,reg_date,mod_date)
+(category,title,content,writer,writer_id,reg_date,mod_date)
 VALUES
 ('festival','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
 ('festival','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
