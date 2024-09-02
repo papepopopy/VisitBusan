@@ -17,6 +17,10 @@
     font-family: 'NotoSansKR', sans-serif;
     letter-spacing: -0.5px;
 }
+html, body {
+    min-width: 500px;
+    margin: 0 auto;
+}
 ul, li {
     list-style: none;
     padding: 0;
@@ -57,6 +61,7 @@ h4 {
 }
 
 /* 공통 스타일 */
+
 /* 카테고리 */
 .with-4 {
     flex: 1 1 100%;
@@ -409,7 +414,7 @@ h4 {
     content: "";
     display: block;
     position: absolute;
-    width: 425px;
+    width: 360px;
     height: 1px;
     bottom: 63px;
     left: 17%;
@@ -675,6 +680,9 @@ h4 {
 }
 
 @media (min-width: 768px) {
+    .memberjoin .join-box::after {
+        width: 425px;
+    }
     .tag-list a {
         padding: 20px 0;
         font-size: 20px;

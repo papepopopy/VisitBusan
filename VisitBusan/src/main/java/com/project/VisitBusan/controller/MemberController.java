@@ -2,6 +2,7 @@ package com.project.VisitBusan.controller;
 
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -30,6 +31,7 @@ public class MemberController {
         // 포워딩: 뷰리졸브
         return "members/signUp";
     }
+
     // @ModelAttribute: 다양한 소스의 데이터를 모델 특성으로 바인딩하는 데 사용
     // @RequestBody: HTTP request body를 메소드에 매핑하는데 사용
     @PostMapping(value="/signup")
@@ -50,7 +52,7 @@ public class MemberController {
             memberService.saveMember(memberDTO);
         } catch(Exception e){ // 중복된 이메일 등록시 예외발생되는 Exception 처리
             model.addAttribute("errorMessage",e.getMessage());
-            return "member/signup";// 입력폼으로 포워딩
+            return "members/signup";// 입력폼으로 포워딩
         }
 
         //회원가입 후 로그인 페이지 이동
