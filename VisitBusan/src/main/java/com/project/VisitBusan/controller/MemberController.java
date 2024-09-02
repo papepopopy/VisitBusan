@@ -32,15 +32,15 @@ public class MemberController {
     }
     // @ModelAttribute: 다양한 소스의 데이터를 모델 특성으로 바인딩하는 데 사용
     // @RequestBody: HTTP request body를 메소드에 매핑하는데 사용
-    @PostMapping(value="/new")
+    @PostMapping(value="/signup")
     public String memberRegister(@Valid @ModelAttribute MemberDTO memberDTO,
                                  BindingResult bindingResult,
                                  Model model){
 
-        log.info("=> "+memberDTO);
+        log.info("=> memberDTO: "+memberDTO);
 
         if (bindingResult.hasErrors()){// 유효성 검사결과 1개이상 에러가 있으면 처리
-            log.info("=> "+ bindingResult.toString());
+            log.info("=> bindingResult: "+ bindingResult.toString());
 
             return "members/signUp";
         }
@@ -50,13 +50,12 @@ public class MemberController {
             memberService.saveMember(memberDTO);
         } catch(Exception e){ // 중복된 이메일 등록시 예외발생되는 Exception 처리
             model.addAttribute("errorMessage",e.getMessage());
-            return "member/signUp_1";// 입력폼으로 포워딩
+            return "member/signup";// 입력폼으로 포워딩
         }
 
-        return "redirect:/";
+        //회원가입 후 로그인 페이지 이동
+        return "redirect:/login";
     }
-
-
 
     //----------------------- //
     // 로그인, 로그아웃 처리

@@ -17,15 +17,13 @@
 <body>
 <div class="container memberjoin" layout:fragment="content">
     <div class="body">
-        <form action="/members/signup" method="post" class="login-box mt-4">
+        <form action="/signup" method="post" class="login-box mt-4">
             <h1 class="text-center">회원가입</h1>
-
             <div class="row mb-5 join-box">
                 <div class="col text-center active" id="step1-tab">본인확인</div>
                 <div class="col text-center" id="step2-tab">정보입력</div>
                 <div class="col text-center" id="step3-tab">가입완료</div>
             </div>
-
             <div id="step1" class="step-content active">
                 <h2>본인인증</h2>
                 <hr>
@@ -39,123 +37,139 @@
                 <div class="form-text mb-4">
                     입력하신 정보는 회원 유무 확인용으로 수집/이용되며, 가입 회원에 한해 입력하신 모든 정보가 저장되는데 동의합니다.
                 </div>
-                <button type="button" class="btn btn-primary w-100" onclick="showStep(2)">다음 단계</button>
+                <button id="step1-btn" type="button" class="btn btn-primary w-100">다음 단계</button>
             </div>
-
             <div id="step2" class="step-content">
                 <h2>회원정보 입력</h2>
                 <hr>
-                <form>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="floatingId" placeholder="아이디">
+                        <input name="userId" type="text" class="form-control" id="floatingId" placeholder="아이디">
                         <label for="floatingId">아이디 필수</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
+                        <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
                         <label for="floatingPassword">비밀번호 필수(대/소문자 구분)</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="floatingName" placeholder="이름">
+                        <input name="name" type="text" class="form-control" id="floatingName" placeholder="이름">
                         <label for="floatingName">이름 필수</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="email" class="form-control" id="floatingEmail" placeholder="이메일 주소">
+                        <input name="email" type="email" class="form-control" id="floatingEmail" placeholder="이메일 주소" value="test@email.com">
                         <label for="floatingEmail">이메일 주소(필수, 아이디 찾기에 사용됩니다.)</label>
                     </div>
                     <div class="form-floating mb-2">
-                        <input type="text" class="form-control" id="floatingAddress" placeholder="주소">
+                        <input name="address" type="text" class="form-control" id="floatingAddress" placeholder="주소">
                         <label for="floatingAddress">주소</label>
                     </div>
-                    <button type="submit" class="btn btn-primary w-100" onclick="showStep(3)">가입 완료</button>
-                </form>
+                    <button id="step2-btn" type="button" class="btn btn-primary w-100">다음 단계</button>
             </div>
-
             <div id="step3" class="step-content">
                     <h3 class="mb-4 text-center">
                         홍길동님 회원가입이 완료되었어요.
                         <br>다양한 콘텐츠를 감상해보세요
                     </h3>
-                </div>
+                    <button id="step3-btn" type="submit" class="btn btn-primary w-100">가입 완료</button>
+            </div>
         </form>
 
 
     </div>
 </div>
 <script layout:fragment="myscript" th:inline="javascript">
-
-    function showStep(step) { //step = 1
-        if(step<=2){
-            document.querySelectorAll('.step-content').forEach((element, index) => { // 순회중인요소, 현재요소
-                const privacyCheck = document.getElementById('privacyCheck');
-                if (!privacyCheck.checked) {
-                    alert("개인정보 수집 및 이용안내에 동의해야 합니다.");
-                    return;
-                }
-                element.classList.toggle('active', index + 1 === step); //일치시 해당 페이지가 보이도록 수정
-            });
-        } else {
-                const id =  document.querySelector('#floatingId')
-                const password = document.querySelector('#floatingPassword');
-                const name = document.querySelector('#floatingName');
-                const email = document.querySelector('#floatingEmail');
-                const address = document.querySelector('#floatingAddress');
-
-                if (id.value.length < 1 || id.value == ""){
-                    alert("아이디 입력은 필수입니다.");
-
-                    id.focus();
-                    return;
-                }
-                if (password.value.length < 1 || password.value == ""){
-                    alert("아이디 입력 방식이 잘못되었습니다.");
-
-                    if ( password.value.length < 6 || password.value.length > 12) {
-                        alert("6자 이상 12자 이내에서만 작성 가능합니다.");
-                        password.focus();
-
-                        return;
-                    }
-                    password.focus();
-                    return;
-                }
-                if (name.value.length < 1 || name.value == ""){
-                    alert("닉네임 입력은 필수입니다.");
-                    name.focus();
-                    return;
-                }
-                if (email.value.length < 1 || email.value == ""){
-                    alert("이메일 입력은 필수입니다.");
-                    email.focus();
-                    return;
-                }
-                if (address.value.length < 1 || address.value == ""){
-                    alert("주소 입력은 필수입니다.");
-                    address.focus();
-                    return;
-                }
-
-                // 값에 이상이 없으면 서버에 전송
-                formObj.submit();
-                //document.getElementById('signupForm').submit();
-        }
-
-    document.querySelectorAll('.join-box .text-center').forEach((element, index) => {
-    element.classList.toggle('active', index + 1 === step);
-    });
-    }
-
-</script>
-<script th:src="@{/js/bootstrap.min.js}">
-    function showStep(step) { //step = 1
-        document.querySelectorAll('.step-content').forEach((element, index) => { // 순회중인요소, 현재요소
-            element.classList.toggle('active', index + 1 === step); //일치시 해당 페이지가 보이도록 수정
+    function showStep(step) {
+        // 단계 전환
+        document.querySelectorAll('.join-box > div').forEach((element, index) => {
+            element.classList.toggle('active', index + 1 === step);
         });
-        document.querySelectorAll('.join-box .text-center').forEach((element, index) => {
+        document.querySelectorAll('.step-content').forEach((element, index) => {
             element.classList.toggle('active', index + 1 === step);
         });
     }
+
+    // 유효성 검사 처리
+    function validateStep1() {
+        const privacyCheck = document.getElementById('privacyCheck');
+        if (!privacyCheck.checked) {
+            alert("개인정보 수집 및 이용안내에 동의해야 합니다.");
+            privacyCheck.focus();
+            return false;
+        }
+        return true;
+    }
+
+    function validateStep2() {
+        const id = document.querySelector('#floatingId');
+        const password = document.querySelector('#floatingPassword');
+        const name = document.querySelector('#floatingName');
+        const email = document.querySelector('#floatingEmail');
+        const address = document.querySelector('#floatingAddress');
+
+        if (id.value.trim() === "") {
+            alert("아이디 입력은 필수입니다.");
+            id.focus();
+            return false;
+        }
+        if (password.value.trim() === "") {
+            alert("비밀번호 입력은 필수입니다.");
+            password.focus();
+            return false;
+        }
+        if (password.value.length < 6 || password.value.length > 12) {
+            alert("비밀번호는 6자 이상 12자 이내로 입력해주세요.");
+            password.focus();
+            return false;
+        }
+        if (name.value.trim() === "") {
+            alert("이름 입력은 필수입니다.");
+            name.focus();
+            return false;
+        }
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //이메일 주소 형식
+        if (email.value.trim() === "") {
+            alert("이메일 입력은 필수입니다.");
+            email.focus();
+            return false;
+        } else if (!emailPattern.test(email.value.trim())) {
+            alert("이메일 형식이 올바르지 않습니다.");
+            email.focus();
+            return false;
+        }
+        if (address.value.trim() === "") {
+            alert("주소 입력은 필수입니다.");
+            address.focus();
+            return false;
+        }
+
+        // 모든 유효성 검사를 통과하면 단계 전환
+        return true;
+    }
+
+    // 기본 설정 1단계
+    document.addEventListener("DOMContentLoaded", function() {
+        showStep(1);
+    });
+
+    // 이벤트 리스너 등록
+    document.querySelector('#step1-btn').addEventListener('click', function(e) {
+        if (validateStep1()) {
+            showStep(2); // 유효성 검사를 통과하면 2단계로 이동
+        }
+    });
+
+    document.querySelector('#step2-btn').addEventListener('click', function(e) {
+        if (validateStep2()) {
+            showStep(3); // 유효성 검사를 통과하면 3단계로 이동
+        }
+    });
+    //3단계에서 form 제출
+    const formObj = document.querySelector('form')
+    document.querySelector('#step3-btn').addEventListener('click', function(e) {
+        formObj.submit();
+    });
+
+</script>
+<script th:src="@{/js/bootstrap.min.js}">
 </script>
 </body>
-
-
 </html>
