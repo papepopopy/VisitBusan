@@ -24,6 +24,10 @@ public class BoardDTO {
     private String title;
 
     @NotEmpty
+    private String category;
+
+
+    @NotEmpty
     private String content;
 
     @NotEmpty
@@ -32,6 +36,8 @@ public class BoardDTO {
     // 현재 로그인 사용자 ID와 게시글 작성자 ID가 동일한지 판별하기위한 항목
     @NotEmpty
     private String writerId;
+
+    private String viewCount;
 
     private LocalDateTime regDate;
     private LocalDateTime modDate;

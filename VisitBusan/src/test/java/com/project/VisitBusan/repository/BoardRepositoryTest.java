@@ -21,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Log4j2
-@TestPropertySource(locations="classpath:application-test.properties")  // 환경설정파일 따로 지정
+//@TestPropertySource(locations="classpath:application-test.properties")  // 환경설정파일 따로 지정
 class BoardRepositoryTest {
 
     @Autowired
@@ -47,9 +47,9 @@ class BoardRepositoryTest {
 //        });
 
         // 2. 이미지 포함 더미 생성
-        IntStream.rangeClosed(1,5).forEach(i-> {
+        IntStream.rangeClosed(1,10).forEach(i-> {
             Board board = Board.builder()
-                    .category("festival")
+                    .category("information")
                     .title("title"+i)
                     .content("content"+i)
                     .writer("user"+(i%10))
@@ -81,6 +81,46 @@ class BoardRepositoryTest {
         list.stream().forEach(board-> {
             log.info("==> board: "+board);
         });
+
+    } // end test
+
+    @Test
+    @DisplayName("보드 카테고리별 목록 테스트")
+    void listBoardCategoryTest() {
+//        this.createBoardTest(); // h2로 테스트 할 때 필요
+
+        // paging 정보  pageNumber: 현재 페이지를 설정(실제 만들어진 페이지를 초과하면 각종 오류발생)
+        Pageable pageable = PageRequest.of(0,5, Sort.by("id"));
+        log.info("==> pageable: "+pageable);
+
+        // 카테고리
+        // 관리자 게시판 :
+        //  - 여행정보게시판(travelInfo) : 명소(place), 음식(food), 숙박(accommodation)
+        //  - 여행추천게시판(travelRecommend) : 일정여행(scheduledTravel), 테마여행(themeTravel)
+        //  - 여행가이드게시판(travelGuide) : 가이드(guide), 여행준비(preparation)
+        //  - 축제게시판(festivalBoard) : 축제행사(festival), 공연전시(performance)
+        // 유저 게시판 :
+        //  - 유저게시판(userBoard) : 여행정보(information), 여행일정(schedule), 후기(review)
+        String category = "festival";
+
+        // 키워드, 타입
+        String[] types= {};
+        String keyword = "";
+
+        Page<Board> result = boardRepository.searchAll(category, types, keyword, pageable);
+        log.info("==> result: "+result);
+        log.info("==> result.getContent(): "+result.getContent());  // 현재 페이지의 내용물(content)가 나옴
+        result.getContent().forEach(board->log.info("==> result list: "+board));
+
+        log.info("==> paging info");
+        log.info("==> 총페이지: "+result.getTotalPages());
+        log.info("==> 페이지 사이즈: "+result.getSize());
+        log.info("==> 현재페이지: "+result.getNumber());
+        log.info("==> 이전페이지: "+result.hasPrevious());
+        log.info("==> 다음페이지: "+result.hasNext());
+
+        // 비교판단 Assert  junit라이브러리
+        // AssertThat(result3.hasPrevious()).isEqualTo(0);
 
     } // end test
 
@@ -121,7 +161,7 @@ class BoardRepositoryTest {
     @Test
     @DisplayName("보드 검색 테스트")
     void searchBoardTest() {
-        this.createBoardTest(); // h2로 테스트 할 때 필요
+//        this.createBoardTest(); // h2로 테스트 할 때 필요
 
         // data 생성 후 삭제 할 글번호 읽어와서 삭제 작업
 
@@ -129,11 +169,21 @@ class BoardRepositoryTest {
         Pageable pageable = PageRequest.of(0,5, Sort.by("id"));
         log.info("==> pageable: "+pageable);
 
+        // 카테고리
+        // 관리자 게시판 :
+        //  - 여행정보게시판(travelInfo) : 명소(place), 음식(food), 숙박(accommodation)
+        //  - 여행추천게시판(travelRecommend) : 일정여행(scheduledTravel), 테마여행(themeTravel)
+        //  - 여행가이드게시판(travelGuide) : 가이드(guide), 여행준비(preparation)
+        //  - 축제게시판(festivalBoard) : 축제행사(festival), 공연전시(performance)
+        // 유저 게시판 :
+        //  - 유저게시판(userBoard) : 여행정보(information), 여행일정(schedule), 후기(review)
+        String category = "guide";
+
         // 키워드, 타입
         String[] types= {"t","c","w"};
         String keyword = "1";
 
-        Page<Board> result = boardRepository.searchAll(types, keyword, pageable);
+        Page<Board> result = boardRepository.searchAll(category, types, keyword, pageable);
         log.info("==> result: "+result);
         log.info("==> result.getContent(): "+result.getContent());  // 현재 페이지의 내용물(content)가 나옴
         result.getContent().forEach(board->log.info("==> result list: "+board));

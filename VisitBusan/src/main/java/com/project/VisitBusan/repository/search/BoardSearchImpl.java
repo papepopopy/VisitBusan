@@ -72,7 +72,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
 
         // 3. paging 추가
-        // Pageable pageable = PageRequest.of(pageNumber:1, pageSize:5, Sort.by("bno"))
+        // Pageable pageable = PageRequest.of(pageNumber:1, pageSize:5, Sort.by("id"))
         this.getQuerydsl().applyPagination(pageable, query2);  // 인자값으로 넘어온 pageable데이터로 query2 페이징 설정
 
 
@@ -93,29 +93,39 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
     }
 
     @Override
-    public Page<Board> searchAll(String[] types, String keyword, Pageable pageable) {    // pageable은 항상 마지막에 와야함
+    public Page<Board> searchAll(String category, String[] types, String keyword, Pageable pageable) {    // pageable은 항상 마지막에 와야함
 
         QBoard board = QBoard.board;
 
         JPQLQuery<Board> query3 = from(board);
-        if ((types != null && types.length>0) && keyword != null) {  // 검색 키워드가 있으면
+        if(category != null) {
+
             // 조건문을 작성하는 클래스
             BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-            for (String type : types) {
-                switch (type) {
-                    case "t":
-                        booleanBuilder.or(board.title.contains(keyword)); break;
-                    case "c":
-                        booleanBuilder.or(board.content.contains(keyword)); break;
-                    case "w":
-                        booleanBuilder.or(board.writer.contains(keyword)); break;
-                }
-            } // end for
+            if ((types != null && types.length>0) && keyword != null) {  // 검색 키워드가 있으면
+
+                // 타입
+                for (String type : types) {
+                    switch (type) {
+                        case "t":
+                            booleanBuilder.or(board.title.contains(keyword)); break;
+                        case "c":
+                            booleanBuilder.or(board.content.contains(keyword)); break;
+                        case "w":
+                            booleanBuilder.or(board.writer.contains(keyword)); break;
+                    }
+                } // end for
+
+
+            } // end if
+
+            // 카테고리 조건 추가
+            booleanBuilder.and(board.category.contains(category));
 
             query3.where(booleanBuilder);
 
-        } // end if
+        }
 
         // paging 추가
         this.getQuerydsl().applyPagination(pageable, query3);
@@ -137,10 +147,10 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         // 1. query 작성
         JPQLQuery<Board> query = from(board);
         // left(reply)를 기준으로 일치하는 보드 값을 추가로 표시.  reply는 다 나옴.
-        query.leftJoin(reply).on(reply.board.eq(board));  // reply.board.eq(board) : reply.board_bno == board.bno
+        query.leftJoin(reply).on(reply.board.eq(board));  // reply.board.eq(board) : reply.board_bno == board.id
 
         // 그룹핑
-        query.groupBy(board);  // group by board.bno
+        query.groupBy(board);  // group by board.id
 
         // 조건문 추가
         if ((types != null && types.length>0) && keyword != null) {  // 검색 키워드가 있으면
@@ -162,7 +172,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
         } // end if
 
-        // bno > 0 : board테이블에 자료가 존재하면
+        // id > 0 : board테이블에 자료가 존재하면
         query.where(board.id.gt(0L));  // gt(값): greater than 값
 
         // Projection.bean(): JPA에서 프로젝션: JPQL의 결과를 바로 DTO로 처리하는 기능
@@ -241,7 +251,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
          });
          */
 
-        // 4. 쿼리문 작성 : 댓글 개수 파악 => select 항목은 그룹핑된(board bno) 게시글정보, 게시글 번호 기준으로 카운트
+        // 4. 쿼리문 작성 : 댓글 개수 파악 => select 항목은 그룹핑된(board id) 게시글정보, 게시글 번호 기준으로 카운트
         // 게시글 번호를 그룹핑하여 board 엔티티와 reply 엔티티 개수 계산
         // Tuple은 Map이랑 비슷
         JPQLQuery<Tuple> tupleJPQLQuery = boardJPQLQuery.select(board, reply.countDistinct());
@@ -258,16 +268,16 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
             // boardListAllDTO 객체 생성하여 관련 entity 정보 저장
             BoardListAllDTO boardListAllDTO = BoardListAllDTO.builder()
                     // 1. board Entity -> board DTO
-                    .bno(board1.getId())
+                    .id(board1.getId())
                     .title(board1.getTitle())
                     .writer(board1.getWriter())
-                    .email(board1.getWriterId())
+                    .writerId(board1.getWriterId())
                     .regDate(board1.getRegDate())
                     .replyCount(replyCount)  // 2. reply count -> replyCount DTO
                     .build();
 
             // 3. BoardImage -> BoardImageDTO
-            List<BoardFileDTO> imageDTOS = board1.getBoardFileSet().stream().sorted()
+            List<BoardFileDTO> fileDTOS = board1.getBoardFileSet().stream().sorted()
                     .map(boardFile -> BoardFileDTO.builder()
                             .uuid(boardFile.getUuid())
                             .fileName(boardFile.getFileName())
@@ -276,7 +286,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                     ).collect(Collectors.toList());
 
             // 4. boardImageDTO -> boardListAllDTO
-            boardListAllDTO.setBoardImages(imageDTOS);
+            boardListAllDTO.setBoardFiles(fileDTOS);
 
             return boardListAllDTO;
 

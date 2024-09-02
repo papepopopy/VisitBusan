@@ -14,15 +14,15 @@ import java.util.List;
 @Data
 public class BoardListAllDTO {
 
-    private Long bno;
+    private Long id;
     private String title;
     private String writer;
-    private String email;
+    private String writerId;
     private LocalDateTime regDate;
 
     //SELECT COUNT(*) FROM reply WHERE board_bno = 1 (게시글번호)
     private Long replyCount;
 
-    private List<BoardFileDTO> boardImages;
+    private List<BoardFileDTO> boardFiles;
 
 }

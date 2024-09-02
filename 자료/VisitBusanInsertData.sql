@@ -51,8 +51,15 @@ SELECT * FROM member_role_set;
 -- ------------------------------
 
 -- 카테고리
--- 관리자 게시판 : 축제행사(Festival), 공연전시(Performance), 명소(Place), 음식(Food), 숙박(Accommodation), 가이드(Guide), 여행준비(Preparation)
--- 유저 게시판 :  여행정보(Infomation), 여행일정(Schedule), 후기(Review)
+
+-- 관리자 게시판 : 
+--  - 여행정보게시판(travelInfo) : 명소(place), 음식(food), 숙박(accommodation)
+--  - 여행추천게시판(travelRecommend) : 일정여행(), 테마여행()
+--  - 여행가이드게시판(travelGuide) : 가이드(guide), 여행준비(preparation)
+--  - 축제게시판(festivalBoard) : 축제행사(festival), 공연전시(performance)
+
+-- 유저 게시판 :
+--  - 유저게시판(userBoard) : 여행정보(information), 여행일정(schedule), 후기(review)
 
 INSERT INTO board
 (category,title,content,writer,writer_id,reg_date,mod_date)
@@ -71,8 +78,8 @@ VALUES
 ('guide','title12','content12','admin','admin',SYSDATE(),SYSDATE()),
 ('preparation','title13','content13','admin','admin',SYSDATE(),SYSDATE()),
 ('preparation','title14','content14','admin','admin',SYSDATE(),SYSDATE()),
-('infomation','title15','content15','user','user',SYSDATE(),SYSDATE()),
-('infomation','title16','content16','user','user',SYSDATE(),SYSDATE()),
+('information','title15','content15','user','user',SYSDATE(),SYSDATE()),
+('information','title16','content16','user','user',SYSDATE(),SYSDATE()),
 ('schedule','title17','content17','user','user',SYSDATE(),SYSDATE()),
 ('schedule','title18','content18','user','user',SYSDATE(),SYSDATE()),
 ('review','title19','content19','user','user',SYSDATE(),SYSDATE()),

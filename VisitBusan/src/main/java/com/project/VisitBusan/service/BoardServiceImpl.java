@@ -38,17 +38,17 @@ public class BoardServiceImpl implements BoardService {
         Board board = dtoToEntity(boardDTO);
 
         // 3. board entity 저장
-        Long bno = boardRepository.save(board).getId();  // 보드를 저장하고 정상적으로 작동하면 변수에 값 저장
+        Long id = boardRepository.save(board).getId();  // 보드를 저장하고 정상적으로 작동하면 변수에 값 저장
         //Board savedBoard = boardRepository.save(board);
 
-        return bno;
+        return id;
     }
 
     // 게시글 조회
     @Override
     public BoardDTO readOne(Long id) {
         // 1. fetch = FetchType.LAZY 상태일 경우 boardImage 즉시 로딩 안됨
-        // Optional<Board> result = boardRepository.findById(bno);
+        // Optional<Board> result = boardRepository.findById(id);
 
         // 2. fetch = FetchType.LAZY 상태일 경우에도 즉시 로딩 (@EntityGraph)
         Optional<Board> result = boardRepository.findByIdWithFiles(id);
@@ -110,15 +110,15 @@ public class BoardServiceImpl implements BoardService {
         // 댓글이 있는 경우 댓글 삭제 후 게시글을 삭제 해야함.
 
         // 1. 댓글 그냥 삭제 (체크 안해도 상관없음)
-//        replyRepository.deleteByBoard_bno(bno);
+//        replyRepository.deleteByBoard_bno(id);
 
         // 2. 댓글이 있는지 체크 후 댓글 삭제
-//        List<Reply> replies = replyRepository.findByBoard_bno(bno);
+//        List<Reply> replies = replyRepository.findByBoard_bno(id);
 //        log.info("==> replies"+replies);
 
 //        if(replies.size() > 0) {  // 댓글이 있으면 댓글 삭제
 //            log.info("==> delete replies");
-//            replyRepository.deleteByBoard_bno(bno);
+//            replyRepository.deleteByBoard_bno(id);
 //        }
 
         // 댓글 삭제 후 게시글 삭제
@@ -131,18 +131,24 @@ public class BoardServiceImpl implements BoardService {
     public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
 
         // 검색 조건에 대한 처리
+        String category = pageRequestDTO.getCategory();
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
-        Pageable pageable = pageRequestDTO.getPageable("bno");
+        Pageable pageable = pageRequestDTO.getPageable("id");
+        log.info("==> pageRequestDTO: "+pageRequestDTO);
 
         // 조건 검색 및 페이징한 결과값 가져오기
-        Page<Board> result = boardRepository.searchAll(types, keyword, pageable);
+        Page<Board> result = boardRepository.searchAll(category, types, keyword, pageable);
+
+        log.info("==> result: "+result);
 
         // page객체에 있는 내용을 List구조 가져오기
         List<BoardDTO> dtoList = result.getContent().stream()
                 // collection 구조에 있는 entity를 하나씩 dto로 변환하여 List구조에 저장
                 .map(board-> modelMapper.map(board,BoardDTO.class))
                 .collect(Collectors.toList());
+
+        log.info("==> dtoList: "+dtoList);
 
         // 매개변수로 전달받은 객체(pageRequestDTO)를 가지고 PageResponseDTO.Builder()를 통해
         // PageRequestDTO객체 생성되어 필요시 스프링이 필요시점에 주입 시켜줌(list에서 pageRequestDTO객체 사용가능함 )
@@ -160,7 +166,7 @@ public class BoardServiceImpl implements BoardService {
         // 검색 조건에 대한 처리
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
-        Pageable pageable = pageRequestDTO.getPageable("bno");
+        Pageable pageable = pageRequestDTO.getPageable("id");
 
         // 조건 검색 및 페이징한 결과값 가져오기
         Page<BoardListReplyCountDTO> result = boardRepository.searchWithReplyCount(types, keyword, pageable);
@@ -181,7 +187,7 @@ public class BoardServiceImpl implements BoardService {
 
         String[] types = pageRequestDTO.getTypes();  // 검색 타입(글제목, 글내용, 작성자)
         String keyword = pageRequestDTO.getKeyword(); // 검색 키워드
-        Pageable pageable = pageRequestDTO.getPageable("bno");
+        Pageable pageable = pageRequestDTO.getPageable("id");
 
         // BoardSearch 클래스로를 상속받은 boardRepository는 searchWithAll() 사용가능
         Page<BoardListAllDTO> result = boardRepository.searchWithAll(types, keyword, pageable);

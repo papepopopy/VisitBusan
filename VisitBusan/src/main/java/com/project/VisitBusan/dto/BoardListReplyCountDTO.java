@@ -7,7 +7,8 @@ import java.time.LocalDateTime;
 @Data
 public class BoardListReplyCountDTO {
 
-    private Long bno;
+    private Long id;
+    private String category;
     private String title;
     private String writer;
     private LocalDateTime regDate;
