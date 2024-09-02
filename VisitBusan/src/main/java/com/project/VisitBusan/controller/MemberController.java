@@ -66,7 +66,6 @@ public class MemberController {
     @GetMapping(value="/login")
     public String loginMember(String error, String logout){
         log.info("=> login ");
-
         // 로그인 폼이 있는 페이지로 포워딩
         return "/members/login";
     }
