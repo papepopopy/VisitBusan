@@ -33,9 +33,7 @@ public class MemberServiceImpl implements MemberService {
         // 회원 중복 체크(email 기준) 메서드 호출
         validateDuplicateMember(member);
 
-//        Member findMember = memberRepository.findByEmail(member.getEmail());
-//        if (findMember != null) throw new IllegalStateException("이미 가입된 회원 입니다.");
-
+        log.info("===> 중복 이메일 없음");
         // 중복된 이메일 없을 경우 저장(반영)
         return memberRepository.save(member);
     }

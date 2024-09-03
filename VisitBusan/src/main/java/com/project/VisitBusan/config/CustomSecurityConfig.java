@@ -78,11 +78,11 @@ public class CustomSecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable)
                 .formLogin(login -> {
                     login.loginPage("/login")             // 로그인 처리할 url 설정
-                            .defaultSuccessUrl("/")                   // 로그인 성공시 url 설정
-                            .usernameParameter("email")               // 웹의 username의  매개변수이름 설정
-                            .passwordParameter("password")            // 웹의 password의  매개변수이름 설정
-                            //.loginProcessingUrl("/login")   // 웹 로그인창의 form action값 설정
-                            .failureUrl("/login/error")  // 로그인 실패시 url 설정
+                            .defaultSuccessUrl("/", true)// 로그인 성공시 url 설정
+                            .usernameParameter("userId")                        // 웹의 username의  매개변수이름 설정
+                            .passwordParameter("password")                      // 웹의 password의  매개변수이름 설정
+                            .loginProcessingUrl("/login")                       // 웹 로그인창의 form action 값 설정
+                            .failureUrl("/login/error")       // 로그인 실패시 url 설정
 
                             // 성공 또는 실패할 경우 핸들러 사용해서 원하는 것을 실행 할 경우 적용
                             // defaultSuccessUrl(),failureUrl() 중복될 경우 핸들러가 우선으로 수행됨.
