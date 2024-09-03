@@ -26,8 +26,8 @@ class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
-    @Autowired
-    private ReplyRepository replyRepository;
+    //@Autowired
+    //private ReplyRepository replyRepository;
 
     @Test
     @DisplayName("보드 생성 테스트")
