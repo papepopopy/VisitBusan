@@ -49,12 +49,6 @@ public class MemberController {
 
         log.info("=> memberDTO: "+memberDTO);
 
-        if (bindingResult.hasErrors()){// 유효성 검사결과 1개이상 에러가 있으면 처리
-            log.info("=> bindingResult: "+ bindingResult.toString());
-
-            return "members/signUp?step={step}";
-        }
-
         try {
             // dto -> entity -> email중복 체크 ->  save
             memberService.saveMember(memberDTO);
