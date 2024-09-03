@@ -76,6 +76,7 @@
 
     </div>
 </div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
 <script layout:fragment="myscript" th:inline="javascript">
     function showStep(step) {
         // 단계 전환
@@ -85,6 +86,13 @@
         document.querySelectorAll('.step-content').forEach((element, index) => {
             element.classList.toggle('active', index + 1 === step);
         });
+
+        /*
+            //URL 업데이트!(로그인페이지를 3단계로 나누기위해 추가함)
+            const url = new URL(window.location.href);
+            url.searchParams.set("step", step);
+            window.history.pushState({step:step}, `Step ${step}`, url);
+        */
     }
 
     // 유효성 검사 처리
@@ -98,16 +106,18 @@
         return true;
     }
 
-    function validateStep2() {
-        const id = document.querySelector('#floatingId');
+    async function validateStep2() {
+        console.log("validateStep2");
+
+        const userId = document.querySelector('#floatingId');
         const password = document.querySelector('#floatingPassword');
         const name = document.querySelector('#floatingName');
         const email = document.querySelector('#floatingEmail');
         const address = document.querySelector('#floatingAddress');
 
-        if (id.value.trim() === "") {
+        if (userId.value.trim() === "") {
             alert("아이디 입력은 필수입니다.");
-            id.focus();
+            userId.focus();
             return false;
         }
         if (password.value.trim() === "") {
@@ -141,6 +151,41 @@
             return false;
         }
 
+        try {
+            // ID 또는 이메일이 이미 존재하는지 확인 API 호출
+            const response = await fetch("/check-existing", {
+                method : "POST", //데이터가 서버로 전송
+                headers : {"Content-Type":"application/json"}, //JSON 형식
+                body : JSON.stringify({userId: userId.value.trim(), email: email.value.trim()}) // db로 보내는 데이터 id, email
+            });
+
+            // 응답 상태 코드 확인
+            if (!response.ok) {
+                throw new Error(`서버 오류: ${response.statusText}`);
+            }
+
+            // 응답 결과 처리
+            const result = await response.json(); //await: 작업완료 후 response 실행
+            console.log("API 응답 결과:", result);
+
+            if (result.exists) { // 중복하는 userId, 이메일이 있을 때
+                if(result.type === "userId"){
+                    alert("이미 존재하는 아이디입니다.");
+                    userId.focus();
+                    return false;
+                } else if (result.type === "email") {
+                    alert("이미 존재하는 이메일입니다.");
+                    email.focus();
+                    return false;
+                }
+            }
+            console.log("validateStep2 완료");
+        } catch (e) {
+            console.error("API 호출 오류:", e);
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+            return false;
+        }
+
         // 모든 유효성 검사를 통과하면 단계 전환
         return true;
     }
@@ -153,12 +198,13 @@
     // 이벤트 리스너 등록
     document.querySelector('#step1-btn').addEventListener('click', function(e) {
         if (validateStep1()) {
+            console.log("1단계");
             showStep(2); // 유효성 검사를 통과하면 2단계로 이동
         }
     });
-
-    document.querySelector('#step2-btn').addEventListener('click', function(e) {
-        if (validateStep2()) {
+    document.querySelector('#step2-btn').addEventListener('click', async function(e) {
+        if (await validateStep2()) {
+            console.log("2단계");
             showStep(3); // 유효성 검사를 통과하면 3단계로 이동
         }
     });
@@ -168,8 +214,6 @@
         formObj.submit();
     });
 
-</script>
-<script th:src="@{/js/bootstrap.min.js}">
 </script>
 </body>
 </html>

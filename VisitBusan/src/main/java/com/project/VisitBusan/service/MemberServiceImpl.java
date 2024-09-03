@@ -2,6 +2,8 @@ package com.project.VisitBusan.service;
 
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.entity.Member;
+import com.project.VisitBusan.exception.DuplicateEmailException;
+import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -40,17 +42,20 @@ public class MemberServiceImpl implements MemberService {
 
 
     //회원중복체크
-    private void validateDuplicateMember(Member member){
+    public void validateDuplicateMember(Member member){
         //이메일 체크
         // Member Entity Email 기존에 Entity에 있는 유무 체크
         Member findMemberByEmail = memberRepository.findByEmail(member.getEmail());
-        if (findMemberByEmail != null) throw new IllegalStateException("이미 가입된 회원 입니다.");
+        if (findMemberByEmail != null) {
+            log.info("이미 가입된 회원 입니다."+member.getEmail());
+            throw new DuplicateEmailException("이미 가입된 회원 입니다.");
+        }
 
         //ID 중복 체크
         Optional<Member> findMemberByUserId = memberRepository.findByUserId(member.getUserId());
         if (findMemberByUserId.isPresent()) {
-            throw new IllegalStateException("이미 사용 중인 ID 입니다.");
+            log.info("이미 가입된 ID 입니다."+ member.getUserId());
+            throw new DuplicateUserIdException("이미 사용 중인 ID 입니다.");
         }
     }
-
 }

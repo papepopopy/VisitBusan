@@ -16,7 +16,7 @@ public interface MemberService {
         member.setEmail(memberDTO.getEmail());//이메일
         member.setAddress(memberDTO.getAddress());//주소
 
-        //비밀번호 암호화전
+        //비밀번호 암호화 전
         member.setPassword(memberDTO.getPassword());
 
         String password = passwordEncoder.encode(memberDTO.getPassword());
@@ -27,4 +27,5 @@ public interface MemberService {
 
         return member;
     }
+
 }

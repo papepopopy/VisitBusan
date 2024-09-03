@@ -2,19 +2,24 @@ package com.project.VisitBusan.controller;
 
 import com.project.VisitBusan.dto.BoardDTO;
 import com.project.VisitBusan.dto.MemberDTO;
+import com.project.VisitBusan.entity.Member;
+import com.project.VisitBusan.exception.DuplicateEmailException;
+import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.service.MemberService;
+import com.project.VisitBusan.service.MemberServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequiredArgsConstructor
@@ -22,6 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("")
 public class MemberController {
     private final MemberService memberService;
+    private final MemberServiceImpl memberServiceImpl;
     private final PasswordEncoder passwordEncoder;
 
     // 회원 등록: GET, POST
@@ -46,7 +52,7 @@ public class MemberController {
         if (bindingResult.hasErrors()){// 유효성 검사결과 1개이상 에러가 있으면 처리
             log.info("=> bindingResult: "+ bindingResult.toString());
 
-            return "members/signUp";
+            return "members/signUp?step={step}";
         }
 
         try {
@@ -78,7 +84,46 @@ public class MemberController {
 
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호 확인해주세요.");
         return "/members/login";
+    }
+    @PostMapping("/check-existing")
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> checkExisting(@RequestBody Map<String, String> requestData) {
+//    public Map<String, Object> checkExisting(@RequestBody Map<String, String> requestData) {
+        Map<String, Object> response = new HashMap<>();
+        String userId = requestData.get("userId");
+        String email = requestData.get("email");
 
+        try {
+            // ID와 이메일을 가진 임시 Member 객체 생성
+            Member tempMember = new Member();
+            tempMember.setUserId(userId);
+            tempMember.setEmail(email);
+
+            // validateDuplicateMember 메서드를 호출하여 중복 검사
+            memberServiceImpl.validateDuplicateMember(tempMember);
+
+            // 중복이 없는 경우
+            response.put("exists", false);
+        } catch (DuplicateUserIdException e) {
+            // ID가 중복된 경우
+            response.put("exists", true);
+            response.put("type", "userId");
+        } catch (DuplicateEmailException e) {
+            // 이메일이 중복된 경우
+            response.put("exists", true);
+            response.put("type", "email");
+        } catch (Exception e) {
+            // 다른 예외가 발생한 경우
+            response.put("exists", false);
+            response.put("error", "서버에서 오류가 발생했습니다.");
+        }
+
+        return ResponseEntity.ok(response);
+//        return ResponseEntity.ok(new HashMap<String, Object>() {{
+//            put("exists", false);
+//        }});
+
+//        return response;
     }
 
     //----------------------- //

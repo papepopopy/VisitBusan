@@ -115,12 +115,13 @@ public class CustomSecurityConfig {
 
         http.authorizeHttpRequests( auth -> {
             // 사용자 인증없이 접근할 수 있도록 설정
-            //auth.requestMatchers("/", "/login/**", "/signup/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
-            //auth.requestMatchers("/login/**", "/signup/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
+            //auth.requestMatchers("/check-existing/**", "/login/**", "/signup/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
+
             // Role이 ADMIN 경우에만 접근
 //            auth.requestMatchers("/admin/**").hasRole("ADMIN");
             // Role이 ADMIN, USER 경우에만 접근
 //            auth.requestMatchers("/board/modify", "/board/remove").hasAnyRole("ADMIN","USER");
+
             // 설정해준 경로를 제외한 나머지 경로들은 모두 인증을 요구하도록 설정
 //            auth.anyRequest().authenticated();
             // 설정해준 경로를 제외한 나머지 경로들은 모두 접근 할 수 있도록 설정
@@ -170,8 +171,7 @@ public class CustomSecurityConfig {
             e.accessDeniedHandler(accessDeniedHandler());
         });
 
-
-        return http.build();
+        return http.build(); //반환
 //        return null; // 권한 문제로 로그인 창이 뜨지만 로그인이 안됨
 
     }
@@ -202,7 +202,7 @@ public class CustomSecurityConfig {
         return new Custom403Handler();
     }
 
-    // 정적 자원이 시큐리티에서 제외되었을 때
+    // 정적 자원이 시큐리티에서 제외되었을 때 (css, js, images ...)
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         log.info("==> web configure: WebSecurityCustomizer");
