@@ -115,7 +115,7 @@ public class CustomSecurityConfig {
 
         http.authorizeHttpRequests( auth -> {
             // 사용자 인증없이 접근할 수 있도록 설정
-            auth.requestMatchers("/check-existing/**", "/login/**", "/signup/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
+//            auth.requestMatchers( "/login/**", "/signup/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
 
             // Role이 ADMIN 경우에만 접근
 //            auth.requestMatchers("/admin/**").hasRole("ADMIN");
@@ -125,7 +125,7 @@ public class CustomSecurityConfig {
             // 설정해준 경로를 제외한 나머지 경로들은 모두 인증을 요구하도록 설정
 //            auth.anyRequest().authenticated();
             // 설정해준 경로를 제외한 나머지 경로들은 모두 접근 할 수 있도록 설정
-//            auth.anyRequest().permitAll();
+            auth.anyRequest().permitAll();
         });
 
         // ---------------------------------------------------------------------- //
