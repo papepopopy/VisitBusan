@@ -77,12 +77,12 @@ public class CustomSecurityConfig {
         // 2.1 로그인 관련 설정 => UserDetailsService 인터페이스 구현 후 설정 할 것
         http.csrf(AbstractHttpConfigurer::disable)
                 .formLogin(login -> {
-                    login.loginPage("/members/login")             // 로그인 처리할 url 설정
+                    login.loginPage("/login")             // 로그인 처리할 url 설정
                             .defaultSuccessUrl("/")                   // 로그인 성공시 url 설정
                             .usernameParameter("email")               // 웹의 username의  매개변수이름 설정
                             .passwordParameter("password")            // 웹의 password의  매개변수이름 설정
-                            //.loginProcessingUrl("/members/login")   // 웹 로그인창의 form action값 설정
-                            .failureUrl("/members/login/error")  // 로그인 실패시 url 설정
+                            //.loginProcessingUrl("/login")   // 웹 로그인창의 form action값 설정
+                            .failureUrl("/login/error")  // 로그인 실패시 url 설정
 
                             // 성공 또는 실패할 경우 핸들러 사용해서 원하는 것을 실행 할 경우 적용
                             // defaultSuccessUrl(),failureUrl() 중복될 경우 핸들러가 우선으로 수행됨.
@@ -97,7 +97,7 @@ public class CustomSecurityConfig {
                                 @Override
                                 public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
                                     log.info("==> exception: " + exception.getMessage());
-                                    response.sendRedirect("/members/login/error");
+                                    response.sendRedirect("/login/error");
                                 }
                             });
                 });
@@ -115,7 +115,8 @@ public class CustomSecurityConfig {
 
         http.authorizeHttpRequests( auth -> {
             // 사용자 인증없이 접근할 수 있도록 설정
-//            auth.requestMatchers("/", "/members/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
+            //auth.requestMatchers("/", "/login/**", "/signup/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
+            auth.requestMatchers("/login/**", "/signup/**", "/test/**", "/api/**", "/h2-console/**").permitAll();
             // Role이 ADMIN 경우에만 접근
 //            auth.requestMatchers("/admin/**").hasRole("ADMIN");
             // Role이 ADMIN, USER 경우에만 접근
@@ -123,7 +124,7 @@ public class CustomSecurityConfig {
             // 설정해준 경로를 제외한 나머지 경로들은 모두 인증을 요구하도록 설정
 //            auth.anyRequest().authenticated();
             // 설정해준 경로를 제외한 나머지 경로들은 모두 접근 할 수 있도록 설정
-            auth.anyRequest().permitAll();
+            //auth.anyRequest().permitAll();
         });
 
         // ---------------------------------------------------------------------- //

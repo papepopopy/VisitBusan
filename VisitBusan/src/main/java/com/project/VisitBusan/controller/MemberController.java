@@ -1,11 +1,12 @@
 package com.project.VisitBusan.controller;
 
+import com.project.VisitBusan.dto.BoardDTO;
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.service.MemberService;
-import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequiredArgsConstructor
@@ -20,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("")
 public class MemberController {
     private final MemberService memberService;
-    //private final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
     // 회원 등록: GET, POST
     @GetMapping(value="/signup")
@@ -78,5 +80,26 @@ public class MemberController {
         return "/members/login";
 
     }
+
+    //----------------------- //
+    // 회원정보 수정
+    //----------------------- //
+    // 1. 회원정보 들고오기
+    //@PreAuthorize("principal.email == #boardDTO.email") 정보일치 서비스 필요없을듯..히히 혹시나 넣음
+//    @GetMapping("/modify")
+//    public String showModifyForm(@Valid BoardDTO boardDTO
+//                                 BindingResult bindingResult,
+//                                 RedirectAttributes redirectAttributes) {
+//        if(bindingResult.hasErrors()) {
+//            log.info("=> has errors...");
+//
+//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//            return "redirect:/members/modify"; //오류시 재요청
+//        }
+//        log.info("boardDTO : "+boardDTO);
+//        return "members/modify";
+//    }
+
+    // 2. 수정한 정보 보내기
 
 }
