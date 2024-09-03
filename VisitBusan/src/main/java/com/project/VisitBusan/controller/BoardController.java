@@ -39,51 +39,37 @@ public class BoardController {
 
 
     // 1. 게시글 목록
-    @GetMapping("/{category}")
-    public String list(@PathVariable("category") String category,
+    @GetMapping("/{menu}/list")
+    public String list(@PathVariable("menu") String menu,
                        PageRequestDTO pageRequestDTO,
                        Model model){
         // PageRequestDTO 객체 생성만 했을 경우 기본값 설정
-
-        pageRequestDTO.setCategory(category);
 
         // 1-1. 게시글 댓글 개수 없는 List 조회
         PageResponseDTO responseDTO = boardService.list(pageRequestDTO);
 
         model.addAttribute("responseDTO", responseDTO);
-        return switch (category) {
-            case "place", "food", "accommodation" -> "/boards/travelInfo/list";
-            case "scheduledTravel", "themeTravel" -> "/boards/travelRecommend/list";
-            case "guide" -> "/boards/travelGuide/list";
-            case "preparation" -> "/boards/travelGuide/travelPreparation";
-            case "festival", "performance" -> "/boards/festivalBoard/list";
-            case "information", "schedule", "review" -> "/boards/userBoard/list";
-            default -> "";
 
-        };
+        String category = pageRequestDTO.getCategory();
+        if (category.equals("preparation")) {
+            return "boards/travelGuide/travelPreparation";
+        }
+        else return "boards/"+menu+"/list";
 
     }
 
     // 2. 게시글 등록
-    @GetMapping("/{category}/create")
-    public String registerGet(@PathVariable("category") String category) {
+    @GetMapping("/{menu}/create")
+    public String registerGet(@PathVariable("menu") String menu,
+                          PageRequestDTO pageRequestDTO) {
 
-        return switch (category) {
-            case "place", "food", "accommodation" -> "/boards/travelInfo/create";
-            case "scheduledTravel", "themeTravel" -> "/boards/travelRecommend/create";
-            case "guide" -> "/boards/travelGuide/create";
-            case "preparation" -> "/boards/travelGuide/travelPreparation/create";
-            case "festival", "performance" -> "/boards/festivalBoard/create";
-            case "information", "schedule", "review" -> "/boards/userBoard/create";
-            default -> "";
-
-        };
+        return "boards/"+menu+"/create";
 
     }
 
-    @PostMapping("/{category}/create")
+    @PostMapping("/{menu}/create")
     // BoardDTO는 메서드가 호출 받았을 때 넘겨받은 파라미터 값이 BoardDTO의 필드명과 일치하면 자동 매핑 (일치하는 값만 불러옴)
-    public String registerPost(@PathVariable("category") String category,
+    public String registerPost(@PathVariable("menu") String menu,
                                @Valid BoardDTO boardDTO,  // @Valid 넘어온 데이터 BoardDTO의 에러 유무 체크
                                BindingResult bindingResult,  // 감지한 에러 데이터
                                RedirectAttributes redirectAttributes) {
@@ -98,7 +84,7 @@ public class BoardController {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());  // 한번 에러값을 보낸 후 없어짐
 
             // Get방식으로 board/register를 재요청
-            return "redirect:/board/"+category+"/create";
+            return "redirect:/board/"+menu+"/create";
         }
 
         log.info("==> "+boardDTO);
@@ -109,41 +95,39 @@ public class BoardController {
         redirectAttributes.addFlashAttribute("result", "created");
 
 
-        return "redirect:/board/"+category;
+        return "redirect:/board/"+menu+"/list";
 
 
     }
 
-    @GetMapping("/{category}/read")
-    public String read(@PathVariable("category") String category,
-                     Long id,
-                     PageRequestDTO pageRequestDTO,
-                     Model model) {
+    @GetMapping("/{menu}/read")
+    public String read(@PathVariable("menu") String menu,
+                       Long id,
+                       PageRequestDTO pageRequestDTO,
+                       Model model) {
+
+        log.info("==> id: "+id);
+        log.info("==> pageRequestDTO: "+pageRequestDTO);
 
         // 게시글 조회 서비스 요청
         BoardDTO boardDTO = boardService.readOne(id);
         model.addAttribute("dto",boardDTO);
+        log.info("==> after service boardDTO: "+boardDTO);
 
         /*
         반환값을 void로 할 경우
         return 생략하면 "board/read" 형태으로 자동 포워딩  (return "board/read";)
         */
+//        return "boards/userBoard/read";
 
-        return switch (category) {
-            case "place", "food", "accommodation" -> "/boards/travelInfo/read";
-            case "scheduledTravel", "themeTravel" -> "/boards/travelRecommend/read";
-            case "guide" -> "/boards/travelGuide/read";
-            case "preparation" -> "/boards/travelGuide/travelPreparation/read";
-            case "festival", "performance" -> "/boards/festivalBoard/read";
-            case "information", "schedule", "review" -> "/boards/userBoard/read";
-            default -> "";
 
-        };
+        return "boards/"+menu+"/read";
+
     }
 
 
-    @GetMapping("/{category}/modify")  // 두개이상 사용시 {}안에 ,쓰고 하나 더 입력
-    public String modifyget(@PathVariable("category") String category,
+    @GetMapping("/{menu}/modify")  // 두개이상 사용시 {}안에 ,쓰고 하나 더 입력
+    public String modifyget(@PathVariable("menu") String menu,
                           Long id,
                           PageRequestDTO pageRequestDTO,
                           Model model) {
@@ -152,23 +136,14 @@ public class BoardController {
         BoardDTO boardDTO = boardService.readOne(id);
         model.addAttribute("dto",boardDTO);
 
-        return switch (category) {
-            case "place", "food", "accommodation" -> "/boards/travelInfo/modify";
-            case "scheduledTravel", "themeTravel" -> "/boards/travelRecommend/modify";
-            case "guide" -> "/boards/travelGuide/modify";
-            case "preparation" -> "/boards/travelGuide/travelPreparation/modify";
-            case "festival", "performance" -> "/boards/festivalBoard/modify";
-            case "information", "schedule", "review" -> "/boards/userBoard/modify";
-            default -> "";
-
-        };
+        return "boards/"+menu+"/modify";
 
     }
 
     // 4. 게시글 수정
-    @PostMapping("/{category}/modify")
+    @PostMapping("/{menu}/modify")
     // BoardDTO는 메서드가 호출 받았을 때 넘겨받은 파라미터 값이 BoardDTO의 필드명과 일치하면 자동 매핑 (일치하는 값만 불러옴)
-    public String modifypost(@PathVariable("category") String category,
+    public String modifypost(@PathVariable("menu") String menu,
                              BoardDTO boardDTO,  // @Valid 넘어온 데이터 BoardDTO의 에러 유무 체크
                              BindingResult bindingResult,  // 감지한 에러 데이터
                              PageRequestDTO pageRequestDTO,
@@ -188,7 +163,7 @@ public class BoardController {
             redirectAttributes.addFlashAttribute("id", boardDTO.getId());
 
             // Get방식으로 board/modify+페이징정보 재요청
-            return "redirect:/board/"+category+"/modify?"+link;
+            return "redirect:/board/"+menu+"/modify?"+link;
         }
 
         // 수정 서비스 요청
@@ -203,22 +178,21 @@ public class BoardController {
         // redirect방식에서 파라미터 추가 기능
         redirectAttributes.addAttribute("id", board.getId());
 
-        return "redirect:/board/"+category+"/read?"+link;
+        return "redirect:/board/"+menu+"/read?"+link;
 //        return "redirect:/board/read";
 
     }
 
     // 5. 게시글 삭제
-    @PostMapping("/{category}/remove")
+    @PostMapping("/{menu}/remove")
     // BoardDTO는 메서드가 호출 받았을 때 넘겨받은 파라미터 값이 BoardDTO의 필드명과 일치하면 자동 매핑 (일치하는 값만 불러옴)
-    public String remove(@PathVariable("category") String category,
-                         BoardDTO boardDTO,
+    public String remove(@PathVariable("menu") String menu,
+                         Long id,
+                         PageRequestDTO pageRequestDTO,
                          RedirectAttributes redirectAttributes){
 
-        log.info("==> boardDTO: "+boardDTO);  // 맵핑 제대로 안되면 값이 null // 보내는 파라미터 값이 동일한지 // html내부에서 값을 잘 보내주는지(query,변수,식 등등) 확인
-
-        Long id = boardDTO.getId();
-        log.info("remove id: "+id);
+        // 수정 페이지에서 넘겨받은 페이징 정보
+        String link = pageRequestDTO.getLink();
 
         // 게시글 삭제 서비스 요청
         boardService.remove(id);
@@ -227,7 +201,7 @@ public class BoardController {
         redirectAttributes.addFlashAttribute("id",id);
         redirectAttributes.addFlashAttribute("result", "removed");
 
-        return "redirect:/board/"+category+"/list";
+        return "redirect:/board/"+menu+"/list?"+link;
     }
 
 

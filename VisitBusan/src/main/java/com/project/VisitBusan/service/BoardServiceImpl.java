@@ -47,21 +47,24 @@ public class BoardServiceImpl implements BoardService {
     // 게시글 조회
     @Override
     public BoardDTO readOne(Long id) {
+        log.info("==> readOne start");
+
         // 1. fetch = FetchType.LAZY 상태일 경우 boardImage 즉시 로딩 안됨
-        // Optional<Board> result = boardRepository.findById(id);
+//         Optional<Board> result = boardRepository.findById(id);
 
         // 2. fetch = FetchType.LAZY 상태일 경우에도 즉시 로딩 (@EntityGraph)
         Optional<Board> result = boardRepository.findByIdWithFiles(id);
+        log.info("==> result: "+result);
 
         // optional -> entity
         Board board = result.orElseThrow();  // optional -> entity
-//        log.info("==> board: "+board);
+        log.info("==> board: "+board);
 
         // 1. entity -> dto 맵핑 (entity와 dto 동일 구조일 경우)
 //        BoardDTO boardDTO = modelMapper.map(board, BoardDTO.class);
         // 2. 다를 경우
         BoardDTO boardDTO = entityToDTO(board);
-//        log.info("==> boardDTO: "+boardDTO);
+        log.info("==> after entityToDTO boardDTO: "+boardDTO);
 
         return boardDTO;
 
@@ -110,20 +113,19 @@ public class BoardServiceImpl implements BoardService {
         // 댓글이 있는 경우 댓글 삭제 후 게시글을 삭제 해야함.
 
         // 1. 댓글 그냥 삭제 (체크 안해도 상관없음)
-//        replyRepository.deleteByBoard_bno(id);
+//        replyRepository.deleteByBoard_id(id);
 
         // 2. 댓글이 있는지 체크 후 댓글 삭제
-//        List<Reply> replies = replyRepository.findByBoard_bno(id);
+//        List<Reply> replies = replyRepository.findByBoard_id(id);
 //        log.info("==> replies"+replies);
-
+//
 //        if(replies.size() > 0) {  // 댓글이 있으면 댓글 삭제
 //            log.info("==> delete replies");
-//            replyRepository.deleteByBoard_bno(id);
+//            replyRepository.deleteByBoard_id(id);
 //        }
 
         // 댓글 삭제 후 게시글 삭제
         boardRepository.deleteById(id);
-
 
     }
 

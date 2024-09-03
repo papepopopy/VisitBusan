@@ -147,7 +147,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         // 1. query 작성
         JPQLQuery<Board> query = from(board);
         // left(reply)를 기준으로 일치하는 보드 값을 추가로 표시.  reply는 다 나옴.
-        query.leftJoin(reply).on(reply.board.eq(board));  // reply.board.eq(board) : reply.board_bno == board.id
+        query.leftJoin(reply).on(reply.board.eq(board));  // reply.board.eq(board) : reply.board_id == board.id
 
         // 그룹핑
         query.groupBy(board);  // group by board.id
@@ -244,7 +244,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
          // 3. 쿼리문 결과 콘솔에 출력
          boardList.forEach(board1 -> {
-         log.info("==> board.getBno(): "+board1.getBno());
+         log.info("==> board.getId(): "+board1.getId());
          for (BoardImage boardImage : board1.getImageSet()) {
          log.info("==> boardImage.getFileName(): "+boardImage.getFileName());
          }

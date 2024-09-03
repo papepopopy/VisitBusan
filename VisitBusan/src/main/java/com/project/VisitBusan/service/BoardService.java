@@ -12,13 +12,13 @@ public interface BoardService {
     long register(BoardDTO boardDTO);
 
     // 2. 게시글 조회
-    BoardDTO readOne (Long bno);
+    BoardDTO readOne (Long id);
 
     // 3. 게시글 수정
     Board modify(BoardDTO boardDTO);
 
     // 4. 게시글 삭제
-    void remove(Long bno);
+    void remove(Long id);
 
     // 5. 게시글 목록 : 페이징 처리를 한 게시글 목록
     PageResponseDTO<BoardDTO> list (PageRequestDTO pageRequestDTO);  // 반환값에 따라 실제 PageResponseDTO의 dtoList 타입이 달라짐
@@ -35,10 +35,12 @@ public interface BoardService {
         // getter DTO -> setter Entity -> DB table 저장
         Board board = Board.builder()
                 .id(boardDTO.getId())
+                .category(boardDTO.getCategory())
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
                 .writer(boardDTO.getWriter())
                 .writerId(boardDTO.getWriterId())
+                .viewCount(boardDTO.getViewCount())
                 .build();
 
         // 첨부파일이 있을 경우  // imageSet에 추가
@@ -59,10 +61,12 @@ public interface BoardService {
         // getter Entity -> setter DTO
         BoardDTO boardDTO = BoardDTO.builder()
                 .id(board.getId())
+                .category(board.getCategory())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())
                 .writerId(board.getWriterId())
+                .viewCount(board.getViewCount())
                 .regDate(board.getRegDate())
                 .modDate(board.getModDate())
                 .build();

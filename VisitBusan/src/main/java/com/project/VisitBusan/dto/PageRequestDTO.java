@@ -48,6 +48,9 @@ public class PageRequestDTO {
             builder.append("page="+this.page);
             builder.append("&size="+this.size);
 
+            if (category != null && category.length()>0)  // 카테고리 추가
+                builder.append("&category="+category);
+
             if (type != null && type.length()>0)  // 타입이 있으면 추가
                 builder.append("&type="+type);
 

@@ -20,12 +20,11 @@ public class BoardDTO {
     private Long id;
 
     @NotEmpty
-    @Size(min=3, max=100)
-    private String title;
-
-    @NotEmpty
     private String category;
 
+    @NotEmpty
+    @Size(min=3, max=100)
+    private String title;
 
     @NotEmpty
     private String content;
@@ -37,7 +36,7 @@ public class BoardDTO {
     @NotEmpty
     private String writerId;
 
-    private String viewCount;
+    private int viewCount;
 
     private LocalDateTime regDate;
     private LocalDateTime modDate;

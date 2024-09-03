@@ -26,38 +26,40 @@
             </div>
         </div>
         <ul class="menu-list">
-            <li><a th:href="@{/boards/travelInfo/list}">부산에 가면</a>
+            <li><a th:href="@{/board/travelInfo/list?category=place}">부산에 가면</a>
                 <ul class="sub-menu01">
-                    <li><a th:href="@{/boards/travelInfo/list}">명소</a></li>
-                    <li><a th:href="@{/boards/travelInfo/list}">음식</a></li>
-                    <li><a th:href="@{/boards/travelInfo/list}">숙박</a></li>
+                    <li><a th:href="@{/board/travelInfo/list?category=place}">명소</a></li>
+                    <li><a th:href="@{/board/travelInfo/list?category=food}">음식</a></li>
+                    <li><a th:href="@{/board/travelInfo/list?category=accommodation}">숙박</a></li>
                 </ul>
             </li>
-            <li><a th:href="@{/boards/travelRecommend/list}">추천여행</a>
+            <li><a th:href="@{/board/travelRecommend/list?category=scheduledTravel}">추천여행</a>
                 <ul class="sub-menu01">
-                    <li><a th:href="@{/boards/travelRecommend/list}">일정여행</a></li>
-                    <li><a th:href="@{/boards/travelRecommend/list}">테마여행</a></li>
+                    <li><a th:href="@{/board/travelRecommend/list?category=scheduledTravel}">일정여행</a></li>
+                    <li><a th:href="@{/board/travelRecommend/list?category=themeTravel}">테마여행</a></li>
                     <!--<li><a th:href="@{/boards/}">미식투어</a></li>-->
                 </ul>
             </li>
             <li>
-                <a th:href="@{/boards/travelGuide/travelPreparation}">여행준비</a>
+                <a th:href="@{/board/travelGuide/list?category=preparation}">여행준비</a>
                 <ul class="sub-menu01">
-                    <li><a th:href="@{/boards/travelGuide/travelPreparation}">여행준비정보</a></li>
-                    <li><a th:href="@{/boards/travelGuide/list}">가이드북</a></li>
+                    <li><a th:href="@{/board/travelGuide/list?category=preparation}">여행준비정보</a></li>
+                    <li><a th:href="@{/board/travelGuide/list?category=guide}">가이드북</a></li>
                 </ul>
             </li>
             <li>
-                <a th:href="@{/boards/member/list}">여행공유</a>
+                <a th:href="@{/board/userBoard/list?category=information}">여행공유</a>
                 <ul class="sub-menu01">
-                    <li><a th:href="@{/boards/member/list}">리뷰</a></li>
+                    <li><a th:href="@{/board/userBoard/list?category=information}">여행정보</a></li>
+                    <li><a th:href="@{/board/userBoard/list?category=schedule}">여행일정</a></li>
+                    <li><a th:href="@{/board/userBoard/list?category=review}">리뷰</a></li>
                 </ul>
             </li>
             <li>
-                <a th:href="@{/boards/festivalBoard/list}">페스티벌</a>
+                <a th:href="@{/board/festivalBoard/list?category=festival}">페스티벌</a>
                 <ul class="sub-menu01">
-                    <li><a th:href="@{/boards/festivalBoard/list}">공연전시</a></li>
-                    <li><a th:href="@{/boards/festivalBoard/list}">축제행사</a></li>
+                    <li><a th:href="@{/board/festivalBoard/list?category=performance}">공연전시</a></li>
+                    <li><a th:href="@{/board/festivalBoard/list?category=festival}">축제행사</a></li>
                 </ul>
             </li>
         </ul>
