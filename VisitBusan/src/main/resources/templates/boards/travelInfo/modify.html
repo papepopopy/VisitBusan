@@ -19,7 +19,7 @@
     <div class="body">
 
         <div class="topBox">
-            <h1>[[${dto.category=='information'?'여행정보':dto.category=='schedule'?'여행일정':'후기'}]]</h1>
+            <h1>[[${dto.category=='place'?'명소':dto.category=='food'?'음식':'숙박'}]]</h1>
         </div>
 
         <div class="postBox border rounded-4 mt-4 mx-auto py-3 px-5">
@@ -30,9 +30,9 @@
                     <div class="categoryBox mt-3">
                         <select class="form-select" name="category">
                             <option>- 카테고리 선택 -</option>
-                            <option value="information" th:selected="${dto.category=='information'}">여행정보</option>
-                            <option value="schedule" th:selected="${dto.category=='schedule'}">여행일정</option>
-                            <option value="review" th:selected="${dto.category=='review'}">후기</option>
+                            <option value="place" th:selected="${dto.category=='place'}">명소</option>
+                            <option value="food" th:selected="${dto.category=='food'}">음식</option>
+                            <option value="accommodation" th:selected="${dto.category=='accommodation'}">숙박</option>
                         </select>
                     </div>
 
