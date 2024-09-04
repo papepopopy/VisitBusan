@@ -133,7 +133,7 @@ class BoardRepositoryTest {
 
         Board board = boardRepository.findById(id).orElseThrow();
 
-        board.change("updatedTitle","updatedContent");
+        board.change("information","updatedTitle","updatedContent");
 
         Board savedBoard = boardRepository.save(board);
 

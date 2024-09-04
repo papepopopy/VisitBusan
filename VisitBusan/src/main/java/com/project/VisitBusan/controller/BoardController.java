@@ -47,11 +47,7 @@ public class BoardController {
 
         model.addAttribute("responseDTO", responseDTO);
 
-        String category = pageRequestDTO.getBCategory();
-        if (category.equals("preparation")) {
-            return "boards/travelGuide/travelPreparation";
-        }
-        else return "boards/"+menu+"/list";
+        return "boards/"+menu+"/list";
 
     } // end get list
 
@@ -118,7 +114,6 @@ public class BoardController {
         return 생략하면 "board/read" 형태으로 자동 포워딩  (return "board/read";)
         */
 //        return "boards/userBoard/read";
-
 
         return "boards/"+menu+"/read";
 

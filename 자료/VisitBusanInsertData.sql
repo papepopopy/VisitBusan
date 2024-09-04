@@ -17,13 +17,15 @@ USE visit_busan;
 --            멤버
 -- ------------------------------
 
+-- 비밀번호 1234
+
 INSERT INTO member
 (address, email, NAME, PASSWORD, user_id)
 VALUES
-('root','root@test.com', 'root', '1234', 'root'),
-('admin','admin@test.com', 'admin', '1234', 'admin'),
-('user','user@test.com', 'user', '1234', 'user'),
-('test','test@test.com', 'test', '1234', 'test');
+('root','root@test.com', 'root', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'root'),
+('admin','admin@test.com', 'admin', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'admin'),
+('user','user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user'),
+('test','test@test.com', 'test', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'test');
 SHOW COLUMNS FROM member;
 SELECT * FROM member;
 
