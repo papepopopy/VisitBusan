@@ -13,99 +13,265 @@
     <link th:href="@{/css/footer.css}" rel="stylesheet">
 </head>
 <body>
-<div class="container place" layout:fragment="content">
-    <div class="body">
-        <div class="topBox">
-            <h1>명소</h1>
-            <ul class="controlBox">
-                <li class="aBtn active">#전체</li>
-                <li class="Btn1">#자연</li>
-                <li class="Btn2">#역사</li>
-                <li class="Btn3">#문화</li>
-                <li class="Btn4">#공원</li>
+<div class="container"  layout:fragment="content">
+    <div class="body FestivalBoard container">
+        <h1 class="title">이벤트 정보</h1>
+        <!-- 카테고리 -->
+        <div class="tag-list-box categoryBox">
+            <ul class="nav category">
+                <li class="nav-item tag-list with-4">
+                    <a class="nav-link active" href="#" id="nav-1" data-bs-toggle="tab" data-bs-target="#nav-1-pane"
+                       aria-controls="nav-1-pane" aria-selected="true">
+                        전체
+                    </a>
+                </li>
+                <li class="nav-item tag-list with-4">
+                    <a class="nav-link" id="nav-2" data-bs-toggle="tab" data-bs-target="#nav-2-pane" aria-controls="nav-2-pane"
+                       aria-selected="true">
+                        공연·전시
+                    </a>
+                </li>
+                <li class="nav-item tag-list with-4">
+                    <a class="nav-link" id="nav-3" data-bs-toggle="tab" data-bs-target="#nav-3-pane" aria-controls="nav-3-pane"
+                       aria-selected="true">
+                        축제·행사
+                    </a>
+                </li>
+                <li class="nav-item tag-list with-4">
+                    <a class="nav-link" id="nav-4" data-bs-toggle="tab" data-bs-target="#nav-4-pane" aria-controls="nav-4-pane"
+                       aria-selected="true">
+                        스포츠 경기
+                    </a>
+                </li>
             </ul>
-            <form role="search" class="search">
-                <input class="form-control" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-light" type="submit">Search</button>
-            </form>
         </div>
-        <div class="search_array">
-            <div class="search-inner">
-                <div class="all">전체 <span>148</span>건</div>
-            </div>
-            <div class="sort">
-                <a href="#">최신순</a>
-                <a href="#">조회순</a>
-                <a href="#">좋아요순</a>
-            </div>
+        <!-- 달 버튼, 현재 달 -->
+        <div class="nav-date">
+            <button class="l-btn">이전달</button>
+            <!-- 달력 띄워서 선택할 수 있으면 좋을 듯 -->
+            <div class="col text-center"><h2>2024년 8월</h2></div>
+            <button class="r-btn">다음달</button>
         </div>
-        <div class="postsBox">
-            <!-- 게시글 (가로4 * 세로3) -->
-            <div class="post">
-                <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img1.jfif" alt="사진"></div>
-                <div class="postTitle">부산 트래블라운지가 말아주는 찐 부산체험 프로그램</div>
-                <ul class="postText">
-                    <li>방문: <span>1588</span></li>
-                    <li>댓글: <span>1</span></li>
-                    <li>좋아요: <span>8</span></li>
-                </ul>
-            </div>
-            <div class="post">
-                <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img2.jfif" alt="사진"></div>
-                <div class="postTitle">부산 트래블라운지가 말아주는 찐 부산체험 프로그램</div>
-                <ul class="postText">
-                    <li>방문: <span>1588</span></li>
-                    <li>댓글: <span>1</span></li>
-                    <li>좋아요: <span>8</span></li>
-                </ul>
-            </div>
-            <div class="post">
-                <div class="postImgBox"><img src="../../assets/images/travelInfoBoard/img3.jfif" alt="사진"></div>
-                <div class="postTitle">부산 트래블라운지가 말아주는 찐 부산체험 프로그램</div>
-                <ul class="postText">
-                    <li>방문: <span>1588</span></li>
-                    <li>댓글: <span>1</span></li>
-                    <li>좋아요: <span>8</span></li>
-                </ul>
-            </div>
-            <div class="post">
-                <div class="postImgBox"><img src="../../assets/images/festivalpage/busan1.jpg" alt="사진"></div>
-                <div class="postTitle">부산 트래블라운지가 말아주는 찐 부산체험 프로그램</div>
-                <ul class="postText">
-                    <li>방문:<span>1588</span></li>
-                    <li>댓글:<span>1</span></li>
-                    <li>좋아요:<span>8</span></li>
-                </ul>
-            </div>
-            <div class="post">
-                <div class="postImgBox"><img src="../../assets/images/festivalpage/busan1.jpg" alt="사진"></div>
-                <div class="postTitle">부산 트래블라운지가 말아주는 찐 부산체험 프로그램</div>
-                <ul class="postText">
-                    <li>방문: <span>1588</span></li>
-                    <li>댓글: <span>1</span></li>
-                    <li>좋아요: <span>8</span></li>
-                </ul>
-            </div>
-            <div class="post">
-                <div class="postImgBox"><img src="../../assets/images/festivalpage/busan1.jpg" alt="사진"></div>
-                <div class="postTitle">부산 트래블라운지가 말아주는 찐 부산체험 프로그램</div>
-                <ul class="postText">
-                    <li>방문: <span>1588</span></li>
-                    <li>댓글: <span>1</span></li>
-                    <li>좋아요: <span>8</span></li>
-                </ul>
-            </div>
-        </div>
-        <br>
+
+        <!-- 날짜 버튼 -->
+        <hr>
         <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-center mt-4">
-                <li class="page-item"><a class="page-link" href="#">이전</a></li>
+            <ul class="pagination mx-4 justify-content-around days">
+                <li class="page-item"><a href="#" class="page-link">일<div class="text-center mt-3">1</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">월<div class="text-center mt-3">2</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">화<div class="text-center mt-3">3</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">수<div class="text-center mt-3">4</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">목<div class="text-center mt-3">5</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">금<div class="text-center mt-3">6</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">토<div class="text-center mt-3">7</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">일<div class="text-center mt-3">8</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">월<div class="text-center mt-3">9</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">화<div class="text-center mt-3">10</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">수<div class="text-center mt-3">11</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">목<div class="text-center mt-3">12</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">금<div class="text-center mt-3">13</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">토<div class="text-center mt-3">14</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">일<div class="text-center mt-3">15</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">월<div class="text-center mt-3">16</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">화<div class="text-center mt-3">17</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">수<div class="text-center mt-3">18</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">목<div class="text-center mt-3">19</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">금<div class="text-center mt-3">20</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">토<div class="text-center mt-3">21</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">일<div class="text-center mt-3">22</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">월<div class="text-center mt-3">23</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">화<div class="text-center mt-3">24</div></a></li>
+                <li class="page-item"><a href="#" class="page-link">수<div class="text-center mt-3">25</div></a></li>
+            </ul>
+        </nav>
+        <hr>
+        <!-- 컨트롤 버튼 -->
+        <ul class="controlBox">
+            <li class="aBtn active">전체</li>
+            <li class="dBtn">오늘</li>
+            <li class="wBtn">이번주</li>
+            <li class="nBtn">다음주</li>
+            <li class="mBtn">30일</li>
+        </ul>
+        <!-- 리스트 목록 -->
+        <div class="tab-content" id="nav-tabContent">
+            <div class="tab-pane fade" id="nav-1-pane" role="tabpanel" aria-labelledby="nav-1" tabindex="0">
+                <div class="postsBox">
+                    <!-- 게시글 (가로4 * 세로3) -->
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan1.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan2.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/gwanganli1.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox">
+                            <img src="../../assets/images/festivalpage/gwanganli2.jpg" alt="사진">
+                        </div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/gwanganli3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                </div>
+            </div>
+            <div class="postsBox tab-pane fade" id="nav-2-pane" role="tabpanel" aria-labelledby="nav-2" tabindex="0">
+                <div class="postsBox">
+                    <!-- 게시글 (가로4 * 세로3) -->
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan1.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan2.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/gwanganli1.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox">
+                            <img src="../../assets/images/festivalpage/gwanganli2.jpg" alt="사진">
+                        </div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/gwanganli3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                </div>
+            </div>
+            <div class="postsBox tab-pane fade" id="nav-3-pane" role="tabpanel" aria-labelledby="nav-3" tabindex="0">
+                <div class="postsBox">
+                    <!-- 게시글 (가로4 * 세로3) -->
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan1.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan2.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/gwanganli1.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox">
+                            <img src="../../assets/images/festivalpage/gwanganli2.jpg" alt="사진">
+                        </div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/gwanganli3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+                        <div class="postRegDate">2024.08.31~2024.09.01</div>
+                    </div>
+                </div>
+            </div>
+            <div class="postsBox tab-pane fade active show" id="nav-4-pane" role="tabpanel" aria-labelledby="nav-4" tabindex="0">
+                <div class="postsBox">
+                    <!-- 게시글 (가로4 * 세로3) -->
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan1.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+
+                        <div class="postDate">2024.08.31~2024.09.01</div>
+                    </div><div class="post">
+                    <div class="postImgBox"><img src="../../assets/images/festivalpage/busan2.jpg" alt="사진"></div>
+                    <div class="postTitle">2024 부산나이트워크42K</div>
+
+                    <div class="postDate">2024.08.31~2024.09.01</div>
+                </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+
+                        <div class="postDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+
+                        <div class="postDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan3.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+
+                        <div class="postDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan2.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+
+                        <div class="postDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan2.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+
+                        <div class="postDate">2024.08.31~2024.09.01</div>
+                    </div>
+                    <div class="post">
+                        <div class="postImgBox"><img src="../../assets/images/festivalpage/busan2.jpg" alt="사진"></div>
+                        <div class="postTitle">2024 부산나이트워크42K</div>
+
+                        <div class="postDate">2024.08.31~2024.09.01</div>
+                    </div>
+
+
+
+
+                </div>
+            </div>
+        </div>
+
+        <!-- 페이지 버튼 -->
+        <nav aria-label="Page navigation example just">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
                 <li class="page-item"><a class="page-link" href="#">1</a></li>
                 <li class="page-item"><a class="page-link" href="#">2</a></li>
                 <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">4</a></li>
-                <li class="page-item"><a class="page-link" href="#">5</a></li>
-                <li class="page-item"><a class="page-link" href="#">다음</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
             </ul>
         </nav>
     </div>
