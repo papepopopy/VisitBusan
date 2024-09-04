@@ -12,10 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.function.Function;
@@ -50,13 +47,13 @@ public class BoardController {
 
         model.addAttribute("responseDTO", responseDTO);
 
-        String category = pageRequestDTO.getCategory();
+        String category = pageRequestDTO.getBCategory();
         if (category.equals("preparation")) {
             return "boards/travelGuide/travelPreparation";
         }
         else return "boards/"+menu+"/list";
 
-    }
+    } // end get list
 
     // 2. 게시글 등록
     @GetMapping("/{menu}/create")
@@ -65,16 +62,20 @@ public class BoardController {
 
         return "boards/"+menu+"/create";
 
-    }
+    } // end get create
 
     @PostMapping("/{menu}/create")
     // BoardDTO는 메서드가 호출 받았을 때 넘겨받은 파라미터 값이 BoardDTO의 필드명과 일치하면 자동 매핑 (일치하는 값만 불러옴)
     public String registerPost(@PathVariable("menu") String menu,
                                @Valid BoardDTO boardDTO,  // @Valid 넘어온 데이터 BoardDTO의 에러 유무 체크
                                BindingResult bindingResult,  // 감지한 에러 데이터
+                               PageRequestDTO pageRequestDTO,
                                RedirectAttributes redirectAttributes) {
 
         log.info("==> boardDTO: "+boardDTO);
+
+        // 수정 페이지에서 넘겨받은 페이징 정보
+        String link = pageRequestDTO.getLink();
 
         // 클라이언트로 부터 전송받은 boardDTO를 @valid에서 문제가 발생했을 경우
         if(bindingResult.hasErrors()) {
@@ -94,11 +95,9 @@ public class BoardController {
         redirectAttributes.addFlashAttribute("id",id);
         redirectAttributes.addFlashAttribute("result", "created");
 
+        return "redirect:/board/"+menu+"/list?"+link;
 
-        return "redirect:/board/"+menu+"/list";
-
-
-    }
+    } // end post create
 
     @GetMapping("/{menu}/read")
     public String read(@PathVariable("menu") String menu,
@@ -123,7 +122,7 @@ public class BoardController {
 
         return "boards/"+menu+"/read";
 
-    }
+    } // end get read
 
 
     @GetMapping("/{menu}/modify")  // 두개이상 사용시 {}안에 ,쓰고 하나 더 입력
@@ -138,7 +137,7 @@ public class BoardController {
 
         return "boards/"+menu+"/modify";
 
-    }
+    } // end get modify
 
     // 4. 게시글 수정
     @PostMapping("/{menu}/modify")
@@ -181,7 +180,7 @@ public class BoardController {
         return "redirect:/board/"+menu+"/read?"+link;
 //        return "redirect:/board/read";
 
-    }
+    } // end post modify
 
     // 5. 게시글 삭제
     @PostMapping("/{menu}/remove")
@@ -202,7 +201,7 @@ public class BoardController {
         redirectAttributes.addFlashAttribute("result", "removed");
 
         return "redirect:/board/"+menu+"/list?"+link;
-    }
+    } // end
 
 
 
