@@ -80,7 +80,7 @@ public class BoardServiceImpl implements BoardService {
         log.info("==> from service board: "+board);
 
         // entity값을 dto값으로 변경
-        board.change(boardDTO.getTitle(), boardDTO.getContent());
+        board.change(boardDTO.getCategory(), boardDTO.getTitle(), boardDTO.getContent());
 
         // ------------------------------------------------------- //
         // 기존 첨부파일 있을 경우 처리 : 기존에 첨부파일 삭제 후 추가하는 방식
@@ -133,7 +133,7 @@ public class BoardServiceImpl implements BoardService {
     public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
 
         // 검색 조건에 대한 처리
-        String category = pageRequestDTO.getCategory();
+        String category = pageRequestDTO.getBCategory();
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
         Pageable pageable = pageRequestDTO.getPageable("id");

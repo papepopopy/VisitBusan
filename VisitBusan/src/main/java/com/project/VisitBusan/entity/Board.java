@@ -41,7 +41,8 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
 //    private int likeCount;
 
     // 데이터 수정하는 메서드
-    public void change(String title, String content) {
+    public void change(String category, String title, String content) {
+        this.category = category;
         this.title = title;
         this.content = content;
 

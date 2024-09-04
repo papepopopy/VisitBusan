@@ -26,7 +26,7 @@ public class PageRequestDTO {
 
     private String type;  // 검색 종류 = t,c,w,tc,tw, twc
     private String keyword;
-    private String category;
+    private String bCategory;
 
     // 키워드에 대한 type을 구분하여 배열구조로 반환
     public String[] getTypes() {
@@ -48,8 +48,8 @@ public class PageRequestDTO {
             builder.append("page="+this.page);
             builder.append("&size="+this.size);
 
-            if (category != null && category.length()>0)  // 카테고리 추가
-                builder.append("&category="+category);
+            if (bCategory != null && bCategory.length()>0)  // 카테고리 추가
+                builder.append("&bCategory="+bCategory);
 
             if (type != null && type.length()>0)  // 타입이 있으면 추가
                 builder.append("&type="+type);

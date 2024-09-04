@@ -16,19 +16,21 @@
 <body>
 <div class="container userCreate" layout:fragment="content">
     <div class="body">
+
         <div class="topBox">
-            <h1>여행공유</h1>
+            <h1>[[${pageRequestDTO.bCategory=='information'?'여행정보':pageRequestDTO.bCategory=='schedule'?'여행일정':'후기'}]]</h1>
         </div>
+
         <div class="postBox border rounded-4 mt-4 mx-auto py-3 px-5">
-            <form action="/board/userBoard/create" method="post">
+            <form action="/board/userBoard/create" th:action="|@{/board/}${menu}/create?${pageRequestDTO.getLink()}|" method="post">
                 <div class="topBox mt-4">
                     <!-- 카테고리 -->
                     <div class="categoryBox mt-3">
                         <select class="form-select" name="category">
                             <option>- 카테고리 선택 -</option>
-                            <option value="information" th:selected="${pageRequestDTO.category=='information'}">여행정보</option>
-                            <option value="schedule" th:selected="${pageRequestDTO.category=='schedule'}">여행일정</option>
-                            <option value="review" th:selected="${pageRequestDTO.category=='review'}">후기</option>
+                            <option value="information" th:selected="${pageRequestDTO.bCategory=='information'}">여행정보</option>
+                            <option value="schedule" th:selected="${pageRequestDTO.bCategory=='schedule'}">여행일정</option>
+                            <option value="review" th:selected="${pageRequestDTO.bCategory=='review'}">후기</option>
                         </select>
                     </div>
 
@@ -83,7 +85,7 @@
                 <!-- 하단 버튼 -->
                 <div class="buttonBox d-flex mt-3">
                     <div class="ms-auto">
-                        <a href="/board/information" th:href="|@{/board/userBoard/list}?${pageRequestDTO.getLink()}|" class="ms-auto">
+                        <a href="/board/information" th:href="|@{/board/}${menu}/list?${pageRequestDTO.getLink()}|" class="ms-auto">
                             <button type="button" class="form-control border d-inline cancelBtn">취소</button>
                         </a>
                     </div>

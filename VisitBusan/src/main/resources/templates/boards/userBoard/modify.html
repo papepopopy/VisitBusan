@@ -17,16 +17,18 @@
 <body>
 <div class="container userCreate" layout:fragment="content">
     <div class="body">
+
         <div class="topBox">
-            <h1>여행공유</h1>
+            <h1>[[${dto.category=='place'?'명소':dto.category=='food'?'음식':'숙박'}]]</h1>
         </div>
+
         <div class="postBox border rounded-4 mt-4 mx-auto py-3 px-5">
 
-            <form action="/board/userBoard/modify" th:action="|@{/board/userBoard/modify}?${pageRequestDTO.getLink()}|" method="post">
+            <form action="/board/userBoard/modify" th:action="|@{/board/}${menu}/modify?${pageRequestDTO.getLink()}|" method="post">
                 <div class="topBox mt-4">
                     <!-- 카테고리 -->
                     <div class="categoryBox mt-3">
-                        <select class="form-select" aria-readonly="true">
+                        <select class="form-select" name="category">
                             <option>- 카테고리 선택 -</option>
                             <option value="information" th:selected="${dto.category=='information'}">여행정보</option>
                             <option value="schedule" th:selected="${dto.category=='schedule'}">여행일정</option>
@@ -94,7 +96,7 @@
                 <!-- 하단 버튼 -->
                 <div class="buttonBox d-flex mt-3">
                     <div class="ms-auto">
-                        <a href="/board/information" th:href="|@{/board/userBoard/list}?${pageRequestDTO.getLink()}|" class="ms-auto">
+                        <a href="/board/userBoard/list" th:href="|@{/board/}${menu}/list?${pageRequestDTO.getLink()}|" class="ms-auto">
                             <button type="button" class="form-control border d-inline cancelBtn">취소</button>
                         </a>
                     </div>
