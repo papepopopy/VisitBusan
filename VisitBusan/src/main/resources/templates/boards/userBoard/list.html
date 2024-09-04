@@ -61,8 +61,8 @@
                     <a class="postTitle" th:text="${dto.title}" th:href="|@{/board/}${menu}/read?id=${dto.id}&${link}|" >여행과 힐링을 동시에, 부산 웰니스 관광지 선정(부산웰니스관광, 광안리, 숲, 명상, 스파)</a>
                     <ul class="postText">
                         <li>방문: <span th:text="${dto.viewCount}">1588</span></li>
-                        <li>댓글: <span>1</span></li>
-                        <li>좋아요: <span>8</span></li>
+                        <li>댓글: <span th:text="${dto.replyCount}">1</span></li>
+                        <li>좋아요: <span th:text="${dto.likeCount}">8</span></li>
                     </ul>
                     <div class="postDate" th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}">2024.08.22</div>
                 </div>
@@ -97,6 +97,9 @@
             </ul>
         </nav>
     </div>
+
+    <div>[[${responseDTO}]]</div>
+
 </div> <!-- end class="container" -->
 
 

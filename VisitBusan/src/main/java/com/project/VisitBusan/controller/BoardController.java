@@ -1,10 +1,9 @@
 package com.project.VisitBusan.controller;
 
 
-import com.project.VisitBusan.dto.BoardDTO;
-import com.project.VisitBusan.dto.PageRequestDTO;
-import com.project.VisitBusan.dto.PageResponseDTO;
+import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
+import com.project.VisitBusan.repository.BoardRepository;
 import com.project.VisitBusan.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +24,8 @@ public class BoardController {
 
     private final BoardService boardService;
 
+    private final BoardRepository boardRepository;
+
     // 카테고리
     // 관리자 게시판 :
     //  - 여행정보게시판(travelInfo) : 명소(place), 음식(food), 숙박(accommodation)
@@ -43,7 +44,15 @@ public class BoardController {
         // PageRequestDTO 객체 생성만 했을 경우 기본값 설정
 
         // 1-1. 게시글 댓글 개수 없는 List 조회
-        PageResponseDTO responseDTO = boardService.list(pageRequestDTO);
+//        PageResponseDTO responseDTO = boardService.list(pageRequestDTO);
+
+        // 1-2. 게시글 댓글 개수 있는 List 조회
+        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
+//        log.info("=> "+responseDTO);
+
+        // 1-3. 게시글 댓글 개수 있는 List 조회
+//        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
+//        log.info("=> "+responseDTO);
 
         model.addAttribute("responseDTO", responseDTO);
 
@@ -108,6 +117,8 @@ public class BoardController {
         BoardDTO boardDTO = boardService.readOne(id);
         model.addAttribute("dto",boardDTO);
         log.info("==> after service boardDTO: "+boardDTO);
+
+        boardService.viewCount(boardDTO);
 
         /*
         반환값을 void로 할 경우

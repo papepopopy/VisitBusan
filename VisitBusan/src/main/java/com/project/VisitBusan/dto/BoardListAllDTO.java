@@ -15,13 +15,17 @@ import java.util.List;
 public class BoardListAllDTO {
 
     private Long id;
+    private String category;
     private String title;
     private String writer;
     private String writerId;
     private LocalDateTime regDate;
+    private long viewCount;
 
-    //SELECT COUNT(*) FROM reply WHERE board_bno = 1 (게시글번호)
-    private Long replyCount;
+    //SELECT COUNT(*) FROM reply WHERE board_id = 1 (게시글번호)
+    private long replyCount;
+    private long likeCount;
+
 
     private List<BoardFileDTO> boardFiles;
 

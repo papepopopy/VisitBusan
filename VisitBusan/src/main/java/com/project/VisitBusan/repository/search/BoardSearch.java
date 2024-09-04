@@ -14,10 +14,10 @@ public interface BoardSearch {
     Page<Board> searchAll(String category, String[] types, String keyword, Pageable pageable);
 
     // 특정 게시글에 대한 댓글 개수 계산하는 인터페이스
-    Page<BoardListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable);
+    Page<BoardListReplyCountDTO> searchWithReplyCount(String category, String[] types, String keyword, Pageable pageable);
 
     // 게시글 조건 검색 조회
-    Page<BoardListAllDTO> searchWithAll (String[] types, String keyword, Pageable pageable);
+    Page<BoardListAllDTO> searchWithAll (String category, String[] types, String keyword, Pageable pageable);
 
 
 }

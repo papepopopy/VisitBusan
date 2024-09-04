@@ -16,7 +16,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity에 있는 변수 여기에 추가
-
+    
     @Id  // 기본키로 지정
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,7 +35,7 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
 
 //    @Column(name = "view_count")
     @ColumnDefault("0")  // 기본값 설정, null일 때 에러걸려서 설정.
-    private int viewCount;
+    private long viewCount; // Long으로 만들면 제대로 동작안함.
 
 //    @Column(name = "like_count")
 //    private int likeCount;
@@ -107,6 +107,10 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
     } // end clearImage
 
 } // end class
+
+// Long 과 long 차이
+// https://bluemoon-clover.tistory.com/129
+// DB에선 똑같이 BIGINT 하지만 자바에서 동작할 때 차이남.
 
 /*
  * 스프링 계층 구조

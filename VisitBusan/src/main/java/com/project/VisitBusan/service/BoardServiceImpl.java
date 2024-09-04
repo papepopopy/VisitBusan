@@ -42,7 +42,8 @@ public class BoardServiceImpl implements BoardService {
         //Board savedBoard = boardRepository.save(board);
 
         return id;
-    }
+
+    } // end register
 
     // 게시글 조회
     @Override
@@ -68,7 +69,7 @@ public class BoardServiceImpl implements BoardService {
 
         return boardDTO;
 
-    }
+    } // end readOne
 
     // 게시글 수정
     @Override
@@ -102,7 +103,7 @@ public class BoardServiceImpl implements BoardService {
 
         return modifiedBoard;  // 수정된 board
 
-    }
+    } //end modify
 
     // 게시글 삭제
     @Override
@@ -127,7 +128,7 @@ public class BoardServiceImpl implements BoardService {
         // 댓글 삭제 후 게시글 삭제
         boardRepository.deleteById(id);
 
-    }
+    } // end remove
 
     @Override
     public PageResponseDTO<BoardDTO> list(PageRequestDTO pageRequestDTO) {
@@ -160,18 +161,19 @@ public class BoardServiceImpl implements BoardService {
                 .total((int)result.getTotalElements())
                 .build();
 
-    }
+    } // end list
 
     @Override
     public PageResponseDTO<BoardListReplyCountDTO> listWithReplyCount(PageRequestDTO pageRequestDTO) {
 
         // 검색 조건에 대한 처리
+        String category = pageRequestDTO.getBCategory();
         String[] types = pageRequestDTO.getTypes();
         String keyword = pageRequestDTO.getKeyword();
         Pageable pageable = pageRequestDTO.getPageable("id");
 
         // 조건 검색 및 페이징한 결과값 가져오기
-        Page<BoardListReplyCountDTO> result = boardRepository.searchWithReplyCount(types, keyword, pageable);
+        Page<BoardListReplyCountDTO> result = boardRepository.searchWithReplyCount(category, types, keyword, pageable);
 
         // 매개변수로 전달받은 객체(pageRequestDTO)를 가지고 PageResponseDTO.Builder()를 통해
         // PageRequestDTO객체 생성되어 필요시 스프링이 필요시점에 주입 시켜줌(list에서 pageRequestDTO객체 사용가능함 )
@@ -181,18 +183,20 @@ public class BoardServiceImpl implements BoardService {
                 .total((int)result.getTotalElements())
                 .build();
 
-    }
+    } // end listWithReplyCount
 
     // 게시글의 이미지와 댓글의 숫자 처리기능 구현
     @Override
     public PageResponseDTO<BoardListAllDTO> listWithAll(PageRequestDTO pageRequestDTO) {
 
+        // 검색 조건에 대한 처리
+        String category = pageRequestDTO.getBCategory();
         String[] types = pageRequestDTO.getTypes();  // 검색 타입(글제목, 글내용, 작성자)
         String keyword = pageRequestDTO.getKeyword(); // 검색 키워드
         Pageable pageable = pageRequestDTO.getPageable("id");
 
         // BoardSearch 클래스로를 상속받은 boardRepository는 searchWithAll() 사용가능
-        Page<BoardListAllDTO> result = boardRepository.searchWithAll(types, keyword, pageable);
+        Page<BoardListAllDTO> result = boardRepository.searchWithAll(category, types, keyword, pageable);
 
         return PageResponseDTO.<BoardListAllDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)
@@ -200,6 +204,17 @@ public class BoardServiceImpl implements BoardService {
                 .total((int)result.getTotalElements())  // 이거 잘 설정해줘야함. 잘못하면 계산 어긋남
                 .build();
 
-    }
+    } // end listWithAll()
 
-}
+    @Override
+    public void viewCount(BoardDTO boardDTO) {
+
+        boardDTO.setViewCount(boardDTO.getViewCount()+1L);
+
+        Board board = this.dtoToEntity(boardDTO);
+
+        boardRepository.save(board);
+
+    } // end viewCount()
+
+} // end class

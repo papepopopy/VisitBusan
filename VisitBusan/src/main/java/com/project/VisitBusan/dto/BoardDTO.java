@@ -36,7 +36,7 @@ public class BoardDTO {
     @NotEmpty
     private String writerId;
 
-    private int viewCount;
+    private long viewCount;
 
     private LocalDateTime regDate;
     private LocalDateTime modDate;

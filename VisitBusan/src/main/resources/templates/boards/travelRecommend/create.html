@@ -18,7 +18,7 @@
     <div class="body">
 
         <div class="topBox">
-            <h1>[[${pageRequestDTO.bCategory=='information'?'여행정보':pageRequestDTO.bCategory=='schedule'?'여행일정':'후기'}]]</h1>
+            <h1>[[${pageRequestDTO.bCategory=='scheduledTravel'?'일정여행':'테마여행'}]]</h1>
         </div>
 
         <div class="postBox border rounded-4 mt-4 mx-auto py-3 px-5">
@@ -28,9 +28,8 @@
                     <div class="categoryBox mt-3">
                         <select class="form-select" name="category">
                             <option>- 카테고리 선택 -</option>
-                            <option value="information" th:selected="${pageRequestDTO.bCategory=='information'}">여행정보</option>
-                            <option value="schedule" th:selected="${pageRequestDTO.bCategory=='schedule'}">여행일정</option>
-                            <option value="review" th:selected="${pageRequestDTO.bCategory=='review'}">후기</option>
+                            <option value="scheduledTravel" th:selected="${pageRequestDTO.bCategory=='scheduledTravel'}">일정여행</option>
+                            <option value="themeTravel" th:selected="${pageRequestDTO.bCategory=='themeTravel'}">테마여행</option>
                         </select>
                     </div>
 

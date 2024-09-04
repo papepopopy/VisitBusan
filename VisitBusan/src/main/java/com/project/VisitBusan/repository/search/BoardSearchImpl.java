@@ -5,6 +5,7 @@ import com.project.VisitBusan.dto.BoardListAllDTO;
 import com.project.VisitBusan.dto.BoardListReplyCountDTO;
 import com.project.VisitBusan.entity.Board;
 import com.project.VisitBusan.entity.QBoard;
+import com.project.VisitBusan.entity.QBoardLike;
 import com.project.VisitBusan.entity.QReply;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
@@ -118,14 +119,14 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                 } // end for
 
 
-            } // end if
+            } // end if type
 
             // 카테고리 조건 추가
             booleanBuilder.and(board.category.contains(category));
 
             query3.where(booleanBuilder);
 
-        }
+        } // end if category
 
         // paging 추가
         this.getQuerydsl().applyPagination(pageable, query3);
@@ -140,9 +141,10 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
     // 특정 게시글에 대한 댓글 개수 계산하는 인터페이스 구현
     @Override
-    public Page<BoardListReplyCountDTO> searchWithReplyCount(String[] types, String keyword, Pageable pageable) {
+    public Page<BoardListReplyCountDTO> searchWithReplyCount(String category, String[] types, String keyword, Pageable pageable) {
         QBoard board = QBoard.board;
         QReply reply = QReply.reply;
+        QBoardLike boardLike = QBoardLike.boardLike;
 
         // 1. query 작성
         JPQLQuery<Board> query = from(board);
@@ -153,24 +155,35 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         query.groupBy(board);  // group by board.id
 
         // 조건문 추가
-        if ((types != null && types.length>0) && keyword != null) {  // 검색 키워드가 있으면
+        if(category != null) {
+
             // 조건문을 작성하는 클래스
             BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-            for (String type : types) {
-                switch (type) {
-                    case "t":
-                        booleanBuilder.or(board.title.contains(keyword)); break;
-                    case "c":
-                        booleanBuilder.or(board.content.contains(keyword)); break;
-                    case "w":
-                        booleanBuilder.or(board.writer.contains(keyword)); break;
-                }
-            } // end for
+            if ((types != null && types.length > 0) && keyword != null) {  // 검색 키워드가 있으면
+
+                for (String type : types) {
+                    switch (type) {
+                        case "t":
+                            booleanBuilder.or(board.title.contains(keyword));
+                            break;
+                        case "c":
+                            booleanBuilder.or(board.content.contains(keyword));
+                            break;
+                        case "w":
+                            booleanBuilder.or(board.writer.contains(keyword));
+                            break;
+                    }
+                } // end for
+
+            } // end if type
+
+            // 카테고리 조건 추가
+            booleanBuilder.and(board.category.contains(category));
 
             query.where(booleanBuilder);
 
-        } // end if
+        } // end if category
 
         // id > 0 : board테이블에 자료가 존재하면
         query.where(board.id.gt(0L));  // gt(값): greater than 값
@@ -181,12 +194,16 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                         BoardListReplyCountDTO.class,  // DTO 타입 선언
 
                         board.id,
+                        board.category,
                         board.title,
                         board.writer,
+                        board.writerId,
                         board.regDate,
+                        board.viewCount,
 
                         // reply테이블에서 그룹핑 기준으로 reply개수 계산
                         reply.count().as("replyCount")
+//                        boardLike.count().as("boardLikeCount")
 
                 ));
 
@@ -204,7 +221,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
     // 게시물 조건 검색 조회 구현
     @Override
-    public Page<BoardListAllDTO> searchWithAll(String[] types, String keyword, Pageable pageable) {
+    public Page<BoardListAllDTO> searchWithAll(String category, String[] types, String keyword, Pageable pageable) {
 
         QBoard board = QBoard.board;
         QReply reply = QReply.reply;
@@ -214,23 +231,32 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         boardJPQLQuery.leftJoin(reply).on(reply.board.eq(board));  // left join => p댓글 기준으로 게시글 조인
 
         // 5. 조건문 추가 : where 문 작성
-        if ( (types != null && types.length > 0) && keyword != null){// 검색 키워드가 있으면
+        if(category != null) {
+
             //  BooleanBuilder: 조건문을 작성하는 클래스
             BooleanBuilder booleanBuilder = new BooleanBuilder();
 
-            for (String type : types){
-                switch (type){
-                    case "t":
-                        booleanBuilder.or(board.title.contains(keyword));break;
-                    case "c":
-                        booleanBuilder.or(board.content.contains(keyword));break;
-                    case "w":
-                        booleanBuilder.or(board.writer.contains(keyword));break;
-                }
-            } // end for
+            if ( (types != null && types.length > 0) && keyword != null){// 검색 키워드가 있으면
+
+                for (String type : types){
+                    switch (type){
+                        case "t":
+                            booleanBuilder.or(board.title.contains(keyword));break;
+                        case "c":
+                            booleanBuilder.or(board.content.contains(keyword));break;
+                        case "w":
+                            booleanBuilder.or(board.writer.contains(keyword));break;
+                    }
+                } // end for
+
+            } // end if type
+
+            // 카테고리 조건 추가
+            booleanBuilder.and(board.category.contains(category));
 
             boardJPQLQuery.where(booleanBuilder);
-        }// end if
+
+        } // end if category
 
         // 1.1 게시글번호를 기준으로 그룹핑 처리
         boardJPQLQuery.groupBy(board);
@@ -262,17 +288,19 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 //            Board board1 = (Board) tuple.get(board);  // 둘 다 됨
             Board board1 = tuple.get(0, Board.class);
 
-//            long replyCount = (Long) tuple.get(reply.countDistinct());  // 둘 다 됨
-            long replyCount = tuple.get(1, Long.class);  // 필드명 없는 관계로 컬럼의 위치 및 타입설정
+//            long replyCount = (long) tuple.get(reply.countDistinct());  // 둘 다 됨
+            long replyCount = tuple.get(1, long.class);  // 필드명 없는 관계로 컬럼의 위치 및 타입설정
 
             // boardListAllDTO 객체 생성하여 관련 entity 정보 저장
             BoardListAllDTO boardListAllDTO = BoardListAllDTO.builder()
                     // 1. board Entity -> board DTO
                     .id(board1.getId())
+                    .category(board1.getCategory())
                     .title(board1.getTitle())
                     .writer(board1.getWriter())
                     .writerId(board1.getWriterId())
                     .regDate(board1.getRegDate())
+                    .viewCount(board1.getViewCount())
                     .replyCount(replyCount)  // 2. reply count -> replyCount DTO
                     .build();
 
