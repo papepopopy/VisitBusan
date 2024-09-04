@@ -3,14 +3,18 @@ package com.project.VisitBusan.service;
 import com.project.VisitBusan.dto.AuthMemberDTO;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.repository.MemberRepository;
+import groovy.lang.Lazy;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,6 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     private final MemberRepository memberRepository;
 //    private final PasswordEncoder passwordEncoder;  // 자동 로그인 설정할 때 이거 때문에 에러남
 
+    @Transactional
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         log.info("==> loadUserByUsername: "+username);
@@ -33,13 +38,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 //                .build();
 
         // Member Entity(DB)에 있는 정보를 기준으로 Authentication 처리
-        Member member = memberRepository.findByEmail(username);  // 회원 검색
-
-        if (member == null) {  // 미가입 회원일 경우
-            throw new UsernameNotFoundException(username);
-        }
-
-
+        Optional<Member> result = memberRepository.findByUserId(username);  // 회원 검색
+        //예외 발생
+//        if (member == null) {  // 미가입 회원일 경우 / Optional 이므로 코드 변경
+//            throw new UsernameNotFoundException(username);
+//        }
+        Member member = result.orElseThrow(() -> new UsernameNotFoundException(username));
+        log.info("==> Member info: " + member);
         // 2. security 자체적으로 제공하는 User객체 사용
         // security 자체적으로 제공하는 user객체는 username, password, authorities 값 밖에 저장 못 함
 
@@ -62,8 +67,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         // Db에 있는 회원정보를 User객체로부터 상속받은 AuthMemberDTO 객체에 정보를 저장한 후
         // UserDetails 객체 생성
         // 확인필요 ** 위에 먼가 한거 같은데 모르겠네
-
-        log.info("==> Member info: "+member);
 
         AuthMemberDTO authMemberDTO = new AuthMemberDTO(
                 member.getName(),

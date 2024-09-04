@@ -18,7 +18,7 @@ public class AuthMemberDTO extends User {
     private String userId;
     private String name;
     private String email;
-    //    private String password;  // 부모 요소에 있는 password필드는 그대로 사용
+//        private String password;  // 부모 요소에 있는 password필드는 그대로 사용
     private String address;
 
     // <? extends GrantedAuthority>  GrantedAuthority를 상속받은 모은 하위요소
@@ -29,7 +29,7 @@ public class AuthMemberDTO extends User {
                            String address,     // member.getAddress()
 
                            // 기본적으로 필요한 값
-                           String username,    // member.getEmail()
+                           String username,    // member.getId()
                            String password,    // member.getPassword()
                            Collection<? extends GrantedAuthority> authorities  // member.getRoleSet()
     ) {

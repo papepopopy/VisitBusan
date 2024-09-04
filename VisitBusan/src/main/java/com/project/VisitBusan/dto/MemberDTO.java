@@ -29,6 +29,7 @@ public class MemberDTO {
 
     // 사용자 정의 User 객체(AuthMemberDTO) 생성해서 사용
     // Role data 임시 저장 용
-    //private Role role;
+    private Role role;
+
 
 }

@@ -37,10 +37,9 @@ public class Member {
               orphanRemoval = true)  // 고아객체 발생시 자동 삭제
     private ProfileImage profileImage;
 
-
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
-    private Set<Role> roleSet = new HashSet<>();
+    private Set<Role> roleSet = new HashSet<>(); //사용자 권한
 
     // 비밀번호 변경
     public void changePassword(String password) {
@@ -72,8 +71,10 @@ public class Member {
         // 비밀번호 -> 암호화 작업
         String password = passwordEncoder.encode(memberDTO.getPassword());
         member.setPassword(password);
-        // member.setRole(Role.USER); // Set<Role> 사용전전
-        member.addRole(Role.USER);    // Set<Role> 사용후
+
+        //권한 설정
+        // member.setRole(Role.USER); // Set<Role> 사용전
+         member.addRole(Role.USER);    // Set<Role> 사용후
 
         return member;
     }

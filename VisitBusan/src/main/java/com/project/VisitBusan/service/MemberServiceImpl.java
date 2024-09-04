@@ -8,6 +8,9 @@ import com.project.VisitBusan.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.Hibernate;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +30,7 @@ public class MemberServiceImpl implements MemberService {
         // 1. dto -> entity: Member Entity createMember() 메서드 활용
         Member member = Member.createMember(memberDTO, passwordEncoder);
 
-        // 2. dto -> entity: MeberService 인터페이스 활용
+        // 2. dto -> entity: MemberService 인터페이스 활용
         //Member member = dtoToEntity(memberDTO);
 
         // 회원 중복 체크(email 기준) 메서드 호출
@@ -55,5 +58,19 @@ public class MemberServiceImpl implements MemberService {
             log.info("이미 가입된 ID 입니다."+ member.getUserId());
             throw new DuplicateUserIdException("이미 사용 중인 ID 입니다.");
         }
+    }
+
+    //로그인
+    public Member login(String userId, String password) {
+        Optional<Member> optionalMember = memberRepository.findByUserId(userId);
+
+        if(optionalMember.isPresent()) {
+            //작성한 ID와 PW 일치시 로그인
+            Member member = optionalMember.get();
+            if (passwordEncoder.matches(password, member.getPassword())) {
+                return member;
+            }
+        }
+        return null;
     }
 }
