@@ -2,8 +2,8 @@ package com.project.VisitBusan.service;
 
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
-import com.project.VisitBusan.entity.Reply;
 import com.project.VisitBusan.repository.BoardRepository;
+import com.project.VisitBusan.repository.ReplyRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,7 +25,7 @@ public class BoardServiceImpl implements BoardService {
     // @RequiredArgsConstructor + final 변수 == @Autowired된 변수랑 똑같음
     private final ModelMapper modelMapper;
     private final BoardRepository boardRepository;
-    private final BoardRepository replyRepository;
+    private final ReplyRepository replyRepository;
 
     // 게시글 등록
     @Override
@@ -114,7 +114,7 @@ public class BoardServiceImpl implements BoardService {
         // 댓글이 있는 경우 댓글 삭제 후 게시글을 삭제 해야함.
 
         // 1. 댓글 그냥 삭제 (체크 안해도 상관없음)
-//        replyRepository.deleteByBoard_id(id);
+        replyRepository.deleteByBoard_id(id);
 
         // 2. 댓글이 있는지 체크 후 댓글 삭제
 //        List<Reply> replies = replyRepository.findByBoard_id(id);

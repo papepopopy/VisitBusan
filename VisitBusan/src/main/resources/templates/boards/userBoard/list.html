@@ -22,8 +22,20 @@
                 <li class="Btn3">#축제</li>
                 <li class="Btn4">#마켓</li>
             </ul>
-            <form action="/board/userBoard/list" th:action="|@{/board/}${menu}/list?${pageRequestDTO.getLink()}|" method="get" role="search" class="search searchForm">
-                <input class="form-control" type="search" name="q" placeholder="Search" aria-label="Search">
+            <form action="/board/userBoard/list" th:action="|@{/board/}${menu}/list|" method="get" role="search" class="search searchForm">
+                <input type="hidden" name="bCategory" th:value="${pageRequestDTO.getBCategory()}">
+                <div class="input-group-prepend">
+                    <select hidden class="form-select" name="type">
+                        <option value="">-----</option>
+                        <option value="t">제목</option>
+                        <option value="c">내용</option>
+                        <option value="w">작성자</option>
+                        <option value="tc" selected>제목+내용</option>
+                        <option value="tcw">제목+내용+작성자</option>
+                    </select>
+                </div>
+                <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search"
+                       th:value="${pageRequestDTO.keyword}">
                 <button class="btn btn-light" type="submit">Search</button>
             </form>
         </div>
@@ -123,7 +135,6 @@
         const formObj = document.querySelector('.searchForm');
 
         formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
-        formObj.innerHTML += "<input type='hidden' name='bCategory' value='"+[[${pageRequestDTO.getBCategory}]]+"'>"
         formObj.submit();  // 전송
 
         // location.href="/board/list?page="+num  // 클릭한 페이지 번호

@@ -47,7 +47,7 @@ class BoardRepositoryTest {
 //        });
 
         // 2. 이미지 포함 더미 생성
-        IntStream.rangeClosed(1,10).forEach(i-> {
+        IntStream.rangeClosed(1,20).forEach(i-> {
             Board board = Board.builder()
                     .category("information")
                     .title("title"+i)

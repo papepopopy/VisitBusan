@@ -115,4 +115,6 @@ VALUES
 SHOW COLUMNS FROM reply;
 SELECT * FROM reply;
 
+-- INSERT INTO reply(board_id,reply_text,replier,replier_id,reg_date,mod_date)VALUES(63,'reply_text1','user','user',SYSDATE(),SYSDATE());
+
 
