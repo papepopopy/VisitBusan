@@ -41,13 +41,11 @@ header {
     display: flex;
     justify-content: space-between;
 }
-.header-box .logo-box {
-    background-color: #38aed6;
-}
 .header-box .logo-box a {
     text-align: center;
     padding: 25px 20px;
     display: inline-block;
+    background-color: #38aed6;
 }
 
 .header-box .menu-box {
@@ -225,10 +223,6 @@ header {
 
 }
 @media (min-width: 1200px) {
-    .header-box {
-        max-width:1140px;
-    }
-
     /*===================== 새로 수정 =====================*/
 
     /* header */
@@ -237,7 +231,8 @@ header {
         justify-content: center;
     }
     .header-box {
-        position: relative;
+        max-width:1140px;
+        position: fixed;
         height: 130px;
         overflow: hidden;
         top: 0;
@@ -265,7 +260,7 @@ header {
     }
     .header-box .menu-list>li {
         padding: 50px 0;
-        font-size: 22px;
+        font-size: 20px;
         font-weight: 500;
     }
 
@@ -277,7 +272,7 @@ header {
 
     /*로고*/
     .header-box .logo-box img {
-        width: 80px;
+        width: 70px;
     }
     .header-box .logo-box {
         z-index: 10;
@@ -288,7 +283,6 @@ header {
         display: inline-block;
         background-color: #38aed6;
     }
-
     /*서브 메뉴*/
     .sub-menu01 {
         transition-duration: .3s;
@@ -342,6 +336,7 @@ header {
         -webkit-backdrop-filter: blur(50px);
         backdrop-filter: blur(50px)
     }
+
     .header-box:hover .menu-list li a, .header-box:hover .link-box li a {
         color: #fff;
         display: block;
@@ -389,6 +384,29 @@ header {
         display: none;
     }
 
+    /*스크롤시*/
+    .header-box.scroll {
+        height: 70px;
+    }
+    .header-box.scroll .menu-list>li {
+        padding: 20px 0;
+    }
+    .header-box.scroll .menu-list>li>a {
+        color: #fff;
+    }
+    .header-box.scroll .link-box>li {
+        padding: 22px 0;
+    }
+    .header-box.scroll .link-box>li>a {
+        color: #fff;
+    }
+    .header-box.scroll .logo-box a {
+        background : transparent;
+        padding: 10px 30px;
+    }
+    .header-box.scroll:hover {
+        height: 130px;
+    }
 }
 
 @media (min-width: 1400px) {

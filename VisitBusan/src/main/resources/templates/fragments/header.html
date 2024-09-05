@@ -99,6 +99,15 @@
                     menuBox.classList.remove("active");
                 }
             })
+
+            $(window).scroll(function() {
+                var winScr = $(window).scrollTop();
+                if(winScr > 130) {
+                    $(".header-box").addClass("scroll");
+                } else if(winScr <= 130) {
+                    $(".header-box").removeClass("scroll");
+                }
+            })
         </script>
     </div>
 </header>
