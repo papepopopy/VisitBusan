@@ -52,7 +52,9 @@ header {
     z-index: 10;
     position: relative;
 }
-
+.header-box.scroll .logo-box a {
+    background-color: transparent;
+}
 .header-box .menu-box {
     display: none;
 }
@@ -242,7 +244,7 @@ header {
     transition: all .2s ease;
     position: fixed;
     display: block;
-    background: #38aed6;
+    background: #009bd0bd;
     -webkit-backdrop-filter: blur(50px);
     backdrop-filter: blur(50px);
 }
