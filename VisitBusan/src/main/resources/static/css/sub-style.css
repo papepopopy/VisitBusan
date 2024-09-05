@@ -6,7 +6,7 @@
     font-family: 'NotoSansKR';
     font-style: normal;
     font-weight: 400;
-    src: url('/TeamProject/assets/fonts/NotoSansKR-Regular.ttf') format('truetype');
+    src: url('/fonts/NotoSansKR-Regular.ttf') format('truetype');
     letter-spacing: -0.003em;
 }
 * {
@@ -62,7 +62,7 @@ h4 {
 
 /* 공통 스타일 */
 .container {
-    padding: 50px 0;
+    padding: 150px 0 80px 0;
 }
 /* 카테고리 */
 .with-4 {

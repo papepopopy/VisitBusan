@@ -125,13 +125,11 @@ public class MemberController {
     //----------------------- //
     // 마이페이지
     //----------------------- //
-    @GetMapping(value="/myPage")
-    public String memberMyPageForm(Model model){
-        // 데이터가 없는 memberDTO생성 : form에 입력한 데이터와 1:1 맵핑
-        model.addAttribute("memberDTO", new MemberDTO());
+    @GetMapping(value="/mypage")
+    public String memberMyPageForm(){
 
         // 포워딩: 뷰리졸브
-        return "members/signUp";
+        return "members/myPage";
     }
     //----------------------- //
     // 회원정보 수정
