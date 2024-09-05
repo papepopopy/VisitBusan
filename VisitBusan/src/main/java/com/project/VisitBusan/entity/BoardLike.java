@@ -1,8 +1,7 @@
 package com.project.VisitBusan.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -10,6 +9,10 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @Setter
+@ToString
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class BoardLike {
 
     @Id  // 기본키로 지정
@@ -20,9 +23,8 @@ public class BoardLike {
     @JoinColumn(name="board_id")
     private Board board;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="member_id")
-    private Member member;
+    @Column(name="user_id")
+    private String userId;
 
     @CreatedDate
     @Column(name="reg_date", updatable=false)

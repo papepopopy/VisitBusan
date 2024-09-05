@@ -24,7 +24,7 @@ public class BoardListAllDTO {
 
     //SELECT COUNT(*) FROM reply WHERE board_id = 1 (게시글번호)
     private long replyCount;
-    private long likeCount;
+    private long boardLikeCount;
 
 
     private List<BoardFileDTO> boardFiles;

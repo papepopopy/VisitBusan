@@ -26,7 +26,7 @@ public class PageRequestDTO {
 
     private String type;  // 검색 종류 = t,c,w,tc,tw, twc
     private String keyword;
-    private String bCategory;
+    private String bCategory;  // 카테고리 = information, schedule, review, festival ...
 
     // 키워드에 대한 type을 구분하여 배열구조로 반환
     public String[] getTypes() {

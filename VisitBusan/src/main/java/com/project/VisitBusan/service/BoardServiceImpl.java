@@ -2,7 +2,10 @@ package com.project.VisitBusan.service;
 
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
+import com.project.VisitBusan.entity.ReplyLike;
+import com.project.VisitBusan.repository.BoardLikeRepository;
 import com.project.VisitBusan.repository.BoardRepository;
+import com.project.VisitBusan.repository.ReplyLikeRepository;
 import com.project.VisitBusan.repository.ReplyRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -26,6 +29,8 @@ public class BoardServiceImpl implements BoardService {
     private final ModelMapper modelMapper;
     private final BoardRepository boardRepository;
     private final ReplyRepository replyRepository;
+    private final BoardLikeRepository boardLikeRepository;
+    private final ReplyLikeRepository replyLikeRepository;
 
     // 게시글 등록
     @Override
@@ -216,5 +221,9 @@ public class BoardServiceImpl implements BoardService {
         boardRepository.save(board);
 
     } // end viewCount()
+
+    @Override
+    public void baordLikeCount(Long board_id) {
+    }
 
 } // end class

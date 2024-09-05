@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -226,12 +227,12 @@ public class CustomSecurityConfig {
     개발 환경이나 운영 환경에서는 spring.h2.console.enabled를 사용하지 않거나 false로 설정 할 겨우
     해당 빈이 생성되지 않아 h2에 대한 흔적을 지울 수 있다.
     */
-//    @Bean
-//    @ConditionalOnProperty(name = "spring.h2.console.enabled",havingValue = "true")
-//    public WebSecurityCustomizer configureH2ConsoleEnable() {
-//        return web -> web.ignoring()
-//                .requestMatchers(PathRequest.toH2Console());
-//    }
+    @Bean
+    @ConditionalOnProperty(name = "spring.h2.console.enabled",havingValue = "true")
+    public WebSecurityCustomizer configureH2ConsoleEnable() {
+        return web -> web.ignoring()
+                .requestMatchers(PathRequest.toH2Console());
+    }
 
 }
 
