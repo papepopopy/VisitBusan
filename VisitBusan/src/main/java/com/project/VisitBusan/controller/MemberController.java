@@ -11,6 +11,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +30,9 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberServiceImpl memberServiceImpl;
     private final PasswordEncoder passwordEncoder;
-
+    //----------------------- //
+    // 회원가입
+    //----------------------- //
     // 회원 등록: GET, POST
     @GetMapping(value="/signup")
     public String memberRegisterForm(Model model){
@@ -119,12 +122,22 @@ public class MemberController {
 
 //        return response;
     }
+    //----------------------- //
+    // 마이페이지
+    //----------------------- //
+    @GetMapping(value="/myPage")
+    public String memberMyPageForm(Model model){
+        // 데이터가 없는 memberDTO생성 : form에 입력한 데이터와 1:1 맵핑
+        model.addAttribute("memberDTO", new MemberDTO());
 
+        // 포워딩: 뷰리졸브
+        return "members/signUp";
+    }
     //----------------------- //
     // 회원정보 수정
     //----------------------- //
     // 1. 회원정보 들고오기
-    //@PreAuthorize("principal.email == #boardDTO.email") 정보일치 서비스 필요없을듯..히히 혹시나 넣음
+//    @PreAuthorize("principal.email == #boardDTO.email") //정보일치 서비스 필요없을듯..히히 혹시나 넣음
 //    @GetMapping("/modify")
 //    public String showModifyForm(@Valid BoardDTO boardDTO
 //                                 BindingResult bindingResult,
