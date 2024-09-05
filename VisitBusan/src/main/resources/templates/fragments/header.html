@@ -6,91 +6,101 @@
 <body>
 <!-- header -->
 <header class="header-inner" th:fragment="header-inner">
-    <div class="logo-box">
-        <a th:href="@{/}" class="logo">
-            <img th:src="@{/images/mainpage/header_logo.png}" alt="로고이미지">
-        </a>
-    </div>
-    <div class="menu_open">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-
-    <!-- <div class="menu-box active"> -->
-    <div class="menu-box">
-        <div class="menu-btn">
-            <div class="menu_close">
-                <span></span>
-                <span></span>
-            </div>
+    <div class="header-box">
+        <div class="logo-box">
+            <a th:href="@{/}" class="logo">
+                <img th:src="@{/images/mainpage/header_logo.png}" alt="로고이미지">
+            </a>
         </div>
-        <ul class="menu-list">
-            <li><a th:href="@{/board/travelInfo/list?bCategory=place}">부산에 가면</a>
-                <ul class="sub-menu01">
-                    <li><a th:href="@{/board/travelInfo/list?bCategory=place}">명소</a></li>
-                    <li><a th:href="@{/board/travelInfo/list?bCategory=food}">음식</a></li>
-                    <li><a th:href="@{/board/travelInfo/list?bCategory=accommodation}">숙박</a></li>
-                </ul>
-            </li>
-            <li><a th:href="@{/board/travelRecommend/list?bCategory=scheduledTravel}">추천여행</a>
-                <ul class="sub-menu01">
-                    <li><a th:href="@{/board/travelRecommend/list?bCategory=scheduledTravel}">일정여행</a></li>
-                    <li><a th:href="@{/board/travelRecommend/list?bCategory=themeTravel}">테마여행</a></li>
-                    <!--<li><a th:href="@{/boards/}">미식투어</a></li>-->
-                </ul>
-            </li>
-            <li>
-                <a th:href="@{/board/travelGuide/list?bCategory=preparation}">여행준비</a>
-                <ul class="sub-menu01">
-                    <li><a th:href="@{/board/travelGuide/list?bCategory=preparation}">여행준비정보</a></li>
-                    <li><a th:href="@{/board/travelGuide/list?bCategory=guide}">가이드북</a></li>
-                </ul>
-            </li>
-            <li>
-                <a th:href="@{/board/userBoard/list?bCategory=information}">여행공유</a>
-                <ul class="sub-menu01">
-                    <li><a th:href="@{/board/userBoard/list?bCategory=information}">여행정보</a></li>
-                    <li><a th:href="@{/board/userBoard/list?bCategory=schedule}">여행일정</a></li>
-                    <li><a th:href="@{/board/userBoard/list?bCategory=review}">리뷰</a></li>
-                </ul>
-            </li>
-            <li>
-                <a th:href="@{/board/festivalBoard/list?bCategory=festival}">페스티벌</a>
-                <ul class="sub-menu01">
-                    <li><a th:href="@{/board/festivalBoard/list?bCategory=performance}">공연전시</a></li>
-                    <li><a th:href="@{/board/festivalBoard/list?bCategory=festival}">축제행사</a></li>
-                </ul>
-            </li>
-        </ul>
-        <ul class="link-box">
-            <li><a th:href="@{/login}">로그인</a></li>
-            <li><a th:href="@{/mypage}">마이페이지</a></li>
-            <li><a th:href="@{/admin}">관리자</a></li>
-            <li><a th:href="@{/signup}">회원가입</a></li>
-        </ul>
+        <div class="menu_open">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- <div class="menu-box active"> -->
+        <div class="menu-box">
+            <div class="menu-btn">
+                <div class="menu_close">
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+            <ul class="menu-list">
+                <li><a th:href="@{/board/travelInfo/list?bCategory=place}">부산에 가면</a>
+                    <ul class="sub-menu01">
+                        <li><a th:href="@{/board/travelInfo/list?bCategory=place}">명소</a></li>
+                        <li><a th:href="@{/board/travelInfo/list?bCategory=food}">음식</a></li>
+                        <li><a th:href="@{/board/travelInfo/list?bCategory=accommodation}">숙박</a></li>
+                    </ul>
+                </li>
+                <li><a th:href="@{/board/travelRecommend/list?bCategory=scheduledTravel}">추천여행</a>
+                    <ul class="sub-menu01">
+                        <li><a th:href="@{/board/travelRecommend/list?bCategory=scheduledTravel}">일정여행</a></li>
+                        <li><a th:href="@{/board/travelRecommend/list?bCategory=themeTravel}">테마여행</a></li>
+                        <!--<li><a th:href="@{/boards/}">미식투어</a></li>-->
+                    </ul>
+                </li>
+                <li>
+                    <a th:href="@{/board/travelGuide/list?bCategory=preparation}">여행준비</a>
+                    <ul class="sub-menu01">
+                        <li><a th:href="@{/board/travelGuide/list?bCategory=preparation}">여행준비정보</a></li>
+                        <li><a th:href="@{/board/travelGuide/list?bCategory=guide}">가이드북</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a th:href="@{/board/userBoard/list?bCategory=information}">여행공유</a>
+                    <ul class="sub-menu01">
+                        <li><a th:href="@{/board/userBoard/list?bCategory=information}">여행정보</a></li>
+                        <li><a th:href="@{/board/userBoard/list?bCategory=schedule}">여행일정</a></li>
+                        <li><a th:href="@{/board/userBoard/list?bCategory=review}">리뷰</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a th:href="@{/board/festivalBoard/list?bCategory=festival}">페스티벌</a>
+                    <ul class="sub-menu01">
+                        <li><a th:href="@{/board/festivalBoard/list?bCategory=performance}">공연전시</a></li>
+                        <li><a th:href="@{/board/festivalBoard/list?bCategory=festival}">축제행사</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="link-box">
+                <li><a th:href="@{/login}">로그인</a></li>
+                <li><a th:href="@{/mypage}">마이페이지</a></li>
+                <li><a th:href="@{/admin}">관리자</a></li>
+                <li><a th:href="@{/signup}">회원가입</a></li>
+            </ul>
+        </div>
+        <style th:inline="css">
+        </style>
+        <script th:inline="javascript">
+            //메뉴 반응형
+            const menuBox = document.querySelector(".menu-box");
+            //열기
+            document.querySelector('.menu_open').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                menuBox.classList.add("active");
+            });
+            //닫기
+            document.querySelector('.menu_close').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                menuBox.classList.remove("active");
+            });
+
+            //1200이상 자동 닫기
+            $(window).resize(function() {
+                var innerWidth = window.outerWidth;
+
+                if(innerWidth >= 1200) {
+                    menuBox.classList.remove("active");
+                }
+            })
+        </script>
     </div>
-<style layout:fragment="mystyle" th:inline="css">
-</style>
-
-<script th:inline="javascript">
-    //메뉴 반응형
-    const menuBox = document.querySelector(".menu-box");
-    //열기
-    document.querySelector('.menu_open').addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        menuBox.classList.add("active");
-    });
-    //닫기
-    document.querySelector('.menu_close').addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        menuBox.classList.remove("active");
-    });
-</script>
 </header>
 <!-- /header -->
 </body>
