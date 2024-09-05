@@ -1,4 +1,4 @@
-/*===================== 반응형 수정 =====================*/
+/*===================== ë°˜ì‘í˜• ìˆ˜ì • =====================*/
 
 /* header */
 
@@ -112,9 +112,9 @@ header {
     position: absolute;
 }
 
-/*===================== 반응형 수정 =====================*/
+/*===================== ë°˜ì‘í˜• ìˆ˜ì • =====================*/
 
-/*메뉴 오픈 버튼*/
+/*ë©”ë‰´ ì˜¤í”ˆ ë²„íŠ¼*/
 .header-box .menu_open {
     display: block;
     position: absolute;
@@ -136,7 +136,7 @@ header {
     justify-content: flex-end;
 }
 
-/*메뉴 닫기 버튼*/
+/*ë©”ë‰´ ë‹«ê¸° ë²„íŠ¼*/
 .header-box .menu_close {
     display: block;
     width: 30px;
@@ -160,7 +160,7 @@ header {
     position: absolute;
 }
 
-/* 메뉴 active 상태 */
+/* ë©”ë‰´ active ìƒíƒœ */
 .header-inner .menu-box.active {
     display: block;
     position: fixed;
@@ -223,7 +223,7 @@ header {
 
 }
 @media (min-width: 1200px) {
-    /*===================== 새로 수정 =====================*/
+    /*===================== ìƒˆë¡œ ìˆ˜ì • =====================*/
 
     /* header */
     .header-inner {
@@ -270,7 +270,7 @@ header {
     }
 
 
-    /*로고*/
+    /*ë¡œê³ */
     .header-box .logo-box img {
         width: 70px;
     }
@@ -283,7 +283,7 @@ header {
         display: inline-block;
         background-color: #38aed6;
     }
-    /*서브 메뉴*/
+    /*ì„œë¸Œ ë©”ë‰´*/
     .sub-menu01 {
         transition-duration: .3s;
         width: 100%;
@@ -314,7 +314,7 @@ header {
     }
 
 
-    /*선택 시*/
+    /*ì„ íƒ ì‹œ*/
     .header-box:hover {
         height: 346px
     }
@@ -342,12 +342,12 @@ header {
         display: block;
     }
 
-    /*로고*/
+    /*ë¡œê³ */
     .header-box:hover .logo-box a {
         background : transparent;
     }
 
-    /*로그인 메뉴*/
+    /*ë¡œê·¸ì¸ ë©”ë‰´*/
     .link-box {
         display: flex;
         margin-bottom: 28px;
@@ -366,9 +366,9 @@ header {
         gap: 20px;
         z-index: 10;
     }
-    /*===================== 새로 수정 =====================*/
+    /*===================== ìƒˆë¡œ ìˆ˜ì • =====================*/
 
-    /*메뉴 오픈 버튼*/
+    /*ë©”ë‰´ ì˜¤í”ˆ ë²„íŠ¼*/
     .header-box .menu_open {
         display: none;
     }
@@ -376,7 +376,7 @@ header {
         display: none;
     }
 
-    /*메뉴 닫기 버튼*/
+    /*ë©”ë‰´ ë‹«ê¸° ë²„íŠ¼*/
     .header-box .menu_close {
         display: none;
     }
@@ -384,7 +384,7 @@ header {
         display: none;
     }
 
-    /*스크롤시*/
+    /*ìŠ¤í¬ë¡¤ì‹œ*/
     .header-box.scroll {
         height: 70px;
     }
@@ -404,8 +404,21 @@ header {
         background : transparent;
         padding: 10px 30px;
     }
+
+    .header-box.scroll:hover .link-box>li {
+        padding: 52px 0;
+    }
+    .header-box.scroll:hover .logo-box a {
+        padding: 38px 30px;
+    }
+    .header-box.scroll:hover .link-box>li {
+            padding: 50px 0;
+    }
+    .header-box.scroll:hover .menu-list>li {
+        padding: 50px 0;
+    }
     .header-box.scroll:hover {
-        height: 130px;
+        height: 346px;
     }
 }
 

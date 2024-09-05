@@ -61,7 +61,9 @@ h4 {
 }
 
 /* 공통 스타일 */
-
+.container {
+    padding: 50px 0;
+}
 /* 카테고리 */
 .with-4 {
     flex: 1 1 100%;
@@ -725,6 +727,9 @@ h4 {
 @media (min-width: 1200px) {
     .postsBox .post {
         width: 23.6%;
+    }
+    .container {
+        padding: 130px 0;
     }
 }
 @media (min-width: 1400px) {
