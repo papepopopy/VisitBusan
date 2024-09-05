@@ -9,12 +9,12 @@ import org.springframework.data.jpa.repository.Query;
 public interface ReplyRepository extends JpaRepository<Reply, Long> {
 
     // 1. 해당 게시글에 대한 댓글 조회
-    @Query("select r from Reply r where r.board.id = :id")
-    Page<Reply> listOfBoard(Long id, Pageable pageable);
+    @Query("select r from Reply r where r.board.id = :board_id")
+    Page<Reply> listOfBoard(Long board_id, Pageable pageable);
 
     // 2. 해당 게시글에 대한 댓글 삭제
-    void deleteById(Long id);
+    void deleteByBoard_id(Long board_id);
 
-    @Query("select count(r) from Reply r where r.board.id = :id")
-    Long replyCount(Long id);
+    @Query("select count(r) from Reply r where r.board.id = :board_id")
+    Long replyCount(Long board_id);
 }
