@@ -14,7 +14,7 @@
     <div class="container mypage" layout:fragment="content">
         <h1>마이페이지</h1>
         <div class="mypage-top-box">
-            <img src="../../assets/images/mypage/profile_20240817.jpg" class="pro-img">
+            <img src="images/mypage/profile_20240817.jpg" class="pro-img">
             <div class="pro-content">
                 <h2 class="nick-name">홍길동</h2>
                 <p class="mail">test@gmail.com</p>
@@ -47,7 +47,7 @@
                         <div class="row">
                             <div class="col rev-inner-item">
                             <div class="rev-img">
-                                <img src="../../assets/images/mypage/image1.jpg" alt="이미지">
+                                <img src="/images/mypage/image1.jpg" alt="이미지">
                             </div>
                             <div class="rev-content">
                                 <div class="mypage-tag">#광안리해수욕장</div>
@@ -66,7 +66,7 @@
                             </div>
                             <div class="col">
                             <div class="rev-img">
-                                <img src="../../assets/images/mypage/image1.jpg" alt="이미지">
+                                <img src="/images/mypage/image1.jpg" alt="이미지">
                             </div>
                             <div class="rev-content">
                                 <div class="mypage-tag">#광안리해수욕장</div>
@@ -85,7 +85,7 @@
                             </div>
                             <div class="col">
                             <div class="rev-img">
-                                <img src="../../assets/images/mypage/image1.jpg" alt="이미지">
+                                <img src="/images/mypage/image1.jpg" alt="이미지">
                             </div>
                             <div class="rev-content">
                                 <div class="mypage-tag">#광안리해수욕장</div>
@@ -111,7 +111,7 @@
                     <div class="row">
                         <div class="col rev-inner-item">
                             <div class="rev-img">
-                                <img src="../../assets/images/mypage/image1.jpg" alt="이미지">
+                                <img src="/images/mypage/image1.jpg" alt="이미지">
                             </div>
                             <div class="rev-content">
                                 <div class="mb-2 mt-4">겨울 호기심 천국 1박2일 체험 코스</div>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="col rev-inner-item">
                             <div class="rev-img">
-                                <img src="../../assets/images/mypage/image1.jpg" alt="이미지">
+                                <img src="/images/mypage/image1.jpg" alt="이미지">
                             </div>
                             <div class="rev-content">
                                 <div class="mb-2 mt-4">겨울 호기심 천국 1박2일 체험 코스</div>
@@ -131,7 +131,7 @@
                         </div>
                         <div class="col rev-inner-item">
                             <div class="rev-img">
-                                <img src="../../assets/images/mypage/image1.jpg" alt="이미지">
+                                <img src="/images/mypage/image1.jpg" alt="이미지">
                             </div>
                             <div class="rev-content">
                                 <div class="mb-2 mt-4">겨울 호기심 천국 1박2일 체험 코스</div>
@@ -141,7 +141,27 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div><nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center mt-4">
+                <!-- 불러올 이전 페이지가 있으면 활성화 -->
+                <!-- 해당 블럭의 시작 페이지 번호와 마지막 번호   시작번호 1 끝번호 10 -->
+                <!-- th:each="i : ${#numbers.sequence(${pageResponseDTO.start}, ${pageResponseDTO.end}, +1)}" 이렇게 하면 에러 ${}안에 ${}또 넣으면 안됨 -->
+
+                <li class="page-item active"> <!--  -->
+                    <a class="page-link" href="#" data-num="1">1</a>
+                </li>
+
+                <li class="page-item"> <!--  -->
+                    <a class="page-link" href="#" data-num="2">2</a>
+                </li>
+
+                <li class="page-item"> <!--  -->
+                    <a class="page-link" href="#" data-num="3">3</a>
+                </li>
+                <!-- 불러올 다음 페이지가 있으면 활성화 -->
+            </ul>
+        </nav>
+
         </div>
     </div>
     <script layout:fragment="myscript" th:inline="javascript">

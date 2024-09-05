@@ -37,6 +37,10 @@ public class Member {
               orphanRemoval = true)  // 고아객체 발생시 자동 삭제
     private ProfileImage profileImage;
 
+    @OneToOne(fetch = FetchType.LAZY,
+            orphanRemoval = true)  // 고아객체 발생시 자동 삭제
+    private ProfileImage profileText;
+
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Role> roleSet = new HashSet<>(); //사용자 권한
