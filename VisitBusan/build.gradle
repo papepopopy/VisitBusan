@@ -55,6 +55,13 @@ dependencies {
 	implementation 'org.modelmapper:modelmapper:3.2.1'							// modelMapper
 
 
+	// 썸네일
+	// https://mvnrepository.com/artifact/net.coobird/thumbnailator
+	implementation 'net.coobird:thumbnailator:0.4.20'
+	// CSRF토큰: thymelef에서 인증 관련 라이브러리
+//	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
+
+
 	// 테스트 라이브러리
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'		// test springBootStarter
 	testImplementation 'org.springframework.security:spring-security-test'		// test Security

@@ -11,13 +11,14 @@ SHOW TABLES;
 
 SHOW COLUMNS FROM board;
 SELECT * FROM board;
+SELECT * FROM board ORDER BY id desc;
 DELETE FROM board;
 DROP TABLE board_file;
 DROP TABLE board_like;
 DROP TABLE board;
 
 SHOW COLUMNS FROM board_file;
-SELECT * FROM board_file;
+SELECT * FROM board_file ORDER BY board_id desc;
 DELETE FROM board_file;
 DROP TABLE board_file;
 

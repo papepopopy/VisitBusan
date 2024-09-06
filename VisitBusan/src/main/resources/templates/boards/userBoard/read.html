@@ -56,6 +56,19 @@
                 <!-- 내용 -->
                 <div class="content">[[${dto.content}]]</div>
 
+                <!-- 첨부파일 -->
+                <div class="mb-3 row">
+                    <div class="col d-flex">
+                        <!-- 3. 게시글에 대한 이미지 첨부파일 -->
+                        <div class="py-2 thumbnail" id="thumbnailBox" th:if="${dto.fileNames != null && dto.fileNames.size() > 0 }">
+                            <!-- img-thumbnail 부트스트랩 -->
+                            <img style="" class="w-100"
+                                 th:each="fileName: ${dto.fileNames}"
+                                 th:src="|/view/${fileName}|"/>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- 태그 -->
                 <div class="tagBox d-flex gap-2 mt-3">
                     태그:
@@ -147,9 +160,15 @@
 
     <div>[[${dto}]]</div>
 
+    <!-- Axios 라이브러리 연결 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- file upload 처리하는 javascript 연결 -->
+    <script src="/js/upload.js"></script>
+
 </div> <!-- end fragment="content" -->
 
-<!-- 부트 스트랩 -->
+
+<!--/* 현재 페이지에서만 사용하는 script 정의 */-->
 <script layout:fragment="myscript" th:inline="javascript">
 
     // ------------------------ //
@@ -202,7 +221,7 @@
                 console.log('delFiles', delFiles,[[${dto.fileNames}]])
 
                 for (fName of delFiles){
-                  const arr = fName.split("_")
+                  const arr = fName.split("_vb_")
                   const uuid = arr[0]
                   const fileName = arr[1]
 

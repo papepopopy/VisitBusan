@@ -109,7 +109,28 @@ VALUES
 SHOW COLUMNS FROM reply;
 SELECT * FROM reply;
 
-INSERT INTO reply(board_id,reply_text,replier,replier_id,reg_date,mod_date)VALUES(55,'reply_text1','user','user',NOW(),NOW());
+INSERT INTO reply(board_id,reply_text,replier,replier_id,reg_date,mod_date)VALUES(11,'reply_text1','user','user',NOW(),NOW());
 
 
+-- ------------------------------
+--         게시글 좋아요
+-- ------------------------------
+
+INSERT INTO board_like
+(board_id,user_id,reg_date)
+VALUES
+(1,'user',NOW()),
+(3,'user',NOW()),
+(5,'user',NOW()),
+(7,'user',NOW()),
+(9,'user',NOW()),
+(1,'user2',NOW()),
+(3,'user2',NOW()),
+(5,'user2',NOW()),
+(7,'user2',NOW()),
+(9,'user2',NOW());
+SHOW COLUMNS FROM board_like;
+SELECT * FROM board_like;
+
+INSERT INTO board_like(board_id,user_id,reg_date)VALUES(16,'user',NOW());
 

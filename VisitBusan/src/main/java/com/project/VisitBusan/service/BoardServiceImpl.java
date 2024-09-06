@@ -129,7 +129,6 @@ public class BoardServiceImpl implements BoardService {
 //            log.info("==> delete replies");
 //            replyRepository.deleteByBoard_id(id);
 //        }
-
         // 댓글 삭제 후 게시글 삭제
         boardRepository.deleteById(id);
 

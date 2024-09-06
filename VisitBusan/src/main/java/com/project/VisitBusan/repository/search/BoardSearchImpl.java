@@ -226,10 +226,12 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
         QBoard board = QBoard.board;
         QReply reply = QReply.reply;
+        QBoardLike boardLike = QBoardLike.boardLike;
 
         // 1. 쿼리문 작성 (댓글 기준으로 게시글 연결)
         JPQLQuery<Board> boardJPQLQuery = from(board);
         boardJPQLQuery.leftJoin(reply).on(reply.board.eq(board));  // left join => p댓글 기준으로 게시글 조인
+        boardJPQLQuery.leftJoin(boardLike).on(boardLike.board.eq(board));  // left join => p댓글 기준으로 게시글 조인
 
         // 5. 조건문 추가 : where 문 작성
         if(category != null) {
@@ -281,7 +283,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         // 4. 쿼리문 작성 : 댓글 개수 파악 => select 항목은 그룹핑된(board id) 게시글정보, 게시글 번호 기준으로 카운트
         // 게시글 번호를 그룹핑하여 board 엔티티와 reply 엔티티 개수 계산
         // Tuple은 Map이랑 비슷
-        JPQLQuery<Tuple> tupleJPQLQuery = boardJPQLQuery.select(board, reply.countDistinct());
+        JPQLQuery<Tuple> tupleJPQLQuery = boardJPQLQuery.select(board, reply.countDistinct(), boardLike.countDistinct());
 
         List<Tuple> tupleList = tupleJPQLQuery.fetch();
 
@@ -291,6 +293,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
 //            long replyCount = (long) tuple.get(reply.countDistinct());  // 둘 다 됨
             long replyCount = tuple.get(1, long.class);  // 필드명 없는 관계로 컬럼의 위치 및 타입설정
+            long boardLikeCount = tuple.get(2, long.class);  // 필드명 없는 관계로 컬럼의 위치 및 타입설정
 
             // boardListAllDTO 객체 생성하여 관련 entity 정보 저장
             BoardListAllDTO boardListAllDTO = BoardListAllDTO.builder()
@@ -303,6 +306,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                     .regDate(board1.getRegDate())
                     .viewCount(board1.getViewCount())
                     .replyCount(replyCount)  // 2. reply count -> replyCount DTO
+                    .boardLikeCount(boardLikeCount)  // boardLike count -> boardLikeCount DTO
                     .build();
 
             // 3. BoardImage -> BoardImageDTO

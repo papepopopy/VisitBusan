@@ -26,8 +26,8 @@ class BoardRepositoryTest {
 
     @Autowired
     private BoardRepository boardRepository;
-    //@Autowired
-    //private ReplyRepository replyRepository;
+//    @Autowired
+//    private ReplyRepository replyRepository;
 
     @Test
     @DisplayName("보드 생성 테스트")
@@ -60,7 +60,7 @@ class BoardRepositoryTest {
             IntStream.rangeClosed(1,3).forEach(j-> {
                 // 부모객체 내에서 하위객체 생성
                 // board객체에서 BoardImage 객체를 생성
-                board.addFile(UUID.randomUUID().toString(), "file"+i+"-"+j+".jpg");
+                board.addFile(UUID.randomUUID().toString(), "file"+i+"_3#"+j+".jpg");
             });
 
             Board result = boardRepository.save(board);
@@ -146,9 +146,9 @@ class BoardRepositoryTest {
     @Test
     @DisplayName("보드 삭제 테스트")
     void deleteBoardTest() {
-        this.createBoardTest(); // h2로 테스트 할 때 필요
+//        this.createBoardTest(); // h2로 테스트 할 때 필요
 
-        Long id = 1L;
+        Long id = 503L;
 
         Board board = boardRepository.findById(id).orElseThrow();
 

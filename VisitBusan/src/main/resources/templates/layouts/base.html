@@ -22,8 +22,11 @@
         <!--footer-->
         <th:block th:replace="~{fragments/footer :: f-inner}"></th:block>
 
-        <th:block layout:fragment="myscript"></th:block>
     </div>
-    <script th:src="@{/js/bootstrap.min.js}"></script>
+
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <th:block layout:fragment="myscript"></th:block>
+
 </body>
 </html>

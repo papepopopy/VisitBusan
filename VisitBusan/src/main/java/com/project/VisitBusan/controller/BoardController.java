@@ -47,11 +47,11 @@ public class BoardController {
 //        PageResponseDTO responseDTO = boardService.list(pageRequestDTO);
 
         // 1-2. 게시글 댓글 개수 있는 List 조회
-        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
+//        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
 //        log.info("=> "+responseDTO);
 
         // 1-3. 게시글 댓글 개수 있는 List 조회
-//        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
+        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
 //        log.info("=> "+responseDTO);
 
         model.addAttribute("responseDTO", responseDTO);

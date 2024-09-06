@@ -117,12 +117,15 @@ VALUES
 SHOW COLUMNS FROM reply;
 SELECT * FROM reply;
 
--- INSERT INTO reply(board_id,reply_text,replier,replier_id,reg_date,mod_date)VALUES(63,'reply_text1','user','user',SYSDATE(),SYSDATE());
+INSERT INTO reply(board_id,reply_text,replier,replier_id,reg_date,mod_date)VALUES(11,'reply_text1','user','user',SYSDATE(),SYSDATE());
 
 
+-- ------------------------------
+--         게시글 좋아요
+-- ------------------------------
 
 INSERT INTO board_like
-(board_id,member_id,reg_date)
+(board_id,user_id,reg_date)
 VALUES
 (1,'user',SYSDATE()),
 (3,'user',SYSDATE()),
@@ -137,6 +140,6 @@ VALUES
 SHOW COLUMNS FROM board_like;
 SELECT * FROM board_like;
 
-INSERT INTO board_like(board_id,member_id,reg_date)VALUES(16,'user',SYSDATE());
+INSERT INTO board_like(board_id,user_id,reg_date)VALUES(11,'user',SYSDATE());
 
 
