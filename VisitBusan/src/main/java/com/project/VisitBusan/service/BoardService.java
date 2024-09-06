@@ -32,6 +32,9 @@ public interface BoardService {
     // 게시글 조회수 처리
     void viewCount(BoardDTO boardDTO);
 
+    // 게시글 댓글 카운트
+    void baordLikeCount(Long board_id);
+
     // DTO -> Entity : List<String> fileName -> Board에서 Set<boardImage> 타입으로 변환
     default Board dtoToEntity(BoardDTO boardDTO) {
 

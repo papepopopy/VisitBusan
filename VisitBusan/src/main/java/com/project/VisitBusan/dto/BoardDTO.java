@@ -37,6 +37,8 @@ public class BoardDTO {
     private String writerId;
 
     private long viewCount;
+    private long replyCount;
+    private long boardLikeCount;
 
     private LocalDateTime regDate;
     private LocalDateTime modDate;

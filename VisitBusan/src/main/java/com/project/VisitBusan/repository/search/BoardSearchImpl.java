@@ -150,6 +150,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         JPQLQuery<Board> query = from(board);
         // left(reply)를 기준으로 일치하는 보드 값을 추가로 표시.  reply는 다 나옴.
         query.leftJoin(reply).on(reply.board.eq(board));  // reply.board.eq(board) : reply.board_id == board.id
+        query.leftJoin(boardLike).on(boardLike.board.eq(board));  // boardLike.board.eq(board) : boardLike.board_id == board.id
 
         // 그룹핑
         query.groupBy(board);  // group by board.id
@@ -202,8 +203,8 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                         board.viewCount,
 
                         // reply테이블에서 그룹핑 기준으로 reply개수 계산
-                        reply.count().as("replyCount")
-//                        boardLike.count().as("boardLikeCount")
+                        reply.count().as("replyCount"),
+                        boardLike.count().as("boardLikeCount")
 
                 ));
 

@@ -1,5 +1,5 @@
 -- Visit Busan
--- 초기 데이터
+-- MariaDB용 초기 데이터
 
 -- 데이터베이스 삭제
 -- DROP DATABASE visit_busan;
@@ -12,6 +12,7 @@ USE visit_busan;
 
 -- 선택된 데이터베이스의 테이블 목록 표시
 -- SHOW TABLES;
+
 
 -- ------------------------------
 --            멤버
@@ -43,7 +44,8 @@ VALUES
 (1,2),
 (1,1),
 (2,1),
-(3,0);
+(3,0),
+(4,0);
 SHOW COLUMNS FROM member_role_set;
 SELECT * FROM member_role_set;
 
@@ -116,5 +118,25 @@ SHOW COLUMNS FROM reply;
 SELECT * FROM reply;
 
 -- INSERT INTO reply(board_id,reply_text,replier,replier_id,reg_date,mod_date)VALUES(63,'reply_text1','user','user',SYSDATE(),SYSDATE());
+
+
+
+INSERT INTO board_like
+(board_id,member_id,reg_date)
+VALUES
+(1,'user',SYSDATE()),
+(3,'user',SYSDATE()),
+(5,'user',SYSDATE()),
+(7,'user',SYSDATE()),
+(9,'user',SYSDATE()),
+(1,'user2',SYSDATE()),
+(3,'user2',SYSDATE()),
+(5,'user2',SYSDATE()),
+(7,'user2',SYSDATE()),
+(9,'user2',SYSDATE());
+SHOW COLUMNS FROM board_like;
+SELECT * FROM board_like;
+
+INSERT INTO board_like(board_id,member_id,reg_date)VALUES(16,'user',SYSDATE());
 
 

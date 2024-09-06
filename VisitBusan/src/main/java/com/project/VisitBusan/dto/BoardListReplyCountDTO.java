@@ -23,5 +23,5 @@ public class BoardListReplyCountDTO {
 
     // 특정 게시글에 대한 댓글 개수
     private long replyCount;
-    private long likeCount;
+    private long boardLikeCount;
 }
