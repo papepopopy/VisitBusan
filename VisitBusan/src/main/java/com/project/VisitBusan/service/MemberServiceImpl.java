@@ -8,12 +8,12 @@ import com.project.VisitBusan.repository.MemberRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.Hibernate;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,17 +23,16 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+    private final ModelMapper modelMapper;
 
     //사용자 추가
+    @Override
     public Member saveMember(MemberDTO memberDTO){
 
         // 1. dto -> entity: Member Entity createMember() 메서드 활용
         Member member = Member.createMember(memberDTO, passwordEncoder);
 
-        // 2. dto -> entity: MemberService 인터페이스 활용
-        //Member member = dtoToEntity(memberDTO);
-
-        // 회원 중복 체크(email 기준) 메서드 호출
+        // 회원 중복 체크
         validateDuplicateMember(member);
 
         log.info("===> 중복 이메일 없음");
@@ -43,9 +42,9 @@ public class MemberServiceImpl implements MemberService {
 
 
     //회원중복체크
+    @Override
     public void validateDuplicateMember(Member member){
         //이메일 체크
-        // Member Entity Email 기존에 Entity에 있는 유무 체크
         Member findMemberByEmail = memberRepository.findByEmail(member.getEmail());
         if (findMemberByEmail != null) {
             log.info("이미 가입된 회원 입니다."+member.getEmail());
@@ -61,6 +60,7 @@ public class MemberServiceImpl implements MemberService {
     }
 
     //로그인
+    @Override
     public Member login(String userId, String password) {
         Optional<Member> optionalMember = memberRepository.findByUserId(userId);
 
@@ -69,8 +69,37 @@ public class MemberServiceImpl implements MemberService {
             Member member = optionalMember.get();
             if (passwordEncoder.matches(password, member.getPassword())) {
                 return member;
+            } else {
+                throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
             }
+        } else {
+            throw new IllegalArgumentException("존재하지 않는 사용자 ID 입니다.");
         }
-        return null;
     }
+
+    //회원 조회
+    @Override
+    public MemberDTO findMember(String userId) {
+        Member member = memberRepository.findByUserId(userId)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
+
+
+        return MemberDTO.toMemberDTO(member);
+    }
+
+
+    //전체 조회
+    @Override
+    public List<MemberDTO> findAll() {
+        List<Member> memberList = memberRepository.findAll(); //member 조회
+        List<MemberDTO> memberDTOList = new ArrayList<>();  //memberDTO 저장리스트 생성
+
+        for (Member member:memberList) { //엔티티가 DTO로 변환
+            MemberDTO memberDTO = MemberDTO.toMemberDTO(member);
+            memberDTOList.add(memberDTO);
+        }
+
+        return memberDTOList;
+    }
+
 }

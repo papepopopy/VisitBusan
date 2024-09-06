@@ -1,7 +1,7 @@
 package com.project.VisitBusan.controller;
 
-import com.project.VisitBusan.dto.BoardDTO;
 import com.project.VisitBusan.dto.MemberDTO;
+import com.project.VisitBusan.dto.PageRequestDTO;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
@@ -12,14 +12,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -30,6 +31,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberServiceImpl memberServiceImpl;
     private final PasswordEncoder passwordEncoder;
+
     //----------------------- //
     // 회원가입
     //----------------------- //
@@ -43,8 +45,6 @@ public class MemberController {
         return "members/signUp";
     }
 
-    // @ModelAttribute: 다양한 소스의 데이터를 모델 특성으로 바인딩하는 데 사용
-    // @RequestBody: HTTP request body를 메소드에 매핑하는데 사용
     @PostMapping(value="/signup")
     public String memberRegister(@Valid @ModelAttribute MemberDTO memberDTO,
                                  BindingResult bindingResult,
@@ -64,28 +64,10 @@ public class MemberController {
         return "redirect:/login";
     }
 
-    //----------------------- //
-    // 로그인, 로그아웃 처리
-    //----------------------- //
-    // 1. 로그인
-    @GetMapping(value="/login")
-    public String loginMember(String error, String logout){
-        log.info("=> login ");
-        // 로그인 폼이 있는 페이지로 포워딩
-        return "/members/login";
-    }
-    // 1-1. 로그인 실패시 처리할 url
-    @GetMapping("/login/error")
-    public String loginError(Model model){
-        log.info("==> login error");
-
-        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호 확인해주세요.");
-        return "/members/login";
-    }
+    // 중복 체크 처리
     @PostMapping("/check-existing")
     @ResponseBody
     public ResponseEntity<Map<String, Object>> checkExisting(@RequestBody Map<String, String> requestData) {
-//    public Map<String, Object> checkExisting(@RequestBody Map<String, String> requestData) {
         Map<String, Object> response = new HashMap<>();
         String userId = requestData.get("userId");
         String email = requestData.get("email");
@@ -122,33 +104,57 @@ public class MemberController {
 
 //        return response;
     }
-    //----------------------- //
-    // 마이페이지
-    //----------------------- //
-    @GetMapping(value="/mypage")
-    public String memberMyPageForm(){
 
-        // 포워딩: 뷰리졸브
+
+    //----------------------- //
+    // 로그인, 로그아웃 처리
+    //----------------------- //
+    // 1. 로그인
+    @GetMapping(value="/login")
+    public String loginMember(String error, String logout){
+        log.info("=> login ");
+        // 로그인 폼이 있는 페이지로 포워딩
+        return "/members/login";
+    }
+    // 1-1. 로그인 실패시 처리할 url
+    @GetMapping("/login/error")
+    public String loginError(Model model){
+        log.info("==> login error");
+
+        model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호 확인해주세요.");
+        return "/members/login";
+    }
+
+
+    //----------------------- //
+    // 회원정보 조회
+    //----------------------- //
+
+    /*회원 목록 조회*/
+    @PreAuthorize("isAuthenticated") //로그인 인증 완료
+    @GetMapping(value="/mypage/")
+    public String findAll(Model model) {
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberList",memberDTOList);
+        log.info("회원목록 조회 ==> " + memberDTOList);
+
         return "members/myPage";
     }
-    //----------------------- //
-    // 회원정보 수정
-    //----------------------- //
-    // 1. 회원정보 들고오기
-//    @PreAuthorize("principal.email == #boardDTO.email") //정보일치 서비스 필요없을듯..히히 혹시나 넣음
-//    @GetMapping("/modify")
-//    public String showModifyForm(@Valid BoardDTO boardDTO
-//                                 BindingResult bindingResult,
-//                                 RedirectAttributes redirectAttributes) {
-//        if(bindingResult.hasErrors()) {
-//            log.info("=> has errors...");
-//
-//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-//            return "redirect:/members/modify"; //오류시 재요청
-//        }
-//        log.info("boardDTO : "+boardDTO);
-//        return "members/modify";
-//    }
+
+    /*1. 마이페이지 조회*/
+    @PreAuthorize("isAuthenticated") //로그인 인증 완료
+    @GetMapping(value="/mypage/{id}")
+    public String memberMyPageForm(@PathVariable Long id, Model model) {
+        //로그인한 사용자 ID
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        //회원 정보 조회
+        MemberDTO memberDTO = memberService.findMember(userId);
+        model.addAttribute("member", memberDTO);
+
+        return "members/myPage";
+    }
+
 
     // 2. 수정한 정보 보내기
 

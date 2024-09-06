@@ -1,10 +1,15 @@
 package com.project.VisitBusan.dto;
 
 import com.project.VisitBusan.constant.Role;
+import com.project.VisitBusan.entity.Member;
+import com.project.VisitBusan.entity.ProfileImage;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+import org.modelmapper.ModelMapper;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -27,9 +32,37 @@ public class MemberDTO {
     @NotBlank(message = "주소는 필수입니다~")
     private String address;
 
+    private String profileText;
+    private ProfileImageDTO profileImage;
+
     // 사용자 정의 User 객체(AuthMemberDTO) 생성해서 사용
     // Role data 임시 저장 용
     private Role role;
 
+    public static ModelMapper modelMapper = new ModelMapper();
 
+    public static MemberDTO toMemberDTO(Member member) {
+        MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
+
+//        if (member.getProfileImage() != null) {
+//            ProfileImageDTO profileImageDTO = ProfileImageDTO.toProfileImageDTO(
+//                    member.getProfileImage()
+//            );
+//            memberDTO.setProfileImage(profileImageDTO);
+//        }
+
+//        if (member.getImageSet() != null && !member.getImageSet().isEmpty()) {
+//            ProfileImageDTO profileImageDTO = ProfileImageDTO.toProfileImageDTO(
+//                    member.getImageSet().iterator().next()
+//            );
+//            memberDTO.setProfileImage(profileImageDTO);
+//        }
+
+        return memberDTO;
+    }
+    public static Member toEntity(MemberDTO memberDTO) {
+        Member member = modelMapper.map(memberDTO, Member.class);
+
+        return member;
+    }
 }

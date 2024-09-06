@@ -4,8 +4,10 @@ import com.project.VisitBusan.constant.Role;
 import com.project.VisitBusan.dto.MemberDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,6 +19,8 @@ import java.util.Set;
 @NoArgsConstructor
 @Builder
 public class Member {
+
+    //------------------ 기본필드 ----------------------//
 
     @Id  // 기본키로 지정
     @Column(name="member_id")  // 테이블 이름(필드명) 사용자 지정  없으면 그냥 동일하게 설정
@@ -32,27 +36,15 @@ public class Member {
     @Column(unique = true, nullable = false)  //  중복 허용 x
     private String email;
     private String address;
+    @Column(length = 100)
+    private String profileText; //프로필 자기소개
 
-    @OneToOne(fetch = FetchType.LAZY,
-              orphanRemoval = true)  // 고아객체 발생시 자동 삭제
-    private ProfileImage profileImage;
-
-    @OneToOne(fetch = FetchType.LAZY,
-            orphanRemoval = true)  // 고아객체 발생시 자동 삭제
-    private ProfileImage profileText;
+    //------------------ 사용자 권한 ----------------------//
 
     @ElementCollection(fetch = FetchType.LAZY)
     @Builder.Default
     private Set<Role> roleSet = new HashSet<>(); //사용자 권한
 
-    // 비밀번호 변경
-    public void changePassword(String password) {
-        this.password = password;
-    }
-    // 이메일 변경
-    public void changeEmail(String email) {
-        this.email = email;
-    }
     // 역할 추가
     public void addRole(Role role) {
         this.roleSet.add(role);
@@ -61,6 +53,27 @@ public class Member {
     public void clearRoles() {
         this.roleSet.clear();
     }
+
+    //------------------ 변경메서드 ----------------------//
+
+    //데이터 수정하는 메서드
+//    public void change(String name, String email, String address, String profileText) {
+//        this.name = name; //닉네임
+//        this.email = email; //이메일
+//        this.address = address; //주소
+//        this.profileText = profileText; //프로필 자기소개
+//    }
+
+    // 비밀번호 변경
+//    public void changePassword(String password) {
+//        this.password = password;
+//    }
+    // 이메일 변경
+//    public void changeEmail(String email) {
+//        this.email = email;
+//    }
+
+    //------------------ 정적 팩토리 ----------------------//
 
     // 1.엔티티 메서드 방법 : createMember():  dto -> entity
     public static Member createMember(MemberDTO memberDTO,
@@ -82,4 +95,33 @@ public class Member {
 
         return member;
     }
+
+    //------------------ 프로필 이미지 ----------------------//
+
+    // 프로필 페이지 조회시
+//    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, orphanRemoval = true)
+//    private ProfileImage profileImage;
+
+    //프로필 이미지 설정
+//    public void setProfileImage(ProfileImage profileImage) {
+//        //이미지가 이미 있을경우 null 처리
+//        if(this.profileImage != null) {
+//            this.profileImage.setMember(null);
+//        }
+//
+//        //새로운 이미지 업로드
+//        this.profileImage = profileImage;
+//        if (profileImage != null) {
+//            profileImage.setMember(this);
+//        }
+//    }
+//    // 삭제 처리 기능
+//    public void clearProfileImage() {
+//        if(this.profileImage != null) {
+//            //양방향이기에 연관관계를 해제 후 null 설정
+//            this.profileImage.setMember(null); //연결되어있는 member 없앰
+//            this.profileImage = null; //이미지 상태도 null 설정
+//        }
+//    }
+
 }
