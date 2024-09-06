@@ -53,8 +53,8 @@ public class ReplyRepositoryTest {
         }//end for
 
 
-//        // 2. 1에서 100사이 게시글에 대해 무작위로 게시글을 선정하여 댓글 100개 생성하고,
-//        //    무작위로 선정되 게시글에 대해 댓글 달기
+        // 2. 1에서 100사이 게시글에 대해 무작위로 게시글을 선정하여 댓글 100개 생성하고,
+        //    무작위로 선정되 게시글에 대해 댓글 달기
 //        IntStream.rangeClosed(1, 100).forEach(i -> {
 //
 //            // 게시글 번호 무작위 선정(1에서 100사이)
@@ -66,6 +66,7 @@ public class ReplyRepositoryTest {
 //                    // board_bno필드만 생성하여 board의 pk필드 bno값을 설정하고 join상태 설정
 //                    .board(board)   //=> .board_bno(board.getBno())
 //                    .replyText("댓글..."+i)
+//                    .replierId("id"+i)
 //                    .replier("replyer"+i)
 //                    .build();
 //

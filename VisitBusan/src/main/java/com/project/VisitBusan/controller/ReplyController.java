@@ -36,10 +36,10 @@ public class ReplyController {
             throw new BindException(bindingResult);
         }
 
-        Long rno = replyService.register(replyDTO);
+        Long id = replyService.register(replyDTO);
 
         Map<String, String> resultMap = new HashMap<>();
-        resultMap.put("rno", rno + "번 댓글 등록되었습니다.");
+        resultMap.put("id", id + "번 댓글 등록되었습니다.");
 
         return resultMap;
     }
@@ -83,7 +83,7 @@ public class ReplyController {
 
     // 5. 댓글 조회
     @GetMapping(value="/{id}")
-    public ReplyDTO getReplyDTO(@PathVariable("rno") Long id) {
+    public ReplyDTO getReplyDTO(@PathVariable("id") Long id) {
 
         ReplyDTO replyDTO = replyService.read(id);
         return replyDTO;

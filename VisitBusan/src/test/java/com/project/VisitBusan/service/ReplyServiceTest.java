@@ -23,7 +23,8 @@ public class ReplyServiceTest {
         ReplyDTO replyDTO = ReplyDTO.builder()
                 .replyText("ReplyDTO text2")
                 .replier("replyer2")
-                .board_id(513L)
+                .replierId("replyer2")
+                .board_id(21L)
 //        .board(board)
                 .build();
 
@@ -32,7 +33,7 @@ public class ReplyServiceTest {
     @Test
     @DisplayName("특정 게시글에 대한 댓글 조회")
     public void testReplyListOBoard() {
-    Long board_id = 513L;
+    Long board_id = 21L;
 
     PageRequestDTO pageRequestDTO = new PageRequestDTO();
 

@@ -29,6 +29,7 @@ public interface ReplyService {
                 .id(replyDTO.getId())
                 .replyText(replyDTO.getReplyText())
                 .replier(replyDTO.getReplier())
+                .replierId(replyDTO.getReplierId())
                 .board(board)
                 .build();
 

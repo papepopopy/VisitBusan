@@ -76,11 +76,17 @@
             <hr>
 
             <!-- 댓글 창-->
-            <div class="replyBox">
+
+            <div class="">
                 <div class="d-flex mt-3 gap-3">
                     <div>등록순</div>
                     <div>최신순</div>
                 </div>
+
+                <ul class="list-group replyBox"> <!--  댓글리스트 -->
+                    <li class="list-group-item ">
+                        댓글이 없습니다.</li>
+                </ul>
 
                 <!-- 댓글1 -->
                 <div class="reply d-flex mt-3 gap-3">
@@ -114,10 +120,26 @@
                     </div>
                 </div>
 
-                <!-- 댓글 등록 -->
+                <!-- 댓글3 -->
+                <div class="reply d-flex mt-3 gap-3">
+                    <div class="imgBox">
+                        <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli3.jpg|"></div>
+                    </div>
+                    <div>
+                        <div>작성자</div> <!-- replierId -->
+                        <div>댓글 내용</div> <!-- replyText -->
+                        <div class="d-flex gap-3">
+                            <div>작성날자/시간</div> <!-- regDate -->
+                            <div>답글쓰기</div>
+                            <div>좋아요</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 댓글 등록 -->  <!--/*[[${user.username}]]*/-->
                 <div class="d-flex my-4">
-                    <textarea class="form-control col me-3" name="" id="" placeholder="댓글 입력"></textarea>
-                    <div class=""><button class="btn btn-outline-secondary w-100 h-100">등록</button></div>
+                    <textarea class="form-control col me-3 replyText" name="" id="" placeholder="댓글 입력"></textarea>
+                    <div class=""><button class="regBtn btn btn-outline-secondary w-100 h-100">등록</button></div>
 
                 </div>
 
@@ -147,11 +169,14 @@
 
     <div>[[${dto}]]</div>
 
+    <!-- Axios 라이브러리 연결 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="/js/reply.js"></script>
+
 </div> <!-- end fragment="content" -->
 
 <!-- 부트 스트랩 -->
 <script layout:fragment="myscript" th:inline="javascript">
-
     // ------------------------ //
     // 서버 첨부파일 삭제 함수 정의
     // ------------------------ //
@@ -224,6 +249,77 @@
             formObj.submit();
         }
     })
+
+    const replyBIdList = document.querySelector('.replyBox'); // 댓글 목록 DOM
+
+    //----------------------------------------------------------------- //
+    // 3. 서버로 부터 받아온 댓글을 DOM을 구성할 수 있는 문자열 생성 및 DOM생성
+    //----------------------------------------------------------------- //
+    function printList(replyBox){
+    let str ='';
+
+    // 댓글이 1개 이상이면 처리 댓글 목록 가져와서 View처리
+    if (replyBox && replyBox.length > 0 ){
+
+      for (const dto of replyBox){
+        str +=
+        `
+          <li class="reply d-flex mt-3 gap-3">
+                <div class="reply d-flex mt-3 gap-3">
+                    <div class="imgBox">
+                        <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli2.jpg|"></div>
+                    </div>
+                    <div>
+                        <div>${dto.replierId}</div>
+                        <div>${dto.replyText}</div>
+                        <div class="d-flex gap-3">
+                            <div>${dto.regDate}</div>
+                            <div>답글쓰기</div>
+                            <div>좋아요</div>
+                        </div>
+                    </div>
+                </div>
+          </li>
+        `
+      }// end for
+    }// end for
+    replyBIdList.innerHTML = str;
+    }
+
+
+
+    // ------------------------ //
+    //       댓글 등록 버튼
+    // ------------------------ //
+    const replyText = document.querySelector('.replyText')
+    const regDate = document.querySelector('.regDate')
+
+
+    document.querySelector('.regBtn').addEventListener('click', function(e) {
+        console.log("regBtn click");
+
+        // data -> JSON
+        const replyObj = {
+            board_id: [[${dto.id}]],
+            replier: "test",   <!--/*[[${user.name}]]*/-->
+            replierId: "test",   <!--/*[[${user.username}]]*/-->
+            replyText: replyText.value
+        }
+
+        console.log("전송할 JSON:", replyObj);
+
+        // data 서버에 보내기
+        addReply(replyObj)
+                .then(result => {
+                    console.log("response data:", result)
+    <!--                console.log("id:", result.id)-->
+
+                    replyText.value='';
+
+                    printReplies(1,10,true)
+                })
+                .catch(e => alert(e))
+    });
 
 </script>
 

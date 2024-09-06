@@ -26,7 +26,7 @@ public class ReplyDTO {  // spring-boot-starter-validation: 서버 유효성 검
     @NotEmpty
     private String replier;
     @NotEmpty
-    private String replierEmail;
+    private String replierId;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime regDate;
