@@ -65,10 +65,19 @@
                 </li>
             </ul>
             <ul class="link-box">
-                <li><a th:href="@{/login}">로그인</a></li>
-                <li><a th:href="@{/mypage}">마이페이지</a></li>
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/login}">로그인</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/logout}">로그아웃</a>
+                </li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/mypage}">마이페이지</a>
+                </li>
                 <li><a th:href="@{/admin}">관리자</a></li>
-                <li><a th:href="@{/signup}">회원가입</a></li>
+                <li sec:authorize="isAnonymous()">
+                    <a th:href="@{/signup}">회원가입</a>
+                </li>
             </ul>
         </div>
         <style th:inline="css">

@@ -16,9 +16,9 @@
         <div class="mypage-top-box">
             <img src="images/mypage/profile_20240817.jpg" class="pro-img">
             <div class="pro-content">
-                <h2 class="nick-name">홍길동</h2>
-                <p class="mail">test@gmail.com</p>
-                <p class="mypage-comant">여유있는 여행자 홍길동</p>
+                <h2 class="nick-name" th:text="${member.name}">홍길동</h2>
+                <p class="email" th:text="${member.email}">test@gmail.com</p>
+                <p class="mypage-comant" th:text="${member.profileText}">여유있는 여행자 홍길동</p>
                     <div class="mypage-link">
                         <div>내정보</div>
                         <div>알림함</div>

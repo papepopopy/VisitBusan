@@ -163,7 +163,7 @@ public class CustomSecurityConfig {
         // 로그아웃을 기본으로 설정 =>  url: "/logout" 로그아웃 수행
 //        http.logout(Customizer.withDefaults());
         http.logout(logout -> {
-            logout.logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
+            logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true); // 세션값 삭제로 로그아웃
         });

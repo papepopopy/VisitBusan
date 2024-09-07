@@ -143,8 +143,8 @@ public class MemberController {
 
     /*1. 마이페이지 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value="/mypage/{id}")
-    public String memberMyPageForm(@PathVariable Long id, Model model) {
+    @GetMapping(value="/mypage")
+    public String memberMyPageForm(Model model) {
         //로그인한 사용자 ID
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
