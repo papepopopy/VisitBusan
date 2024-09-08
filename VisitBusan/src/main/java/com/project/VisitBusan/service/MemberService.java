@@ -19,8 +19,11 @@ public interface MemberService {
     MemberDTO findMember(String userId);
     //전체 조회
     List<MemberDTO> findAll();
+    //회원 수정
+    Member modify(MemberDTO memberDTO);
+    //회원 삭제
+//    Member remove(MemberDTO memberDTO);
 
-    
     // dto -> entity 변환
     default Member dtoToEntity(MemberDTO memberDTO,
                                PasswordEncoder passwordEncoder) {

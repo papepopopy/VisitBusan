@@ -375,9 +375,9 @@ header {
         transition: all .2s ease;
         position: fixed;
         display: block;
-        background: rgba(24,26,31,.4);
+        background: #07a4c8d6;
         -webkit-backdrop-filter: blur(50px);
-        backdrop-filter: blur(50px)
+        backdrop-filter: blur(50px);
     }
 
     .header-box:hover .menu-list li a, .header-box:hover .link-box li a {

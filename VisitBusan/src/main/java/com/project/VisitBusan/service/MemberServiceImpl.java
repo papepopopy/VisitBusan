@@ -87,6 +87,38 @@ public class MemberServiceImpl implements MemberService {
         return MemberDTO.toMemberDTO(member);
     }
 
+    //회원 수정
+    @Override
+    public Member modify(MemberDTO memberDTO) {
+        //수정 Id
+        Optional<Member> result = memberRepository.findByUserId(memberDTO.getUserId());
+        Member member = result.orElseThrow();
+
+        // 비밀번호가 변경된 경우에만 암호화
+        if (!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
+            member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
+        }
+
+        //dto 로 변경
+        member.change(
+                memberDTO.getName(),
+                memberDTO.getEmail(),
+                memberDTO.getAddress(),
+                memberDTO.getPassword()
+//                memberDTO.getProfileImage(),
+//                memberDTO.getProfileText()
+        );
+
+        //저장하기
+        return memberRepository.save(member);
+    }
+
+    //회원 삭제
+//    @Override
+//    public void remove(MemberDTO memberDTO) {
+//        //회원이 삭제되어지기 전에 작성한 댓글과 게시물이 사라져야할지
+//        memberRepository.deleteByUserId(memberDTO.getUserId());
+//    }
 
     //전체 조회
     @Override

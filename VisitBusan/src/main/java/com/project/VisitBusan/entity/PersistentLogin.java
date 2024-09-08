@@ -8,7 +8,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Table(name = "persistent")
+@Table(name = "persistent_logins")
 @Entity
 @Getter
 @Setter

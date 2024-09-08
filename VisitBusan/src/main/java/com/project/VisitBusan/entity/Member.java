@@ -3,8 +3,11 @@ package com.project.VisitBusan.entity;
 import com.project.VisitBusan.constant.Role;
 import com.project.VisitBusan.dto.MemberDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Collection;
@@ -57,22 +60,22 @@ public class Member {
     //------------------ 변경메서드 ----------------------//
 
     //데이터 수정하는 메서드
-//    public void change(String name, String email, String address, String profileText) {
-//        this.name = name; //닉네임
-//        this.email = email; //이메일
-//        this.address = address; //주소
-//        this.profileText = profileText; //프로필 자기소개
-//    }
+    public void change(String name,
+                       String email,
+                       String address,
+                       String profileText) {
+        this.name = name; //닉네임
+        this.email = email; //이메일
+        this.address = address; //주소
+        this.profileText = profileText; //프로필 자기소개
+    }
 
-    // 비밀번호 변경
-//    public void changePassword(String password) {
-//        this.password = password;
-//    }
-    // 이메일 변경
-//    public void changeEmail(String email) {
-//        this.email = email;
-//    }
-
+    //------------------ 변경메서드 ----------------------//
+    // 삭제 처리 기능
+    public void clearImage(){
+//        imageSet.forEach( boardImg -> boardImg.changeMember(null));
+//        this.imageSet.clear();
+    }
     //------------------ 정적 팩토리 ----------------------//
 
     // 1.엔티티 메서드 방법 : createMember():  dto -> entity
@@ -95,6 +98,7 @@ public class Member {
 
         return member;
     }
+
 
     //------------------ 프로필 이미지 ----------------------//
 

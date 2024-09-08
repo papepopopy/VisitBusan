@@ -18,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
 import java.util.List;
@@ -130,7 +131,7 @@ public class MemberController {
     // 회원정보 조회
     //----------------------- //
 
-    /*회원 목록 조회*/
+    /*1. 회원 목록 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @GetMapping(value="/mypage/")
     public String findAll(Model model) {
@@ -141,7 +142,7 @@ public class MemberController {
         return "members/myPage";
     }
 
-    /*1. 마이페이지 조회*/
+    /*2. 마이페이지 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @GetMapping(value="/mypage")
     public String memberMyPageForm(Model model) {
@@ -155,7 +156,40 @@ public class MemberController {
         return "members/myPage";
     }
 
+    /*3. 회원정보 수정*/
+    @PreAuthorize("isAuthenticated") //로그인 인증 완료
+    @GetMapping(value = "/modify")
+    public String updateMemberMyPageForm(@Valid Model model,
+                                         MemberDTO memberDTO,
+                                         BindingResult bindingResult,
+                                         RedirectAttributes redirectAttributes) {
+         //Valid 유효성 검사
+         if(bindingResult.hasErrors()) {
+             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 
-    // 2. 수정한 정보 보내기
+             //수정 페이지 재요청
+             return "members/modify";
+         }
+         //수정 서비스 요청
+         memberService.modify(memberDTO);
+         //1회 정보 유지
+         redirectAttributes.addFlashAttribute("result", "modified");
 
+         return "members/modify";
+    }
+
+     /*4. 회원정보 삭제*/
+     @PreAuthorize("isAuthenticated") //로그인 인증 완료
+     @GetMapping(value = "/remove")
+     public String removeMember(@RequestParam String userId,
+                                  RedirectAttributes redirectAttributes) {
+//         try {
+//             memberService.remove(userId);
+//             redirectAttributes.addFlashAttribute("result","deleted");
+//         } catch (Exception e) {
+//             redirectAttributes.addFlashAttribute("error", "회원 삭제를 실패하여습니다.");
+//         }
+
+         return "redirect:members/myPage";
+     }
 }
