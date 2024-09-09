@@ -4,11 +4,6 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/base}">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>main</title>
-</head>
 
 <!-- 현재 페이지에서만 사용하는 css 정의 -->
 <style layout:fragment="mystyle" th:inline="css">
@@ -20,7 +15,6 @@
     }
 </style>
 
-<body>
 <div class="container userCreate" layout:fragment="content">
     <div class="body">
 
@@ -508,5 +502,4 @@
 
 </script>
 
-</body>
 </html>

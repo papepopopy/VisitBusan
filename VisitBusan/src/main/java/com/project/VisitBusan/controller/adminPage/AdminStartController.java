@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/admin")
-public class AdminController {
-    @GetMapping("")
-    public String mainpage(Model model) {
-        return "/adminPage/main";
+public class AdminStartController {
+
+    @GetMapping("/admin")
+    public String mainPage(Model model) {
+        return "adminPage/main";
     }
+
 }

@@ -1,0 +1,88 @@
+
+        a {
+            text-decoration: none;
+        }
+
+        .myContainer {
+            display: flex;
+            height: 100vh;
+        }
+        .sideBar {
+
+            /* border: 1px solid red; */
+            background-color: #353535;
+
+            text-align: center;
+        }
+        .sb_1 {
+            margin-top: 100px;
+        }
+        .admin_img {
+            width: 70px;
+            height: 70px;
+            /* border: 1px solid green; */
+
+            margin: auto;
+
+            overflow: hidden;
+        }
+        .sb_2 {
+            display: flex;
+            justify-content: center;
+
+            gap: 30px;
+
+            margin-top: 40px;
+        }
+        .sb_3 {
+            margin-top: 50px;
+        }
+        .sb_3 {
+            margin-top: 50px;
+        }
+        .main {
+            position: relative;
+            height: 100%;
+            /* border: 1px solid blue; */
+        }
+        .main_head {
+            position: absolute;
+            width: 100%;
+            height: 70px;
+            background-color: #353535;
+        }
+        .list {
+            background-color: #181717;
+            font-size: large;
+            width: 70px;
+            text-align: center;
+
+            align-items: center;
+        }
+        .main_body {
+            padding: 50px;
+            padding-top: 120px;
+            padding-bottom: 50px;
+            height: 100%;
+            /* overflow: scroll; */
+            overflow-x: hidden;
+            overflow-y: auto;
+            display:flex;
+            flex-direction: column;
+            gap: 50px;
+
+            background-color: #f5f4f9;
+        }
+
+        .cate {
+            background-color: #fff;
+            padding-top: 50px;
+            padding-bottom: 20px;
+        }
+        .box_1 {
+            background-color: #f9f9f9;
+            width: 90%;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            margin-left: 50px;
+        }

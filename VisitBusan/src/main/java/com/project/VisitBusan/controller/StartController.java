@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/")
 public class StartController {
-    @GetMapping("")
+
+    @GetMapping("/")
     public String mainpage(Model model) {
         return "/main"; // http://localhost:9089/
     }
+
 }
