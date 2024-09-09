@@ -97,7 +97,7 @@ public class BoardServiceImpl implements BoardService {
         // 수정된 첨부파일이 있을 경우
         if (boardDTO.getFileNames() != null) {
             for (String fileName : boardDTO.getFileNames()) {
-                String[] arr = fileName.split("_");
+                String[] arr = fileName.split("_vb_");
                 board.addFile(arr[0],arr[1]);
             }
         }

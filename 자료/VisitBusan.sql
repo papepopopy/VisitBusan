@@ -48,3 +48,10 @@ SHOW COLUMNS FROM reply;
 SELECT * FROM reply;
 DELETE FROM reply;
 DROP TABLE reply;
+
+CREATE TABLE persistent_logins (
+username VARCHAR(64) NOT NULL,
+series 	VARCHAR(64) PRIMARY KEY,
+token 	VARCHAR(64) NOT NULL ,
+last_used TIMESTAMP 	NOT NULL
+);

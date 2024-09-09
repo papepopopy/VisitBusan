@@ -27,7 +27,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("")
+@RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
     private final MemberServiceImpl memberServiceImpl;
@@ -62,7 +62,7 @@ public class MemberController {
         }
 
         //회원가입 후 로그인 페이지 이동
-        return "redirect:/login";
+        return "redirect:/member/login";
     }
 
     // 중복 체크 처리
@@ -133,7 +133,7 @@ public class MemberController {
 
     /*1. 회원 목록 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value="/mypage/")
+    @GetMapping(value="/mypage")
     public String findAll(Model model) {
         List<MemberDTO> memberDTOList = memberService.findAll();
         model.addAttribute("memberList",memberDTOList);
@@ -144,7 +144,7 @@ public class MemberController {
 
     /*2. 마이페이지 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value="/mypage")
+    @GetMapping(value="/mypage/")
     public String memberMyPageForm(Model model) {
         //로그인한 사용자 ID
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -169,14 +169,14 @@ public class MemberController {
                      bindingResult.getAllErrors());
 
              //수정 페이지 재요청
-             return "members/modify";
+             return "member/modify";
          }
          //수정 서비스 요청
          memberService.modify(memberDTO);
          //1회 정보 유지
          redirectAttributes.addFlashAttribute("result", "modified");
 
-         return "redirect:members/modify";
+         return "redirect:/member/modify";
     }
 
      /*4. 회원정보 삭제*/
@@ -191,6 +191,6 @@ public class MemberController {
 //             redirectAttributes.addFlashAttribute("error", "회원 삭제를 실패하여습니다.");
 //         }
 
-         return "redirect:members/myPage";
+         return "redirect:/member/mypage";
      }
 }

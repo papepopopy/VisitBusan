@@ -16,7 +16,7 @@
             <div class="login-box mt-4">
                 <h1 class="text-center">로그인</h1>
                 <hr>
-                <form action="/login" method="post" class="mt-4">
+                <form action="/member/login" method="post" class="mt-4">
                     <div class="form-floating mb-2">
                         <input name="userId" type="text" class="form-control" id="floatingInput">
                         <label for="floatingInput">아이디 입력</label>
@@ -39,7 +39,7 @@
                         <!--후에 추가해보기!-->
                         <!--<div><a href="#">아이디찾기</a></div>-->
                         <!--<div class="mx-3"><a href="#">비밀번호찾기</a></div>-->
-                        <div><a href="" th:href="@{/signup}">회원가입</a></div>
+                        <div><a href="" th:href="@{/member/signup}">회원가입</a></div>
                     </div>
                 </form>
             </div>

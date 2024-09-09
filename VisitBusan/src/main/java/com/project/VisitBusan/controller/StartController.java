@@ -14,6 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StartController {
     @GetMapping("")
     public String mainpage(Model model) {
-        return "main"; // http://localhost:9089/
+        return "/main"; // http://localhost:9089/
     }
 }

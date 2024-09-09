@@ -11,7 +11,6 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -71,7 +70,7 @@ public class CustomSecurityConfig {
 //                        .tokenValiditySeconds(10)  // 10초
                         .tokenValiditySeconds(60*60*24*30)  // 30일 유효(초*분*시간*일)
 //                        .rememberMeParameter("remember-me")  // 생략시 기본파라미터 명은 "remember-me", <input type='checkbox' name='파라미터명'>
-                        .alwaysRemember(true)  // 리멤버 미 기능이 활성화되지 않아도 항상 실행
+                        //.alwaysRemember(true)  // 리멤버 미 기능이 활성화되지 않아도 항상 실행
         );
 
         // 2. 인증 과정 처리
@@ -79,12 +78,12 @@ public class CustomSecurityConfig {
         // 2.1 로그인 관련 설정 => UserDetailsService 인터페이스 구현 후 설정 할 것
         http.csrf(AbstractHttpConfigurer::disable)
                 .formLogin(login -> {
-                    login.loginPage("/login")             // 로그인 처리할 url 설정
+                    login.loginPage("/member/login")             // 로그인 처리할 url 설정
                             .defaultSuccessUrl("/", true)// 로그인 성공시 url 설정
                             .usernameParameter("userId")                        // 웹의 username의  매개변수이름 설정
                             .passwordParameter("password")                      // 웹의 password의  매개변수이름 설정
-                            .loginProcessingUrl("/login")                       // 웹 로그인창의 form action 값 설정
-                            .failureUrl("/login/error")       // 로그인 실패시 url 설정
+                            .loginProcessingUrl("/member/login")                       // 웹 로그인창의 form action 값 설정
+                            .failureUrl("/member/login/error")       // 로그인 실패시 url 설정
 
                             // 성공 또는 실패할 경우 핸들러 사용해서 원하는 것을 실행 할 경우 적용
                             // defaultSuccessUrl(),failureUrl() 중복될 경우 핸들러가 우선으로 수행됨.
@@ -99,7 +98,7 @@ public class CustomSecurityConfig {
                                 @Override
                                 public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
                                     log.info("==> exception: " + exception.getMessage());
-                                    response.sendRedirect("/login/error");
+                                    response.sendRedirect("/member/login/error");
                                 }
                             });
                 });
@@ -163,7 +162,7 @@ public class CustomSecurityConfig {
         // 로그아웃을 기본으로 설정 =>  url: "/logout" 로그아웃 수행
 //        http.logout(Customizer.withDefaults());
         http.logout(logout -> {
-            logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+            logout.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true); // 세션값 삭제로 로그아웃
         });

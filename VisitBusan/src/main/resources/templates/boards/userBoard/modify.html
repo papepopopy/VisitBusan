@@ -98,7 +98,7 @@
                         <div class="col container-fluid d-flex gap-3 uploadResult" style="flex-wrap:wrap">
                             <th:block th:each="fileName: ${dto.fileNames}" th:if="${dto.fileNames != null && dto.fileNames.size() > 0 }">
                                 <div class="card" style="width: 18rem;"
-                                     th:with="nameArr=${fileName.split('_3#')}">  <!-- nameArr [0]uuid [1]fileName -->
+                                     th:with="nameArr=${fileName.split('_vb_')}">  <!-- nameArr [0]uuid [1]fileName -->
                                     <div class="card-header d-flex justify-content-center">
                                         <p>[[${nameArr[1]}]]</p>
                                         <p hidden>${nameArr[1]}</p>  <!-- 그냥 텍스트로 인식 -->
@@ -271,7 +271,7 @@
                         onClick="javascript:removeFile('${uuid}', '${fileName}', this)" > x </button>
             </div>
             <div class="card-body">
-                <img src="/view/${link}" data-src="${uuid+"_"+fileName}" class="mx-auto"/>
+                <img src="/view/${link}" data-src="${uuid+"_vb_"+fileName}" class="mx-auto"/>
             </div>
         </div>
         `;
@@ -394,7 +394,7 @@
         for (let i=0; i<removeFileList.length; i++){
           // const {a,b} = {10,20} => 구조분할할당
           const {uuid, fileName} = removeFileList[i]  // removeFileList.push({uuid, fileName})
-          str += `<input type='hidden', name='fileNames' value="${uuid}_${fileName}">`
+          str += `<input type='hidden', name='fileNames' value="${uuid}_vb_${fileName}">`
         }
         target.innerHTML += str;
 
