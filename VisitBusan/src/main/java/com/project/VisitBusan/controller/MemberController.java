@@ -123,6 +123,7 @@ public class MemberController {
         log.info("==> login error");
 
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호 확인해주세요.");
+
         return "/members/login";
     }
 
@@ -157,8 +158,15 @@ public class MemberController {
     }
 
     /*3. 회원정보 수정*/
+    /*@PreAuthorize("isAuthenticated") //로그인 인증 완료
+    @GetMapping("/modify/{id}")
+    @ResponseBody
+    public MemberDTO getMemberInfo(@PathVariable("id") String userId) {
+        return memberService.findMember(userId);
+    }
+
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value = "/modify")
+    @GetMapping(value = "/modify/{id}")
     public String updateMemberMyPageForm(@Valid @ModelAttribute
                                          MemberDTO memberDTO,
                                          BindingResult bindingResult,
@@ -169,15 +177,36 @@ public class MemberController {
                     bindingResult.getAllErrors());
 
             //수정 페이지 재요청
-            return "members/modify";
+            return "redirect:/mypage";
         }
         //수정 서비스 요청
         memberService.modify(memberDTO);
         //1회 정보 유지
         redirectAttributes.addFlashAttribute("result", "modified");
 
-        return "redirect:/modify";
+        return "redirect:/mypage";
+    }*/
+
+    @PreAuthorize("isAuthenticated")
+    @GetMapping("/mypage/{id}")
+    @ResponseBody
+    public MemberDTO getMemberInfo(@PathVariable("id") String userId) {
+        return memberService.findMember(userId);
     }
+    @PreAuthorize("isAuthenticated")
+    @PostMapping("/mypage/{id}")
+    public String updateMember(@Valid @ModelAttribute MemberDTO memberDTO,
+                               BindingResult bindingResult,
+                               RedirectAttributes redirectAttributes) {
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+            return "redirect:/mypage";
+        }
+        memberService.modify(memberDTO);
+        redirectAttributes.addFlashAttribute("result", "modified");
+        return "redirect:/mypage";
+    }
+
 
     /*4. 회원정보 삭제*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
