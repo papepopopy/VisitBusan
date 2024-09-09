@@ -132,19 +132,19 @@ public class MemberController {
     //----------------------- //
 
     /*1. 회원 목록 조회*/
-    @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value = "/mypage")
-    public String findAll(Model model) {
-        List<MemberDTO> memberDTOList = memberService.findAll();
-        model.addAttribute("memberList", memberDTOList);
-        log.info("회원목록 조회 ==> " + memberDTOList);
-
-        return "members/myPage";
-    }
+//    @PreAuthorize("isAuthenticated") //로그인 인증 완료
+//    @GetMapping(value = "/mypage")
+//    public String findAll(Model model) {
+//        List<MemberDTO> memberDTOList = memberService.findAll();
+//        model.addAttribute("memberList", memberDTOList);
+//        log.info("회원목록 조회 ==> " + memberDTOList);
+//
+//        return "members/myPage";
+//    }
 
     /*2. 마이페이지 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value = "/mypage/")
+    @GetMapping(value = "/mypage")
     public String memberMyPageForm(Model model) {
         //로그인한 사용자 ID
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
