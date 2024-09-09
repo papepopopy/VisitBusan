@@ -172,56 +172,40 @@
         </div>
 
         <!--회원 수정 팝업-->
-       <!-- <div class="profileModal modal">
+        <div class="profileModal modal">
             <div class="modal-dialog">
                 <div class="modal-content p-5">
                     <h2 class="text-center">회원정보 관리</h2>
                     <hr>
-                    <form id="updateForm">
-                        <div class="row align-items-end mt-4 mb-4">
-                            <div class="col">
-                                <button type="submit" class="btn btn-outline-primary w-100">프로필 이미지 변경</button>
-                            </div>
-                        </div>
-                        <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputUserId" class="col-form-label">Id</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" id="inputUserId" class="form-control" th:value="${member.userId}" placeholder="ID" disabled>
-                            </div>
-                        </div>
-
+                    <form action="/modify" method="POST">
+                        <input type="hidden" name="userId" value="${member.userId}">
                         <div class="row mb-3">
                             <div class="col-2">
                                 <label for="inputName" class="col-form-label">닉네임</label>
                             </div>
                             <div class="col">
-                                <input type="text" id="inputName" class="form-control" th:value="${member.name}">
+                                <input type="text" id="inputName" name="name" value="${member.name}">
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <div class="col-2">
                                 <label for="inputEmail" class="col-form-label">이메일</label>
                             </div>
                             <div class="col">
-                                <input type="email" id="inputEmail" class="form-control" th:value="${member.email}">
+                                <input type="email" id="inputEmail" name="email" value="${member.email}">
                             </div>
                         </div>
-
                         <div class="row mb-3">
                             <div class="col-2">
                                 <label for="inputAddress" class="col-form-label">주소</label>
                             </div>
                             <div class="col">
-                                <input type="text" id="inputAddress" class="form-control" th:value="${member.address}">
+                                <input type="text" id="inputAddress" name="address" value="${member.address}">
                             </div>
                         </div>
-
                         <div class="row align-items-end mt-4 mb-4">
                             <div class="col">
-                                <button type="button" class="closeBtn btn btn-danger w-100">취소하기</button>
+                                <button type="button" class="btn btn-danger w-100" onclick="window.location.href='/mypage';">취소하기</button>
                             </div>
                             <div class="col">
                                 <button type="submit" class="btn btn-primary w-100">회원정보 변경</button>
@@ -230,10 +214,10 @@
                     </form>
                 </div>
             </div>
-        </div>-->
+        </div>
 
         <!-- 회원 수정 팝업 -->
-        <div class="profileModal modal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <!--<div class="profileModal modal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content p-5">
                     <h2 class="text-center">회원정보 관리</h2>
@@ -286,7 +270,7 @@
                     </form>
                 </div>
             </div>
-        </div>
+        </div>-->
 
     </div>
     <script layout:fragment="myscript" th:inline="javascript">

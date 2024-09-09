@@ -34,29 +34,25 @@ public class MemberServiceImpl implements MemberService {
         Member member = Member.createMember(memberDTO, passwordEncoder);
 
         // 회원 중복 체크
-        validateDuplicateMember(member);
+        validateDuplicateMember(member.getUserId(), member.getEmail());
 
         log.info("===> 중복 이메일 없음");
         // 중복된 이메일 없을 경우 저장(반영)
         return memberRepository.save(member);
     }
 
-
-    //회원중복체크
     @Override
-    public void validateDuplicateMember(Member member){
-        //이메일 체크
-        Member findMemberByEmail = memberRepository.findByEmail(member.getEmail());
-        if (findMemberByEmail != null) {
-            log.info("이미 가입된 회원 입니다."+member.getEmail());
-            throw new DuplicateEmailException("이미 가입된 회원 입니다.");
+    public void validateDuplicateMember(String userId, String email) {
+        // 이메일 체크
+        if (memberRepository.findByEmail(email) != null) {
+            log.info("이미 가입된 이메일입니다: " + email);
+            throw new DuplicateEmailException("이미 가입된 이메일입니다.");
         }
 
-        //ID 중복 체크
-        Optional<Member> findMemberByUserId = memberRepository.findByUserId(member.getUserId());
-        if (findMemberByUserId.isPresent()) {
-            log.info("이미 가입된 ID 입니다."+ member.getUserId());
-            throw new DuplicateUserIdException("이미 사용 중인 ID 입니다.");
+        // ID 중복 체크
+        if (memberRepository.findByUserId(userId).isPresent()) {
+            log.info("이미 가입된 ID입니다: " + userId);
+            throw new DuplicateUserIdException("이미 사용 중인 ID입니다.");
         }
     }
 
@@ -83,8 +79,6 @@ public class MemberServiceImpl implements MemberService {
     public MemberDTO findMember(String userId) {
         Member member = memberRepository.findByUserId(userId)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
-
-
         return MemberDTO.toMemberDTO(member);
     }
 
@@ -93,15 +87,15 @@ public class MemberServiceImpl implements MemberService {
     public Member modify(MemberDTO memberDTO) {
         //수정 Id
         Member member = memberRepository.findByUserId(memberDTO.getUserId())
-        .orElseThrow(() -> new EntityNotFoundException("Member not found"));
+            .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
 
         // 비밀번호가 변경된 경우에만 암호화
         if (memberDTO.getPassword() != null && !memberDTO.getPassword().isEmpty() &&
-            !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
+                !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
             member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
         }
 
-        //dto 로 변경
+        //다른 정보 변경
         member.change(
                 memberDTO.getName(),
                 memberDTO.getEmail(),
@@ -115,13 +109,13 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.save(member);
     }
 
-
     //회원 삭제
-//    @Override
-//    public void remove(MemberDTO memberDTO) {
-//        //회원이 삭제되어지기 전에 작성한 댓글과 게시물이 사라져야할지
-//        memberRepository.findByUserId(memberDTO.getUserId());
-//    }
+    @Override
+    public void remove(String userId) {
+        Member member = memberRepository.findByUserId(userId)
+                        .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
+        memberRepository.delete(member);
+    }
 
     //전체 조회
     @Override

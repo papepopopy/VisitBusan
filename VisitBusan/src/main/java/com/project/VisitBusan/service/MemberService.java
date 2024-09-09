@@ -12,7 +12,7 @@ public interface MemberService {
     //사용자 추가
     Member saveMember(MemberDTO memberDTO);
     //회원중복체크
-    void validateDuplicateMember(Member member);
+    void validateDuplicateMember(String userId, String email);
     //로그인
     Member login(String userId, String password);
     //회원 조회
@@ -22,14 +22,14 @@ public interface MemberService {
     //회원 수정
     Member modify(MemberDTO memberDTO);
     //회원 삭제
-//    Member remove(MemberDTO memberDTO);
+    void remove(String userId);
 
     // dto -> entity 변환
     default Member dtoToEntity(MemberDTO memberDTO,
                                PasswordEncoder passwordEncoder) {
         Member member = Member.builder()
-                .userId(memberDTO.getName())
                 .userId(memberDTO.getUserId())
+                .userId(memberDTO.getName())
                 .userId(memberDTO.getEmail())
                 .userId(memberDTO.getAddress())
                 .password(passwordEncoder.encode(memberDTO.getPassword()))
@@ -42,25 +42,15 @@ public interface MemberService {
     }
 
     //entity -> dto 변환 (조회용)
-//    default MemberDTO entityToDto(Member member) {
-//        MemberDTO memberDTO = MemberDTO.builder()
-//                .userId(member.getUserId())
-//                .name(member.getName())
-//                .email(member.getEmail())
-//                .password(member.getPassword())
-//                .address(member.getAddress())
-//                .profileText(member.getProfileText())
-//                .build();
-//        // 프로필 이미지 (list -> string 변환)
-//        if (member.getProfileImage() != null) {
-//            List<String> profileImage = member.getProfileImage().stream()
-//                    .sorted()
-//                    .map(image -> image.getUuid() + "_" + image.getFileName())
-//                    .collect(Collectors.toList());
-//
-//            // 프로필 이미지 리스트 설정
-//            memberDTO.setProfileImage(profileImage);
-//        }
+    default MemberDTO entityToDto(Member member) {
+        MemberDTO memberDTO = MemberDTO.builder()
+                .userId(member.getUserId())
+                .name(member.getName())
+                .email(member.getEmail())
+                .password(member.getPassword())
+                .address(member.getAddress())
+                .profileText(member.getProfileText())
+                .build();
 ////        //프로필 이미지 (list -> string 변환)
 ////        if(member.getProfileImage() != null) {
 ////            ProfileImage profileImage = member.getProfileImage();
@@ -68,7 +58,7 @@ public interface MemberService {
 ////            memberDTO.setProfileImage(profileImageString); //List에 이미지 추가
 ////        }
 //
-//        return memberDTO;
-//    }
+        return memberDTO;
+    }
 
 }

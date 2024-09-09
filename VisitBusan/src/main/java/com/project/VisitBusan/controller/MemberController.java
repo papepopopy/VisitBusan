@@ -51,7 +51,6 @@ public class MemberController {
                                  Model model) {
 
         log.info("=> memberDTO: " + memberDTO);
-
         try {
             // dto -> entity -> email중복 체크 ->  save
             memberService.saveMember(memberDTO);
@@ -79,10 +78,10 @@ public class MemberController {
             tempMember.setEmail(email);
 
             // validateDuplicateMember 메서드를 호출하여 중복 검사
-            memberServiceImpl.validateDuplicateMember(tempMember);
+//            memberServiceImpl.validateDuplicateMember(tempMember);
 
             // 중복이 없는 경우
-            response.put("exists", false);
+//            response.put("exists", false);
         } catch (DuplicateUserIdException e) {
             // ID가 중복된 경우
             response.put("exists", true);
@@ -145,10 +144,8 @@ public class MemberController {
 
     /*2. 마이페이지 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value = "/mypage")
-    public String memberMyPageForm(Model model) {
-        //로그인한 사용자 ID
-        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+    @GetMapping(value = "/mypage/{userId}")
+    public String memberMyPageForm(@PathVariable("userId") String userId, Model model) {
 
         //회원 정보 조회
         MemberDTO memberDTO = memberService.findMember(userId);
@@ -158,54 +155,53 @@ public class MemberController {
     }
 
     /*3. 회원정보 수정*/
-    /*@PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping("/modify/{id}")
-    @ResponseBody
-    public MemberDTO getMemberInfo(@PathVariable("id") String userId) {
-        return memberService.findMember(userId);
-    }
+//    @PreAuthorize("isAuthenticated") //로그인 인증 완료
+//    @GetMapping("/modify")
+//    @ResponseBody
+//    public MemberDTO getMemberInfo(@PathVariable("userId") String userId) {
+//        return memberService.findMember(userId); //userId 기준 회원 정보 들고오기
+//    }
 
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value = "/modify/{id}")
-    public String updateMemberMyPageForm(@Valid @ModelAttribute
+    @GetMapping(value = "/modify")
+    public String updateMember(@Valid @ModelAttribute
                                          MemberDTO memberDTO,
                                          BindingResult bindingResult,
                                          RedirectAttributes redirectAttributes) {
         //Valid 유효성 검사
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errors",
-                    bindingResult.getAllErrors());
+            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
 
             //수정 페이지 재요청
-            return "redirect:/mypage";
+            return "redirect:/modify/{userId}";
         }
         //수정 서비스 요청
         memberService.modify(memberDTO);
-        //1회 정보 유지
+        //수정 값 = result
         redirectAttributes.addFlashAttribute("result", "modified");
 
         return "redirect:/mypage";
-    }*/
+    }
 
-    @PreAuthorize("isAuthenticated")
-    @GetMapping("/mypage/{id}")
-    @ResponseBody
-    public MemberDTO getMemberInfo(@PathVariable("id") String userId) {
-        return memberService.findMember(userId);
-    }
-    @PreAuthorize("isAuthenticated")
-    @PostMapping("/mypage/{id}")
-    public String updateMember(@Valid @ModelAttribute MemberDTO memberDTO,
-                               BindingResult bindingResult,
-                               RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            return "redirect:/mypage";
-        }
-        memberService.modify(memberDTO);
-        redirectAttributes.addFlashAttribute("result", "modified");
-        return "redirect:/mypage";
-    }
+//    @PreAuthorize("isAuthenticated")
+//    @GetMapping("/mypage/{id}")
+//    @ResponseBody
+//    public MemberDTO getMemberInfo(@PathVariable("id") String userId) {
+//        return memberService.findMember(userId);
+//    }
+//    @PreAuthorize("isAuthenticated")
+//    @PostMapping("/mypage/{id}")
+//    public String updateMember(@Valid @ModelAttribute MemberDTO memberDTO,
+//                               BindingResult bindingResult,
+//                               RedirectAttributes redirectAttributes) {
+//        if (bindingResult.hasErrors()) {
+//            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+//            return "redirect:/mypage";
+//        }
+//        memberService.modify(memberDTO);
+//        redirectAttributes.addFlashAttribute("result", "modified");
+//        return "redirect:/mypage";
+//    }
 
 
     /*4. 회원정보 삭제*/
@@ -213,13 +209,14 @@ public class MemberController {
     @GetMapping(value = "/remove")
     public String removeMember(@RequestParam String userId,
                                RedirectAttributes redirectAttributes) {
-//         try {
-//             memberService.remove(userId);
-//             redirectAttributes.addFlashAttribute("result","deleted");
-//         } catch (Exception e) {
-//             redirectAttributes.addFlashAttribute("error", "회원 삭제를 실패하여습니다.");
-//         }
+         try {
+             memberService.remove(userId);
+             redirectAttributes.addFlashAttribute("result","deleted");
+         } catch (Exception e) {
+             redirectAttributes.addFlashAttribute("error", "회원 삭제를 실패하여습니다.");
+         }
 
         return "redirect:/mypage";
     }
+
 }
