@@ -5,6 +5,7 @@ import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.repository.MemberRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -92,10 +93,11 @@ public class MemberServiceImpl implements MemberService {
     public Member modify(MemberDTO memberDTO) {
         //수정 Id
         Optional<Member> result = memberRepository.findByUserId(memberDTO.getUserId());
-        Member member = result.orElseThrow();
+        Member member = result.orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
         // 비밀번호가 변경된 경우에만 암호화
-        if (!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
+        if (memberDTO.getPassword() != null && !memberDTO.getPassword().isEmpty() &&
+            !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
             member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
         }
 

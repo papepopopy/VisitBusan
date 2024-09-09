@@ -70,8 +70,8 @@ public class CustomSecurityConfig {
                         .userDetailsService(customUserDetailsService)
 //                        .tokenValiditySeconds(10)  // 10초
                         .tokenValiditySeconds(60*60*24*30)  // 30일 유효(초*분*시간*일)
-//                        .rememberMeParameter("remember")  // 생략시 기본파라미터 명은 "remember-me", <input type='checked' name='파라미터명'>
-//                        .alwaysRemember(true)  // 리멤버 미 기능이 활성화되지 않아도 항상 실행
+//                        .rememberMeParameter("remember-me")  // 생략시 기본파라미터 명은 "remember-me", <input type='checkbox' name='파라미터명'>
+                        .alwaysRemember(true)  // 리멤버 미 기능이 활성화되지 않아도 항상 실행
         );
 
         // 2. 인증 과정 처리

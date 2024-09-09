@@ -159,13 +159,14 @@ public class MemberController {
     /*3. 회원정보 수정*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @GetMapping(value = "/modify")
-    public String updateMemberMyPageForm(@Valid Model model,
+    public String updateMemberMyPageForm(@Valid @ModelAttribute
                                          MemberDTO memberDTO,
                                          BindingResult bindingResult,
                                          RedirectAttributes redirectAttributes) {
          //Valid 유효성 검사
          if(bindingResult.hasErrors()) {
-             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
+             redirectAttributes.addFlashAttribute("errors",
+                     bindingResult.getAllErrors());
 
              //수정 페이지 재요청
              return "members/modify";
@@ -175,7 +176,7 @@ public class MemberController {
          //1회 정보 유지
          redirectAttributes.addFlashAttribute("result", "modified");
 
-         return "members/modify";
+         return "redirect:members/modify";
     }
 
      /*4. 회원정보 삭제*/
