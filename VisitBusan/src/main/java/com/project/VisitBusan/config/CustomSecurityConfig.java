@@ -78,12 +78,12 @@ public class CustomSecurityConfig {
         // 2.1 로그인 관련 설정 => UserDetailsService 인터페이스 구현 후 설정 할 것
         http.csrf(AbstractHttpConfigurer::disable)
                 .formLogin(login -> {
-                    login.loginPage("/member/login")             // 로그인 처리할 url 설정
+                    login.loginPage("/login")             // 로그인 처리할 url 설정
                             .defaultSuccessUrl("/", true)// 로그인 성공시 url 설정
                             .usernameParameter("userId")                        // 웹의 username의  매개변수이름 설정
                             .passwordParameter("password")                      // 웹의 password의  매개변수이름 설정
-                            .loginProcessingUrl("/member/login")                       // 웹 로그인창의 form action 값 설정
-                            .failureUrl("/member/login/error")       // 로그인 실패시 url 설정
+                            .loginProcessingUrl("/login")                       // 웹 로그인창의 form action 값 설정
+                            .failureUrl("/login/error")       // 로그인 실패시 url 설정
 
                             // 성공 또는 실패할 경우 핸들러 사용해서 원하는 것을 실행 할 경우 적용
                             // defaultSuccessUrl(),failureUrl() 중복될 경우 핸들러가 우선으로 수행됨.
@@ -98,7 +98,7 @@ public class CustomSecurityConfig {
                                 @Override
                                 public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
                                     log.info("==> exception: " + exception.getMessage());
-                                    response.sendRedirect("/member/login/error");
+                                    response.sendRedirect("/login/error");
                                 }
                             });
                 });
@@ -162,7 +162,7 @@ public class CustomSecurityConfig {
         // 로그아웃을 기본으로 설정 =>  url: "/logout" 로그아웃 수행
 //        http.logout(Customizer.withDefaults());
         http.logout(logout -> {
-            logout.logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
+            logout.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                     .logoutSuccessUrl("/")
                     .invalidateHttpSession(true); // 세션값 삭제로 로그아웃
         });

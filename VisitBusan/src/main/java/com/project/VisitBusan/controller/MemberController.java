@@ -27,7 +27,6 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @Log4j2
-@RequestMapping("/member")
 public class MemberController {
     private final MemberService memberService;
     private final MemberServiceImpl memberServiceImpl;
@@ -37,8 +36,8 @@ public class MemberController {
     // 회원가입
     //----------------------- //
     // 회원 등록: GET, POST
-    @GetMapping(value="/signup")
-    public String memberRegisterForm(Model model){
+    @GetMapping(value = "/signup")
+    public String memberRegisterForm(Model model) {
         // 데이터가 없는 memberDTO생성 : form에 입력한 데이터와 1:1 맵핑
         model.addAttribute("memberDTO", new MemberDTO());
 
@@ -46,23 +45,23 @@ public class MemberController {
         return "members/signUp";
     }
 
-    @PostMapping(value="/signup")
+    @PostMapping(value = "/signup")
     public String memberRegister(@Valid @ModelAttribute MemberDTO memberDTO,
                                  BindingResult bindingResult,
-                                 Model model){
+                                 Model model) {
 
-        log.info("=> memberDTO: "+memberDTO);
+        log.info("=> memberDTO: " + memberDTO);
 
         try {
             // dto -> entity -> email중복 체크 ->  save
             memberService.saveMember(memberDTO);
-        } catch(Exception e){ // 중복된 이메일 등록시 예외발생되는 Exception 처리
-            model.addAttribute("errorMessage",e.getMessage());
+        } catch (Exception e) { // 중복된 이메일 등록시 예외발생되는 Exception 처리
+            model.addAttribute("errorMessage", e.getMessage());
             return "members/signup";// 입력폼으로 포워딩
         }
 
         //회원가입 후 로그인 페이지 이동
-        return "redirect:/member/login";
+        return "redirect:/login";
     }
 
     // 중복 체크 처리
@@ -111,15 +110,16 @@ public class MemberController {
     // 로그인, 로그아웃 처리
     //----------------------- //
     // 1. 로그인
-    @GetMapping(value="/login")
-    public String loginMember(String error, String logout){
+    @GetMapping(value = "/login")
+    public String loginMember(String error, String logout) {
         log.info("=> login ");
         // 로그인 폼이 있는 페이지로 포워딩
         return "/members/login";
     }
+
     // 1-1. 로그인 실패시 처리할 url
     @GetMapping("/login/error")
-    public String loginError(Model model){
+    public String loginError(Model model) {
         log.info("==> login error");
 
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호 확인해주세요.");
@@ -133,10 +133,10 @@ public class MemberController {
 
     /*1. 회원 목록 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value="/mypage")
+    @GetMapping(value = "/mypage")
     public String findAll(Model model) {
         List<MemberDTO> memberDTOList = memberService.findAll();
-        model.addAttribute("memberList",memberDTOList);
+        model.addAttribute("memberList", memberDTOList);
         log.info("회원목록 조회 ==> " + memberDTOList);
 
         return "members/myPage";
@@ -144,7 +144,7 @@ public class MemberController {
 
     /*2. 마이페이지 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value="/mypage/")
+    @GetMapping(value = "/mypage/")
     public String memberMyPageForm(Model model) {
         //로그인한 사용자 ID
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
@@ -163,27 +163,27 @@ public class MemberController {
                                          MemberDTO memberDTO,
                                          BindingResult bindingResult,
                                          RedirectAttributes redirectAttributes) {
-         //Valid 유효성 검사
-         if(bindingResult.hasErrors()) {
-             redirectAttributes.addFlashAttribute("errors",
-                     bindingResult.getAllErrors());
+        //Valid 유효성 검사
+        if (bindingResult.hasErrors()) {
+            redirectAttributes.addFlashAttribute("errors",
+                    bindingResult.getAllErrors());
 
-             //수정 페이지 재요청
-             return "member/modify";
-         }
-         //수정 서비스 요청
-         memberService.modify(memberDTO);
-         //1회 정보 유지
-         redirectAttributes.addFlashAttribute("result", "modified");
+            //수정 페이지 재요청
+            return "members/modify";
+        }
+        //수정 서비스 요청
+        memberService.modify(memberDTO);
+        //1회 정보 유지
+        redirectAttributes.addFlashAttribute("result", "modified");
 
-         return "redirect:/member/modify";
+        return "redirect:/modify";
     }
 
-     /*4. 회원정보 삭제*/
-     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-     @GetMapping(value = "/remove")
-     public String removeMember(@RequestParam String userId,
-                                  RedirectAttributes redirectAttributes) {
+    /*4. 회원정보 삭제*/
+    @PreAuthorize("isAuthenticated") //로그인 인증 완료
+    @GetMapping(value = "/remove")
+    public String removeMember(@RequestParam String userId,
+                               RedirectAttributes redirectAttributes) {
 //         try {
 //             memberService.remove(userId);
 //             redirectAttributes.addFlashAttribute("result","deleted");
@@ -191,6 +191,6 @@ public class MemberController {
 //             redirectAttributes.addFlashAttribute("error", "회원 삭제를 실패하여습니다.");
 //         }
 
-         return "redirect:/member/mypage";
-     }
+        return "redirect:/mypage";
+    }
 }

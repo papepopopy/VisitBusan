@@ -5,6 +5,7 @@ import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.repository.MemberRepository;
 import lombok.extern.log4j.Log4j2;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Commit
 @Transactional(readOnly = false)
-//@TestPropertySource(locations = {"classpath: application-test.properties"})
+@TestPropertySource(locations = {"classpath:application-test.properties"})
 @Log4j2
 @SpringBootTest
 class MemberServiceTest {
@@ -75,6 +76,34 @@ class MemberServiceTest {
 
 //            member.getRoleSet().forEach(role -> log.info("=> member role :" + role.name()));
         });
+    }
+    @Test
+    @DisplayName("회원 수정 Test")
+    public void ModifyMember() {
+        //더비 데이터
+        Member member = Member.builder()
+            .userId("userId5")
+            .name("홍길동2")
+            .email("test5@email.com5")
+            .password(passwordEncoder.encode("1111"))
+            .address("부산시 진구")
+            .build();
+
+        memberRepository.save(member);
+
+        // 수정할 DTO 객체 생성
+        MemberDTO memberDTO = new MemberDTO();
+        memberDTO.setUserId(member.getUserId()); // 수정할 회원의 userId 설정
+        memberDTO.setName("홍길동3"); // 수정할 이름 설정
+        memberDTO.setEmail("test5_updated@email.com5"); // 수정할 이메일 설정
+        memberDTO.setAddress("서울시 강남구"); // 수정할 주소 설정
+
+        // 회원 정보 수정 실행
+        Member modMember = memberService.modify(memberDTO);
+
+        Assertions.assertThat(modMember.getName()).isEqualTo(member.getName());
+        Assertions.assertThat(modMember.getEmail()).isEqualTo(member.getEmail());
+        Assertions.assertThat(modMember.getAddress()).isEqualTo(member.getAddress());
     }
 }
 

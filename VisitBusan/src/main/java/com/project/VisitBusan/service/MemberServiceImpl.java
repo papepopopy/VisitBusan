@@ -92,8 +92,8 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public Member modify(MemberDTO memberDTO) {
         //수정 Id
-        Optional<Member> result = memberRepository.findByUserId(memberDTO.getUserId());
-        Member member = result.orElseThrow(() -> new EntityNotFoundException("Member not found"));
+        Member member = memberRepository.findByUserId(memberDTO.getUserId())
+        .orElseThrow(() -> new EntityNotFoundException("Member not found"));
 
         // 비밀번호가 변경된 경우에만 암호화
         if (memberDTO.getPassword() != null && !memberDTO.getPassword().isEmpty() &&
@@ -115,11 +115,12 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.save(member);
     }
 
+
     //회원 삭제
 //    @Override
 //    public void remove(MemberDTO memberDTO) {
 //        //회원이 삭제되어지기 전에 작성한 댓글과 게시물이 사라져야할지
-//        memberRepository.deleteByUserId(memberDTO.getUserId());
+//        memberRepository.findByUserId(memberDTO.getUserId());
 //    }
 
     //전체 조회
