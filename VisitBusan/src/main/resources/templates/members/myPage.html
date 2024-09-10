@@ -20,8 +20,17 @@
                 <p class="email" th:text="${member.email}">test@gmail.com</p>
                 <p class="mypage-comant" th:text="${member.profileText}">여유있는 여행자 홍길동</p>
                 <div class="mypage-link">
-                    <div class="profileBtn">내 정보 수정</div>
-                    <div>알림함</div>
+                    <div class="profileBtn blueBtn">내 정보 수정</div>
+                    <div class="blueBtn">알림함</div>
+                </div>
+                <!--오류 메시지-->
+                <div th:if="${errors != null}" class="error-message">
+                    <span th:each="error : ${errors}">
+                        <p th:text="${error.defaultMessage}"></p>
+                    </span>
+                </div>
+                <div th:if="#{errorMessage}" class="error-message">
+                    <p th:text="${errorMessage}"></p>
                 </div>
             </div>
         </div>
@@ -103,6 +112,10 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="d-flex justify-content-end">
+                        <div class="secessionBtn member whiteBtn">회원탈퇴</div>
+                    </div>
                 </div>
             </div>
             <div class="tab-pane fade" id="profile-tab-pane" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
@@ -141,34 +154,6 @@
                     </div>
                 </div>
             </div>
-            <!-- class="tab-content" -->
-            <!-- 페이지 버튼 -->
-            <!-- class="tab-content" -->
-            <!-- 페이지 버튼 -->
-            <!--<nav aria-label="Page navigation">
-                <ul class="pagination justify-content-center mt-4">
-
-                    &lt;!&ndash; 불러올 이전 페이지가 있으면 활성화 &ndash;&gt;
-                    <li th:if="${responseDTO.prev}" class="page-item">
-                        <a class="page-link" href="#" th:data-num="${responseDTO.start-1}">Previous</a>
-                    </li>
-
-                    &lt;!&ndash; 해당 블럭의 시작 페이지 번호와 마지막 번호   시작번호 1 끝번호 10 &ndash;&gt;
-                    &lt;!&ndash; th:each="i : ${#numbers.sequence(${pageResponseDTO.start}, ${pageResponseDTO.end}, +1)}" 이렇게 하면 에러 ${}안에 ${}또 넣으면 안됨 &ndash;&gt;
-                    <th:block th:each="i : ${#numbers.sequence(responseDTO.start, responseDTO.end, +1)}">
-                        <li class="page-item"
-                            th:classappend="${responseDTO.page==i?'active':''}"> &lt;!&ndash;  &ndash;&gt;
-                            <a class="page-link" href="#" th:data-num="${i}">[[${i}]]</a>
-                        </li>
-                    </th:block>
-
-                    &lt;!&ndash; 불러올 다음 페이지가 있으면 활성화 &ndash;&gt;
-                    <li th:if="${responseDTO.next}" class="page-item">
-                        <a class="page-link" href="#" th:data-num="${responseDTO.end+1}">Next</a>
-                    </li>
-
-                </ul>
-            </nav>-->
         </div>
 
         <!--회원 수정 팝업-->
@@ -177,160 +162,146 @@
                 <div class="modal-content p-5">
                     <h2 class="text-center">회원정보 관리</h2>
                     <hr>
-                    <form action="/modify" method="POST">
-                        <input type="hidden" name="userId" value="${member.userId}">
-                        <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputName" class="col-form-label">닉네임</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" id="inputName" name="name" value="${member.name}">
-                            </div>
+                    <form th:action="@{/mypage}" method="POST">
+                        <input type="hidden" name="userId" th:value="${member.userId}">
+                        <div class="mb-2">
+                            <label for="inputName" class="col-form-label">닉네임</label>
+                            <input type="text" id="inputName" name="name" th:value="${member.name}">
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputEmail" class="col-form-label">이메일</label>
-                            </div>
-                            <div class="col">
-                                <input type="email" id="inputEmail" name="email" value="${member.email}">
-                            </div>
+                        <div class="mb-2">
+                            <label for="inputEmail" class="col-form-label">이메일</label>
+                            <input type="email" id="inputEmail" name="email" th:value="${member.email}">
                         </div>
-                        <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputAddress" class="col-form-label">주소</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" id="inputAddress" name="address" value="${member.address}">
-                            </div>
+                        <div class="mb-2">
+                            <label for="inputAddress" class="col-form-label">주소</label>
+                            <input type="text" id="inputAddress" name="address" th:value="${member.address}">
                         </div>
-                        <div class="row align-items-end mt-4 mb-4">
+                        <div class="mb-2">
+                            <label for="inputprofileText" class="col-form-label">소개말</label>
+                            <input type="text" id="inputprofileText" name="profileText" th:value="${member.profileText}">
+                        </div>
+                        <div class="mb-2">
+                            <label for="inputAddress" class="col-form-label">비밀번호 확인(필수)</label>
+                            <input type="text" id="inputPassword" name="password">
+                        </div>
+                        <div class="row align-items-end mt-5 mb-4">
                             <div class="col">
-                                <button type="button" class="btn btn-danger w-100" onclick="window.location.href='/mypage';">취소하기</button>
+                                <button type="button" class="closeBtn btn btn-danger w-100" onclick="window.location.href='/mypage';">취소하기</button>
                             </div>
                             <div class="col">
-                                <button type="submit" class="btn btn-primary w-100">회원정보 변경</button>
+                                <button type="submit" class="modBtn btn btn-primary w-100">회원정보 변경</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
         </div>
+        <!--/회원 수정 팝업-->
 
-        <!-- 회원 수정 팝업 -->
-        <!--<div class="profileModal modal" tabindex="-1" aria-labelledby="profileModalLabel" aria-hidden="true">
+        <!--회원 탈퇴 팝업-->
+        <div class="secessionModal modal">
             <div class="modal-dialog">
                 <div class="modal-content p-5">
-                    <h2 class="text-center">회원정보 관리</h2>
+                    <h2 class="text-center">회원탈퇴</h2>
                     <hr>
-                    <form id="updateForm">
-                        <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputUserId" class="col-form-label">Id</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" id="inputUserId" class="form-control" name="userId" placeholder="ID" disabled>
-                            </div>
+                    <form th:action="@{/mypage}" method="POST">
+                        <div>회원 탈퇴하시겠습니까?<br> 탈퇴 시 삭제된 계정을 복구가 불가능합니다.</div>
+                        <div class="mb-2">
+                            <label for="inputAddress" class="col-form-label">비밀번호 확인(필수)</label>
+                            <input type="text" id="inputPassword" name="password">
                         </div>
-
-                        <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputName" class="col-form-label">닉네임</label>
+                        <div class="row align-items-end mt-5 mb-4">
+                            <div class="col">
+                                <button type="button" class="secCloseBtn btn btn-danger w-100" onclick="window.location.href='/mypage';">취소하기</button>
                             </div>
                             <div class="col">
-                                <input type="text" id="inputName" class="form-control" name="name">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputEmail" class="col-form-label">이메일</label>
-                            </div>
-                            <div class="col">
-                                <input type="email" id="inputEmail" class="form-control" name="email">
-                            </div>
-                        </div>
-
-                        <div class="row mb-3">
-                            <div class="col-2">
-                                <label for="inputAddress" class="col-form-label">주소</label>
-                            </div>
-                            <div class="col">
-                                <input type="text" id="inputAddress" class="form-control" name="address">
-                            </div>
-                        </div>
-
-                        <div class="row align-items-end mt-4 mb-4">
-                            <div class="col">
-                                <button type="button" class="btn btn-danger w-100 closeBtn">취소하기</button>
-                            </div>
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary w-100">회원정보 변경</button>
+                                <button type="submit" class="secBtn btn btn-primary w-100">확인하기</button>
                             </div>
                         </div>
                     </form>
                 </div>
             </div>
-        </div>-->
+        </div>
+        <!--/회원 탈퇴 팝업-->
+        
 
+        <script layout:fragment="myscript" th:inline="javascript">
+            const formObj = document.querySelector('form');
+            const profileModal = new bootstrap.Modal(document.querySelector('.profileModal'))
+            const secessionModal = new bootstrap.Modal(document.querySelector('.secessionModal'))
+
+            //열기
+            document.querySelector('.profileBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                profileModal.show();
+            });
+            //닫기
+            document.querySelector('.closeBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                profileModal.hide();
+            });
+            //수정
+            document.querySelector('.modBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                formObj.action = `/mypage`; //마이페이지로 정보 이동
+
+                //이미지 첨부파일 처리
+                //appendFileData()
+
+                formObj.method = "post";
+                formObj.submit();
+            });
+
+            //탈퇴
+            document.querySelector(".secessionBtn").addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                secessionModal.show();
+            });
+            document.querySelector(".secCloseBtn").addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                secessionModal.hide();
+            });
+            document.querySelector(".secBtn").addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+
+                formObj.method = "post";
+                formObj.submit();
+            });
+            /*
+            function appendFileData(){
+            // 이미지 첨부파일 처리
+            const target = document.querySelector('.uploadHidden')    // Add Files버튼(모달창 호출 버튼)
+            const uploadFiles = uploadResult.querySelectorAll('img')  // 이미지 첨부파일 있을 경우(업로드 처리후 img태그요소)
+
+
+            console.log('.uploadHidden',target)
+            console.log('uploadFiles', uploadFiles)
+
+            let str = ""
+            for (let i=0; i<uploadFiles.length; i++){ // 이미지 첨부파일이 1개이상일 경우
+              const uploadFile = uploadFiles[i]       // img태그 배열
+              const imgLink = uploadFile.getAttribute('data-src')
+
+              // 이미지 파일 이름을 hideen input요소에 저장
+              str += `<input type='hidden' name='fileNames' value="${imgLink}">`
+              //console.log("imges: "+ imgLink);`
+
+            }// end for
+
+            // [Add Files]버튼 =>  <input type='hidden' name="fileNames"/>요소 전환
+            target.innerHTML = str;
+
+            }
+            */
+
+        </script>
     </div>
-    <script layout:fragment="myscript" th:inline="javascript">
-        const profileModal = new bootstrap.Modal(document.querySelector('.profileModal'))
-/*
-        //열기
-        document.querySelector('.profileBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            profileModal.show();
-        });
-        //닫기
-        document.querySelector('.closeBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            profileModal.hide();
-        });
-*/
-        document.querySelector('.profileBtn').addEventListener('click', function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-
-            const userId = document.querySelector('.nick-name').textContent; // 로그인한 사용자 ID
-
-
-            // AJAX 요청으로 회원 정보 가져오기
-            fetch(`/mypage/${userId}`)
-                .then(response => response.json())
-                .then(data => {
-                    // 폼 필드에 데이터 채우기
-                    document.querySelector('#inputUserId').value = data.userId;
-                    document.querySelector('#inputName').value = data.name;
-                    document.querySelector('#inputEmail').value = data.email;
-                    document.querySelector('#inputAddress').value = data.address;
-
-                    profileModal.show();
-                })
-                .catch(error => console.error('회원 정보 로드 실패:', error));
-        });
-        document.querySelector('#updateForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-
-    const formData = new FormData(e.target);
-
-    fetch('/modify/', {
-        method: 'POST',
-        body: formData,
-        headers: {
-            'Accept': 'application/json'
-        }
-    })
-    .then(response => response.text())
-    .then(() => {
-        profileModal.hide();
-        window.location.href = '/mypage'; // 수정 후 페이지 이동
-    })
-    .catch(error => console.error('회원 정보 수정 실패:', error));
-});
-    </script>
 </body>
  </html>

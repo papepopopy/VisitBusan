@@ -19,17 +19,17 @@ import java.util.List;
 @Builder
 public class MemberDTO {
 
-    @NotBlank(message = "아이디는 필수입니다~")
+    @NotBlank(message = "아이디 입력은 필수입니다.")
     private String userId;
-    @NotBlank(message = "이름은 필수입니다~")  // Null 체크 및 문자열의 경우 길이 0인지 및 빈문자열("") 검사
+    @NotBlank(message = "이름은 입력은 필수입니다.")  // Null 체크 및 문자열의 경우 길이 0인지 및 빈문자열("") 검사
     private String name;
-    @NotBlank(message = "이메일은 필수입니다~")  // Null 체크 및 문자열의 경우 길이 0인지 및 빈문자열("") 검사
-    @Email(message = "이메일 형식으로 입력하세요~")
+    @NotBlank(message = "이메일 입력은 필수입니다.")  // Null 체크 및 문자열의 경우 길이 0인지 및 빈문자열("") 검사
+    @Email(message = "이메일 형식에 맞춰 입력해주세요.")
     private String email;
-    @NotBlank(message = "비밀번호는 필수입니다~")
-    @Length(min=4, max=16, message = "비밀번호는 4자 이상 16자 이하로 입력하세요~")
+    @NotBlank(message = "비밀번호 입력은 필수입니다.")
+    @Length(min=4, max=16, message = "4자 이상 16자 이하로 입력해주세요.")
     private String password;
-    @NotBlank(message = "주소는 필수입니다~")
+    @NotBlank(message = "주소 입력은 필수입니다.")
     private String address;
 
     private String profileText;

@@ -55,7 +55,9 @@ h4 {
 .center {
     text-align: center;
 }
-
+.right {
+    text-align: end;
+}
 .body {
     margin: 60px 0;
 }
@@ -64,6 +66,10 @@ h4 {
 .container {
     padding: 150px 0 80px 0;
 }
+footer .container {
+        padding: 0;
+}
+
 /* 카테고리 */
 .with-4 {
     flex: 1 1 100%;
@@ -100,6 +106,13 @@ h4 {
 .left {
     text-align: left;
 }
+/*오류 메시지*/
+.error-message p {
+    font-size: 14px;
+    margin-top: .25rem;
+    color: #dc3545;
+    display: inline-block;
+}
 /* 버튼 */
 .controlBox {
     display: flex;
@@ -117,6 +130,25 @@ h4 {
     background-color: #38aed6;
     border: #38aed6;
     color: #fff;
+}
+.whiteBtn {
+    background-color: #fff;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 20px;
+    color: #5f6368;
+    margin: 10px 0 5px;
+    display: inline-block;
+    border: 1px solid #5f6368;
+}
+.blueBtn {
+    background-color: #1a73e8;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 20px;
+    color: #fff;
+    margin: 10px 0 5px;
+    display: inline-block;
 }
 /* 제목 스타일 */
 .topBox {
@@ -313,7 +345,19 @@ h4 {
     color: #e90049;
 }
 /* 공통스타일 end */
-
+/*mypage -> modal*/
+.mypage .profileModal input {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #eee;
+    padding: 10px;
+}
+.mypage .profileModal input:focus {
+    border: 1px solid #ccc;
+}
+.mypage .modal {
+    --bs-modal-width: 550px;
+}
 /* mypage */
 .mypage .mypage-top-box img {
     width: 160px;
@@ -323,17 +367,12 @@ h4 {
 }
 .mypage .mypage-link {
     display: flex;
-    gap: 5px;
-}
-.mypage .mypage-link div {
-    background-color: #F2F2F2;
-    padding: 4px 14px;
-    font-size: 14px;
-    border-radius: 14px;
+    gap: 6px;
 }
 .mypage .mypage-top-box {
     display: flex;
     gap: 30px;
+    padding: 20px 0;
 }
 .tab-menu {
     display: flex;
@@ -351,6 +390,7 @@ h4 {
 .mypage .rev-inner-list {
     display: flex;
     gap: 25px;
+    padding-bottom: 50px;
 }
 .mypage .rev-img {
     margin: 30px 0 15px;
@@ -394,9 +434,16 @@ h4 {
     padding-left: 20px;
     float: right;
 }
-.mypage .pro-content .mail {
+.mypage .pro-content .nick-name {
     margin-bottom: 5px;
-    font-size: 18px;
+}
+.mypage .pro-content .email {
+    margin-bottom: 15px;
+    font-size: 16px;
+    color: #888;
+}
+.mypage .pro-content .mypage-comant {
+    color: #333;
 }
 .login-box {
     max-width: 600px;
@@ -727,6 +774,9 @@ h4 {
 @media (min-width: 1200px) {
     .postsBox .post {
         width: 23.6%;
+    }
+    footer .container {
+        padding: 0;
     }
     .container {
         padding: 220px 0;

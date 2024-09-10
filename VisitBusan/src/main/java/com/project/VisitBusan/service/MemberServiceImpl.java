@@ -89,10 +89,12 @@ public class MemberServiceImpl implements MemberService {
         Member member = memberRepository.findByUserId(memberDTO.getUserId())
             .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
 
-        // 비밀번호가 변경된 경우에만 암호화
-        if (memberDTO.getPassword() != null && !memberDTO.getPassword().isEmpty() &&
-                !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
-            member.setPassword(passwordEncoder.encode(memberDTO.getPassword()));
+        if (memberDTO.getPassword() != null && !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
+            // 비밀번호가 맞지 않을시 예외 발생
+            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
+        } else if (memberDTO.getPassword() == null){
+            // 비밀번호가 적혀있지 않을시 예외 발생
+            throw new IllegalArgumentException("비밀번호 작성이 필요합니다.");
         }
 
         //다른 정보 변경
@@ -100,9 +102,8 @@ public class MemberServiceImpl implements MemberService {
                 memberDTO.getName(),
                 memberDTO.getEmail(),
                 memberDTO.getAddress(),
-                memberDTO.getPassword()
 //                memberDTO.getProfileImage(),
-//                memberDTO.getProfileText()
+                memberDTO.getProfileText()
         );
 
         //저장하기

@@ -29,9 +29,10 @@ public interface MemberService {
                                PasswordEncoder passwordEncoder) {
         Member member = Member.builder()
                 .userId(memberDTO.getUserId())
-                .userId(memberDTO.getName())
-                .userId(memberDTO.getEmail())
-                .userId(memberDTO.getAddress())
+                .name(memberDTO.getName())
+                .email(memberDTO.getEmail())
+                .address(memberDTO.getAddress())
+                .profileText(memberDTO.getProfileText())
                 .password(passwordEncoder.encode(memberDTO.getPassword()))
                 .build();
 

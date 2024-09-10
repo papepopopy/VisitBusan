@@ -144,39 +144,44 @@ public class MemberController {
 
     /*2. 마이페이지 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value = "/mypage/{userId}")
-    public String memberMyPageForm(@PathVariable("userId") String userId, Model model) {
+    @GetMapping(value = "/mypage")
+    public String memberMyPageForm(Model model) {
+        //로그인한 사용자 ID
+        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
         //회원 정보 조회
         MemberDTO memberDTO = memberService.findMember(userId);
         model.addAttribute("member", memberDTO);
-
         return "members/myPage";
     }
 
     /*3. 회원정보 수정*/
-//    @PreAuthorize("isAuthenticated") //로그인 인증 완료
-//    @GetMapping("/modify")
-//    @ResponseBody
-//    public MemberDTO getMemberInfo(@PathVariable("userId") String userId) {
-//        return memberService.findMember(userId); //userId 기준 회원 정보 들고오기
-//    }
-
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value = "/modify")
+    @PostMapping(value = "/mypage")
     public String updateMember(@Valid @ModelAttribute
-                                         MemberDTO memberDTO,
-                                         BindingResult bindingResult,
-                                         RedirectAttributes redirectAttributes) {
+                               //@ModelAttribute 을 통해 form 정보받기
+                                 MemberDTO memberDTO,
+                                 BindingResult bindingResult,
+                                 RedirectAttributes redirectAttributes) {
+
+        log.info("Updating member with userId: " + memberDTO.getUserId());
+
         //Valid 유효성 검사
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-
             //수정 페이지 재요청
-            return "redirect:/modify/{userId}";
+            return "redirect:/mypage";
         }
         //수정 서비스 요청
-        memberService.modify(memberDTO);
+        try {
+            // 수정 서비스 요청
+            memberService.modify(memberDTO);
+        } catch (IllegalArgumentException e) {
+            // 비밀번호 불일치 예외 처리
+            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            return "redirect:/mypage"; // 비밀번호 불일치시 다시 마이페이지로 이동
+        }
+
         //수정 값 = result
         redirectAttributes.addFlashAttribute("result", "modified");
 
