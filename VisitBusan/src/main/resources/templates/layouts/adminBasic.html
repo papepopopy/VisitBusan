@@ -24,14 +24,15 @@
             </div>
             <div class="admin_name text-white mt-3">name</div>
         </div>
+        <!--/*
         <div class="sb_2">
             <div class="home_btn text-white">
-                <a href="#" class="link-light">home</a>
+                <a href="#" class="link-light" th:href="@{/admin}">home</a>
             </div>
             <div class="back_btn text-white">
                 <a href="#" class="link-light">back</a>
             </div>
-        </div>
+        </div>*/-->
         <div class="sb_3">
             <div>
                 <a href="#" class="menu1 d-flex justify-content-start mb-3 gap-2"
@@ -42,21 +43,21 @@
             </div>
             <div>
                 <a href="#" class="menu2 d-flex justify-content-start mb-3 gap-2"
-                   th:href="@{/admin/report/list}">
+                   th:href="@{/admin/report}">
                     <div class="menu_logo ms-3 mb-3">🚨</div>
                     <div class="text-white">신고관리</div>
                 </a>
             </div>
             <div>
                 <a href="#" class="menu3 d-flex justify-content-start mb-3 gap-2"
-                   th:href="@{/admin/board/list}">
+                   th:href="@{/admin/board}">
                     <div class="menu_logo ms-3 mb-3">📋</div>
                     <div class="text-white">게시글 관리</div>
                 </a>
             </div>
             <div>
                 <a href="#" class="menu4 d-flex justify-content-start mb-3 gap-2"
-                   th:href="@{/admin/member/list}">
+                   th:href="@{/admin/member}">
                     <div class="menu_logo ms-3">👬</div>
                     <div class="text-white">사용자 관리</div>
                 </a>
@@ -74,7 +75,9 @@
             <div class="list pt-3">
                 <a href="#" class="link-light">=</a>
             </div>
-            <div class=" text-white pt-4 ps-4">관리자 홈</div>
+            <a th:href="@{/admin}">
+                <div class=" text-white pt-4 ps-4">관리자 홈</div>
+            </a>
         </div><!-- end main_head -->
 
         <!-- content -->

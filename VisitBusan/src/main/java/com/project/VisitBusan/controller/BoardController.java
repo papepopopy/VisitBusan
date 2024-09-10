@@ -207,10 +207,7 @@ public class BoardController {
         redirectAttributes.addFlashAttribute("result", "removed");
 
         return "redirect:/board/"+menu+"/list?"+link;
-    } // end
 
+    } // end remove
 
-
-
-
-}
+} // end class
