@@ -19,30 +19,25 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th scope="col">회원번호</th>
                         <th scope="col">회원아이디</th>
                         <th scope="col">이름</th>
-                        <th scope="col">닉네임</th>
+                        <th scope="col">이메일</th>
+                        <th scope="col">주소</th>
                         <th scope="col">권한</th>
-                        <th scope="col">포인트</th>
-                        <th scope="col">수신</th>
-                        <th scope="col">공개</th>
-                        <th scope="col">인증</th>
-                        <th scope="col">차단</th>
-                        <th scope="col">그룹</th>
+                        <!-- <th scope="col">가입일</th> -->
+                        <!-- <th scope="col">비로그인 일수</th> -->
+                        <!-- <th scope="col">차단</th> -->
                     </tr>
                     </thead>
                     <tbody>
                     <tr>
-                        <th scope="row">admin</th>
-                        <td>최고관리자</td>
-                        <td>최고관리자</td>
-                        <td>10</td>
+                        <th scope="row">1</th>
+                        <td>admin</td>
+                        <td>admin</td>
+                        <td>admin@test.com</td>
                         <td>1510</td>
-                        <td>예</td>
-                        <td>예</td>
-                        <td>예</td>
-                        <td>아니오</td>
-                        <td></td>
+                        <td>admin</td>
                     </tr>
                     </tbody>
                 </table>
@@ -66,17 +61,26 @@
                         <th scope="col">게시판</th>
                         <th scope="col">제목</th>
                         <th scope="col">이름</th>
-                        <th scope="col">일시</th>
+                        <th scope="col">등록일</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
+
+                    <tr th:each="i : ${#numbers.sequence(0, 4, +1)}" th:with="dto=${responseDTO.dtoList[i]}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
                         <th scope="row" th:text="${dto.id}"></th>
                         <td th:text="${dto.category}"></td>
                         <td th:text="${dto.title}"></td>
                         <td th:text="${dto.writer}"></td>
                         <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>
                     </tr>
+                    <!--/*
+                    <tr th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
+                        <th scope="row" th:text="${dto.id}"></th>
+                        <td th:text="${dto.category}"></td>
+                        <td th:text="${dto.title}"></td>
+                        <td th:text="${dto.writer}"></td>
+                        <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>
+                    </tr>*/-->
                     </tbody>
                 </table>
             </div>
@@ -97,11 +101,11 @@
                     <thead>
                     <tr>
                         <th scope="col">번호</th>
-                        <th scope="col">항목</th>
+                        <th scope="col">게시판</th>
                         <th scope="col">제목</th>
                         <th scope="col">사유선택</th>
-                        <th scope="col">보낸사람</th>
-                        <th scope="col">발송일</th>
+                        <th scope="col">신고자</th>
+                        <th scope="col">신고일</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -157,6 +161,23 @@
 </div> <!-- end fragment="content" -->
 
 <!--/* 현재 페이지에서만 사용하는 script 정의 */-->
-<script layout:fragment="myscript" th:inline="javascript"></script>
+<script layout:fragment="myscript" th:inline="javascript">
+
+    /* 게시글 링크 동작 */
+
+    const table = document.querySelector('.cate_2 .table');
+    const rows = table.getElementsByTagName('tr');
+
+    // 각 행에 클릭 이벤트 리스너 추가
+    for (let i = 1; i < rows.length; i++) { // 헤더를 제외하기 위해 i를 1로 시작
+      rows[i].addEventListener('click', function(e) {
+        console.log(e.target);
+        console.log(this.getAttribute('data-link'));
+        const link = this.getAttribute('data-link');
+        location.href= link;
+      });
+    } /* end table listener */
+
+</script>
 
 </html>

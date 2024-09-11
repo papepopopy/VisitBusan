@@ -164,17 +164,6 @@ a {
 
     } /* end .search-box */
 
-    .tableBox {
-        flex-grow: 1;
-    }
-    .table {
-        thead{
-            text-align: center;
-        }
-        tbody tr:hover {
-            cursor: pointer;
-        }
-    }
 
     .pagination {
         .page-link {
@@ -196,18 +185,88 @@ a {
 
 } /* end .cate */
 
+
+/* 테이블 설정 */
+
+.cate {
+    .tableBox {
+        flex-grow: 1;
+    }
+    .table {
+        table-layout: fixed;
+        thead{
+            text-align: center;
+        }
+        tbody tr:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.cate_1 {
+    .table thead tr {
+        th:nth-child(1) { width: 100px; }
+        th:nth-child(2) { width: 150px; }
+        th:nth-child(3) { width: 150px; }
+        th:nth-child(4) { width: 250px; }
+        th:nth-child(5) { width: auto; }
+        th:nth-child(6) { width: 100px; }
+    }
+    .table tbody tr {
+        text-align: center;
+        td:nth-child(5) {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
 .cate_2 {
     .table thead tr {
-        th:nth-child(1) { width: 150px; }
+        th:nth-child(1) { width: 100px; }
         th:nth-child(2) { width: 200px; }
-        th:nth-child(4) { width: 200px; }
+        th:nth-child(3) { width: auto; }
+        th:nth-child(4) { width: 150px; }
         th:nth-child(5) { width: 200px; }
+    }
+    .table tbody tr {
+        th:nth-child(1) { text-align: center; }
+        td:nth-child(2) { padding-left: 40px; }
+        td:nth-child(3) {
+            padding-left: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        td:nth-child(4) { text-align: center; }
+        td:nth-child(5) { text-align: center; }
     }
 } /* end .cate_2 */
 
+.cate_3 {
+    .table thead tr {
+        th:nth-child(1) { width: 100px; }
+        th:nth-child(2) { width: 200px; }
+        th:nth-child(3) { width: auto; }
+        th:nth-child(4) { width: 300px; }
+        th:nth-child(5) { width: 150px; }
+        th:nth-child(6) { width: 200px; }
+    }
+    .table tbody tr {
+        text-align: center;
+        td:nth-child(2) { text-align: left; padding-left: 40px; }
+        td:nth-child(3) {
+            text-align: left; padding-left: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+}
+
 /* main */
 .adminMain {
-    height: 100%;
     display:flex;
     flex-direction: column;
     gap: 50px;
