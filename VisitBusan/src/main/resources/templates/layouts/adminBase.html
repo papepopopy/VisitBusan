@@ -43,21 +43,21 @@
             </div>
             <div>
                 <a href="#" class="menu2 d-flex justify-content-start mb-3 gap-2"
-                   th:href="@{/admin/report}">
+                   th:href="@{/admin/report/list}">
                     <div class="menu_logo ms-3 mb-3">🚨</div>
                     <div class="text-white">신고관리</div>
                 </a>
             </div>
             <div>
                 <a href="#" class="menu3 d-flex justify-content-start mb-3 gap-2"
-                   th:href="@{/admin/board}">
+                   th:href="@{/admin/board/list}">
                     <div class="menu_logo ms-3 mb-3">📋</div>
                     <div class="text-white">게시글 관리</div>
                 </a>
             </div>
             <div>
                 <a href="#" class="menu4 d-flex justify-content-start mb-3 gap-2"
-                   th:href="@{/admin/member}">
+                   th:href="@{/admin/member/list}">
                     <div class="menu_logo ms-3">👬</div>
                     <div class="text-white">사용자 관리</div>
                 </a>
@@ -80,8 +80,10 @@
             </a>
         </div><!-- end main_head -->
 
-        <!-- content -->
-        <div class="main_body" layout:fragment="content"></div>
+        <div class="main_body">
+            <!-- content -->
+            <div layout:fragment="content"></div>
+        </div>
 
     </div> <!-- end main -->
 

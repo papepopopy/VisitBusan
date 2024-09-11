@@ -36,7 +36,7 @@ public class BoardController {
     //  - 유저게시판(userBoard) : 여행정보(information), 여행일정(schedule), 후기(review)
 
 
-    // 1. 게시글 목록
+    // 게시글 목록 조회 및 검색
     @GetMapping("/{menu}/list")
     public String list(@PathVariable("menu") String menu,
                        PageRequestDTO pageRequestDTO,
@@ -60,7 +60,7 @@ public class BoardController {
 
     } // end get list
 
-    // 2. 게시글 등록
+    // 게시글 등록
     @GetMapping("/{menu}/create")
     public String registerGet(@PathVariable("menu") String menu,
                           PageRequestDTO pageRequestDTO) {
@@ -104,6 +104,7 @@ public class BoardController {
 
     } // end post create
 
+    // 게시글 조회
     @GetMapping("/{menu}/read")
     public String read(@PathVariable("menu") String menu,
                        Long id,

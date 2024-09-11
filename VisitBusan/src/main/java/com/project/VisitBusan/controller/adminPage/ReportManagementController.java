@@ -16,7 +16,7 @@ public class ReportManagementController {
 
     @GetMapping("/list")
     public String reportPage(Model model) {
-        return "/adminPage/report";
+        return "/adminPage/report/list";
     }
 
 }
