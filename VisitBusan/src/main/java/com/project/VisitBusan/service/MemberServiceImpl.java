@@ -115,6 +115,7 @@ public class MemberServiceImpl implements MemberService {
     public void remove(String userId) {
         Member member = memberRepository.findByUserId(userId)
                         .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
+        //회원정보만 삭제
         memberRepository.delete(member);
     }
 
@@ -131,5 +132,4 @@ public class MemberServiceImpl implements MemberService {
 
         return memberDTOList;
     }
-
 }
