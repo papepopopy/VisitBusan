@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/base}">
+      layout:decorate="~{layouts/adminBase}">
 
 <!-- 현재 페이지에서만 사용하는 css 정의 -->
 <style layout:fragment="mystyle" th:inline="css">
@@ -14,23 +14,50 @@
     }
 </style>
 
-<div class="container userCreate" layout:fragment="content">
+<!-- main_body  -->
+<div class="userCreate myBox" layout:fragment="content">
+
     <div class="body">
 
         <div class="topBox">
-            <h1>[[${pageRequestDTO.bCategory=='information'?'여행정보':pageRequestDTO.bCategory=='schedule'?'여행일정':'후기'}]]</h1>
+            <h1 class="categoryName" th:switch="${pageRequestDTO.bCategory}">
+                <th:block th:case="'place'">명소</th:block>
+                <th:block th:case="'food'">음식</th:block>
+                <th:block th:case="'accommodation'">숙박</th:block>
+                <th:block th:case="'scheduledTravel'">일정여행</th:block>
+                <th:block th:case="'themeTravel'">테마여행</th:block>
+                <th:block th:case="'preparation'">여행준비정보</th:block>
+                <th:block th:case="'guide'">가이드북</th:block>
+                <th:block th:case="'information'">여행정보</th:block>
+                <th:block th:case="'schedule'">여행일정</th:block>
+                <th:block th:case="'review'">후기</th:block>
+                <th:block th:case="'performance'">공연·전시</th:block>
+                <th:block th:case="'festival'">축제·행사</th:block>
+                <th:block th:case="'sportsGame'">스포츠 경기</th:block>
+                <th:block th:case="*">전체</th:block>
+            </h1>
         </div>
 
         <div class="postBox border rounded-4 mt-4 mx-auto py-3 px-5">
-            <form class="createForm" action="/board/userBoard/create" th:action="|@{/board/}${menu}/create?${pageRequestDTO.getLink()}|" method="post">
+            <form class="createForm" action="/admin/board/create" th:action="|@{/admin/board/create}?${pageRequestDTO.getLink()}|" method="post">
                 <div class="topBox mt-4">
                     <!-- 카테고리 -->
                     <div class="categoryBox mt-3">
                         <select class="form-select" name="category">
                             <option value="">- 카테고리 선택 -</option>
+                            <option value="place" th:selected="${pageRequestDTO.bCategory=='place'}">명소</option>
+                            <option value="food" th:selected="${pageRequestDTO.bCategory=='food'}">음식</option>
+                            <option value="accommodation" th:selected="${pageRequestDTO.bCategory=='accommodation'}">숙박</option>
+                            <option value="scheduledTravel" th:selected="${pageRequestDTO.bCategory=='scheduledTravel'}">일정여행</option>
+                            <option value="themeTravel" th:selected="${pageRequestDTO.bCategory=='themeTravel'}">테마여행</option>
+                            <option value="preparation" th:selected="${pageRequestDTO.bCategory=='preparation'}">여행준비정보</option>
+                            <option value="guide" th:selected="${pageRequestDTO.bCategory=='guide'}">가이드북</option>
                             <option value="information" th:selected="${pageRequestDTO.bCategory=='information'}">여행정보</option>
                             <option value="schedule" th:selected="${pageRequestDTO.bCategory=='schedule'}">여행일정</option>
                             <option value="review" th:selected="${pageRequestDTO.bCategory=='review'}">후기</option>
+                            <option value="performance" th:selected="${pageRequestDTO.bCategory=='performance'}">공연·전시</option>
+                            <option value="festival" th:selected="${pageRequestDTO.bCategory=='festival'}">축제·행사</option>
+                            <option value="sportsGame" th:selected="${pageRequestDTO.bCategory=='sportsGame'}">스포츠 경기</option>
                         </select>
                     </div>
 
@@ -184,7 +211,7 @@
 
         })
 
-        location.href ="/board/"+[[${menu}]]+"/list?"+[[${pageRequestDTO.getLink()}]];
+        location.href ="/admin/board/list?"+[[${pageRequestDTO.getLink()}]];
 
     })
 

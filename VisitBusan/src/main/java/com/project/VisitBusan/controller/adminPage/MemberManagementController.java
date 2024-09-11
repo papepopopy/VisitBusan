@@ -15,7 +15,7 @@ public class MemberManagementController {
 
     @GetMapping("/list")
     public String memberPage(Model model) {
-        return "/adminPage/member";
+        return "/adminPage/member/list";
     }
 
 }
