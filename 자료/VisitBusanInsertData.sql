@@ -25,8 +25,7 @@ INSERT INTO member
 VALUES
 ('root','root@test.com', 'root', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'root'),
 ('admin','admin@test.com', 'admin', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'admin'),
-('user','user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user'),
-('test','test@test.com', 'test', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'test');
+('user','user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user');
 SHOW COLUMNS FROM member;
 SELECT * FROM member;
 
@@ -44,8 +43,7 @@ VALUES
 (1,2),
 (1,1),
 (2,1),
-(3,0),
-(4,0);
+(3,0);
 SHOW COLUMNS FROM member_role_set;
 SELECT * FROM member_role_set;
 
