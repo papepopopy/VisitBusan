@@ -85,10 +85,10 @@ public class MemberServiceImpl implements MemberService {
     //회원 수정
     @Override
     public Member modify(MemberDTO memberDTO) {
-        //수정 Id
+        //회원 조회
         Member member = memberRepository.findByUserId(memberDTO.getUserId())
             .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
-
+        //비밀번호 검증
         if (memberDTO.getPassword() != null && !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
             // 비밀번호가 맞지 않을시 예외 발생
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
@@ -97,7 +97,7 @@ public class MemberServiceImpl implements MemberService {
             throw new IllegalArgumentException("비밀번호 작성이 필요합니다.");
         }
 
-        //다른 정보 변경
+        //회원정보 변경
         member.change(
                 memberDTO.getName(),
                 memberDTO.getEmail(),

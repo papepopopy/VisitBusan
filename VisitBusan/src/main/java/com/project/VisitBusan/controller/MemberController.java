@@ -1,14 +1,12 @@
 package com.project.VisitBusan.controller;
 
 import com.project.VisitBusan.dto.MemberDTO;
-import com.project.VisitBusan.dto.PageRequestDTO;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.service.MemberService;
 import com.project.VisitBusan.service.MemberServiceImpl;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
@@ -16,18 +14,15 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.beans.Encoder;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequiredArgsConstructor
@@ -157,34 +152,35 @@ public class MemberController {
     }
 
     /*3. 회원정보 수정*/
+    @ExceptionHandler(MethodArgumentNotValidException.class)
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @PostMapping(value = "/mypage/modify")
-    public String updateMember(@Valid @ModelAttribute MemberDTO memberDTO,
-                                 BindingResult bindingResult,
-                                 RedirectAttributes redirectAttributes) {
+    @PostMapping(value = "/mypage/modify") //데이터 전송
+    public String updateMember(@Valid @ModelAttribute MemberDTO memberDTO, //valid 유효성 검사
+                               @RequestParam("password") String password,
+                               BindingResult bindingResult, //유효성 검사 후 데이터 담는 객체
+                               Model model) { //일회성 데이터 전달
 
-        log.info("Updating member with userId: " + memberDTO.getUserId());
+        log.info("=> memberDTO: " + memberDTO);
 
-        //Valid 유효성 검사
-        /*if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
-            //수정 페이지 재요청
-            return "redirect:/mypage";
-        }*/
         //수정 서비스 요청
-        try {
+        MemberDTO member = memberService.findMember(memberDTO.getUserId());
+        if(member == null) {
             // 수정 서비스 요청
-            memberService.modify(memberDTO);
-            redirectAttributes.addFlashAttribute("message", "회원 정보가 성공적으로 수정되었습니다.");
-        } catch (IllegalArgumentException e) {
-            // 비밀번호 불일치 예외 처리
-            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
-            return "redirect:/mypage"; // 비밀번호 불일치 시 다시 마이페이지로 이동
-        } catch (Exception e) {
-            log.error("Error updating member: ", e);
-            redirectAttributes.addFlashAttribute("errorMessage", "회원 정보 수정 중 오류가 발생했습니다.");
+            model.addAttribute("errorMessage", "해당 회원을 찾을수 없습니다.");
             return "redirect:/mypage";
         }
+
+        //비밀번호 확인
+        if(!passwordEncoder.matches(password, member.getPassword())) {
+            // 비밀번호 불일치 예외 처리
+            model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            return "redirect:/mypage"; // 비밀번호 불일치시 다시 마이페이지로 이동
+        }
+
+        //회원정보 수정
+        memberService.modify(memberDTO);
+        model.addAttribute("message", "회원정보가 수정되었습니다.");
+
         return "redirect:/mypage";
     }
 

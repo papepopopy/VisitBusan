@@ -177,8 +177,10 @@
                         </div>
 
                         <!-- 오류 메시지 표시 -->
-                        <div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}"></div>
-                        <div th:if="${message}" class="alert alert-success" role="alert" th:text="${message}"></div>
+                        <!--<div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}" ></div>-->
+                        <div th:if="${passwordError != null}" class="alert alert-danger">
+                            <p th:text="${passwordError}"></p>
+                        </div>
 
                         <div class="row align-items-end mt-5 mb-4">
                             <div class="col">
@@ -223,66 +225,66 @@
 
 
         <script layout:fragment="myscript" th:inline="javascript">
-            const profileModal = new bootstrap.Modal(document.querySelector('.profileModal'))
-            const secessionModal = new bootstrap.Modal(document.querySelector('.secessionModal'))
+            document.addEventListener('DOMContentLoaded', function() {
+            const profileModal = new bootstrap.Modal(document.querySelector('.profileModal'));
+            const secessionModal = new bootstrap.Modal(document.querySelector('.secessionModal'));
 
             const modifyForm = document.querySelector('#modifyForm');
             const deleteForm = document.querySelector('#deleteForm');
+            const inputPassword = document.querySelector("#inputPassword");
 
-            //const pwInput = document.querySelector("#password")
-            //const pw = passwordEncoder.encode(pwInput.value);
-
-            //열기
+            // 열기
             document.querySelector('.profileBtn').addEventListener('click', function(e) {
                 profileModal.show();
             });
 
-            //닫기
+            // 닫기
             document.querySelector('.closeBtn').addEventListener('click', function(e) {
                 profileModal.hide();
             });
 
-            //수정
-            const inputPassword = document.querySelector("#inputPassword");
+            // 수정
             document.querySelector('.modBtn').addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                console.log([[${member.password}]]);
-                console.log(inputPassword.value);
-
-                if (inputPassword.value.length < 1 || title.value == ""){
-
-                  inputPassword.focus();
-                  return;
-                }
-
-                //비동기
-                fetch('/mypage/modify', {method: 'POST', body: modifyForm})
-
-                //profileModal.action = `/mypage`; //마이페이지로 정보 이동
-
-                //이미지 첨부파일 처리
-                //appendFileData()
-
-                modifyForm.method = "post";
-                modifyForm.submit();
+                fetch('/mypage/modify', {
+                    method: 'POST',
+                    body: new FormData(modifyForm)
+                }).then(response => {
+                    if (response.ok) {
+                        window.location.href = "/mypage";
+                    } else {
+                        response.text().then(errorMessage => {
+                            console.log("errorMessage", errorMessage);
+                            const alertDanger = document.querySelector('.alert-danger');
+                            if (alertDanger) {
+                                alertDanger.textContent = errorMessage;
+                                alertDanger.style.display = 'block';
+                            }
+                        });
+                    }
+                }).catch(error => {
+                    console.error("Error: ", error);
+                });
             });
 
-            //탈퇴
+            // 탈퇴
             document.querySelector(".secessionBtn").addEventListener('click', function(e) {
                 secessionModal.show();
             });
+
             document.querySelector(".secCloseBtn").addEventListener('click', function(e) {
                 secessionModal.hide();
             });
+
             document.querySelector(".secBtn").addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
-
                 deleteForm.method = "POST";
                 deleteForm.submit();
             });
+        });
 
             /*
             function appendFileData(){
