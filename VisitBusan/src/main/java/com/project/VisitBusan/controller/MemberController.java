@@ -69,8 +69,8 @@ public class MemberController {
     }
 
     // 중복 체크 처리
-    @PostMapping("/check-existing")
     @ResponseBody
+    @PostMapping("/check-existing")
     public ResponseEntity<Map<String, Object>> checkExisting(@RequestBody Map<String, String> requestData) {
         Map<String, Object> response = new HashMap<>();
         String userId = requestData.get("userId");
@@ -83,10 +83,10 @@ public class MemberController {
             tempMember.setEmail(email);
 
             // validateDuplicateMember 메서드를 호출하여 중복 검사
-//            memberServiceImpl.validateDuplicateMember(tempMember);
+            memberServiceImpl.validateDuplicateMember(userId, email);
 
             // 중복이 없는 경우
-//            response.put("exists", false);
+            response.put("exists", false);
         } catch (DuplicateUserIdException e) {
             // ID가 중복된 경우
             response.put("exists", true);
@@ -101,12 +101,8 @@ public class MemberController {
             response.put("error", "서버에서 오류가 발생했습니다.");
         }
 
+        //결과 반환
         return ResponseEntity.ok(response);
-//        return ResponseEntity.ok(new HashMap<String, Object>() {{
-//            put("exists", false);
-//        }});
-
-//        return response;
     }
 
 
@@ -170,29 +166,25 @@ public class MemberController {
         log.info("Updating member with userId: " + memberDTO.getUserId());
 
         //Valid 유효성 검사
-        if (bindingResult.hasErrors()) {
+        /*if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("errors", bindingResult.getAllErrors());
             //수정 페이지 재요청
             return "redirect:/mypage";
-        }
+        }*/
         //수정 서비스 요청
         try {
             // 수정 서비스 요청
             memberService.modify(memberDTO);
+            redirectAttributes.addFlashAttribute("message", "회원 정보가 성공적으로 수정되었습니다.");
         } catch (IllegalArgumentException e) {
             // 비밀번호 불일치 예외 처리
             redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
-            return "redirect:/mypage"; // 비밀번호 불일치시 다시 마이페이지로 이동
-        }
-        try {
-            memberService.modify(memberDTO);  // 수정 서비스 호출
-            redirectAttributes.addFlashAttribute("message", "회원 정보가 성공적으로 수정되었습니다.");
+            return "redirect:/mypage"; // 비밀번호 불일치 시 다시 마이페이지로 이동
         } catch (Exception e) {
             log.error("Error updating member: ", e);
             redirectAttributes.addFlashAttribute("errorMessage", "회원 정보 수정 중 오류가 발생했습니다.");
             return "redirect:/mypage";
         }
-
         return "redirect:/mypage";
     }
 
