@@ -19,14 +19,17 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.nio.file.Files;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Controller
 @RequiredArgsConstructor
@@ -156,34 +159,31 @@ public class MemberController {
     }
 
 
-    @PostMapping(value = "/mypage/modify/check") //데이터 전송
+    @PostMapping(value = "/mypage/check") //데이터 전송
     public ResponseEntity<String> updateMemberCheck(@Valid @ModelAttribute MemberDTO memberDTO,
                                                     BindingResult bindingResult){
-
-        log.info("updateMemberCheck ================>"+memberDTO);
 
         String errorMessage = "";
         String password = memberDTO.getPassword();
 
         // 유효성 검사 오류 처리
         if (password.isEmpty()) {
-            log.info("test2 ================>");
             errorMessage ="비밀번호를 입력해주세요.";
 
         } else {
 
-        // 멤버 조회
-        MemberDTO member = memberService.findMember(memberDTO.getUserId());
+            // 멤버 조회
+            MemberDTO member = memberService.findMember(memberDTO.getUserId());
 
             // 비밀번호 확인
             if(!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
-                log.info("test3 ================>");
                 errorMessage ="비밀번호가 일치하지 않습니다.";
             } else if (bindingResult.hasErrors()) {
-                log.info("test2 ================>");
 
-                errorMessage = bindingResult.toString();
-
+                //errorMessage = bindingResult.toString();
+                errorMessage = bindingResult.getAllErrors().stream()
+                        .map(ObjectError::getDefaultMessage)
+                        .collect(Collectors.joining(", "));
             }
 
         }
@@ -195,7 +195,7 @@ public class MemberController {
     }
 
 
-            /*3. 회원정보 수정*/
+    /*3. 회원정보 수정*/
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @PostMapping(value = "/mypage/modify") //데이터 전송
@@ -207,13 +207,10 @@ public class MemberController {
 
         // 유효성 검사 오류 처리
         if (bindingResult.hasErrors()) {
-            log.info("test2 ================>");
 
             // 1회용 정보유지 : redirect방식으로 요청시 정보관리하는 객체
             redirectAttributes.addFlashAttribute("errorMessage", "비밀번호를 입력해주세요.");
-            //redirectAttributes.addFlashAttribute("showswich", showswich);
             return "redirect:/mypage"; // 유효성 검사 오류 시 다시 마이페이지로 이동
-
         }
         /*
         // 멤버 조회
@@ -221,15 +218,12 @@ public class MemberController {
 
         //비밀번호 확인
         if(!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
-            log.info("test3 ================>");
             // 비밀번호 불일치 예외 처리
-
             // 1회용 정보유지 : redirect방식으로 요청시 정보관리하는 객체
             redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
             redirectAttributes.addFlashAttribute("showswich", showswich);
             return "redirect:/mypage";
         }
-        log.info("test4 ================>");
         */
 
         //회원정보 수정
@@ -243,25 +237,15 @@ public class MemberController {
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @PostMapping(value = "/mypage/delete")
     public String removeMember(@ModelAttribute MemberDTO memberDTO,
-//                               @RequestParam String userId,
-                               RedirectAttributes redirectAttributes,
-
-                               //비밀번호 조회
-                               String password,
-                               SessionStatus sessionStatus,
-                               Model model) {
+                               RedirectAttributes redirectAttributes) {
 
         //해당 userId 회원 정보 들고오기
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        MemberDTO member = memberService.findMember(userId);
-        
-        //유효성 검사
-        if(!passwordEncoder.matches(password, member.getPassword())) return "redirect:/mypage";
 
         try {
             memberService.remove(userId);
             redirectAttributes.addFlashAttribute("result","deleted");
-         } catch (Exception e) {
+        } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "회원 삭제를 실패하였습니다.");
             return "redirect:/mypage";
         }
