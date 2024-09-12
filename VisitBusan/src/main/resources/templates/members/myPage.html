@@ -177,9 +177,7 @@
                         </div>
 
                         <!-- 오류 메시지 표시 -->
-                        <div th:if="${errorMessage}" class="alert alert-danger">
-                            <p th:text="${errorMessage}"></p>
-                        </div>
+                        <div id="error-container"></div>
 
                         <div class="row align-items-end mt-5 mb-4">
                             <div class="col">
@@ -247,49 +245,43 @@
             });
 
             // 수정
-            document.querySelector('.modBtn').addEventListener('click', function(e) {
+                document.querySelector('.modBtn').addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
-                console.log("test 시작")
-
-                let errorMessage = "";
+                console.log("test 시작");
 
                 fetch('/mypage/modify/check', {
                     method: 'POST',
                     body: new FormData(modifyForm)
                 }).then(response => {
-                    console.log("ss");
-                    console.log("response"+response);
-                    console.log("response.json()"+response.json());
-                    console.log("response.text(): "+response.text());
-                    errorMessage = response.text();
-                    console.log("response.text(): "+response.text());
-                    if (response.ok) {
-                        console.log("ss2");
-                        response.text().then(responsetext => {
-                            console.log("responsetext", responsetext);
-                            errorMessage = responsetext;
-                            const alertDanger = document.querySelector('.alert-danger');
+                    console.log("response received");
 
-                            if (alertDanger) {
-                                alertDanger.textContent = responsetext;
-                                alertDanger.style.display = 'block';
-                            }
-                        });
+                    if (response.ok) {
+                        return response.text(); // 응답 텍스트를 반환
+                    } else {
+                        throw new Error("서버 응답에 문제가 있습니다.");
                     }
+                }).then(responsetext => {
+                    console.log("responsetext:", responsetext);
+
+                    const errorContainer = document.querySelector('#error-container');
+
+                    if (responsetext.length != 0) {
+                        errorContainer.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
+                    }
+
+                    // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
+                    if (responsetext.length === 0) {
+                        //console.log("submit")
+                        // 유효성 검사에 문제가 없을 경우 폼을 제출
+                        modifyForm.submit();
+                    }
+
                 }).catch(error => {
-                    console.log("ff");
                     console.error("Error: ", error);
                 });
-                console.log("errorMessage: "+errorMessage);
-
-                if (errorMessage.length == 0) {
-                    //modifyForm.submit();
-                }
-
-            }); // end listener
-
+            });
 
 
             // 탈퇴
@@ -326,7 +318,7 @@
 
               // 이미지 파일 이름을 hideen input요소에 저장
               str += `<input type='hidden' name='fileNames' value="${imgLink}">`
-              //console.log("imges: "+ imgLink);`
+              //console.log("images: "+ imgLink);`
 
             }// end for
 
