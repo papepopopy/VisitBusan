@@ -9,6 +9,8 @@ import com.project.VisitBusan.service.MemberServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.modelmapper.spi.ErrorMessage;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -152,7 +154,36 @@ public class MemberController {
     }
 
 
-    /*3. 회원정보 수정*/
+    @PostMapping(value = "/mypage/modify/check") //데이터 전송
+    public String updateMemberCheck(@Valid @ModelAttribute MemberDTO memberDTO, //valid 유효성 검사
+                                    BindingResult bindingResult){ //유효성 검사 후 데이터 담는 객체
+
+        log.info("updateMemberCheck ================>"+memberDTO);
+
+
+        String errorMessage = "";
+
+        // 유효성 검사 오류 처리
+        if (bindingResult.hasErrors()) {
+            log.info("test2 ================>");
+            errorMessage ="비밀번호를 입력해주세요.";
+        }
+
+        // 멤버 조회
+        MemberDTO member = memberService.findMember(memberDTO.getUserId());
+
+        // 비밀번호 확인
+        if(!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
+            log.info("test3 ================>");
+            errorMessage ="비밀번호가 일치하지 않습니다.";
+        }
+        log.info("errorMessage ================>"+errorMessage);
+
+        return errorMessage;
+    }
+
+
+            /*3. 회원정보 수정*/
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @PostMapping(value = "/mypage/modify") //데이터 전송
@@ -172,7 +203,7 @@ public class MemberController {
             return "redirect:/mypage"; // 유효성 검사 오류 시 다시 마이페이지로 이동
 
         }
-        //수정 서비스 요청
+        // 멤버 조회
         MemberDTO member = memberService.findMember(memberDTO.getUserId());
 
         //비밀번호 확인

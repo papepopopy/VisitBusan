@@ -232,18 +232,9 @@
             const deleteForm = document.querySelector('#deleteForm');
             const inputPassword = document.querySelector("#inputPassword");
 
-            const member = [[${member}]];
-            const errorMessage = [[${errorMessage}]];
-            console.log("member: "+member);
-            console.log("errorMessage: "+errorMessage);
-            const memberpassword = [[${member.password}]];
-            console.log("memberpassword: "+memberpassword);
-
-            const showswich = [[${showswich}]];
-            console.log("showswich: "+showswich);
-            if(showswich=='1') {
-                profileModal.show();
-            }
+            //if(showswich=='1') {
+            //    profileModal.show();
+            //}
 
             // 열기
             document.querySelector('.profileBtn').addEventListener('click', function(e) {
@@ -256,37 +247,48 @@
             });
 
             // 수정
-            <!--/*
             document.querySelector('.modBtn').addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
                 console.log("test 시작")
-                fetch('/mypage/modify', {
+
+                let errorMessage = "";
+
+                fetch('/mypage/modify/check', {
                     method: 'POST',
                     body: new FormData(modifyForm)
                 }).then(response => {
-                    //showswich = 1;
-                    console.log("showswich: "+showswich);
+                    console.log("ss");
+                    console.log("response"+response);
+                    console.log("response.json()"+response.json());
+                    console.log("response.text(): "+response.text());
+                    errorMessage = response.text();
+                    console.log("response.text(): "+response.text());
                     if (response.ok) {
-                        window.location.href = "/mypage";
-                    }
-                    else {
-                        response.text().then(errorMessage => {
-                            console.log("errorMessage", errorMessage);
+                        console.log("ss2");
+                        response.text().then(responsetext => {
+                            console.log("responsetext", responsetext);
+                            errorMessage = responsetext;
                             const alertDanger = document.querySelector('.alert-danger');
 
                             if (alertDanger) {
-                                alertDanger.textContent = errorMessage;
+                                alertDanger.textContent = responsetext;
                                 alertDanger.style.display = 'block';
                             }
                         });
                     }
                 }).catch(error => {
+                    console.log("ff");
                     console.error("Error: ", error);
                 });
-            });
-            */-->
+                console.log("errorMessage: "+errorMessage);
+
+                if (errorMessage.length == 0) {
+                    //modifyForm.submit();
+                }
+
+            }); // end listener
 
 
 
