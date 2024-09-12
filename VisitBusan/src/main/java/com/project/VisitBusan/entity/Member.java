@@ -107,6 +107,8 @@ public class Member {
             profileImage.setMember(this);
         }
     }
+
+
     // 삭제 처리 기능
     public void clearProfileImage() {
         if(this.profileImage != null) {

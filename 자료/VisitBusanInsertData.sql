@@ -23,9 +23,9 @@ USE visit_busan;
 INSERT INTO member
 (address, email, NAME, PASSWORD, user_id)
 VALUES
-('root','root@test.com', 'root', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'root'),
-('admin','admin@test.com', 'admin', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'admin'),
-('user','user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user');
+('부산광역시 부산진구 신천대로50번길 79 부전빌딩 6층','root@test.com', 'root', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'root'),
+('부산광역시 부산진구 신천대로50번길 79 부전빌딩 6층','admin@test.com', 'admin', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'admin'),
+('부산광역시 부산진구 신천대로50번길 79 부전빌딩 6층','user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user');
 SHOW COLUMNS FROM member;
 SELECT * FROM member;
 

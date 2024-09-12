@@ -2,6 +2,7 @@ package com.project.VisitBusan.service;
 
 import com.project.VisitBusan.constant.Role;
 import com.project.VisitBusan.dto.MemberDTO;
+import com.project.VisitBusan.dto.ProfileImageDTO;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.entity.ProfileImage;
 import com.project.VisitBusan.repository.MemberRepository;
@@ -40,6 +41,13 @@ public interface MemberService {
         //권한 설정시
         member.addRole(Role.USER);
 
+        //프로필 이미지 처리
+        if (memberDTO.getProfileImage() != null){
+            ProfileImage profileImage = ProfileImageDTO.toEntity(memberDTO.getProfileImage());
+
+            member.setProfileImage(profileImage);
+        }
+
         return member;
     }
 
@@ -54,13 +62,11 @@ public interface MemberService {
                 .profileText(member.getProfileText())
                 .build();
 
-        //프로필 이미지 (list -> string 변환)
-//        if (memberDTO.getProfileImage() != null){
-//            memberDTO.getProfileImage().forEach(fileName ->{
-//                String[] arr = fileName.split("_");   // 첨부파일 이름 구성 : "UUID값"+"_"+"파일이름.확장자"
-//                member.addImage(arr[0], arr[1]);
-//            });
-//        }
+        // 프로필 이미지 처리
+        if (member.getProfileImage() != null) {
+            ProfileImageDTO profileImageDTO = ProfileImageDTO.toProfileImageDTO(member.getProfileImage());
+            memberDTO.setProfileImage(profileImageDTO);
+        }
         return memberDTO;
     }
 }

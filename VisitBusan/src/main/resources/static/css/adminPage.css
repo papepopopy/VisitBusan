@@ -98,23 +98,29 @@ a {
     padding-top: 40px;
 
     .box_1 {
-        background-color: #f9f9f9;
-        width: 90%;
-        margin-top: 20px;
-        margin-bottom: 20px;
-        margin-left: 50px;
+        display: flex;
+        gap: 30px;
+        p {
+            width: 90%;
+        }
     }
 
     .topBox {
-        .select-box {
+        .select-box, .box_1 {
             display:flex;
             justify-content: center;
         }
-        .categoryName{
+        .categoryName, .pageTitle{
             border: none;
             font-size: calc(1.375rem + 1.5vw);
             text-align: center;
             appearance: none;
+        }
+        .box_1 {
+            margin-bottom: 40px;
+        }
+        .pageTitle {
+            margin: 7px;
         }
         .controlBox {
             display: flex;
@@ -129,11 +135,14 @@ a {
             .form-control {
                 min-width: 185px;
             }
-            .createBtn {
+            .createBtn{
                 background-color: #333;
                 color: #fff;
                 padding: 7px 15px;
                 width: 90px;
+            }
+            .createBtn2 {
+                width: 110px;
             }
         }
     } /* end .topBox */
@@ -206,15 +215,16 @@ a {
 .cate_1 {
     .table thead tr {
         th:nth-child(1) { width: 100px; }
-        th:nth-child(2) { width: 150px; }
+        th:nth-child(2) { width: 100px; }
         th:nth-child(3) { width: 150px; }
-        th:nth-child(4) { width: 250px; }
-        th:nth-child(5) { width: auto; }
-        th:nth-child(6) { width: 100px; }
+        th:nth-child(4) { width: 150px; }
+        th:nth-child(5) { width: 250px; }
+        th:nth-child(6) { width: auto; }
+        th:nth-child(7) { width: 200px; }
     }
     .table tbody tr {
         text-align: center;
-        td:nth-child(5) {
+        td:nth-child(6) {
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -231,14 +241,12 @@ a {
         th:nth-child(5) { width: 200px; }
     }
     .table tbody tr {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         th:nth-child(1) { text-align: center; }
         td:nth-child(2) { padding-left: 40px; }
-        td:nth-child(3) {
-            padding-left: 20px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        td:nth-child(3) { padding-left: 20px; }
         td:nth-child(4) { text-align: center; }
         td:nth-child(5) { text-align: center; }
     }
@@ -272,7 +280,7 @@ a {
     gap: 50px;
 }
 
-/* read */
+/* board read */
 
 /* 이미지 크기 제한 */
 .userPost .imgBox {
@@ -300,7 +308,7 @@ a {
 }
 
 
-/* create */
+/* board create */
 
 .userCreate .UIBox {
     gap: 10px;
@@ -321,4 +329,106 @@ a {
     background-color: #fff;
 }
 
+#input_files_result_box {
+    width: 100%;
+    height: 400px;
+    overflow: hidden;
+}
+
+/* memberjoin */
+
+.memberjoin .login {
+    max-width: 600px;
+    margin: 0 auto;
+}
+.memberjoin .join-box {
+    margin-top: 125px;
+    position: relative;
+}
+.memberjoin .join-box::after {
+    content: "";
+    display: block;
+    position: absolute;
+    width: 360px;
+    height: 1px;
+    bottom: 63px;
+    left: 17%;
+    background: #ddd;
+    z-index: -1;
+}
+.memberjoin .join-box > div {
+    position: relative;
+}
+.memberjoin .join-box > div.active {
+    color: #333;
+}
+.memberjoin .join-box > div {
+    color: #aaa;
+}
+.memberjoin .join-box > div:nth-child(1).active:after {
+    background: #38aed6;
+    color: #fff;
+    border: 1px solid #38aed6;
+}
+.memberjoin .join-box > div:nth-child(1):after {
+    content: "1";
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    bottom: 40px;
+    left: 40%;
+    background: #ffffff;
+    border: 1px solid #aaa;
+    transition: all .3s ease;
+    color: #aaa;
+    line-height: 46px;
+}
+.memberjoin .join-box > div:nth-child(2).active:after {
+    background: #38aed6;
+    color: #fff;
+    border: 1px solid #38aed6;
+}
+.memberjoin .join-box > div:nth-child(2):after {
+    content: "2";
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    bottom: 40px;
+    left: 40%;
+    background: #ffffff;
+    border: 1px solid #aaa;
+    transition: all .3s ease;
+    color: #aaa;
+    line-height: 46px;
+}
+.memberjoin .join-box > div:nth-child(3).active:after {
+    background: #38aed6;
+    color: #fff;
+    border: 1px solid #38aed6;
+}
+.memberjoin .join-box > div:nth-child(3):after {
+    content: "3";
+    display: block;
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    bottom: 40px;
+    left: 40%;
+    background: #ffffff;
+    border: 1px solid #aaa;
+    transition: all .3s ease;
+    color: #aaa;
+    line-height: 46px;
+}
+.memberjoin .step-content { display: none; }
+.memberjoin .step-content.active { display: block; }
+.memberjoin .join-box .col.active { font-weight: bold; }
+
+
 .h-100vh {height: 100vh;}
+

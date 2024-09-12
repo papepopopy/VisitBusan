@@ -44,18 +44,20 @@ public class MemberDTO {
     public static MemberDTO toMemberDTO(Member member) {
         MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
 
-//        if (member.getProfileImage() != null) {
-//            ProfileImageDTO profileImageDTO = ProfileImageDTO.toProfileImageDTO(
-//                    member.getProfileImage()
-//            );
-//            memberDTO.setProfileImage(profileImageDTO);
-//        }
-
+        if (member.getProfileImage() != null) {
+            ProfileImageDTO profileImageDTO = ProfileImageDTO.toProfileImageDTO(member.getProfileImage());
+            memberDTO.setProfileImage(profileImageDTO);
+        }
         return memberDTO;
     }
+
     public static Member toEntity(MemberDTO memberDTO) {
         Member member = modelMapper.map(memberDTO, Member.class);
-
+        // 프로필 이미지가 있을 경우 처리
+        if (memberDTO.getProfileImage() != null) {
+            ProfileImage profileImage = ProfileImageDTO.toEntity(memberDTO.getProfileImage());
+            member.setProfileImage(profileImage);
+        }
         return member;
     }
 }

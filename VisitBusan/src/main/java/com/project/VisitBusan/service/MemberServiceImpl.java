@@ -1,7 +1,9 @@
 package com.project.VisitBusan.service;
 
 import com.project.VisitBusan.dto.MemberDTO;
+import com.project.VisitBusan.dto.ProfileImageDTO;
 import com.project.VisitBusan.entity.Member;
+import com.project.VisitBusan.entity.ProfileImage;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.repository.MemberRepository;
@@ -102,9 +104,17 @@ public class MemberServiceImpl implements MemberService {
                 memberDTO.getName(),
                 memberDTO.getEmail(),
                 memberDTO.getAddress(),
-//                memberDTO.getProfileImage(),
                 memberDTO.getProfileText()
         );
+        
+        //프로필 이미지가 변경된 경우 처리
+        if(memberDTO.getProfileImage() != null) {
+            //엔티티 변환
+            ProfileImage profileImage = ProfileImageDTO.toEntity(memberDTO.getProfileImage());
+            member.setProfileImage(profileImage);
+        } else {
+            member.clearProfileImage();
+        }
 
         //저장하기
         return memberRepository.save(member);

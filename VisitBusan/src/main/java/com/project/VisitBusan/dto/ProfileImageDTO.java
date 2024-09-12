@@ -17,4 +17,15 @@ public class ProfileImageDTO {
     private int ord;            // 순번
 
 //    private Member member; //이미 dto에 포함되어있음
+
+    public static ProfileImageDTO toProfileImageDTO(ProfileImage profileImage) {
+        ProfileImageDTO dto = new ProfileImageDTO();
+        dto.setFileName(profileImage.getFileName());
+        return dto;
+    }
+    public static ProfileImage toEntity(ProfileImageDTO dto) {
+        ProfileImage profileImage = new ProfileImage();
+        profileImage.setFileName(dto.getFileName());
+        return profileImage;
+    }
 }
