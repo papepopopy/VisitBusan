@@ -173,13 +173,12 @@
                         </div>
                         <div class="mb-2">
                             <label for="inputPassword" class="col-form-label">비밀번호 확인(필수)</label>
-                            <input type="text" id="inputPassword" name="password">
+                            <input type="password" id="inputPassword" name="password">
                         </div>
 
                         <!-- 오류 메시지 표시 -->
-                        <!--<div th:if="${errorMessage}" class="alert alert-danger" role="alert" th:text="${errorMessage}" ></div>-->
-                        <div th:if="${passwordError != null}" class="alert alert-danger">
-                            <p th:text="${passwordError}"></p>
+                        <div th:if="${errorMessage}" class="alert alert-danger">
+                            <p th:text="${errorMessage}"></p>
                         </div>
 
                         <div class="row align-items-end mt-5 mb-4">
@@ -233,6 +232,19 @@
             const deleteForm = document.querySelector('#deleteForm');
             const inputPassword = document.querySelector("#inputPassword");
 
+            const member = [[${member}]];
+            const errorMessage = [[${errorMessage}]];
+            console.log("member: "+member);
+            console.log("errorMessage: "+errorMessage);
+            const memberpassword = [[${member.password}]];
+            console.log("memberpassword: "+memberpassword);
+
+            const showswich = [[${showswich}]];
+            console.log("showswich: "+showswich);
+            if(showswich=='1') {
+                profileModal.show();
+            }
+
             // 열기
             document.querySelector('.profileBtn').addEventListener('click', function(e) {
                 profileModal.show();
@@ -244,20 +256,26 @@
             });
 
             // 수정
+            <!--/*
             document.querySelector('.modBtn').addEventListener('click', function(e) {
                 e.preventDefault();
                 e.stopPropagation();
 
+                console.log("test 시작")
                 fetch('/mypage/modify', {
                     method: 'POST',
                     body: new FormData(modifyForm)
                 }).then(response => {
+                    //showswich = 1;
+                    console.log("showswich: "+showswich);
                     if (response.ok) {
                         window.location.href = "/mypage";
-                    } else {
+                    }
+                    else {
                         response.text().then(errorMessage => {
                             console.log("errorMessage", errorMessage);
                             const alertDanger = document.querySelector('.alert-danger');
+
                             if (alertDanger) {
                                 alertDanger.textContent = errorMessage;
                                 alertDanger.style.display = 'block';
@@ -268,6 +286,9 @@
                     console.error("Error: ", error);
                 });
             });
+            */-->
+
+
 
             // 탈퇴
             document.querySelector(".secessionBtn").addEventListener('click', function(e) {

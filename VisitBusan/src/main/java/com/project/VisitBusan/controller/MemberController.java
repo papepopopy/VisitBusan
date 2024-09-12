@@ -151,35 +151,45 @@ public class MemberController {
         return "members/myPage";
     }
 
+
     /*3. 회원정보 수정*/
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @PostMapping(value = "/mypage/modify") //데이터 전송
     public String updateMember(@Valid @ModelAttribute MemberDTO memberDTO, //valid 유효성 검사
-                               @RequestParam("password") String password,
                                BindingResult bindingResult, //유효성 검사 후 데이터 담는 객체
-                               Model model) { //일회성 데이터 전달
+                               RedirectAttributes redirectAttributes) { //일회성 데이터 전달
+        log.info("test ================>");
+        String showswich = "1";
 
-        log.info("=> memberDTO: " + memberDTO);
+        // 유효성 검사 오류 처리
+        if (bindingResult.hasErrors()) {
+            log.info("test2 ================>");
 
+            // 1회용 정보유지 : redirect방식으로 요청시 정보관리하는 객체
+            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호를 입력해주세요.");
+            redirectAttributes.addFlashAttribute("showswich", showswich);
+            return "redirect:/mypage"; // 유효성 검사 오류 시 다시 마이페이지로 이동
+
+        }
         //수정 서비스 요청
         MemberDTO member = memberService.findMember(memberDTO.getUserId());
-        if(member == null) {
-            // 수정 서비스 요청
-            model.addAttribute("errorMessage", "해당 회원을 찾을수 없습니다.");
-            return "redirect:/mypage";
-        }
 
         //비밀번호 확인
-        if(!passwordEncoder.matches(password, member.getPassword())) {
+        if(!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
+            log.info("test3 ================>");
             // 비밀번호 불일치 예외 처리
-            model.addAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
-            return "redirect:/mypage"; // 비밀번호 불일치시 다시 마이페이지로 이동
+
+            // 1회용 정보유지 : redirect방식으로 요청시 정보관리하는 객체
+            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
+            redirectAttributes.addFlashAttribute("showswich", showswich);
+            return "redirect:/mypage";
         }
+        log.info("test4 ================>");
 
         //회원정보 수정
         memberService.modify(memberDTO);
-        model.addAttribute("message", "회원정보가 수정되었습니다.");
+        redirectAttributes.addFlashAttribute("message", "회원정보가 수정되었습니다.");
 
         return "redirect:/mypage";
     }
