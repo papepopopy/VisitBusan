@@ -16,16 +16,5 @@ public class ProfileImageDTO {
     private String fileName;    // 파일이름
     private int ord;            // 순번
 
-    public static ProfileImageDTO toProfileImageDTO(ProfileImage profileImage) {
-        if (profileImage == null) {
-            return null;
-        }
-        return ProfileImageDTO.builder()
-                .uuid(profileImage.getUuid())
-                .fileName(profileImage.getFileName())
-                .build();
-    }
-
 //    private Member member; //이미 dto에 포함되어있음
-
 }

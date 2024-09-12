@@ -3,6 +3,7 @@ package com.project.VisitBusan.service;
 import com.project.VisitBusan.constant.Role;
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.entity.Member;
+import com.project.VisitBusan.entity.ProfileImage;
 import com.project.VisitBusan.repository.MemberRepository;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -52,13 +53,14 @@ public interface MemberService {
                 .address(member.getAddress())
                 .profileText(member.getProfileText())
                 .build();
-////        //프로필 이미지 (list -> string 변환)
-////        if(member.getProfileImage() != null) {
-////            ProfileImage profileImage = member.getProfileImage();
-////            String profileImageString = profileImage.getUuid() + "_" + profileImage.getFileName();
-////            memberDTO.setProfileImage(profileImageString); //List에 이미지 추가
-////        }
-//
+
+        //프로필 이미지 (list -> string 변환)
+//        if (memberDTO.getProfileImage() != null){
+//            memberDTO.getProfileImage().forEach(fileName ->{
+//                String[] arr = fileName.split("_");   // 첨부파일 이름 구성 : "UUID값"+"_"+"파일이름.확장자"
+//                member.addImage(arr[0], arr[1]);
+//            });
+//        }
         return memberDTO;
     }
 }

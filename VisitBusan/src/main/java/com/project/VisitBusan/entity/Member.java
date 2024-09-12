@@ -3,14 +3,9 @@ package com.project.VisitBusan.entity;
 import com.project.VisitBusan.constant.Role;
 import com.project.VisitBusan.dto.MemberDTO;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -41,6 +36,9 @@ public class Member {
     private String address;
     @Column(length = 100)
     private String profileText; //프로필 자기소개
+    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, orphanRemoval = true)
+    @JoinColumn(name = "profile_image_id")
+    private ProfileImage profileImage;
 
     //------------------ 사용자 권한 ----------------------//
 
@@ -70,12 +68,6 @@ public class Member {
         this.profileText = profileText; //프로필 자기소개
     }
 
-    //------------------ 변경메서드 ----------------------//
-    // 삭제 처리 기능
-    public void clearImage(){
-//        imageSet.forEach( boardImg -> boardImg.changeMember(null));
-//        this.imageSet.clear();
-    }
     //------------------ 정적 팩토리 ----------------------//
 
     // 1.엔티티 메서드 방법 : createMember():  dto -> entity
@@ -102,30 +94,26 @@ public class Member {
 
     //------------------ 프로필 이미지 ----------------------//
 
-    // 프로필 페이지 조회시
-//    @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, orphanRemoval = true)
-//    private ProfileImage profileImage;
-
     //프로필 이미지 설정
-//    public void setProfileImage(ProfileImage profileImage) {
-//        //이미지가 이미 있을경우 null 처리
-//        if(this.profileImage != null) {
-//            this.profileImage.setMember(null);
-//        }
-//
-//        //새로운 이미지 업로드
-//        this.profileImage = profileImage;
-//        if (profileImage != null) {
-//            profileImage.setMember(this);
-//        }
-//    }
-//    // 삭제 처리 기능
-//    public void clearProfileImage() {
-//        if(this.profileImage != null) {
-//            //양방향이기에 연관관계를 해제 후 null 설정
-//            this.profileImage.setMember(null); //연결되어있는 member 없앰
-//            this.profileImage = null; //이미지 상태도 null 설정
-//        }
-//    }
+    public void setProfileImage(ProfileImage profileImage) {
+        //이미지가 이미 있을경우 null 처리
+        if(this.profileImage != null) {
+            this.profileImage.setMember(null);
+        }
+
+        //새로운 이미지 업로드
+        this.profileImage = profileImage;
+        if (profileImage != null) {
+            profileImage.setMember(this);
+        }
+    }
+    // 삭제 처리 기능
+    public void clearProfileImage() {
+        if(this.profileImage != null) {
+            //양방향이기에 연관관계를 해제 후 null 설정
+            this.profileImage.setMember(null); //연결되어있는 member 없앰
+            this.profileImage = null; //이미지 상태도 null 설정
+        }
+    }
 
 }

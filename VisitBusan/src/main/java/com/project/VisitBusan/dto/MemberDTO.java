@@ -51,13 +51,6 @@ public class MemberDTO {
 //            memberDTO.setProfileImage(profileImageDTO);
 //        }
 
-//        if (member.getImageSet() != null && !member.getImageSet().isEmpty()) {
-//            ProfileImageDTO profileImageDTO = ProfileImageDTO.toProfileImageDTO(
-//                    member.getImageSet().iterator().next()
-//            );
-//            memberDTO.setProfileImage(profileImageDTO);
-//        }
-
         return memberDTO;
     }
     public static Member toEntity(MemberDTO memberDTO) {
