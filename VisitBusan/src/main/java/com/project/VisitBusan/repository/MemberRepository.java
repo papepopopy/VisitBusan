@@ -17,6 +17,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 }
 
 
+
 /*
 
 JpaRepository에서 지원하는 메서드

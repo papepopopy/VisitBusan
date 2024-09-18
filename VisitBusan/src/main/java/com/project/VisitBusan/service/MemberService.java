@@ -13,6 +13,7 @@ import java.util.List;
 public interface MemberService {
     //사용자 추가
     Member saveMember(MemberDTO memberDTO);
+    //Member saveMember(MemberDTO memberDTO, ProfileImageDTO profileImageDTO);
     //회원중복체크
     void validateDuplicateMember(String userId, String email);
     //로그인

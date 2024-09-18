@@ -1,5 +1,6 @@
 package com.project.VisitBusan.dto;
 
+import com.project.VisitBusan.config.CustomSecurityConfig;
 import com.project.VisitBusan.constant.Role;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.entity.ProfileImage;
@@ -8,6 +9,7 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
@@ -40,6 +42,16 @@ public class MemberDTO {
     private Role role;
 
     public static ModelMapper modelMapper = new ModelMapper();
+
+
+    public Member toMemberEntity(PasswordEncoder passwordEncoder){
+        return Member.builder()
+                .userId(userId)
+                .name(name)
+                .password(passwordEncoder.encode(password))
+                .address(address)
+                .build();
+    }
 
     public static MemberDTO toMemberDTO(Member member) {
         MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);

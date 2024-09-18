@@ -1,5 +1,6 @@
 package com.project.VisitBusan.service;
 
+import com.project.VisitBusan.config.CustomSecurityConfig;
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.dto.ProfileImageDTO;
 import com.project.VisitBusan.entity.Member;
@@ -7,6 +8,7 @@ import com.project.VisitBusan.entity.ProfileImage;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.repository.MemberRepository;
+import com.project.VisitBusan.repository.ProfileImageRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -15,9 +17,11 @@ import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 @Transactional
@@ -26,7 +30,7 @@ import java.util.Optional;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
-    private final ModelMapper modelMapper;
+    private final ProfileImageRepository profileImageRepository;
 
     //사용자 추가
     @Override
@@ -35,13 +39,26 @@ public class MemberServiceImpl implements MemberService {
         // 1. dto -> entity: Member Entity createMember() 메서드 활용
         Member member = Member.createMember(memberDTO, passwordEncoder);
 
-        // 회원 중복 체크
+        // 2. 회원 중복 체크
         validateDuplicateMember(member.getUserId(), member.getEmail());
+        System.out.println("===> member" + member);
 
-        log.info("===> 중복 이메일 없음");
+        // 4. Member 엔티티에 프로필 이미지 설정
+        String uuid = UUID.randomUUID().toString();
+        //나중에 추가할때 넣어을거니 지우지 말기!
+        // "c:/javaStudy/upload"+"s_"+uuid+"_"+"첨부파일 이름"
+        //File thumbFile = new File(uploadPath, "s_"+uuid+"_vb_"+fileName);
+        ProfileImage profileImage = ProfileImage.builder()
+                .member(member)
+                .fileName("profile_img"+uuid+".jpg")
+                .build();
+        profileImageRepository.save(profileImage);
+//        member.setProfileImage(member.getProfileImage());
+
         // 중복된 이메일 없을 경우 저장(반영)
         return memberRepository.save(member);
     }
+
 
     @Override
     public void validateDuplicateMember(String userId, String email) {
@@ -89,7 +106,7 @@ public class MemberServiceImpl implements MemberService {
     public Member modify(MemberDTO memberDTO) {
         //회원 조회
         Member member = memberRepository.findByUserId(memberDTO.getUserId())
-            .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
+                .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
         //비밀번호 검증
         if (memberDTO.getPassword() != null && !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
             // 비밀번호가 맞지 않을시 예외 발생
@@ -106,7 +123,7 @@ public class MemberServiceImpl implements MemberService {
                 memberDTO.getAddress(),
                 memberDTO.getProfileText()
         );
-        
+
         //프로필 이미지가 변경된 경우 처리
         if(memberDTO.getProfileImage() != null) {
             //엔티티 변환
@@ -124,7 +141,7 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void remove(String userId) {
         Member member = memberRepository.findByUserId(userId)
-                        .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
+                .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
         //회원정보만 삭제
         memberRepository.delete(member);
     }
