@@ -164,7 +164,7 @@
 
     <div>[[${dto}]]</div>
 
-    <!-- 2. 첨부파일 추가를 위한 모달창 -->
+    <!-- 첨부파일 추가를 위한 모달창 -->
     <div class="modal modalUpload fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -175,7 +175,8 @@
                 <div class="modal-body">
                     <div class="mb-3 row">
                         <div class="col">
-                            <input type="file" class="form-control" id="files" name="files" multiple>
+                            <div id="input_files_result_box"><div id="input_files_result"></div></div>
+                            <input type="file" class="form-control" id="input_files" name="files" multiple>
                         </div>
                     </div>
                 </div>
@@ -237,7 +238,34 @@
         modalUpload.hide();  // 모달창 숨기기
     })
 
+    console.dir("input_files: "+input_files);
+    console.dir("input_files_result: "+input_files_result);
+    console.log("input_files: "+input_files.value);
+    console.log("input_files_result: "+input_files_result.value);
+
+    input_files.oninput = function() {
+        const fReader = new FileReader();
+        fReader.readAsDataURL(input_files.files[0]);
+
+
+        fReader.onloadend = function(event){
+            //const input_files_result = document.querySelector('.input_files_result');
+            const imageElement = document.createElement('img');
+            const path = event.target.result;
+
+            console.log("PATH: ", path);
+
+            imageElement.src = path;
+            imageElement.style.width = '100%';
+            imageElement.style.height = '100%';
+            imageElement.id = 'input_files_result';
+
+            input_files_result.replaceWith(imageElement);
+        }
+    };
+
     // 3. 업로드 모달에서 uploadBtn 버튼 클릭 : 선택한 파일을 서버에 업로드처리
+
     let uploadedFileList = [];
     uploadBtn.addEventListener('click', function(e) {
         e.stopPropagation();

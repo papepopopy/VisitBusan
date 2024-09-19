@@ -25,7 +25,7 @@ public class PageResponseDTO<E> {
     private List<E> dtoList;  // 해당페이지에 해당되는 게시글을 DB로부터 읽어와서 저장한 객체
 
     // 생성자: 페이징 초기화 설정
-    @Builder(builderMethodName = "withAll")  // PageResponseDTO.<BoardListAllDTO>withAll().build() 이런식으로 사용
+    @Builder(builderMethodName = "withAll")  // PageResponseDTO.<BoardAllDataDTO>withAll().build() 이런식으로 사용
     public PageResponseDTO(PageRequestDTO pageRequestDTO, List<E> dtoList, int total) {
 
 

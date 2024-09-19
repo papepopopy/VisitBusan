@@ -36,7 +36,7 @@ public class AdminStartController {
         PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
 
         // 1-3. 게시글 파일포함 List 조회
-//        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
+//        PageResponseDTO<BoardAllDataDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
 
 //        log.info("=> "+responseDTO);
 

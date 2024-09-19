@@ -2,6 +2,7 @@ package com.project.VisitBusan.service;
 
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
+import com.project.VisitBusan.entity.FestivalInfo;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -88,5 +89,38 @@ public interface BoardService {
         return boardDTO;
 
     } // end entityToDTO
+
+    default BoardDTO entityToDTOAll(Board board, FestivalInfo festivalInfo) {
+
+        BoardDTO boardDTO = BoardDTO.builder()
+                .id(board.getId())
+                .category(board.getCategory())
+                .title(board.getTitle())
+                .content(board.getContent())
+                .writer(board.getWriter())
+                .writerId(board.getWriterId())
+                .viewCount(board.getViewCount())
+                .regDate(board.getRegDate())
+                .modDate(board.getModDate())
+                .contactNum(festivalInfo.getContactNum())
+                .place(festivalInfo.getPlace())
+                .host(festivalInfo.getHost())
+                .supervision(festivalInfo.getSupervision())
+                .homepage(festivalInfo.getHomepage())
+                .startDate(festivalInfo.getStartDate())
+                .endDate(festivalInfo.getEndDate())
+                .build();
+
+        List<String> fileNames = board.getBoardFileSet()
+                .stream()
+                .sorted()
+                .map(boardImage -> boardImage.getUuid()+"_vb_"+boardImage.getFileName())
+                .collect(Collectors.toList());
+
+        boardDTO.setFileNames(fileNames);
+
+        return boardDTO;
+
+    }
 
 } // end class

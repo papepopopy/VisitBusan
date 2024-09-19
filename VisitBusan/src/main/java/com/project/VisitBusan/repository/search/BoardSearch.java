@@ -6,6 +6,8 @@ import com.project.VisitBusan.entity.Board;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.time.LocalDateTime;
+
 public interface BoardSearch {
 
     Page<Board> search(Pageable pageable);
@@ -17,7 +19,7 @@ public interface BoardSearch {
     Page<BoardListReplyCountDTO> searchWithReplyCount(String category, String[] types, String keyword, Pageable pageable);
 
     // 게시글 조건 검색 조회
-    Page<BoardListAllDTO> searchWithAll (String category, String[] types, String keyword, Pageable pageable);
+    Page<BoardListAllDTO> searchWithAll (String category, String[] types, String keyword, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable);
 
 
 }

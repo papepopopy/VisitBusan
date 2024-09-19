@@ -2,11 +2,8 @@ package com.project.VisitBusan.service;
 
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
-import com.project.VisitBusan.entity.ReplyLike;
-import com.project.VisitBusan.repository.BoardLikeRepository;
-import com.project.VisitBusan.repository.BoardRepository;
-import com.project.VisitBusan.repository.ReplyLikeRepository;
-import com.project.VisitBusan.repository.ReplyRepository;
+import com.project.VisitBusan.entity.FestivalInfo;
+import com.project.VisitBusan.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -15,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -31,6 +29,7 @@ public class BoardServiceImpl implements BoardService {
     private final ReplyRepository replyRepository;
     private final BoardLikeRepository boardLikeRepository;
     private final ReplyLikeRepository replyLikeRepository;
+    private final FestivalInfoRepository festivalInfoRepository;
 
     // 게시글 등록
     @Override
@@ -51,9 +50,10 @@ public class BoardServiceImpl implements BoardService {
     } // end register
 
     // 게시글 조회
+
     @Override
     public BoardDTO readOne(Long id) {
-        log.info("==> readOne start");
+        log.info("==> ReadOne start");
 
         // 1. fetch = FetchType.LAZY 상태일 경우 boardImage 즉시 로딩 안됨
 //         Optional<Board> result = boardRepository.findById(id);
@@ -66,11 +66,27 @@ public class BoardServiceImpl implements BoardService {
         Board board = result.orElseThrow();  // optional -> entity
         log.info("==> board: "+board);
 
+
         // 1. entity -> dto 맵핑 (entity와 dto 동일 구조일 경우)
-//        BoardDTO boardDTO = modelMapper.map(board, BoardDTO.class);
+//            BoardDTO boardDTO = modelMapper.map(board, BoardDTO.class);
         // 2. 다를 경우
-        BoardDTO boardDTO = entityToDTO(board);
-        log.info("==> after entityToDTO boardDTO: "+boardDTO);
+        // BoardDTO boardDTO = entityToDTO(board);
+        // log.info("==> after entityToDTO boardDTO: "+boardDTO);
+        // return boardDTO;
+
+        FestivalInfo festivalInfo = festivalInfoRepository.findByBoard_id(id);
+
+        log.info("==> festivalInfo" + festivalInfo);
+
+        BoardDTO boardDTO = null;
+        if (festivalInfo != null) {
+            log.info("==> festivalInfo != null");
+            boardDTO = entityToDTOAll(board, festivalInfo);
+
+        } else {
+            log.info("==> festivalInfo == null");
+            boardDTO = entityToDTO(board);
+        }
 
         return boardDTO;
 
@@ -197,10 +213,12 @@ public class BoardServiceImpl implements BoardService {
         String category = pageRequestDTO.getBCategory();
         String[] types = pageRequestDTO.getTypes();  // 검색 타입(글제목, 글내용, 작성자)
         String keyword = pageRequestDTO.getKeyword(); // 검색 키워드
+        LocalDateTime startDate = pageRequestDTO.getStartDate();
+        LocalDateTime endDate = pageRequestDTO.getEndDate();
         Pageable pageable = pageRequestDTO.getPageable("id");
 
         // BoardSearch 클래스로를 상속받은 boardRepository는 searchWithAll() 사용가능
-        Page<BoardListAllDTO> result = boardRepository.searchWithAll(category, types, keyword, pageable);
+        Page<BoardListAllDTO> result = boardRepository.searchWithAll(category, types, keyword, startDate, endDate, pageable);
 
         return PageResponseDTO.<BoardListAllDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)

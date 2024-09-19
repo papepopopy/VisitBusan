@@ -19,7 +19,7 @@ public class BoardLikeDTO {
 
     private Long id;
     @NotNull
-    private Long board_id;
+    private long board_id;
     @NotEmpty
     private String userId;
 

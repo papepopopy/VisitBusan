@@ -43,6 +43,16 @@ public class BoardDTO {
     private LocalDateTime regDate;
     private LocalDateTime modDate;
 
+    // 이벤트 정보
+    private String contactNum;
+    private String place;
+    private String host;
+    private String supervision;
+    private String homepage;
+
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
+
     // 첨부파일 이름 : html에서 첨부파일 UI <input type="file".../> 배열구조형식
     private List<String> fileNames;  // 1개 이상 파일 이름 저장
 

@@ -3,10 +3,7 @@ package com.project.VisitBusan.repository.search;
 import com.project.VisitBusan.dto.BoardFileDTO;
 import com.project.VisitBusan.dto.BoardListAllDTO;
 import com.project.VisitBusan.dto.BoardListReplyCountDTO;
-import com.project.VisitBusan.entity.Board;
-import com.project.VisitBusan.entity.QBoard;
-import com.project.VisitBusan.entity.QBoardLike;
-import com.project.VisitBusan.entity.QReply;
+import com.project.VisitBusan.entity.*;
 import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Projections;
@@ -14,8 +11,8 @@ import com.querydsl.jpa.JPQLQuery;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
-import org.springframework.util.Assert;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -222,16 +219,18 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
     // 게시물 조건 검색 조회 구현
     @Override
-    public Page<BoardListAllDTO> searchWithAll(String category, String[] types, String keyword, Pageable pageable) {
+    public Page<BoardListAllDTO> searchWithAll(String category, String[] types, String keyword, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
 
         QBoard board = QBoard.board;
         QReply reply = QReply.reply;
         QBoardLike boardLike = QBoardLike.boardLike;
+        QFestivalInfo festivalInfo = QFestivalInfo.festivalInfo;
 
         // 1. 쿼리문 작성 (댓글 기준으로 게시글 연결)
         JPQLQuery<Board> boardJPQLQuery = from(board);
         boardJPQLQuery.leftJoin(reply).on(reply.board.eq(board));  // left join => p댓글 기준으로 게시글 조인
-        boardJPQLQuery.leftJoin(boardLike).on(boardLike.board.eq(board));  // left join => p댓글 기준으로 게시글 조인
+        boardJPQLQuery.leftJoin(boardLike).on(boardLike.board.eq(board));
+        boardJPQLQuery.leftJoin(festivalInfo).on(festivalInfo.board.eq(board));
 
         // 5. 조건문 추가 : where 문 작성
         if(category != null) {
@@ -256,6 +255,11 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
             // 카테고리 조건 추가
             booleanBuilder.and(board.category.contains(category));
+
+            if(startDate != null && endDate != null) {
+                booleanBuilder.and(festivalInfo.startDate.loe(startDate));
+                booleanBuilder.and(festivalInfo.endDate.goe(endDate));
+            }
 
             boardJPQLQuery.where(booleanBuilder);
 
@@ -283,7 +287,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
         // 4. 쿼리문 작성 : 댓글 개수 파악 => select 항목은 그룹핑된(board id) 게시글정보, 게시글 번호 기준으로 카운트
         // 게시글 번호를 그룹핑하여 board 엔티티와 reply 엔티티 개수 계산
         // Tuple은 Map이랑 비슷
-        JPQLQuery<Tuple> tupleJPQLQuery = boardJPQLQuery.select(board, reply.countDistinct(), boardLike.countDistinct());
+        JPQLQuery<Tuple> tupleJPQLQuery = boardJPQLQuery.select(board, reply.countDistinct(), boardLike.countDistinct(), festivalInfo);
 
         List<Tuple> tupleList = tupleJPQLQuery.fetch();
 
@@ -294,6 +298,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 //            long replyCount = (long) tuple.get(reply.countDistinct());  // 둘 다 됨
             long replyCount = tuple.get(1, long.class);  // 필드명 없는 관계로 컬럼의 위치 및 타입설정
             long boardLikeCount = tuple.get(2, long.class);  // 필드명 없는 관계로 컬럼의 위치 및 타입설정
+            FestivalInfo festivalInfoData = tuple.get(3, FestivalInfo.class);  // 필드명 없는 관계로 컬럼의 위치 및 타입설정
 
             // boardListAllDTO 객체 생성하여 관련 entity 정보 저장
             BoardListAllDTO boardListAllDTO = BoardListAllDTO.builder()
@@ -308,6 +313,12 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                     .replyCount(replyCount)  // 2. reply count -> replyCount DTO
                     .boardLikeCount(boardLikeCount)  // boardLike count -> boardLikeCount DTO
                     .build();
+
+            if(festivalInfoData != null && startDate != null && endDate != null) {
+                boardListAllDTO.setStartDate(festivalInfoData.getStartDate());
+                boardListAllDTO.setEndDate(festivalInfoData.getEndDate());
+            }
+
 
             // 3. BoardImage -> BoardImageDTO
             List<BoardFileDTO> fileDTOS = board1.getBoardFileSet().stream().sorted()

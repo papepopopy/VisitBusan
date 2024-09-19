@@ -17,16 +17,21 @@ public class BoardListAllDTO {
     private Long id;
     private String category;
     private String title;
+    private String content;
     private String writer;
     private String writerId;
     private LocalDateTime regDate;
+    private LocalDateTime modDate;
     private long viewCount;
 
     //SELECT COUNT(*) FROM reply WHERE board_id = 1 (게시글번호)
     private long replyCount;
     private long boardLikeCount;
 
+    private LocalDateTime startDate;
+    private LocalDateTime endDate;
 
+    // 파일 리스트
     private List<BoardFileDTO> boardFiles;
 
 }

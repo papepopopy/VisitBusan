@@ -14,8 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.function.Function;
-
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
@@ -42,6 +40,8 @@ public class BoardController {
                        PageRequestDTO pageRequestDTO,
                        Model model){
         // PageRequestDTO 객체 생성만 했을 경우 기본값 설정
+
+        log.info("==> menu: "+menu);
 
         // 1-1. 게시글 댓글 개수 없는 List 조회
 //        PageResponseDTO responseDTO = boardService.list(pageRequestDTO);
