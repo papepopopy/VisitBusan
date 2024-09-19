@@ -5,15 +5,10 @@ import com.project.VisitBusan.dto.ProfileImageDTO;
 public interface ProfileImageService {
 
 
-//    void upload(ProfileImageDTO profileImageDTO, String userId);
-//    ProfileImageDTO findImage(ProfileImageDTO profileImageDTO, String userId);
-    void findImage(ProfileImageDTO profileImageDTO, String userId);
-
-    //이미지 추가
-    void addProfileImage(String userId, ProfileImageDTO profileImageDTO);
+    void findImage(ProfileImageDTO profileImageDTO, String memberId);
 
     //이미지 수정
-    void updateProfileImage(String userId, ProfileImageDTO profileImageDTO);
+    void upload(ProfileImageDTO profileImageDTO);
 
 
 //    String insertProfile(ProfileImageDTO profileImageDTO);

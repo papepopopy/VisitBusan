@@ -3,7 +3,6 @@ package com.project.VisitBusan.controller;
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.dto.ProfileImageDTO;
 import com.project.VisitBusan.entity.Member;
-import com.project.VisitBusan.entity.ProfileImage;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.service.MemberService;
@@ -12,10 +11,6 @@ import com.project.VisitBusan.service.ProfileImageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.modelmapper.spi.ErrorMessage;
-import org.springframework.context.annotation.Profile;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -26,7 +21,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
@@ -48,7 +42,8 @@ public class MemberController {
     // 회원 등록: GET, POST
     @GetMapping(value = "/signup")
     public String memberRegisterForm(Model model) {
-        // 데이터가 없는 memberDTO생성 : form에 입력한 데이터와 1:1 맵핑
+
+    // 데이터가 없는 memberDTO생성 : form에 입력한 데이터와 1:1 맵핑
         model.addAttribute("memberDTO", new MemberDTO());
 
         // 포워딩: 뷰리졸브
@@ -151,11 +146,19 @@ public class MemberController {
 
         //회원 정보 조회
         MemberDTO memberDTO = memberService.findMember(userId);
-//        ProfileImageDTO profileImageDTO = profileImageService.findImage(profileImageDTO, userId);
+
+        //프로필 이미지 조회
+        ProfileImageDTO profileImageDTO = new ProfileImageDTO();
+        profileImageService.findImage(profileImageDTO, userId);
 
         model.addAttribute("member", memberDTO);
+        model.addAttribute("profileImage", profileImageDTO);
+        model.addAttribute("fileName", profileImageDTO.getFileName());
+        log.info("profileImageDTO ==> " + profileImageDTO);
+
         return "members/myPage";
     }
+
 
     @PostMapping(value = "/mypage/check") //데이터 전송
     public ResponseEntity<String> updateMemberCheck(@Valid @ModelAttribute MemberDTO memberDTO,

@@ -13,32 +13,32 @@
 <body>
 <div class="container mypage" layout:fragment="content">
     <h1>마이페이지</h1>
-    <div class="mypage-top-box">
+    <form class="mypage-top-box" th:action="@{/profile/upload}" method="POST" name="myPageForm" enctype="multipart/form-data">
 
         <!--프로필 이미지-->
-        <form th:action="@{/profile/upload}" >
-            <div class="profile_img_box">
-                <!--기본 이미지-->
-                <img th:src="|/images/profileImages/${profileImage.fileName}|">
-                <div th:if="${member.profileImage}==true">
-                    <img th:src="|/images/profileImages/${fileName}|">
-                </div>
-                <!--변경된 이미지-->
-                <div th:if="${member.profileImage}==false">
-                    <img th:src="|/images/profileImages/${fileName}|">
-                </div>
+        <div class="profile_img_box">
+            <!--기본 이미지-->
+            <div th:if="${profileImage.fileName == 'profile_img.jpg'}" >
+                <img th:src="@{/profile/view/profile_img.jpg}">
             </div>
-        </form>
+            <!--업로드 이미지-->
+            <div th:if="${profileImage.fileName != 'profile_img.jpg'}" >
+                <img th:src="@{/profile/view/{fileName}(fileName=${profileImage.fileName})}" />
+            </div>
+        </div>
 
         <div class="pro-content">
             <h2 class="nick-name" th:text="${member.name}">홍길동</h2>
             <p class="email" th:text="${member.email}">test@gmail.com</p>
             <p class="mypage-comant" th:text="${member.profileText}">여유있는 여행자 홍길동</p>
 
-            이미지 파일
+            <!--프로필 이미지-->
             <diV class="mypage-upload-btn">
-                <input type="file" id="fileItem" name="uploadImgFile">
+                <label for="uploadImgFile">이미지 선택</label>
+                <input type="file" id="uploadImgFile" name="uploadImgFile">
+                <button type="submit">변경하기</button>
             </div>
+            <!--/프로필 이미지-->
 
             <div class="mypage-link">
                 <div class="profileBtn blueBtn">내 정보 수정</div>
@@ -46,7 +46,7 @@
             </div>
         </div>
 
-    </div>
+    </form>
 
     <ul class="tab-menu nav nav-tabs mypage-link mt-4" id="myTab" role="tablist">
         <li class="nav-item" role="presentation">
