@@ -20,11 +20,13 @@ W3School : https://www.w3schools.com/
 심플사이드바 : https://startbootstrap.com/template/simple-sidebar  
 폰트어썸아이콘 : https://fontawesome.com/v6/search?o=r&m=free  
 &nbsp;&nbsp;v6 적용시 링크 : &lt;link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"&gt;  
+써머노트 : https://summernote.org/  
   
 제이쿼리 : https://jquery.com/  
 제이쿼리 doc : https://api.jquery.com/  
 리엑트 : https://react.dev/  
 리엑트 doc : https://react.dev/reference/react  
+깃 doc : https://docs.github.com/ko  
   
 인텔리제이(커뮤니티버전 다운) : https://www.jetbrains.com/ko-kr/idea/download/?section=windows  
 이클립스(JEE버전 다운) : https://www.eclipse.org/downloads/packages/  

@@ -1,15 +1,19 @@
 package com.project.VisitBusan.controller;
 
 import com.project.VisitBusan.dto.MemberDTO;
+import com.project.VisitBusan.dto.ProfileImageDTO;
 import com.project.VisitBusan.entity.Member;
+import com.project.VisitBusan.entity.ProfileImage;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.service.MemberService;
 import com.project.VisitBusan.service.MemberServiceImpl;
+import com.project.VisitBusan.service.ProfileImageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.spi.ErrorMessage;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,8 +29,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.nio.file.Files;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -38,6 +40,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberServiceImpl memberServiceImpl;
     private final PasswordEncoder passwordEncoder;
+    private final ProfileImageService profileImageService;
 
     //----------------------- //
     // 회원가입
@@ -54,7 +57,6 @@ public class MemberController {
 
     @PostMapping(value = "/signup")
     public String memberRegister(@Valid @ModelAttribute MemberDTO memberDTO,
-                                 BindingResult bindingResult,
                                  Model model) {
 
         log.info("=> memberDTO: " + memberDTO);
@@ -65,7 +67,6 @@ public class MemberController {
             model.addAttribute("errorMessage", e.getMessage());
             return "members/signup";// 입력폼으로 포워딩
         }
-
         //회원가입 후 로그인 페이지 이동
         return "redirect:/login";
     }
@@ -102,11 +103,9 @@ public class MemberController {
             response.put("exists", false);
             response.put("error", "서버에서 오류가 발생했습니다.");
         }
-
         //결과 반환
         return ResponseEntity.ok(response);
     }
-
 
     //----------------------- //
     // 로그인, 로그아웃 처리
@@ -123,12 +122,10 @@ public class MemberController {
     @GetMapping("/login/error")
     public String loginError(Model model) {
         log.info("==> login error");
-
         model.addAttribute("loginErrorMsg", "아이디 또는 비밀번호 확인해주세요.");
 
         return "/members/login";
     }
-
 
     //----------------------- //
     // 회원정보 조회
@@ -154,10 +151,11 @@ public class MemberController {
 
         //회원 정보 조회
         MemberDTO memberDTO = memberService.findMember(userId);
+//        ProfileImageDTO profileImageDTO = profileImageService.findImage(profileImageDTO, userId);
+
         model.addAttribute("member", memberDTO);
         return "members/myPage";
     }
-
 
     @PostMapping(value = "/mypage/check") //데이터 전송
     public ResponseEntity<String> updateMemberCheck(@Valid @ModelAttribute MemberDTO memberDTO,
@@ -169,9 +167,7 @@ public class MemberController {
         // 유효성 검사 오류 처리
         if (password.isEmpty()) {
             errorMessage ="비밀번호를 입력해주세요.";
-
         } else {
-
             // 멤버 조회
             MemberDTO member = memberService.findMember(memberDTO.getUserId());
 
@@ -188,7 +184,7 @@ public class MemberController {
 
         }
 
-        log.info("errorMessage ================>"+errorMessage);
+        log.info("errorMessage ==========>"+errorMessage);
 
         return ResponseEntity.ok().body(errorMessage);
 

@@ -11,10 +11,11 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
     Member findByEmail(String email);
 
-//    @EntityGraph(attributePaths = {"profileImage"})
-//    @Query("select b from member b where b.userID = :userId")
+    @EntityGraph(attributePaths = {"profileImage"})
+    @Query("select b from Member b where b.userId = :userId")
     Optional<Member> findByUserId(@Param("userId") String userId);
 }
+
 
 
 /*
