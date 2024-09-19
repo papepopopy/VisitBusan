@@ -26,8 +26,6 @@ public class UpDownController {
     @Value("${com.project.VisitBusan.path}")  // properties파일 설정한 path 값 읽어오기
     private String uploadPath;  // => "c:/javaStudy/upload 인식
 
-    // upload
-//    @Operation(summary="Upload POST", description="POST방식으로 파일 등록")
     @PostMapping(value="/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)  // 첨부파일 형식의 데이터를 받기로 설정
     public List<UploadResultDTO> upload(UploadFileDTO uploadFileDTO) {  // 클라이언트로부터 받은 첨부파일 매개 변수
         // 1.

@@ -43,17 +43,12 @@ public class MemberServiceImpl implements MemberService {
         validateDuplicateMember(member.getUserId(), member.getEmail());
         System.out.println("===> member" + member);
 
-        // 4. Member 엔티티에 프로필 이미지 설정
-        String uuid = UUID.randomUUID().toString();
-        //나중에 추가할때 넣어을거니 지우지 말기!
-        // "c:/javaStudy/upload"+"s_"+uuid+"_"+"첨부파일 이름"
-        //File thumbFile = new File(uploadPath, "s_"+uuid+"_vb_"+fileName);
+        // 4. 엔티티에 프로필 이미지 설정
         ProfileImage profileImage = ProfileImage.builder()
                 .member(member)
-                .fileName("profile_img"+uuid+".jpg")
+                .fileName("profile_img.jpg")
                 .build();
         profileImageRepository.save(profileImage);
-//        member.setProfileImage(member.getProfileImage());
 
         // 중복된 이메일 없을 경우 저장(반영)
         return memberRepository.save(member);

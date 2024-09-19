@@ -26,6 +26,8 @@
 //                .addResourceLocations("classpath:/static/css/");
 //        registry.addResourceHandler("/")
 //                .addResourceLocations("classpath:/static/");
+//        registry.addResourceHandler("/javaStudy/upload/**")
+//                .addResourceLocations("file:///C:/javaStudy/upload/");
 //    }
 //
 //}
