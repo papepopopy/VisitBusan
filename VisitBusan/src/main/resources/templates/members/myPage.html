@@ -19,6 +19,12 @@
             <h2 class="nick-name" th:text="${member.name}">홍길동</h2>
             <p class="email" th:text="${member.email}">test@gmail.com</p>
             <p class="mypage-comant" th:text="${member.profileText}">여유있는 여행자 홍길동</p>
+
+            이미지 파일
+            <diV class="mypage-upload-btn">
+                <input type="file" id="fileItem" name="uploadImgFile">
+            </div>
+
             <div class="mypage-link">
                 <div class="profileBtn blueBtn">내 정보 수정</div>
                 <div class="blueBtn">알림함</div>
@@ -336,32 +342,31 @@
         });
     });
 
-        /*
-        function appendFileData(){
+    function appendFileData(){
         // 이미지 첨부파일 처리
-        const target = document.querySelector('.uploadHidden')    // Add Files 버튼(모달창 호출 버튼)
-        const uploadFiles = uploadResult.querySelectorAll('img')  // 이미지 첨부파일 있을 경우(업로드 처리후 img태그요소)
+        const UploadBtn = document.querySelector('.mypage-upload-btn')    // Add Files 버튼(모달창 호출 버튼)
+        const fileItem = uploadResult.querySelectorAll('.fileItem') // 이미지 첨부파일 있을 경우(업로드 처리mg태그요소)
 
-
-        console.log('.uploadHidden',target)
-        console.log('uploadFiles', uploadFiles)
+        //이미지 업로드
+        $(UploadBtn).on("change", function(e) {
+            alert("파일이 업로드되었습니다.");
+        });
 
         let str = ""
         for (let i=0; i<uploadFiles.length; i++){ // 이미지 첨부파일이 1개이상일 경우
           const uploadFile = uploadFiles[i]       // img태그 배열
           const imgLink = uploadFile.getAttribute('data-src')
 
-          // 이미지 파일 이름을 hideen input요소에 저장
+          //이미지 파일 이름을 hideen input요소에 저장
           str += `<input type='hidden' name='fileNames' value="${imgLink}">`
           //console.log("images: "+ imgLink);`
 
-        }// end for
+        }//end for
 
-        // [Add Files]버튼 =>  <input type='hidden' name="fileNames"/>요소 전환
+        //[Add Files]버튼 =>  <input type='hidden' name="fileNames"/>요소 전환
         target.innerHTML = str;
 
-        }
-        */
+    }
 
     </script>
 </div>
