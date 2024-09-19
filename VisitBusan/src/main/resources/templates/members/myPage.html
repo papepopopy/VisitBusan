@@ -14,7 +14,22 @@
 <div class="container mypage" layout:fragment="content">
     <h1>마이페이지</h1>
     <div class="mypage-top-box">
-        <img src="images/mypage/profile_20240817.jpg" class="pro-img">
+
+        <!--프로필 이미지-->
+        <form th:action="@{/profile/upload}" >
+            <div class="profile_img_box">
+                <!--기본 이미지-->
+                <img th:src="|/images/profileImages/${profileImage.fileName}|">
+                <div th:if="${member.profileImage}==true">
+                    <img th:src="|/images/profileImages/${fileName}|">
+                </div>
+                <!--변경된 이미지-->
+                <div th:if="${member.profileImage}==false">
+                    <img th:src="|/images/profileImages/${fileName}|">
+                </div>
+            </div>
+        </form>
+
         <div class="pro-content">
             <h2 class="nick-name" th:text="${member.name}">홍길동</h2>
             <p class="email" th:text="${member.email}">test@gmail.com</p>
@@ -30,6 +45,7 @@
                 <div class="blueBtn">알림함</div>
             </div>
         </div>
+
     </div>
 
     <ul class="tab-menu nav nav-tabs mypage-link mt-4" id="myTab" role="tablist">
@@ -162,6 +178,10 @@
                 <form th:action="@{/mypage/modify}" method="POST" id="modifyForm">
                     <input type="hidden" name="userId" th:value="${member.userId}">
                     <div class="mb-2">
+                        <label for="img_input" class="col-form-label">프로필 이미지 선택</label>
+                        <input id="img_input" type="file" name="profile_img"  class="form-control"  multiple />
+                    </div>
+                    <div class="mb-2">
                         <label for="inputName" class="col-form-label">닉네임</label>
                         <input type="text" id="inputName" name="name" th:value="${member.name}">
                     </div>
@@ -233,6 +253,11 @@
 
 
     <script layout:fragment="myscript" th:inline="javascript">
+        //---------------------------프로필 이미지---------------------------//
+        //---------------------------프로필 이미지---------------------------//
+
+
+
         document.addEventListener('DOMContentLoaded', function() {
         const profileModal = new bootstrap.Modal(document.querySelector('.profileModal'));
         const secessionModal = new bootstrap.Modal(document.querySelector('.secessionModal'));
@@ -247,12 +272,12 @@
 
         // 열기
         document.querySelector('.profileBtn').addEventListener('click', function(e) {
-            profileModal.show();
+           profileModal.show();
         });
 
         // 닫기
         document.querySelector('.closeBtn').addEventListener('click', function(e) {
-            profileModal.hide();
+           profileModal.hide();
         });
 
         // 수정
@@ -263,45 +288,45 @@
         console.log("test 시작");
 
         fetch('/mypage/check', {
-            method: 'POST',
-            body: new FormData(modifyForm)
+           method: 'POST',
+           body: new FormData(modifyForm)
         }).then(response => {
-            console.log("response received");
+           console.log("response received");
 
-            if (response.ok) {
-                return response.text(); // 응답 텍스트를 반환
-            } else {
-                throw new Error("서버 응답에 문제가 있습니다.");
-            }
+           if (response.ok) {
+               return response.text(); // 응답 텍스트를 반환
+           } else {
+               throw new Error("서버 응답에 문제가 있습니다.");
+           }
         }).then(responsetext => {
-            console.log("responsetext:", responsetext);
+           console.log("responsetext:", responsetext);
 
-            const modifyError = document.querySelector('#modify-error');
+           const modifyError = document.querySelector('#modify-error');
 
-            if (responsetext.length != 0) {
-                modifyError.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
-            }
+           if (responsetext.length != 0) {
+               modifyError.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
+           }
 
-            // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
-            if (responsetext.length === 0) {
-                //console.log("submit")
-                // 유효성 검사에 문제가 없을 경우 폼을 제출
-                modifyForm.submit();
-            }
+           // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
+           if (responsetext.length === 0) {
+               //console.log("submit")
+               // 유효성 검사에 문제가 없을 경우 폼을 제출
+               modifyForm.submit();
+           }
 
-            }).catch(error => {
-                console.error("Error: ", error);
-            });
+           }).catch(error => {
+               console.error("Error: ", error);
+           });
         });
 
 
         // 탈퇴
         document.querySelector(".secessionBtn").addEventListener('click', function(e) {
-            secessionModal.show();
+           secessionModal.show();
         });
 
         document.querySelector(".secCloseBtn").addEventListener('click', function(e) {
-            secessionModal.hide();
+           secessionModal.hide();
         });
         document.querySelector(".secBtn").addEventListener('click', function(e) {
         e.preventDefault();
@@ -309,38 +334,38 @@
 
         console.log("test 시작");
         fetch('/mypage/check', {
-            method: 'POST',
-            body: new FormData(deleteForm)
+           method: 'POST',
+           body: new FormData(deleteForm)
 
         }).then(response => {
-            console.log("response received");
+           console.log("response received");
 
-            if (response.ok) {
-                return response.text(); // 응답 텍스트를 반환
-            } else {
-                throw new Error("서버 응답에 문제가 있습니다.");
-            }
+           if (response.ok) {
+               return response.text(); // 응답 텍스트를 반환
+           } else {
+               throw new Error("서버 응답에 문제가 있습니다.");
+           }
         }).then(responsetext => {
-            console.log("responsetext:", responsetext);
+           console.log("responsetext:", responsetext);
 
-            const deleteError = document.querySelector('#delete-error');
+           const deleteError = document.querySelector('#delete-error');
 
-            if (responsetext.length != 0) {
-                deleteError.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
-            }
+           if (responsetext.length != 0) {
+               deleteError.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
+           }
 
-            // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
-            if (responsetext.length === 0) {
-                //console.log("submit")
-                // 유효성 검사에 문제가 없을 경우 폼을 제출
-                deleteForm.submit();
-            }
+           // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
+           if (responsetext.length === 0) {
+               //console.log("submit")
+               // 유효성 검사에 문제가 없을 경우 폼을 제출
+               deleteForm.submit();
+           }
 
-            }).catch(error => {
-                console.error("Error: ", error);
-            });
+           }).catch(error => {
+               console.error("Error: ", error);
+           });
         });
-    });
+        });
 
     function appendFileData(){
         // 이미지 첨부파일 처리
@@ -354,12 +379,18 @@
 
         let str = ""
         for (let i=0; i<uploadFiles.length; i++){ // 이미지 첨부파일이 1개이상일 경우
-          const uploadFile = uploadFiles[i]       // img태그 배열
-          const imgLink = uploadFile.getAttribute('data-src')
+         const uploadFile = uploadFiles[i]       // img태그 배열
+         const imgLink = uploadFile.getAttribute('data-src')
 
+<<<<<<< HEAD
           //이미지 파일 이름을 hideen input요소에 저장
           str += `<input type='hidden' name='fileNames' value="${imgLink}">`
           //console.log("images: "+ imgLink);`
+=======
+         // 이미지 파일 이름을 hideen input요소에 저장
+         str += `<input type='hidden' name='fileNames' value="${imgLink}">`
+         //console.log("images: "+ imgLink);`
+>>>>>>> 48c0975667369056ce27104e9e525b35a44b0e8a
 
         }//end for
 

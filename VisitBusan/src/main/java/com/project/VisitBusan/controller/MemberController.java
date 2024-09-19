@@ -1,15 +1,19 @@
 package com.project.VisitBusan.controller;
 
 import com.project.VisitBusan.dto.MemberDTO;
+import com.project.VisitBusan.dto.ProfileImageDTO;
 import com.project.VisitBusan.entity.Member;
+import com.project.VisitBusan.entity.ProfileImage;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
 import com.project.VisitBusan.service.MemberService;
 import com.project.VisitBusan.service.MemberServiceImpl;
+import com.project.VisitBusan.service.ProfileImageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.spi.ErrorMessage;
+import org.springframework.context.annotation.Profile;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +40,7 @@ public class MemberController {
     private final MemberService memberService;
     private final MemberServiceImpl memberServiceImpl;
     private final PasswordEncoder passwordEncoder;
+    private final ProfileImageService profileImageService;
 
     //----------------------- //
     // 회원가입
@@ -146,6 +151,8 @@ public class MemberController {
 
         //회원 정보 조회
         MemberDTO memberDTO = memberService.findMember(userId);
+//        ProfileImageDTO profileImageDTO = profileImageService.findImage(profileImageDTO, userId);
+
         model.addAttribute("member", memberDTO);
         return "members/myPage";
     }
