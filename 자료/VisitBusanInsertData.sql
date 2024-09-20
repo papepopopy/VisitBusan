@@ -96,6 +96,23 @@ VALUES
 
 
 -- ------------------------------
+--        축제 게시글 정보
+-- ------------------------------
+
+INSERT INTO festival_info
+(board_id, start_date, end_date, contact_num, HOST, place, supervision, homepage)
+VALUES
+(1, '2024-07-25', '2024-10-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(2, '2024-06-25', '2024-09-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(3, '2024-05-25', '2024-08-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(4, '2024-04-25', '2024-07-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(21, '2024-03-25', '2024-06-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(22, '2024-02-25', '2024-05-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' );
+SHOW COLUMNS FROM festival_info;
+SELECT * FROM festival_info;
+
+
+-- ------------------------------
 --            댓글
 -- ------------------------------
 

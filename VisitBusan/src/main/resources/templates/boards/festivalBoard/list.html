@@ -12,20 +12,11 @@
             cursor: pointer;
         }
     }
+    
     .days .page-link {
-        padding: 0;
-        div{
-            padding: 0 12px;
-        }
-        div:first-child {
-            padding-top: 6px;
-        }
-        div:last-child {
-            padding-top: 16px; 
-            padding-bottom: 6px;
-        }
+        text-align: center;
     }
-
+    
 </style>
 
 <div class="container"  layout:fragment="content">
@@ -228,9 +219,9 @@
 
     for (let i=1; i<=last; i++) {
 
-        days.innerHTML += `<li class="page-item"><a href="#" class="page-link">
+        days.innerHTML += `<li class="page-item"><a href="#" class="page-link" date="${i}">
                                 <div>${day[day_num++]}</div>
-                                <div class="text-center">${i}</div>
+                                <span class="text-center">${i}</span>
                             </a></li>`
      
         if (day_num == 7) day_num = 0;
@@ -241,25 +232,29 @@
         e.preventDefault();  // 기본 이벤트 제거
         e.stopPropagation();  // 버블링(현재 이벤트가 발생한 요소의 상위 요소들에 대해서 이벤트 감지되는 현상) 방지
 
-        console.log(e);
-        console.log(e.target);
+        console.log("e: ",e);
+        console.log("e.target: ",e.target);
+        console.log("e.target.parentElement: ",e.target.parentElement)
 
-
-        const num = e.target.innerText;  // 현재 클릭된 요소의 data-num을 읽어옴
+        let num = e.target.parentElement.getAttribute('date')  // 클릭된 요소의 date를 읽어옴
+        if (num == null) {
+            num = e.target.getAttribute('date')
+        }
         console.log(num)
+
         const category = [[${pageRequestDTO.getBCategory()}]];
 
         function dateFormat(date) {
             let dateFormat2 = date.getFullYear() +
                 '-' + ( (date.getMonth()+1) <= 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1) )+
-                '-' + ( (date.getDate()) <= 9 ? "0" + (date.getDate()) : (date.getDate()) )+
-                'T00:00:00';
+                '-' + ( (date.getDate()) <= 9 ? "0" + (date.getDate()) : (date.getDate()) );
             return dateFormat2;
         }
 
-        let toDay = dateFormat(new Date('2024-9-'+num));
+        let startDate = dateFormat(new Date('2024-9-'+num))+'T00:00:00';
+        let endDate = dateFormat(new Date('2024-9-'+num))+'T23:59:59';
 
-        location.href = `/board/festivalBoard/list?bCategory=${category}&startDate=${toDay}&endDate=${toDay}`
+        location.href = `/board/festivalBoard/list?bCategory=${category}&startDate=${startDate}&endDate=${endDate}`
     })
        
 
