@@ -118,15 +118,15 @@ public class MemberServiceImpl implements MemberService {
                 memberDTO.getAddress(),
                 memberDTO.getProfileText()
         );
-
-        //프로필 이미지가 변경된 경우 처리
-        if(memberDTO.getProfileImage() != null) {
-            //엔티티 변환
-            ProfileImage profileImage = ProfileImageDTO.toEntity(memberDTO.getProfileImage());
-            member.setProfileImage(profileImage);
-        } else {
-            member.clearProfileImage();
-        }
+//
+//        //프로필 이미지가 변경된 경우 처리
+//        if(memberDTO.getProfileImage() != null) {
+//            //엔티티 변환
+//            ProfileImage profileImage = ProfileImageDTO.toEntity(memberDTO.getProfileImage());
+//            member.setProfileImage(profileImage);
+//        } else {
+//            member.clearProfileImage();
+//        }
 
         //저장하기
         return memberRepository.save(member);

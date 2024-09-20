@@ -71,14 +71,13 @@ public class ProfileImageServiceImpl implements ProfileImageService {
         }
 
         //4. 파일 저장 처리(새로운 파일명 생성)
-        String uuid = UUID.randomUUID().toString();
-        String uploadFileName = "profile_"+uuid+"_"+fileName;
+//        String uuid = UUID.randomUUID().toString();
 
 
         //새 이미지 저장
         ProfileImage newProfileImage = new ProfileImage();
-        newProfileImage.setFileName(uploadFileName);
-        newProfileImage.setUuid(uuid);
+        newProfileImage.setFileName(fileName);
+//        newProfileImage.setUuid(profileImageDTO.getUuid());
         newProfileImage.setMember(member);
 
         if(profileImageDTO.getId() != null) {

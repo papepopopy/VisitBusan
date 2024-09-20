@@ -13,13 +13,14 @@
 <body>
 <div class="container mypage" layout:fragment="content">
     <h1>마이페이지</h1>
-    <form class="mypage-top-box" th:action="@{/profile/upload}" method="POST" name="myPageForm" enctype="multipart/form-data">
+    <!--<form class="mypage-top-box" th:action="@{/profile/upload}" method="POST" name="myPageForm" enctype="multipart/form-data">-->
+    <form class="mypage-top-box">
 
         <!--프로필 이미지-->
         <div class="profile_img_box">
             <!--기본 이미지-->
             <div th:if="${profileImage.fileName == 'profile_img.jpg'}" >
-                <img th:src="@{/profile/view/profile_img.jpg}">
+                <img th:src="@{/images/profileImage/profile_img.jpg}">
             </div>
             <!--업로드 이미지-->
             <div th:if="${profileImage.fileName != 'profile_img.jpg'}" >
@@ -30,19 +31,23 @@
         <div class="pro-content">
             <h2 class="nick-name" th:text="${member.name}">홍길동</h2>
             <p class="email" th:text="${member.email}">test@gmail.com</p>
-            <p class="mypage-comant" th:text="${member.profileText}">여유있는 여행자 홍길동</p>
+            <p class="mypage-comant" th:text="${member.profileText}">여유있는 여행자</p>
 
             <!--프로필 이미지-->
-            <diV class="mypage-upload-btn">
-                <label for="uploadImgFile">이미지 선택</label>
+            <!--<diV class="mypage-upload-btn">
+                <label for="uploadImgFile">test</label>
                 <input type="file" id="uploadImgFile" name="uploadImgFile">
-                <button type="submit">변경하기</button>
-            </div>
-            <!--/프로필 이미지-->
+                <button type="submit" onclick="uploadFile();">변경하기</button>
+            </div>-->
+            <!--이미지 추가 버튼-->
+            <!--<div>
+                <input type="button" id="addFilesBtn" class="btn btn-secondary addFilesBtn" value="이미지 등록">
+            </div>-->
 
             <div class="mypage-link">
-                <div class="profileBtn blueBtn">내 정보 수정</div>
-                <div class="blueBtn">알림함</div>
+                <div type="button" class="profileBtn blueBtn">내 정보 수정</div>
+                <div type="button" class="blueBtn">알림함</div>
+                <div type="button" class="addFilesBtn blueBtn">이미지 등록</div>
             </div>
         </div>
 
@@ -127,7 +132,7 @@
                 </div>
 
                 <div class="d-flex justify-content-end">
-                    <div class="secessionBtn member whiteBtn">회원탈퇴</div>
+                    <div type="button" class="secessionBtn member whiteBtn">회원탈퇴</div>
                 </div>
             </div>
         </div>
@@ -178,10 +183,6 @@
                 <form th:action="@{/mypage/modify}" method="POST" id="modifyForm">
                     <input type="hidden" name="userId" th:value="${member.userId}">
                     <div class="mb-2">
-                        <label for="img_input" class="col-form-label">프로필 이미지 선택</label>
-                        <input id="img_input" type="file" name="profile_img"  class="form-control"  multiple />
-                    </div>
-                    <div class="mb-2">
                         <label for="inputName" class="col-form-label">닉네임</label>
                         <input type="text" id="inputName" name="name" th:value="${member.name}">
                     </div>
@@ -218,7 +219,14 @@
         </div>
     </div>
     <!--/회원 수정 팝업-->
-
+    <div class="secessionModal modal">
+        <div class="modal-dialog">
+            <div class="modal-content p-5">
+                <h2 class="text-center">회원정보 관리</h2>
+                <hr>
+            </div>
+        </div>
+    </div>
     <!--회원 탈퇴 팝업-->
     <div class="secessionModal modal">
         <div class="modal-dialog">
@@ -250,155 +258,166 @@
         </div>
     </div>
     <!--/회원 탈퇴 팝업-->
-
+    <!-- 2. 첨부파일 추가를 위한 모달창 -->
+    <div class="uploadModal modal">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form th:action="@{/profile/upload}" method="POST" id="myPageForm" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">프로필 변경</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <!--프로필 이미지-->
+                    <diV class="modal-body">
+                        <div class="mb-3 row">
+                            <div class="col">
+                                <input type="file" class="form-control" id="uploadImgFile" name="uploadImgFile" multiple="">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 오류 메시지 표시 -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary addFilesCloseBtn" data-bs-dismiss="modal">닫기</button>
+                        <button type="submit" class="btn btn-primary addFilesBtn" onclick="uploadFile();">업로드</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
     <script layout:fragment="myscript" th:inline="javascript">
         //---------------------------프로필 이미지---------------------------//
-        //---------------------------프로필 이미지---------------------------//
+        function uploadFile() {
+            event.preventDefault(); //기본 동작 방지
 
+            var uploadImgFile = $("#uploadImgFile").val(); //값 들고오기
+            if(uploadImgFile != null) { //파일 존재시
+                var ext = uploadImgFile.split('.').pop().toLowerCase(); //확장자 분리 및 소문자 변환
+                if($.inArray(ext, ['jpg','jpeg','gif','png']) == -1) { //확장자가 배열에 존재하는데 확인
+                  alert('이미지 파일만 업로드 할수 있습니다.');
+                  return;
+                }
+            }
+            document.forms['myPageForm'].submit(); //폼 제출
+        }
 
 
         document.addEventListener('DOMContentLoaded', function() {
-        const profileModal = new bootstrap.Modal(document.querySelector('.profileModal'));
-        const secessionModal = new bootstrap.Modal(document.querySelector('.secessionModal'));
+            const profileModal = new bootstrap.Modal(document.querySelector('.profileModal'));
+            const secessionModal = new bootstrap.Modal(document.querySelector('.secessionModal'));
+            const uploadModal = new bootstrap.Modal(document.querySelector(".uploadModal"));
 
-        const modifyForm = document.querySelector('#modifyForm');
-        const deleteForm = document.querySelector('#deleteForm');
-        const inputPassword = document.querySelector("#inputPassword");
+            const modifyForm = document.querySelector('#modifyForm');
+            const deleteForm = document.querySelector('#deleteForm');
+            const inputPassword = document.querySelector("#inputPassword");
 
-        //if(showswich=='1') {
-        //    profileModal.show();
-        //}
+            // 프로필
+            document.querySelector(".addFilesBtn").addEventListener('click', function(e) {
+               console.log("test");
+               uploadModal.show();
+            });
+            document.querySelector(".addFilesCloseBtn").addEventListener('click', function(e) {
+               uploadModal.hide();
+            });
 
-        // 열기
-        document.querySelector('.profileBtn').addEventListener('click', function(e) {
-           profileModal.show();
-        });
+            // 탈퇴
+            document.querySelector(".secessionBtn").addEventListener('click', function(e) {
+               console.log("test");
+               secessionModal.show();
+            });
+            document.querySelector(".secCloseBtn").addEventListener('click', function(e) {
+               secessionModal.hide();
+            });
 
-        // 닫기
-        document.querySelector('.closeBtn').addEventListener('click', function(e) {
-           profileModal.hide();
-        });
+            // 열기
+            document.querySelector('.profileBtn').addEventListener('click', function(e) {
+                console.log("test");
+               profileModal.show();
+            });
+            // 닫기
+            document.querySelector('.closeBtn').addEventListener('click', function(e) {
+               profileModal.hide();
+            });
 
-        // 수정
-        document.querySelector('.modBtn').addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
+            // 수정
+            document.querySelector('.modBtn').addEventListener('click', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
 
-        console.log("test 시작");
+                console.log("test 시작");
 
-        fetch('/mypage/check', {
-           method: 'POST',
-           body: new FormData(modifyForm)
-        }).then(response => {
-           console.log("response received");
+                fetch('/mypage/check', {
+                   method: 'POST',
+                   body: new FormData(modifyForm)
+                }).then(response => {
+                   console.log("response received");
 
-           if (response.ok) {
-               return response.text(); // 응답 텍스트를 반환
-           } else {
-               throw new Error("서버 응답에 문제가 있습니다.");
-           }
-        }).then(responsetext => {
-           console.log("responsetext:", responsetext);
+                   if (response.ok) {
+                       return response.text(); // 응답 텍스트를 반환
+                   } else {
+                       throw new Error("서버 응답에 문제가 있습니다.");
+                   }
+                }).then(responsetext => {
+                   console.log("responsetext:", responsetext);
 
-           const modifyError = document.querySelector('#modify-error');
+                   const modifyError = document.querySelector('#modify-error');
 
-           if (responsetext.length != 0) {
-               modifyError.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
-           }
+                   if (responsetext.length != 0) {
+                       modifyError.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
+                   }
 
-           // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
-           if (responsetext.length === 0) {
-               //console.log("submit")
-               // 유효성 검사에 문제가 없을 경우 폼을 제출
-               modifyForm.submit();
-           }
+                   // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
+                   if (responsetext.length === 0) {
+                       //console.log("submit")
+                       // 유효성 검사에 문제가 없을 경우 폼을 제출
+                       modifyForm.submit();
+                   }
+
+                   }).catch(error => {
+                       console.error("Error: ", error);
+                    });
+                });
+            });
+
+
+
+            document.querySelector(".secBtn").addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            console.log("test 시작");
+            fetch('/mypage/check', {
+               method: 'POST',
+               body: new FormData(deleteForm)
+
+            }).then(response => {
+               console.log("response received");
+
+               if (response.ok) {
+                   return response.text(); // 응답 텍스트를 반환
+               } else {
+                   throw new Error("서버 응답에 문제가 있습니다.");
+               }
+            }).then(responsetext => {
+               console.log("responsetext:", responsetext);
+
+               const deleteError = document.querySelector('#delete-error');
+
+               if (responsetext.length != 0) {
+                   deleteError.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
+               }
+
+               // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
+               if (responsetext.length === 0) {
+                   //console.log("submit")
+                   // 유효성 검사에 문제가 없을 경우 폼을 제출
+                   deleteForm.submit();
+               }
 
            }).catch(error => {
                console.error("Error: ", error);
            });
         });
-
-
-        // 탈퇴
-        document.querySelector(".secessionBtn").addEventListener('click', function(e) {
-           secessionModal.show();
-        });
-
-        document.querySelector(".secCloseBtn").addEventListener('click', function(e) {
-           secessionModal.hide();
-        });
-        document.querySelector(".secBtn").addEventListener('click', function(e) {
-        e.preventDefault();
-        e.stopPropagation();
-
-        console.log("test 시작");
-        fetch('/mypage/check', {
-           method: 'POST',
-           body: new FormData(deleteForm)
-
-        }).then(response => {
-           console.log("response received");
-
-           if (response.ok) {
-               return response.text(); // 응답 텍스트를 반환
-           } else {
-               throw new Error("서버 응답에 문제가 있습니다.");
-           }
-        }).then(responsetext => {
-           console.log("responsetext:", responsetext);
-
-           const deleteError = document.querySelector('#delete-error');
-
-           if (responsetext.length != 0) {
-               deleteError.innerHTML = `<div class="alert alert-danger">${responsetext}</div>`
-           }
-
-           // 여기서 errorMessage의 값을 확인하고 후속 로직을 실행할 수 있습니다.
-           if (responsetext.length === 0) {
-               //console.log("submit")
-               // 유효성 검사에 문제가 없을 경우 폼을 제출
-               deleteForm.submit();
-           }
-
-           }).catch(error => {
-               console.error("Error: ", error);
-           });
-        });
-        });
-
-    function appendFileData(){
-        // 이미지 첨부파일 처리
-        const UploadBtn = document.querySelector('.mypage-upload-btn')    // Add Files 버튼(모달창 호출 버튼)
-        const fileItem = uploadResult.querySelectorAll('.fileItem') // 이미지 첨부파일 있을 경우(업로드 처리mg태그요소)
-
-        //이미지 업로드
-        $(UploadBtn).on("change", function(e) {
-            alert("파일이 업로드되었습니다.");
-        });
-
-        let str = ""
-        for (let i=0; i<uploadFiles.length; i++){ // 이미지 첨부파일이 1개이상일 경우
-         const uploadFile = uploadFiles[i]       // img태그 배열
-         const imgLink = uploadFile.getAttribute('data-src')
-
-<<<<<<< HEAD
-          //이미지 파일 이름을 hideen input요소에 저장
-          str += `<input type='hidden' name='fileNames' value="${imgLink}">`
-          //console.log("images: "+ imgLink);`
-=======
-         // 이미지 파일 이름을 hideen input요소에 저장
-         str += `<input type='hidden' name='fileNames' value="${imgLink}">`
-         //console.log("images: "+ imgLink);`
->>>>>>> 48c0975667369056ce27104e9e525b35a44b0e8a
-
-        }//end for
-
-        //[Add Files]버튼 =>  <input type='hidden' name="fileNames"/>요소 전환
-        target.innerHTML = str;
-
-    }
-
     </script>
 </div>
 </body>
