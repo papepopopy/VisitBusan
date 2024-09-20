@@ -250,11 +250,14 @@
         }
     })
 
+
+    // ------------------------ //
+    //        reply
+    // ------------------------ //
+
     const replyBIdList = document.querySelector('.replyBox'); // 댓글 목록 DOM
 
-    //----------------------------------------------------------------- //
     // 3. 서버로 부터 받아온 댓글을 DOM을 구성할 수 있는 문자열 생성 및 DOM생성
-    //----------------------------------------------------------------- //
     function printList(replyBox){
     let str ='';
 
@@ -286,14 +289,19 @@
     replyBIdList.innerHTML = str;
     }
 
+    function printReplies() {
 
+        getList(id.replyDTO)
+            .then(data => {
 
-    // ------------------------ //
-    //       댓글 등록 버튼
-    // ------------------------ //
+                printList(data.dtoList);
+            })
+            .catch(e => {console.log(e)})
+    }
+
+    // 댓글 등록 버튼
     const replyText = document.querySelector('.replyText')
     const regDate = document.querySelector('.regDate')
-
 
     document.querySelector('.regBtn').addEventListener('click', function(e) {
         console.log("regBtn click");
@@ -312,14 +320,17 @@
         addReply(replyObj)
                 .then(result => {
                     console.log("response data:", result)
-    <!--                console.log("id:", result.id)-->
+
 
                     replyText.value='';
 
-                    printReplies(1,10,true)
+                    //printReplies(1,10,true) -> 나중에 페이징 기능 추가
                 })
                 .catch(e => alert(e))
     });
+
+
+
 
 </script>
 
