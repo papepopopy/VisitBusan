@@ -1,5 +1,6 @@
 package com.project.VisitBusan.service;
 
+<<<<<<< HEAD
 import com.project.VisitBusan.constant.Role;
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.dto.ProfileImageDTO;
@@ -70,4 +71,26 @@ public interface MemberService {
         }
         return memberDTO;
     }
+=======
+import com.project.VisitBusan.dto.MemberDTO;
+import com.project.VisitBusan.entity.Member;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+public interface MemberService {
+    public Member saveMember(MemberDTO memberDTO);
+
+    default Member dtoToEntity(MemberDTO memberDTO, PasswordEncoder passwordEncoder) {
+        Member member = new Member();
+
+        member.setEmail(memberDTO.getEmail());
+        member.setUserId(memberDTO.getUserId());
+        member.setName(memberDTO.getName());
+        member.setAddress(memberDTO.getAddress());
+        //security 제작 후
+        String password = passwordEncoder.encode(memberDTO.getPassword());
+        member.setPassword(password);
+
+        return member;
+    }
+>>>>>>> 96e56902718561b200ab9ad54d209b423b20b8d1
 }
