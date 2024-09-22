@@ -311,7 +311,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                     .category(board1.getCategory())
                     .title(board1.getTitle())
                     .writer(board1.getWriter())
-                    .writerId(board1.getWriterId())
+                    .writerId(board1.getWriterId().getUserId())
                     .regDate(board1.getRegDate())
                     .viewCount(board1.getViewCount())
                     .replyCount(replyCount)  // 2. reply count -> replyCount DTO

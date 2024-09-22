@@ -3,6 +3,7 @@ package com.project.VisitBusan.service;
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
 import com.project.VisitBusan.entity.FestivalInfo;
+import com.project.VisitBusan.entity.Member;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 public interface BoardService {
 
     // 게시글 등록 서비스 인터페이스
-    long register(BoardDTO boardDTO);
+    long register(BoardDTO boardDTO, Member member);
 
     // 게시글 조회
     BoardDTO readOne (Long id);
@@ -31,13 +32,13 @@ public interface BoardService {
     PageResponseDTO<BoardListAllDTO> listWithAll(PageRequestDTO pageRequestDTO);
 
     // 게시글 조회수 처리
-    void viewCount(BoardDTO boardDTO);
+    void viewCount(BoardDTO boardDTO, Member member);
 
     // 게시글 댓글 카운트
     void baordLikeCount(Long board_id);
 
     // DTO -> Entity : List<String> fileName -> Board에서 Set<boardImage> 타입으로 변환
-    default Board dtoToEntity(BoardDTO boardDTO) {
+    default Board dtoToEntity(BoardDTO boardDTO, Member member) {
 
         // getter DTO -> setter Entity -> DB table 저장
         Board board = Board.builder()
@@ -46,7 +47,7 @@ public interface BoardService {
                 .title(boardDTO.getTitle())
                 .content(boardDTO.getContent())
                 .writer(boardDTO.getWriter())
-                .writerId(boardDTO.getWriterId())
+                .writerId(member)
                 .viewCount(boardDTO.getViewCount())
                 .build();
 
@@ -72,7 +73,7 @@ public interface BoardService {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())
-                .writerId(board.getWriterId())
+                .writerId(board.getWriterId().getUserId())
                 .viewCount(board.getViewCount())
                 .regDate(board.getRegDate())
                 .modDate(board.getModDate())
@@ -98,7 +99,7 @@ public interface BoardService {
                 .title(board.getTitle())
                 .content(board.getContent())
                 .writer(board.getWriter())
-                .writerId(board.getWriterId())
+                .writerId(board.getWriterId().getUserId())
                 .viewCount(board.getViewCount())
                 .regDate(board.getRegDate())
                 .modDate(board.getModDate())

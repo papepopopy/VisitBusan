@@ -3,11 +3,13 @@ package com.project.VisitBusan.controller;
 
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
+import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.repository.BoardRepository;
 import com.project.VisitBusan.service.BoardService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -75,9 +77,11 @@ public class BoardController {
                                @Valid BoardDTO boardDTO,  // @Valid 넘어온 데이터 BoardDTO의 에러 유무 체크
                                BindingResult bindingResult,  // 감지한 에러 데이터
                                PageRequestDTO pageRequestDTO,
-                               RedirectAttributes redirectAttributes) {
+                               RedirectAttributes redirectAttributes,
+                               @AuthenticationPrincipal Member member) { //현재 로그인 사용자
 
         log.info("==> boardDTO: "+boardDTO);
+        log.info("==> member: "+member);
 
         // 수정 페이지에서 넘겨받은 페이징 정보
         String link = pageRequestDTO.getLink();
@@ -95,7 +99,7 @@ public class BoardController {
 
         log.info("==> "+boardDTO);
         // 게시글 등록 서비스 호출(DB에 저장)
-        Long id = boardService.register(boardDTO);
+        Long id = boardService.register(boardDTO, member);
 
         redirectAttributes.addFlashAttribute("id",id);
         redirectAttributes.addFlashAttribute("result", "created");
@@ -109,7 +113,8 @@ public class BoardController {
     public String read(@PathVariable("menu") String menu,
                        Long id,
                        PageRequestDTO pageRequestDTO,
-                       Model model) {
+                       Model model,
+                       Member member) {
 
         log.info("==> id: "+id);
         log.info("==> pageRequestDTO: "+pageRequestDTO);
@@ -119,7 +124,7 @@ public class BoardController {
         model.addAttribute("dto",boardDTO);
         log.info("==> after service boardDTO: "+boardDTO);
 
-        boardService.viewCount(boardDTO);
+        boardService.viewCount(boardDTO, member);
 
         /*
         반환값을 void로 할 경우

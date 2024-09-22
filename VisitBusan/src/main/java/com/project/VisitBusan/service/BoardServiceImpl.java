@@ -3,6 +3,7 @@ package com.project.VisitBusan.service;
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
 import com.project.VisitBusan.entity.FestivalInfo;
+import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.repository.*;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -33,13 +34,19 @@ public class BoardServiceImpl implements BoardService {
 
     // 게시글 등록
     @Override
-    public long register(BoardDTO boardDTO) {
+    public long register(BoardDTO boardDTO, Member member) {
         // 1. DTO -> Entity : 첨부파일이 없는 경우
 //        Board board = modelMapper.map(boardDTO, Board.class);  // boardDTO를 Board클래스에 1:1로 맵핑 시킴
         // 1:1 맵핑하는 작업을 수작업할 시 Board 변수에 일일이 넣어줘야함
-
+        Board board = Board.builder()
+                .category(boardDTO.getCategory())
+                .title(boardDTO.getTitle())
+                .content(boardDTO.getContent())
+                .writer(member.getUserId())  // writer를 userId로 설정
+                .writerId(member)  // member 객체 설정
+                .build();
         // 2. DTO -> Entity : 첨부파일을 추가한 경우
-        Board board = dtoToEntity(boardDTO);
+//        Board board = dtoToEntity(boardDTO, member);
 
         // 3. board entity 저장
         Long id = boardRepository.save(board).getId();  // 보드를 저장하고 정상적으로 작동하면 변수에 값 저장
@@ -229,11 +236,11 @@ public class BoardServiceImpl implements BoardService {
     } // end listWithAll()
 
     @Override
-    public void viewCount(BoardDTO boardDTO) {
+    public void viewCount(BoardDTO boardDTO, Member member) {
 
         boardDTO.setViewCount(boardDTO.getViewCount()+1L);
 
-        Board board = this.dtoToEntity(boardDTO);
+        Board board = this.dtoToEntity(boardDTO, member);
 
         boardRepository.save(board);
 
