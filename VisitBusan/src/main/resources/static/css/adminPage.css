@@ -1,6 +1,54 @@
 /* 아이콘 링크 */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 
+/* 기본설정 */
+@font-face {
+    font-family: 'NotoSansKR';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/NotoSansKR-Regular.ttf') format('truetype');
+    letter-spacing: -0.003em;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #333;
+    font-family: 'NotoSansKR', sans-serif;
+    letter-spacing: -0.5px;
+}
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+h4 {
+    font-size: 14px;
+}
+
 a {
     text-decoration: none;
 }
@@ -10,25 +58,16 @@ a {
     height: 100vh;
 }
 
-.sideBar {
-
-    /* border: 1px solid red; */
-    background-color: #353535;
-
-    text-align: center;
-}
+.sideBar {background-color: #353535;text-align: center;padding: 0 20px;height: 100%;min-width: 250px;}
 
 .sb_1 {
-    margin-top: 100px;
+    padding: 80px 0;
 }
 
 .admin_img {
     width: 70px;
     height: 70px;
-    /* border: 1px solid green; */
-
     margin: auto;
-
     overflow: hidden;
 }
 
@@ -42,11 +81,11 @@ a {
 }
 
 .sb_3 {
-    margin-top: 50px;
+    /* padding-top: 50px; */
 }
 
 .sb_3 {
-    margin-top: 50px;
+    /* padding-top: 50px; */
 }
 
 .main {
@@ -200,6 +239,7 @@ a {
 .cate {
     .tableBox {
         flex-grow: 1;
+        margin-bottom: 15px;
     }
     .table {
         table-layout: fixed;
@@ -246,7 +286,7 @@ a {
         text-overflow: ellipsis;
         th:nth-child(1) { text-align: center; }
         td:nth-child(2) { padding-left: 40px; }
-        td:nth-child(3) { padding-left: 20px; }
+        td:nth-child(3) {padding-left: 20px;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
         td:nth-child(4) { text-align: center; }
         td:nth-child(5) { text-align: center; }
     }
@@ -277,7 +317,6 @@ a {
 .adminMain {
     display:flex;
     flex-direction: column;
-    gap: 50px;
 }
 
 /* board read */
@@ -419,7 +458,7 @@ a {
     border-radius: 50px;
     bottom: 40px;
     left: 40%;
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #aaa;
     transition: all .3s ease;
     color: #aaa;
@@ -432,3 +471,11 @@ a {
 
 .h-100vh {height: 100vh;}
 
+/*hph 240923 스타일 추가*/
+.admin-page {
+    display: flex;
+}
+.admin-page .header-side-inner {
+    padding: 0;
+    flex: 1 1 20%;
+}
