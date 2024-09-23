@@ -1,20 +1,16 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
-
 <head>
     <meta charset="UTF-8">
     <title>Visit Busan AdminPage</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
-    <link th:href="@{/css/adminPage.css}" rel="stylesheet">
+<!--/*    <link th:href="@{/css/adminPage.css}" rel="stylesheet">*/-->
+    <link th:href="@{/css/adminPage_backup.css}" rel="stylesheet">
     <th:block layout:fragment="mystyle"></th:block>
-
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
-
 </head>
-
 <body>
 <div class="myContainer">
     <div class="sideBar col-2">
@@ -70,11 +66,29 @@
             </div> -->
         </div>
     </div>
+    <div class="main col-10">
+        <div class="main_head d-flex">
+            <div class="list pt-3">
+                <a href="#" class="link-light">=</a>
+            </div>
+            <a th:href="@{/admin}">
+                <div class=" text-white pt-4 ps-4">관리자 홈</div>
+            </a>
+        </div><!-- end main_head -->
+
+        <div class="main_body">
+
+            <!-- content -->
+            <div layout:fragment="content"></div>
+
+        </div>
+
+    </div> <!-- end main -->
+
 </div> <!-- end mycontainer -->
 
 <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
 <th:block layout:fragment="myscript"></th:block>
 
 </body>
-
 </html>

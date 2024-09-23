@@ -30,7 +30,7 @@
                         </div>
                         <div class="info">
                             <div>닉네임</div>
-                            <div>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}]]/[[${dto.viewCount}]]</div>
+                            <div>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm')}]]/[[${dto.viewCount}]]</div>
                         </div>
                     </div>
 
@@ -47,7 +47,7 @@
             <hr>
             <div class="middleBox">
                 <!-- 내용 -->
-                <div class="content">[[${dto.content}]]</div>
+                <div class="content" th:utext="${dto.content}"></div>
 
                 <!-- 첨부파일 -->
                 <div class="mb-3 row">
