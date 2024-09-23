@@ -85,56 +85,43 @@
 
                 <ul class="list-group replyBox"> <!--  댓글리스트 -->
                     <li class="list-group-item ">
-                        댓글이 없습니다.</li>
+                        댓글이 없습니다.
+                    </li>
                 </ul>
+                <!-- 댓글 페이징 -->
+                <div class="row mt-3 mb-3">
+                    <div class="col">
+                        <ul class="pagination replyPaging"> <!--  댓글 페이징 번호 -->
 
-                <!-- 댓글1 -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- 댓글1
                 <div class="reply d-flex mt-3 gap-3">
-                    <div class="imgBox">
+                    <div class="imgBox p-2">
                         <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli2.jpg|"></div>
                     </div>
-                    <div>
-                        <div>작성자</div>
-                        <div>댓글 내용</div>
-                        <div class="d-flex gap-3">
-                            <div>작성날자/시간</div>
-                            <div>답글쓰기</div>
-                            <div>좋아요</div>
-                        </div>
-                    </div>
-                </div>
+                    <div class="p-2">
 
-                <!-- 댓글2 -->
-                <div class="reply d-flex mt-3 gap-3">
-                    <div class="imgBox">
-                        <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli3.jpg|"></div>
+                            <div>작성자</div>
+                            <div>댓글 내용</div>
+                            <div class="d-flex gap-3">
+                                <div>작성날자/시간</div>
+                                <div>답글쓰기</div>
+                                <div>좋아요</div>
+                            </div>
                     </div>
-                    <div>
-                        <div>작성자</div>
-                        <div>댓글 내용</div>
-                        <div class="d-flex gap-3">
-                            <div>작성날자/시간</div>
-                            <div>답글쓰기</div>
-                            <div>좋아요</div>
-                        </div>
+                    <div class="ms-auto p-2 d-flex gap-3">
+                        <button type="button" class="btn btn-success modBtn">수정</button>
+                        <button type="button" class="btn btn-danger delBtn">삭제</button>
                     </div>
                 </div>
+                -->
 
-                <!-- 댓글3 -->
-                <div class="reply d-flex mt-3 gap-3">
-                    <div class="imgBox">
-                        <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli3.jpg|"></div>
-                    </div>
-                    <div>
-                        <div>작성자</div> <!-- replierId -->
-                        <div>댓글 내용</div> <!-- replyText -->
-                        <div class="d-flex gap-3">
-                            <div>작성날자/시간</div> <!-- regDate -->
-                            <div>답글쓰기</div>
-                            <div>좋아요</div>
-                        </div>
-                    </div>
-                </div>
+
+
+
 
                 <!-- 댓글 등록 -->  <!--/*[[${user.username}]]*/-->
                 <div class="d-flex my-4">
@@ -256,6 +243,40 @@
     // ------------------------ //
 
     const replyBIdList = document.querySelector('.replyBox'); // 댓글 목록 DOM
+    const replyPaging = document.querySelector('.replyPaging');// 페이지 목록 DOM
+
+//------------------------------------------------------------------------ //
+  // 4. 페이징 처리
+  //------------------------------------------------------------------------ //
+  function printPages(data){
+    console.log("paging:", data);
+
+
+    // pagination
+    let pageStr = ''
+
+   if (data && data.dtoList.length > 0 ){  // 댓글이 있을 경우만  페이징 처리
+
+      // 이전 버튼
+      if (data.prev) {
+        pageStr += `<li class="page-item"><a class="page-link" data-page="${data.start-1}">이전</a></li>`
+      }
+
+      // 페이지번호 버튼
+      for (let i=data.start; i<=data.end; i++){
+        pageStr += `<li class="page-item ${i==data.page?"active":""}"><a class="page-link" data-page="${i}">${i}</a></li>`
+      }
+      // 다음 버튼
+      if (data.next) {
+      pageStr += `<li class="page-item"><a class="page-link" data-page="${data.end+1}">다음</a></li>`
+      }
+
+    } // end if
+
+    replyPaging.innerHTML = pageStr;
+
+  }
+
 
     // 3. 서버로 부터 받아온 댓글을 DOM을 구성할 수 있는 문자열 생성 및 DOM생성
     function printList(replyBox){
@@ -268,20 +289,27 @@
         str +=
         `
           <li class="reply d-flex mt-3 gap-3">
-                <div class="reply d-flex mt-3 gap-3">
-                    <div class="imgBox">
+
+                    <div class="imgBox p-2">
                         <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli2.jpg|"></div>
                     </div>
-                    <div>
-                        <div>${dto.replierId}</div>
-                        <div>${dto.replyText}</div>
-                        <div class="d-flex gap-3">
-                            <div>${dto.regDate}</div>
-                            <div>답글쓰기</div>
-                            <div>좋아요</div>
-                        </div>
+                    <div class="p-2">
+
+                            <div>작성자</div>
+                            <div>${dto.replyText}</div>
+                            <div class="d-flex gap-3">
+                                <div>${dto.regDate}</div>
+                                <div>답글쓰기</div>
+                                <div>좋아요</div>
+                            </div>
                     </div>
-                </div>
+                    <div class="ms-auto p-2 d-flex gap-3">
+                        <button type="button" class="btn btn-success modBtn" onClick="modifyReply()">수정</button>
+                        <button type="button" class="btn btn-danger delBtn" onClick="removeReply()">삭제</button>
+                    </div>
+
+
+
           </li>
         `
       }// end for
@@ -289,15 +317,43 @@
     replyBIdList.innerHTML = str;
     }
 
-    function printReplies() {
+    const board_id = [[${dto.id}]]
+    // 2. 게시글에 대한 댓글 서버에 요청해서 data 받아오기
+    function printReplies(page, size, goLast) {
 
-        getList(id.replyDTO)
+        getList({board_id, page, size, goLast})
             .then(data => {
 
                 printList(data.dtoList);
             })
             .catch(e => {console.log(e)})
     }
+
+
+    let page = 1; // 현재 페이지 번호
+    let size = 5; // 페이지해당 되는 레코드(행)의 개수
+    printReplies(page,size,true);// 현재 페이지번호, 페이지 사이즈, 마지막 페이지 사용여부
+
+      //--------------------------------------------- //
+      // 5-1. 페이지 번호 클릭
+      //--------------------------------------------- //
+      replyPaging.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+
+        const target = e.target;
+        if (!target || target.tagName != 'A'){
+          return;
+        }
+
+        // <a>태그일 경우만 처리
+        // 현재 클릭한 태그 요소의 페이지 번호 추출0
+        const pageNum = target.getAttribute("data-page");
+        page = pageNum;
+        console.log("page number:",page)
+        printReplies(page, size)
+
+      });
 
     // 댓글 등록 버튼
     const replyText = document.querySelector('.replyText')
@@ -324,12 +380,26 @@
 
                     replyText.value='';
 
-                    //printReplies(1,10,true) -> 나중에 페이징 기능 추가
+                    printReplies(1,10,true)
                 })
                 .catch(e => alert(e))
     });
 
-//댓글 view
+    //--------------------------------------------- //
+    // 5-3. 댓글 조회 및 수정
+    //--------------------------------------------- //
+
+
+
+    // 댓글 수정
+    function modifyReply() {
+        console.log("mod");
+    }
+
+    // 댓글 삭제
+    function removeReply() {
+        console.log("del");
+    }
 
 
 </script>
