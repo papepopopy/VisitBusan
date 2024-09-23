@@ -248,6 +248,8 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                             booleanBuilder.or(board.content.contains(keyword));break;
                         case "w":
                             booleanBuilder.or(board.writer.contains(keyword));break;
+                        case "writerId":
+                            booleanBuilder.or(board.writerId.contains(keyword));break;
                     }
                 } // end for
 
