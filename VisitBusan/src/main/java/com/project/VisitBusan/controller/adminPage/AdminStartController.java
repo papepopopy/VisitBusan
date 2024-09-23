@@ -27,6 +27,8 @@ public class AdminStartController {
     public String mainPage(PageRequestDTO pageRequestDTO,
                            Model model) {
 
+        pageRequestDTO.setSize(5);
+
         // 게시글 조회
 
         // 1-1. 게시글 댓글 개수 없는 List 조회

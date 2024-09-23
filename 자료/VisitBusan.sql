@@ -12,10 +12,17 @@ SHOW TABLES;
 SHOW COLUMNS FROM board;
 SELECT * FROM board;
 SELECT * FROM board ORDER BY id desc;
+SELECT * FROM board WHERE (title is not NULL OR content is not NULL OR writer is not NULL) AND category = 'review' or reg_date > '2024-09-10' ORDER BY id desc;
 DELETE FROM board;
 DROP TABLE board_file;
 DROP TABLE board_like;
 DROP TABLE board;
+
+SHOW COLUMNS FROM festival_info;
+SELECT * FROM festival_info;
+SELECT * FROM festival_info ORDER BY board_id desc;
+DELETE FROM festival_info;
+DROP TABLE festival_info;
 
 SHOW COLUMNS FROM board_file;
 SELECT * FROM board_file ORDER BY board_id desc;

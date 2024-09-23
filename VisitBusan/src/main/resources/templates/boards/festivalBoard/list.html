@@ -12,20 +12,11 @@
             cursor: pointer;
         }
     }
+    
     .days .page-link {
-        padding: 0;
-        div{
-            padding: 0 12px;
-        }
-        div:first-child {
-            padding-top: 6px;
-        }
-        div:last-child {
-            padding-top: 16px; 
-            padding-bottom: 6px;
-        }
+        text-align: center;
     }
-
+    
 </style>
 
 <div class="container"  layout:fragment="content">
@@ -134,8 +125,9 @@
             </ul>
         </nav> <!-- end page -->
 
-    </div>
-</div>
+    </div> <!-- end .festivalBoard -->
+    
+</div> <!-- end fragment='content' -->
 
 <script layout:fragment="myscript" th:inline="javascript">
     console.log("스크립트 실행! :b");
@@ -190,32 +182,14 @@
 
     // 작성일은 2022년 5월 19일 기준입니다.
     let today = new Date();
+    let thisYear = today.getFullYear();
+    let thisMonth = today.getMonth()+1;
 
-    /*
-    //1번 포맷
-    let dateFormat1 = today.getFullYear() + '년 ' + (today.getMonth()+1) + '월 '
-        + today.getDate() + '일 ' + day[today.getDay()] + '요일 '
-        + today.getHours() + '시 ' + today.getMinutes() + '분 '
-        + today.getSeconds() + '초'
-        
-    //2번 포맷
-    let dateFormat2 = today.getFullYear() +
-        '-' + ( (today.getMonth()+1) < 9 ? "0" + (today.getMonth()+1) : (today.getMonth()+1) )+
-        '-' + ( (today.getDate()) < 9 ? "0" + (today.getDate()) : (today.getDate()) );
-    
-    console.log(dateFormat1);
-    console.log(dateFormat2);
-    */
+    current_date.innerHTML = `${thisYear}년 ${thisMonth}월`;
 
-    current_date.innerHTML = `${today.getFullYear()}년 ${today.getMonth()+1}월`;
-
-    
     let day_num = 0;
     function daysInMonth (year, month) {
-
-        
         day_num = new Date(year, month-1, 1).getDay();
-
         // JavaScript에서 월은 0부터 색인화됩니다(1월은 0, 2월은 1 등),
         // 하지만 일로 0을 사용하면 이전 달의 마지막 날이 나옵니다.
         // 따라서 월 번호로 1을 전달하면 마지막 날이 반환됩니다.
@@ -228,39 +202,72 @@
 
     for (let i=1; i<=last; i++) {
 
-        days.innerHTML += `<li class="page-item"><a href="#" class="page-link">
+        days.innerHTML += `<li class="page-item"><a href="#" class="page-link" date="${i}">
                                 <div>${day[day_num++]}</div>
-                                <div class="text-center">${i}</div>
+                                <span class="text-center">${i}</span>
                             </a></li>`
      
         if (day_num == 7) day_num = 0;
 
     }
 
+    function dateFormat(date) {
+        let dateFormat2 = date.getFullYear() +
+            '-' + ( (date.getMonth()+1) <= 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1) )+
+            '-' + ( (date.getDate()) <= 9 ? "0" + (date.getDate()) : (date.getDate()) );
+        return dateFormat2;
+    }
+
+    const linkStartDate = [[${pageRequestDTO.startDate}]];
+    const linkEndDate = [[${pageRequestDTO.endDate}]];
+    const category = [[${pageRequestDTO.getBCategory()}]];
+    console.log(linkStartDate);
+    console.log(linkEndDate);
+    console.log(category);
+
     days.addEventListener('click', (e) => {
         e.preventDefault();  // 기본 이벤트 제거
         e.stopPropagation();  // 버블링(현재 이벤트가 발생한 요소의 상위 요소들에 대해서 이벤트 감지되는 현상) 방지
 
-        console.log(e);
-        console.log(e.target);
+        console.log("e: ",e);
+        console.log("e.target: ",e.target);
+        console.log("e.target.parentElement: ",e.target.parentElement)
 
-
-        const num = e.target.innerText;  // 현재 클릭된 요소의 data-num을 읽어옴
+        let num = e.target.parentElement.getAttribute('date')  // 클릭된 요소의 date를 읽어옴
+        if (num == null) {
+            num = e.target.getAttribute('date')
+        }
         console.log(num)
-        const category = [[${pageRequestDTO.getBCategory()}]];
 
-        function dateFormat(date) {
-            let dateFormat2 = date.getFullYear() +
-                '-' + ( (date.getMonth()+1) <= 9 ? "0" + (date.getMonth()+1) : (date.getMonth()+1) )+
-                '-' + ( (date.getDate()) <= 9 ? "0" + (date.getDate()) : (date.getDate()) )+
-                'T00:00:00';
-            return dateFormat2;
+        startDate = dateFormat(new Date(thisYear,thisMonth-1,num))+'T00:00:00';
+        endDate = dateFormat(new Date(thisYear,thisMonth-1,num))+'T23:59:59';
+
+        location.href = `/board/festivalBoard/list?bCategory=${category}&startDate=${startDate}&endDate=${endDate}`
+
+    }) // end days EventListener
+
+    const l_btn = document.querySelector('.nav-date .l-btn');
+    const r_btn = document.querySelector('.nav-date .r-btn');
+
+    l_btn.addEventListener('click', () => {
+
+        if (linkStartDate == null) {
+            startDate = dateFormat(new Date(thisYear, thisMonth-2, 1)) + 'T00:00:00';
+        } else {
+            let splitStartDate = linkStartDate.split('-')
+            console.log(splitStartDate[0])
+            console.log(splitStartDate[1])
+            startDate = dateFormat(splitStartDate[0]+'-'+splitStartDate[1]+'-'+01) + 'T00:00:00';
+        }
+        if (linkEndDate == null) {
+            endDate = dateFormat(new Date(thisYear, thisMonth-1, 0)) + 'T23:59:59';
+        } else {
+            endDate = dateFormat(new Date(thisYear, thisMonth-1, 0)) + 'T23:59:59';
         }
 
-        let toDay = dateFormat(new Date('2024-9-'+num));
-
-        location.href = `/board/festivalBoard/list?bCategory=${category}&startDate=${toDay}&endDate=${toDay}`
+        location.href = `/board/festivalBoard/list?bCategory=${category}&startDate=${startDate}&endDate=${endDate}`
     })
+
        
 
 </script>

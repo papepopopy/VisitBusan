@@ -248,6 +248,8 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                             booleanBuilder.or(board.content.contains(keyword));break;
                         case "w":
                             booleanBuilder.or(board.writer.contains(keyword));break;
+                        case "writerId":
+                            booleanBuilder.or(board.writerId.contains(keyword));break;
                     }
                 } // end for
 
@@ -256,9 +258,13 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
             // 카테고리 조건 추가
             booleanBuilder.and(board.category.contains(category));
 
-            if(startDate != null && endDate != null) {
-                booleanBuilder.and(festivalInfo.startDate.loe(startDate));
-                booleanBuilder.and(festivalInfo.endDate.goe(endDate));
+            if( startDate != null ) {
+                booleanBuilder.and(festivalInfo.startDate.loe(startDate).or(festivalInfo.startDate.isNull()));
+                booleanBuilder.and(festivalInfo.endDate.goe(startDate).or(festivalInfo.endDate.isNull()));
+            }
+            if( endDate != null ) {
+                booleanBuilder.and(festivalInfo.endDate.goe(endDate).or(festivalInfo.endDate.isNull()));
+                booleanBuilder.and(festivalInfo.startDate.loe(endDate).or(festivalInfo.startDate.isNull()));
             }
 
             boardJPQLQuery.where(booleanBuilder);
@@ -314,7 +320,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
                     .boardLikeCount(boardLikeCount)  // boardLike count -> boardLikeCount DTO
                     .build();
 
-            if(festivalInfoData != null && startDate != null && endDate != null) {
+            if(festivalInfoData != null) {
                 boardListAllDTO.setStartDate(festivalInfoData.getStartDate());
                 boardListAllDTO.setEndDate(festivalInfoData.getEndDate());
             }

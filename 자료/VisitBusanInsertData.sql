@@ -66,10 +66,10 @@ SELECT * FROM member_role_set;
 INSERT INTO board
 (category,title,content,writer,writer_id,reg_date,mod_date)
 VALUES
-('festival','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
-('festival','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
-('performance','title3','content3','admin','admin',SYSDATE(),SYSDATE()),
-('performance','title4','content4','admin','admin',SYSDATE(),SYSDATE()),
+('festival, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('festival, all1','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
+('performance, all1','title3','content3','admin','admin',SYSDATE(),SYSDATE()),
+('performance, all1','title4','content4','admin','admin',SYSDATE(),SYSDATE()),
 ('place','title5','content5','admin','admin',SYSDATE(),SYSDATE()),
 ('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
 ('food','title7','content7','admin','admin',SYSDATE(),SYSDATE()),
@@ -85,7 +85,9 @@ VALUES
 ('schedule','title17','content17','user','user',SYSDATE(),SYSDATE()),
 ('schedule','title18','content18','user','user',SYSDATE(),SYSDATE()),
 ('review','title19','content19','user','user',SYSDATE(),SYSDATE()),
-('review','title20','content20','user','user',SYSDATE(),SYSDATE());
+('review','title20','content20','user','user',SYSDATE(),SYSDATE()),
+('sports, all1','title21','content21','user','user',SYSDATE(),SYSDATE()),
+('sports, all1','title22','content22','user','user',SYSDATE(),SYSDATE());
 SHOW COLUMNS FROM board;
 SELECT * FROM board;
 
@@ -93,6 +95,23 @@ INSERT INTO board
 (category,title,content,writer,writer_id,reg_date,mod_date)
 VALUES
 ('review','부산 시티투어버스 환승 그린 오렌지라인 송도해수욕장과 암남공원','부산여행! 뚜벅이 아니더라도 하루쯤은 시티투어버스에 몸을 맡기고 운전, 주차따위 걱정없이 길맥도 가능한 ㅋㅋㅋ 코스를 추천드립니다. 너무 좋았기 때문에 다음 여행에도 기차여행을 예약해놓은 상태!! 매번 남편, 아빠만 고생하는 것 같지만 부산 시티투어버스 타면 아빠도 매우 즐거움! 부산여행! 뚜벅이 아니더라도 하루쯤은 시티투어버스에 몸을 맡기고 운전, 주차따위 걱정없이 길맥도 가능한 ㅋㅋㅋ 코스를 추천드립니다. 너무 좋았기 때문에 다음 여행에도 기차여행을 예약해놓은 상태!! 매번 남편, 아빠만 고생하는 것 같지만 부산 시티투어버스 타면 아빠도 매우 즐거움! 부산여행! 뚜벅이 아니더라도 하루쯤은 시티투어버스에 몸을 맡기고 운전, 주차따위 걱정없이 길맥도 가능한 ㅋㅋㅋ 코스를 추천드립니다. 너무 좋았기 때문에 다음 여행에도 기차여행을 예약해놓은 상태!! 매번 남편, 아빠만 고생하는 것 같지만 부산 시티투어버스 타면 아빠도 매우 즐거움!','test','test',SYSDATE(),SYSDATE());
+
+
+-- ------------------------------
+--        축제 게시글 정보
+-- ------------------------------
+
+INSERT INTO festival_info
+(board_id, start_date, end_date, contact_num, HOST, place, supervision, homepage)
+VALUES
+(1, '2024-07-25', '2024-10-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(2, '2024-06-25', '2024-09-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(3, '2024-05-25', '2024-08-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(4, '2024-04-25', '2024-07-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(21, '2024-03-25', '2024-06-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(22, '2024-02-25', '2024-05-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' );
+SHOW COLUMNS FROM festival_info;
+SELECT * FROM festival_info;
 
 
 -- ------------------------------

@@ -70,7 +70,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each="i : ${#numbers.sequence(0, 4, +1)}" th:with="dto=${responseDTO.dtoList[i]}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
+                        <tr th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
+                        <!--/*<tr th:each="i : ${#numbers.sequence(0, 4, +1)}" th:with="dto=${responseDTO.dtoList[i]}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">*/-->
                             <th scope="row" th:text="${dto.id}"></th>
                             <td th:text="${dto.category}"></td>
                             <td th:text="${dto.title}"></td>

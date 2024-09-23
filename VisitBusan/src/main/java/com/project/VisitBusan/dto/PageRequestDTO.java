@@ -64,12 +64,12 @@ public class PageRequestDTO {
                     throw new RuntimeException(e);
                 }
             }
+
             if (startDate != null)  // 카테고리 추가
                 builder.append("&startDate="+startDate);
 
             if (endDate != null)  // 카테고리 추가
                 builder.append("&endDate="+endDate);
-
 
             // link = page=1&size10&type=twc&keyword=URLEncoder.Encode("홍길동")...
             link = builder.toString();

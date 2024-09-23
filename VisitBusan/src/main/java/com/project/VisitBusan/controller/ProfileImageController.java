@@ -68,14 +68,15 @@ public class ProfileImageController {
             }
 
             //파일 저장 경로
-            Path filePath = savePath.resolve("profile_"+uuid + "_" + fileName);
+            String uploadFileName = "pro_"+uuid + "_" + fileName;
+            Path filePath = savePath.resolve(uploadFileName);
 
             //파일 저장
             file.transferTo(filePath);
 
             // ProfileImageDTO 에 데이터 설정
             ProfileImageDTO profileImageDTO = new ProfileImageDTO();
-            profileImageDTO.setFileName(fileName);
+            profileImageDTO.setFileName(uploadFileName);
             profileImageDTO.setUuid(uuid);
 
             log.info("ProfileImageDTO fileName: {}, uuid: {}", profileImageDTO.getFileName(), profileImageDTO.getUuid());
@@ -105,7 +106,6 @@ public class ProfileImageController {
         try {
             headers.add(HttpHeaders.CONTENT_TYPE, Files.probeContentType(filePath));
         } catch (IOException e) {
-            // Fallback to a default MIME type if probing fails
             headers.add(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_OCTET_STREAM_VALUE);
         }
 
