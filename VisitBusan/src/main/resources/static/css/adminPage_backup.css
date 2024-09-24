@@ -235,12 +235,14 @@ a {
         th:nth-child(5) { width: 200px; }
     }
     .table tbody tr {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
         th:nth-child(1) { text-align: center; }
         td:nth-child(2) { padding-left: 40px; }
-        td:nth-child(3) { padding-left: 20px; }
+        td:nth-child(3) {
+            padding-left: 20px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
         td:nth-child(4) { text-align: center; }
         td:nth-child(5) { text-align: center; }
     }
