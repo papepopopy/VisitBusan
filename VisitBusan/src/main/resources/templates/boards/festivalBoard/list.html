@@ -76,6 +76,11 @@
             <li class="wBtn">이번주</li>
             <li class="nBtn">다음주</li>
             <li class="mBtn">30일</li>
+            <div class="search-inner right ms-auto">
+                <a href="/board/userBoard/create" th:href="|@{/board/}${menu}/create?${pageRequestDTO.getLink()}|" class="ms-auto">
+                    <button class="btn btn-search" >글쓰기</button>
+                </a>
+            </div>
         </ul>
         <!-- 리스트 목록 -->
         <div class="tab-content" id="nav-tabContent">
@@ -93,7 +98,15 @@
                             </th:block>
                         </div>
                         <div class="postTitle" th:text="${dto.title}">2024 부산나이트워크42K</div>
-                        <div class="postRegDate"><span th:text="${#temporals.format(dto.startDate, 'yyyy-MM-dd HH:mm')}"></span> ~ <span th:text="${#temporals.format(dto.endDate, 'yyyy-MM-dd HH:mm')}"></span></div>
+                        <div class="postRegDate">
+                            <th:block th:if="${dto.startDate != null }">
+                                <span th:text="|${#temporals.format(dto.startDate, 'yyyy-MM-dd')} (${day[#temporals.dayOfWeek(dto.startDate)-1]})|"></span>
+                            </th:block>
+                             ~
+                            <th:block th:if="${dto.endDate != null }">
+                                <span th:text="|${#temporals.format(dto.endDate, 'yyyy-MM-dd')} (${day[#temporals.dayOfWeek(dto.endDate)-1]})|"></span>
+                            </th:block>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -181,8 +194,8 @@
     let day = ['일', '월', '화', '수', '목', '금', '토'];
 
     let today, thisYear, thisMonth;
-    const linkStartDate = [[${pageRequestDTO.startDate}]];
-    const linkEndDate = [[${pageRequestDTO.endDate}]];
+    const linkStartDate = [[${pageRequestDTO.bStartDate}]];
+    const linkEndDate = [[${pageRequestDTO.bEndDate}]];
     const category = [[${pageRequestDTO.getBCategory()}]];
     console.log("linkStartDate: ", linkStartDate);
     console.log("linkEndDate: ", linkEndDate);
@@ -253,10 +266,10 @@
         }
         console.log("num: ", num)
 
-        startDate = dateFormat(new Date(thisYear,Number(thisMonth)-1,num))+'T00:00:00';
-        endDate = dateFormat(new Date(thisYear,Number(thisMonth)-1,num))+'T23:59:59';
+        bStartDate = dateFormat(new Date(thisYear,Number(thisMonth)-1,num));
+        bEndDate = dateFormat(new Date(thisYear,Number(thisMonth)-1,num));
 
-        location.href = `/board/festivalBoard/list?bCategory=${category}&startDate=${startDate}&endDate=${endDate}`
+        location.href = `/board/festivalBoard/list?bCategory=${category}&bStartDate=${bStartDate}&bEndDate=${bEndDate}`
 
     }) // end days EventListener
 
@@ -266,16 +279,16 @@
     const r_btn = document.querySelector('.nav-date .r-btn');
 
     l_btn.addEventListener('click', () => {
-        startDate = dateFormat(new Date(thisYear, Number(thisMonth)-2, 1)) + 'T00:00:00';
-        endDate = dateFormat(new Date(thisYear, Number(thisMonth)-1, 0)) + 'T23:59:59';
+        bStartDate = dateFormat(new Date(thisYear, Number(thisMonth)-2, 1));
+        bEndDate = dateFormat(new Date(thisYear, Number(thisMonth)-1, 0));
 
-        location.href = `/board/festivalBoard/list?bCategory=${category}&startDate=${startDate}&endDate=${endDate}`
+        location.href = `/board/festivalBoard/list?bCategory=${category}&bStartDate=${bStartDate}&bEndDate=${bEndDate}`
     })
     r_btn.addEventListener('click', () => {
-        startDate = dateFormat(new Date(thisYear, Number(thisMonth), 1)) + 'T00:00:00';
-        endDate = dateFormat(new Date(thisYear, Number(thisMonth)+1, 0)) + 'T23:59:59';
+        bStartDate = dateFormat(new Date(thisYear, Number(thisMonth), 1));
+        bEndDate = dateFormat(new Date(thisYear, Number(thisMonth)+1, 0));
 
-        location.href = `/board/festivalBoard/list?bCategory=${category}&startDate=${startDate}&endDate=${endDate}`
+        location.href = `/board/festivalBoard/list?bCategory=${category}&bStartDate=${bStartDate}&bEndDate=${bEndDate}`
     
     })
 

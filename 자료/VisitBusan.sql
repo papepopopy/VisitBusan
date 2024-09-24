@@ -18,9 +18,12 @@ DROP TABLE board_file;
 DROP TABLE board_like;
 DROP TABLE board;
 
+
 SHOW COLUMNS FROM festival_info;
 SELECT * FROM festival_info;
-SELECT * FROM festival_info ORDER BY board_id desc;
+SELECT * FROM festival_info ORDER BY board_id DESC;
+-- 검색 값이 2024-9-6 ~ 2024-9-25
+SELECT * FROM festival_info WHERE (start_date <= '2024-09-25' AND end_date >= '2024-09-06') ORDER BY start_date ASC;
 DELETE FROM festival_info;
 DROP TABLE festival_info;
 

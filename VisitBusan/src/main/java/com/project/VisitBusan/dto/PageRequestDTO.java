@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Builder
@@ -28,8 +29,8 @@ public class PageRequestDTO {
     private String type;  // 검색 종류 = t,c,w,tc,tw, twc
     private String keyword;
     private String bCategory;  // 카테고리 = information, schedule, review, festival ...
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate bStartDate;
+    private LocalDate bEndDate;
 
     // 키워드에 대한 type을 구분하여 배열구조로 반환
     public String[] getTypes() {
@@ -65,11 +66,11 @@ public class PageRequestDTO {
                 }
             }
 
-            if (startDate != null)  // 카테고리 추가
-                builder.append("&startDate="+startDate);
+            if (bStartDate != null)  // 카테고리 추가
+                builder.append("&bStartDate="+bStartDate);
 
-            if (endDate != null)  // 카테고리 추가
-                builder.append("&endDate="+endDate);
+            if (bEndDate != null)  // 카테고리 추가
+                builder.append("&bEndDate="+bEndDate);
 
             // link = page=1&size10&type=twc&keyword=URLEncoder.Encode("홍길동")...
             link = builder.toString();

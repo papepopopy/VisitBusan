@@ -2,7 +2,9 @@ package com.project.VisitBusan.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 // Entity 정의 : 테이블에 적용될 구조설계 정의하여 테이블과 entity 1:1 맵핑
@@ -29,7 +31,7 @@ public class FestivalInfo {
     private String supervision;
     private String homepage;
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
 }

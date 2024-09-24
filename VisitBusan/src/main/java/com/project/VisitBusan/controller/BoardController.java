@@ -14,6 +14,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Controller
 @RequestMapping("/board")
 @RequiredArgsConstructor
@@ -55,6 +58,10 @@ public class BoardController {
 //        log.info("=> "+responseDTO);
 
         model.addAttribute("responseDTO", responseDTO);
+
+        List<String> day = Arrays.asList("월", "화", "수", "목", "금", "토", "일");
+        // 모델에 데이터를 담아 타임리프 템플릿에 전달합니다.
+        model.addAttribute("day", day);
 
         return "boards/"+menu+"/list";
 
@@ -126,6 +133,10 @@ public class BoardController {
         return 생략하면 "board/read" 형태으로 자동 포워딩  (return "board/read";)
         */
 //        return "boards/userBoard/read";
+
+        List<String> day = Arrays.asList("월", "화", "수", "목", "금", "토", "일");
+        // 모델에 데이터를 담아 타임리프 템플릿에 전달합니다.
+        model.addAttribute("day", day);
 
         return "boards/"+menu+"/read";
 

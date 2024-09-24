@@ -12,6 +12,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -40,6 +41,11 @@ public class BoardServiceImpl implements BoardService {
 
         // 2. DTO -> Entity : 첨부파일을 추가한 경우
         Board board = dtoToEntity(boardDTO);
+
+        if (boardDTO.getStartDate() != null || boardDTO.getEndDate() != null) {
+            FestivalInfo festivalInfo = toFestivalInfo(boardDTO, board);
+            festivalInfoRepository.save(festivalInfo);
+        }
 
         // 3. board entity 저장
         Long id = boardRepository.save(board).getId();  // 보드를 저장하고 정상적으로 작동하면 변수에 값 저장
@@ -213,12 +219,12 @@ public class BoardServiceImpl implements BoardService {
         String category = pageRequestDTO.getBCategory();
         String[] types = pageRequestDTO.getTypes();  // 검색 타입(글제목, 글내용, 작성자)
         String keyword = pageRequestDTO.getKeyword(); // 검색 키워드
-        LocalDateTime startDate = pageRequestDTO.getStartDate();
-        LocalDateTime endDate = pageRequestDTO.getEndDate();
+        LocalDate bStartDate = pageRequestDTO.getBStartDate();
+        LocalDate bEndDate = pageRequestDTO.getBEndDate();
         Pageable pageable = pageRequestDTO.getPageable("id");
 
         // BoardSearch 클래스로를 상속받은 boardRepository는 searchWithAll() 사용가능
-        Page<BoardListAllDTO> result = boardRepository.searchWithAll(category, types, keyword, startDate, endDate, pageable);
+        Page<BoardListAllDTO> result = boardRepository.searchWithAll(category, types, keyword, bStartDate, bEndDate, pageable);
 
         return PageResponseDTO.<BoardListAllDTO>withAll()
                 .pageRequestDTO(pageRequestDTO)

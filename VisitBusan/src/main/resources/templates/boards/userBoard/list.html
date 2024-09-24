@@ -87,7 +87,7 @@
                         <li>댓글: <span th:text="${dto.replyCount}">1</span></li>
                         <li>좋아요: <span th:text="${dto.boardLikeCount}">8</span></li>
                     </ul>
-                    <div class="postDate" th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}">2024.08.22</div>
+                    <div class="postDate" th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd HH:mm')}">2024.08.22</div>
                 </div>
             </div>
         </div> <!-- end class="tab-content" -->

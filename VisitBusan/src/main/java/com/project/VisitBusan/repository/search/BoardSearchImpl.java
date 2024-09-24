@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.data.domain.*;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -219,7 +220,7 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
 
     // 게시물 조건 검색 조회 구현
     @Override
-    public Page<BoardListAllDTO> searchWithAll(String category, String[] types, String keyword, LocalDateTime startDate, LocalDateTime endDate, Pageable pageable) {
+    public Page<BoardListAllDTO> searchWithAll(String category, String[] types, String keyword, LocalDate bStartDate, LocalDate bEndDate, Pageable pageable) {
 
         QBoard board = QBoard.board;
         QReply reply = QReply.reply;
@@ -258,13 +259,11 @@ public class BoardSearchImpl extends QuerydslRepositorySupport implements BoardS
             // 카테고리 조건 추가
             booleanBuilder.and(board.category.contains(category));
 
-            if( startDate != null ) {
-                booleanBuilder.and(festivalInfo.startDate.loe(startDate).or(festivalInfo.startDate.isNull()));
-                booleanBuilder.and(festivalInfo.endDate.goe(startDate).or(festivalInfo.endDate.isNull()));
+            if (bStartDate != null) {
+                booleanBuilder.and(festivalInfo.endDate.goe(bStartDate).or(festivalInfo.endDate.isNull())); // 축제 종료일이 검색 시작일 이후 이거나 종료 날짜가 null인 경우
             }
-            if( endDate != null ) {
-                booleanBuilder.and(festivalInfo.endDate.goe(endDate).or(festivalInfo.endDate.isNull()));
-                booleanBuilder.and(festivalInfo.startDate.loe(endDate).or(festivalInfo.startDate.isNull()));
+            if ( bEndDate != null ) {
+                booleanBuilder.and(festivalInfo.startDate.loe(bEndDate).or(festivalInfo.startDate.isNull())); // 축제 시작일이 검색 종료일 이전 이거나 시작 날짜가 null인 경우
             }
 
             boardJPQLQuery.where(booleanBuilder);

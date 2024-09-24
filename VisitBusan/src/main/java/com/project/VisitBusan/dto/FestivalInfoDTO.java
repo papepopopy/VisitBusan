@@ -1,7 +1,9 @@
 package com.project.VisitBusan.dto;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -20,7 +22,7 @@ public class FestivalInfoDTO {
     private String supervision;
     private String homepage;
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
 }

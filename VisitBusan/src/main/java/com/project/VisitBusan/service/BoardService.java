@@ -62,6 +62,20 @@ public interface BoardService {
 
     } // end dtoToEntity
 
+    default FestivalInfo toFestivalInfo(BoardDTO boardDTO, Board board) {
+        FestivalInfo festivalInfo = FestivalInfo.builder()
+                .board(board)
+                .contactNum(boardDTO.getContactNum())
+                .place(boardDTO.getPlace())
+                .host(boardDTO.getHost())
+                .supervision(boardDTO.getSupervision())
+                .homepage(boardDTO.getHomepage())
+                .startDate(boardDTO.getStartDate())
+                .endDate(boardDTO.getEndDate())
+                .build();
+        return festivalInfo;
+    }
+
     // Entity -> DTO : 조회 기능
     default BoardDTO entityToDTO (Board board) {
 

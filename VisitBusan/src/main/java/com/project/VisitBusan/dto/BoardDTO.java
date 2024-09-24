@@ -6,7 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -50,8 +52,8 @@ public class BoardDTO {
     private String supervision;
     private String homepage;
 
-    private LocalDateTime startDate;
-    private LocalDateTime endDate;
+    private LocalDate startDate;
+    private LocalDate endDate;
 
     // 첨부파일 이름 : html에서 첨부파일 UI <input type="file".../> 배열구조형식
     private List<String> fileNames;  // 1개 이상 파일 이름 저장
