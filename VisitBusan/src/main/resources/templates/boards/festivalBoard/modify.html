@@ -71,7 +71,8 @@
 
                 <!-- 내용 -->
                 <div class="contentBox">
-                    <textarea class="form-control" name="content" placeholder="내용 입력 1000자 제한"></textarea>
+                    <textarea class="form-control" name="content" rows="1" placeholder="내용 입력 2000자 제한"
+                              th:text="${dto.content}"></textarea>
                 </div>
 
                 <!-- 태그 -->
@@ -489,8 +490,8 @@
 
         }
 
-        if (content.value.length < 3 || content.value.length > 1000) {
-            alert("3자 이상 1000자 이내에 글을 써주세요 bitch :b");
+        if (content.value.length < 3 || content.value.length > 2000) {
+            alert("3자 이상 2000자 이내에 글을 써주세요 bitch :b");
             content.focus();
             return;
 

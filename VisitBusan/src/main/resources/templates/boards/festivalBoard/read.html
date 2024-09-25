@@ -7,12 +7,15 @@
 <!-- 현재 페이지에서만 사용하는 css 정의 -->
 <style layout:fragment="mystyle" th:inline="css">
     .content {
-        all: unset;
+        /* all: unset; */
+        /* white-space: pre; */
+        /* white-space: pre-line; */
+        /* white-space: pre-wrap; */
+        border: none;
+        outline: none;
+        resize: none;
         overflow-y: hidden;
         overflow-x: hidden;
-        /*white-space: pre;*/
-        white-space: pre-line;
-        /* white-space: pre-wrap; */
     }
 </style>
 
@@ -51,7 +54,7 @@
                          th:src="|/view/${fileName}|"/>
                 </div>
             </div><br><br>
-            <textarea class="content w-100" rows="1" th:utext="${dto.content}" readonly></textarea>
+            <textarea class="content w-100" rows="1" th:text="${dto.content}" readonly></textarea>
             <!--
             장거리 걷기를 하며 가족, 친구, 연인 그리고 혼자 온 참가자까지 모두가 함께 즐길 수 있는 '2024 부산나이트워크42K'<br>
             국내 유일 밤샘 걷기 대회로 부산 APEC 나루공원에서 진행된다.<br>
@@ -162,10 +165,10 @@
 <script layout:fragment="myscript" th:inline="javascript">
     console.log("스크립트 실행! :b");
 
+    // textarea 줄 높이에 맞게 자동 변경
     const content = document.querySelector('.content');
-    //content.style.height = 'auto';  //height 초기화
+    content.style.height = 'auto';  //height 초기화
     content.style.height = content.scrollHeight+5+'px';
-    console.log("content.scrollHeight: ",content.scrollHeight);
 
     // ------------------------ //
     // 서버 첨부파일 삭제 함수 정의

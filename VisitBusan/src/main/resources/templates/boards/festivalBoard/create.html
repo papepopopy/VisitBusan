@@ -19,6 +19,17 @@
         input:nth-child(2) { flex: 1; }
 
     }
+    .content {
+        /* all: unset; */
+        /* white-space: pre; */
+        /* white-space: pre-line; */
+        /* white-space: pre-wrap; */
+        /* border: none; */
+        /* outline: none; */
+        resize: none;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
 </style>
 
 <div class="container userCreate" layout:fragment="content">
@@ -71,7 +82,7 @@
 
                 <!-- 내용 -->
                 <div class="contentBox">
-                    <textarea class="form-control" name="content" placeholder="내용 입력 2000자 제한"></textarea>
+                    <textarea class="form-control content" name="content" rows="20" onkeyup="handleResizeHeight()" placeholder="내용 입력 2000자 제한"></textarea>
                 </div>
 
                 <!-- 태그 -->
@@ -173,6 +184,12 @@
 
 <!--/* 현재 페이지에서만 사용하는 script 정의 */-->
 <script layout:fragment="myscript" th:inline="javascript">
+
+    const content = document.querySelector('.content');
+    function handleResizeHeight() {
+        content.style.height = 'auto'; //height 초기화
+        content.style.height = content.scrollHeight+'px';
+    };
 
 
     // ----------- //

@@ -47,7 +47,7 @@
             <hr>
             <div class="middleBox">
                 <!-- 내용 -->
-                <div class="content" th:utext="${dto.content}"></div>
+                <textarea class="content w-100" rows="1" th:text="${dto.content}" readonly></textarea>
 
                 <!-- 첨부파일 -->
                 <div class="mb-3 row">
@@ -163,6 +163,11 @@
 
 <!--/* 현재 페이지에서만 사용하는 script 정의 */-->
 <script layout:fragment="myscript" th:inline="javascript">
+    
+    // textarea 줄 높이에 맞게 자동 변경
+    const content = document.querySelector('.content');
+    content.style.height = 'auto';  //height 초기화
+    content.style.height = content.scrollHeight +5+ 'px';
 
     // ------------------------ //
     // 서버 첨부파일 삭제 함수 정의
