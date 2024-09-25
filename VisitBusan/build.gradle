@@ -40,7 +40,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'  	// 타임리프
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'		    // 타임리프 레이아웃
 
-	implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'					// Swagger 문서화
+//	implementation 'org.springdoc:springdoc-openapi-ui:1.8.0'					// Swagger 문서화
 
 	implementation 'org.springframework.boot:spring-boot-starter-validation' 	// 유효성 검사
 	implementation 'org.springframework.boot:spring-boot-starter-web'  			// web

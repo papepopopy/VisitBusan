@@ -26,9 +26,9 @@
 
         <div class="topBox">
             <h1 th:switch="${dto.category}">
-                <th:block th:case="performance, all1">공연·전시</th:block>
-                <th:block th:case="festival, all1">축제·행사</th:block>
-                <th:block th:case="sports, all1">스포츠 경기</th:block>
+                <th:block th:case="'performance, all1'">공연·전시</th:block>
+                <th:block th:case="'festival, all1'">축제·행사</th:block>
+                <th:block th:case="'sports, all1'">스포츠 경기</th:block>
                 <th:block th:case="*">전체</th:block>
             </h1>
         </div>

@@ -26,9 +26,9 @@
 
         <div class="topBox">
             <h1 th:switch="${pageRequestDTO.bCategory}">
-                <th:block th:case="performance">공연·전시</th:block>
-                <th:block th:case="festival">축제·행사</th:block>
-                <th:block th:case="sports">스포츠 경기</th:block>
+                <th:block th:case="'performance'">공연·전시</th:block>
+                <th:block th:case="'festival'">축제·행사</th:block>
+                <th:block th:case="'sports'">스포츠 경기</th:block>
                 <th:block th:case="*">전체</th:block>
             </h1>
         </div>
@@ -71,7 +71,7 @@
 
                 <!-- 내용 -->
                 <div class="contentBox">
-                    <textarea class="form-control" name="content" placeholder="내용 입력 1000자 제한"></textarea>
+                    <textarea class="form-control" name="content" placeholder="내용 입력 2000자 제한"></textarea>
                 </div>
 
                 <!-- 태그 -->
@@ -449,8 +449,8 @@
 
         }
 
-        if (content.value.length < 3 || content.value.length > 1000) {
-            alert("3자 이상 1000자 이내에 글을 써주세요~ :b");
+        if (content.value.length < 3 || content.value.length > 2000) {
+            alert("3자 이상 2000자 이내에 글을 써주세요~ :b");
             content.focus();
             return;
 
