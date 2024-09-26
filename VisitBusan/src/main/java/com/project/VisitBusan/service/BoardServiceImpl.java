@@ -125,6 +125,12 @@ public class BoardServiceImpl implements BoardService {
         }
         // ------------------------------------------------------- //
 
+//        if (boardDTO.getStartDate() != null || boardDTO.getEndDate() != null) {
+//            festivalInfoRepository.findByBoard_id(boardDTO.getId());
+//            FestivalInfo festivalInfo = toFestivalInfo(boardDTO, board);
+//            festivalInfoRepository.save(festivalInfo);
+//        }
+
         // 저장하기
         Board modifiedBoard = boardRepository.save(board);
 

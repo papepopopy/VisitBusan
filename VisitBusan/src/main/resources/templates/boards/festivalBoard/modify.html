@@ -92,26 +92,31 @@
                     <div class="infor-inner-box">
                         <div class="L-box">
                             <p class="period">
-                                <input type="date" class="form-control" name="startDate">
-                                <input type="date" class="form-control" name="endDate">
+                                <input type="date" class="form-control" name="startDate" th:value="${dto.startDate}">
+                                <input type="date" class="form-control" name="endDate" th:value="${dto.endDate}">
                             </p>
                             <p>
-                                <input type="text" class="form-control" name="host" placeholder="주최 입력">
+                                <input type="text" class="form-control" name="host" placeholder="주최 입력"
+                                       th:value="${dto.host}">
                             </p>
                             <p>
-                                <input type="text" class="form-control" name="supervision" placeholder="주관 입력">
+                                <input type="text" class="form-control" name="supervision" placeholder="주관 입력"
+                                       th:value="${dto.supervision}">
                             </p>
                         </div>
                         <div class="R-box">
                             <p>
-                                <input type="text" class="form-control" name="contactNum" placeholder="문의처 입력 예) 000-0000-0000">
+                                <input type="text" class="form-control" name="contactNum" placeholder="문의처 입력 예) 000-0000-0000"
+                                       th:value="${dto.contactNum}">
                             </p>
                             <p>
-                                <input type="text" class="form-control" name="place" placeholder="장소 입력">
+                                <input type="text" class="form-control" name="place" placeholder="장소 입력"
+                                       th:value="${dto.place}">
                             </p>
                         </div>
                     </div>
-                    <input type="text" class="form-control" name="homepage" placeholder="홈페이지 입력">
+                    <input type="text" class="form-control" name="homepage" placeholder="홈페이지 입력"
+                           th:value="${dto.homepage}">
                 </div>
 
                 <!-- 첨부파일 등록 모달 버튼 -->
@@ -134,7 +139,6 @@
                                              th:src="|/view/${fileName}|" />
                                     </div>
                                 </div>
-
                             </th:block>
                         </div>
                         <div class="uploadHidden"></div>

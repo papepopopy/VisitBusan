@@ -34,4 +34,18 @@ public class FestivalInfo {
     private LocalDate startDate;
     private LocalDate endDate;
 
+    // 데이터 수정하는 메서드
+    public void change(String contactNum, String place, String host,
+                       String supervision, String homepage,
+                       LocalDate startDate, LocalDate endDate) {
+        this.contactNum = contactNum;
+        this.place = place;
+        this.host = host;
+        this.supervision = supervision;
+        this.homepage = homepage;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    } // end change
+
 }
+
