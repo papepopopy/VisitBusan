@@ -88,14 +88,6 @@
                         댓글이 없습니다.
                     </li>
                 </ul>
-                <!-- 댓글 페이징 -->
-                <div class="row mt-3 mb-3">
-                    <div class="col">
-                        <ul class="pagination replyPaging"> <!--  댓글 페이징 번호 -->
-
-                        </ul>
-                    </div>
-                </div>
 
                 <!-- 댓글1
                 <div class="reply d-flex mt-3 gap-3">
@@ -119,7 +111,14 @@
                 </div>
                 -->
 
+                <!-- 댓글 페이징 -->
+                <div class="row mt-4 mb-5">
+                    <div class="col d-flex justify-content-center">
+                        <ul class="pagination replyPaging"> <!--  댓글 페이징 번호 -->
 
+                        </ul>
+                    </div>
+                </div>
 
 
 
@@ -131,6 +130,8 @@
                 </div>
 
             </div> <!-- end 댓글창 -->
+
+
 
             <!-- 하단 버튼 -->
             <div class="buttonBox d-flex mt-3">
@@ -156,6 +157,28 @@
 
     <div>[[${dto}]]</div>
 
+    <!-- modify 모달창 -->
+    <div class="modal modifyModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title replyHeader"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text">Reply Text</span>
+                        <input type="text" class="form-control modifyText"/>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info modifyBtn">Modify</button>
+                    <button type="button" class="btn btn-secondary closeModifyBtn">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Axios 라이브러리 연결 -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/js/reply.js"></script>
@@ -164,6 +187,7 @@
 
 <!-- 부트 스트랩 -->
 <script layout:fragment="myscript" th:inline="javascript">
+
     // ------------------------ //
     // 서버 첨부파일 삭제 함수 정의
     // ------------------------ //
@@ -277,6 +301,16 @@
 
   }
 
+  // 페이지 번호 클릭 이벤트
+  replyPaging.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = e.target;
+    if (target.tagName === 'A') {
+        const pageNum = target.getAttribute('data-page');
+        printReplies(pageNum, size, false); // 새로운 페이지로 댓글을 불러옵니다.
+    }
+});
+
 
     // 3. 서버로 부터 받아온 댓글을 DOM을 구성할 수 있는 문자열 생성 및 DOM생성
     function printList(replyBox){
@@ -296,6 +330,7 @@
                     <div class="p-2">
 
                             <div>작성자</div>
+                            <div class="reply_id" hidden>${dto.id}</div>
                             <div>${dto.replyText}</div>
                             <div class="d-flex gap-3">
                                 <div>${dto.regDate}</div>
@@ -304,8 +339,8 @@
                             </div>
                     </div>
                     <div class="ms-auto p-2 d-flex gap-3">
-                        <button type="button" class="btn btn-success modBtn" onClick="modifyReply()">수정</button>
-                        <button type="button" class="btn btn-danger delBtn" onClick="removeReply()">삭제</button>
+                        <button type="button" class="btn btn-success modBtn" onClick="modifyReply(${dto.id})">수정</button>
+                        <button type="button" class="btn btn-danger delBtn" onClick="removeReply(${dto.id})">삭제</button>
                     </div>
 
 
@@ -320,14 +355,13 @@
     const board_id = [[${dto.id}]]
     // 2. 게시글에 대한 댓글 서버에 요청해서 data 받아오기
     function printReplies(page, size, goLast) {
-
-        getList({board_id, page, size, goLast})
-            .then(data => {
-
-                printList(data.dtoList);
-            })
-            .catch(e => {console.log(e)})
-    }
+    getList({ board_id, page, size, goLast })
+        .then(data => {
+            printList(data.dtoList); // 댓글 목록을 렌더링합니다.
+            printPages(data); // 페이지 번호를 렌더링합니다.
+        })
+        .catch(e => console.error(e));
+}
 
 
     let page = 1; // 현재 페이지 번호
@@ -392,13 +426,50 @@
 
 
     // 댓글 수정
-    function modifyReply() {
-        console.log("mod");
+    function modifyReply(id) {
+        const replyText = prompt("수정할 댓글을 입력하세요:");
+
+    if (replyText.trim() === "") {
+        alert("댓글 내용을 입력해주세요.");
+        return;
     }
 
+    const replyObj = {
+        replyText: replyText
+    };
+
+    // 서버로 PUT 요청을 보냄
+    axios.put(`/replies/${id}`, replyObj)
+        .then(response => {
+            alert("댓글이 수정되었습니다.");
+            // 댓글 목록 다시 불러오기
+            printReplies(page, size, false);
+        })
+
+        .catch(error => {
+            alert("댓글 수정에 실패했습니다.");
+            console.error("Error updating reply:", error);
+        });
+}
+
     // 댓글 삭제
-    function removeReply() {
-        console.log("del");
+    function removeReply(id) {
+        if (!confirm("댓글을 삭제하시겠습니까?")) {
+            return;
+    }
+
+    // 서버로 DELETE 요청을 보냄
+    axios.delete(`/replies/${id}`)
+        .then(response => {
+            alert("댓글이 삭제되었습니다.");
+            // 댓글 목록 다시 불러오기
+            printReplies(page, size, false);
+        })
+
+        .catch(error => {
+            alert("댓글 삭제에 실패했습니다.");
+            console.error("Error deleting reply:", error);
+        });
     }
 
 
