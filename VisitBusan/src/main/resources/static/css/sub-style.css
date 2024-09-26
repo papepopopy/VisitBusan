@@ -556,7 +556,75 @@ footer .container {
 }
 
 
+/* ------------------ */
+/* 공통된 게시판 스타일 */
+/* ------------------ */
+
+/* board (게시판 전체 공통) */
+.board {
+    .content {
+        /* all: unset; */
+        /* white-space: pre; */
+        /* white-space: pre-line; */
+        /* white-space: pre-wrap; */
+        /* border: none; */
+        /* outline: none; */
+        resize: none;
+        overflow-y: hidden;
+        overflow-x: hidden;
+    }
+}
+
+/* read (read페이지 공통) */
+.readPage .content {
+    border: none;
+    outline: none;
+}
+
+/* modify, create (modify,create페이지 공통) */
+.createPage, .modifyPage {
+    .card-body {
+        width: 250px;
+        height: 300px;
+        overflow: hidden;
+        justify-content: center;
+    }
+    .UIBox {
+        gap: 10px;
+    }
+    .categoryBox select, .UIBox button, .buttonBox button {
+        color: gray;
+    }
+    .contentBox textarea {
+        height: 500px; width: 100%;
+    }
+    /* 아이콘 좌우반전 */
+    .scaleX-R{
+        transform: scaleX(-1);
+    }
+    .UIBox button {
+        border: none;
+        background-color: #fff;
+    }
+}
+
+/* list (list페이지 공통) */
+.listPage .postsBox {
+    .post:hover {
+        cursor: pointer;
+    }
+}
+
+
+/* ------------------ */
+/* 개별 게시판 스타일 */
+/* ------------------ */
+
 /* festivalBoard */
+
+.festivalList .days .page-link {
+    text-align: center;
+}
 
 .festivalBoard .dates > li > a , .days > li > a {
     border: none;
@@ -572,6 +640,16 @@ footer .container {
     overflow: hidden;
 }
 
+.festivalCreate, .festivalModify {
+    .informationBox .infor-inner-box .period {
+        display: flex;
+        gap: 10px;
+        input:nth-child(1) { flex: 1; }
+        input:nth-child(2) { flex: 1; }
+    }
+}
+
+
 /*  박스안 이미지 가득차게 수평 수직 가운데 정렬 2
 .festivalBoard .postImgBox {
     position: relative;
@@ -586,14 +664,6 @@ footer .container {
     }
 }
 */
-
-/* festivalPost */
-/* v-line 정보 창 세로 줄 */
-.festivalPost .v-line {
-    border-left : 1px solid lightgray;
-    height : 130px;
-    margin: 0px 30px;
-}
 
 
 /* destinationsList */
@@ -668,24 +738,7 @@ footer .container {
 }
 
 /* userCreate */
-.userCreate .UIBox {
-    gap: 10px;
-}
-.userCreate .categoryBox select, .UIBox button, .buttonBox button {
-    color: gray;
-}
-.userCreate .contentBox textarea {
-    height: 500px; width: 100%;
-}
 
-/* 아이콘 좌우반전 */
-.userCreate .scaleX-R{
-    transform: scaleX(-1);
-}
-.userCreate .UIBox button {
-    border: none;
-    background-color: #fff;
-}
 
 /* userPost */
 /* 이미지 크기 제한 */
