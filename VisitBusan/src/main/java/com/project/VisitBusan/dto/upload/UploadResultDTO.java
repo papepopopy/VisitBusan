@@ -18,9 +18,9 @@ public class UploadResultDTO {
     public String getLink() {
 
         if(img) {
-            return "s_"+uuid+"_vb_"+fileName;
+            return "s_"+uuid+"==vb=="+fileName;
         } else {
-            return uuid+"_vb_"+fileName;
+            return uuid+"==vb=="+fileName;
         }
 
     }

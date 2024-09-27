@@ -53,7 +53,7 @@ public interface BoardService {
         // 첨부파일이 있을 경우  // imageSet에 추가
         if (boardDTO.getFileNames() != null) {
             boardDTO.getFileNames().forEach(fileName -> {
-                String[] arr = fileName.split("_vb_");  // 첨부파일 이름 구성 : "UUID값" + "_" + "파일이름.확장자"
+                String[] arr = fileName.split("==vb==");  // 첨부파일 이름 구성 : "UUID값" + "_" + "파일이름.확장자"
                 board.addFile(arr[0], arr[1]);  // [0]UUID [1]파일이름
             });
         }
@@ -95,7 +95,7 @@ public interface BoardService {
         List<String> fileNames = board.getBoardFileSet()
                 .stream()
                 .sorted()
-                .map(boardImage -> boardImage.getUuid()+"_vb_"+boardImage.getFileName())
+                .map(boardImage -> boardImage.getUuid()+"==vb=="+boardImage.getFileName())
                 .collect(Collectors.toList());
 
         boardDTO.setFileNames(fileNames);
@@ -128,7 +128,7 @@ public interface BoardService {
         List<String> fileNames = board.getBoardFileSet()
                 .stream()
                 .sorted()
-                .map(boardImage -> boardImage.getUuid()+"_vb_"+boardImage.getFileName())
+                .map(boardImage -> boardImage.getUuid()+"==vb=="+boardImage.getFileName())
                 .collect(Collectors.toList());
 
         boardDTO.setFileNames(fileNames);

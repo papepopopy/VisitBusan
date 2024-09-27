@@ -25,7 +25,7 @@ console.log("/js/upload.js.....")
 // Server에  upload 파일 삭제 처리 : axios(비동기) 요청 테스트
 // ------------------------------------------------------ //
  async function removeFileToServer({uuid, fileName}){
-  const response = await axios.delete(`/remove/${uuid}_vb_${fileName}`)
+  const response = await axios.delete(`/remove/${uuid}==vb==${fileName}`)
 
   return response.data
  }

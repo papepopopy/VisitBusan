@@ -127,7 +127,7 @@
                         <div class="col container-fluid d-flex gap-3 uploadResult" style="flex-wrap:wrap">
                             <th:block th:each="fileName: ${dto.fileNames}" th:if="${dto.fileNames != null && dto.fileNames.size() > 0 }">
                                 <div class="card" style="width: 18rem;"
-                                     th:with="nameArr=${fileName.split('_vb_')}">  <!-- nameArr [0]uuid [1]fileName -->
+                                     th:with="nameArr=${fileName.split('==vb==')}">  <!-- nameArr [0]uuid [1]fileName -->
                                     <div class="card-header d-flex justify-content-center">
                                         <p>[[${nameArr[1]}]]</p>
                                         <p hidden>${nameArr[1]}</p>  <!-- 그냥 텍스트로 인식 -->

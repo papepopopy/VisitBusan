@@ -46,7 +46,7 @@ public class UpDownController {
                 log.info("==> uuid: "+uuid);
 
                 // "c:/javaStudy/upload"+uuid+"_"+"첨부파일 이름"
-                Path savePath = Paths.get(uploadPath, uuid+"_vb_"+fileName);
+                Path savePath = Paths.get(uploadPath, uuid+"==vb=="+fileName);
 
                 // 5. 파일 형식 파악(이미지파일)
                 boolean image = false;
@@ -60,7 +60,7 @@ public class UpDownController {
                         image = true;
 
                         // "c:/javaStudy/upload"+"s_"+uuid+"_"+"첨부파일 이름"
-                        File thumbFile = new File(uploadPath, "s_"+uuid+"_vb_"+fileName);
+                        File thumbFile = new File(uploadPath, "s_"+uuid+"==vb=="+fileName);
                         Thumbnailator.createThumbnail(savePath.toFile(), thumbFile, 400, 400);
                     }
 

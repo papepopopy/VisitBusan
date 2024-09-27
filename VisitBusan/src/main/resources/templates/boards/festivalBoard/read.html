@@ -109,8 +109,11 @@
         <div class="informationBox">
             <h3 class="mb-3">첨부파일 다운로드</h3>
             <div class="downloadBox">
-                <div class="btnDownload">2024부산나이트워크42k포스터.png</div>
-                <div class="btnDownload">2024부산나이트워크42k포스터.pdf</div>
+                <th:block th:if="${dto.fileNames != null || dto.fileNames.length>0}" th:each="fileName:${dto.fileNames}">
+                    <div class="btnDownload" th:text="${(#strings.arraySplit(#strings.replace(fileName, '==vb==', 'UNIQUE_SPLIT_STRING'), 'UNIQUE_SPLIT_STRING'))[1]}"></div>
+                </th:block>
+<!--                <div class="btnDownload">2024부산나이트워크42k포스터.png</div>-->
+<!--                <div class="btnDownload">2024부산나이트워크42k포스터.pdf</div>-->
             </div>
         </div>
 

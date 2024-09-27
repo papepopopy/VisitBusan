@@ -66,7 +66,7 @@ document.querySelector('.removeBtn').addEventListener('click', function(e) {
             console.log('fileNames', fileNames)
 
             for (fName of fileNames){
-              const arr = fName.innerText.split("_vb_")
+              const arr = fName.innerText.split("==vb==")
               const uuid = arr[0]
               const fileName = arr[1]
 

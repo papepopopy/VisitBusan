@@ -164,7 +164,7 @@ function showUploadFile({uuid, fileName, img, link}) {  // link는 UploadResultD
                     onClick="javascript:removeFile('${uuid}', '${fileName}', this)" > x </button>
         </div>
         <div class="card-body">
-            <img src="/view/${link}" data-src="${uuid+"_vb_"+fileName}" class="w-100"/>
+            <img src="/view/${link}" data-src="${uuid+"==vb=="+fileName}" class="w-100"/>
         </div>
     </div>
     `;
@@ -290,7 +290,7 @@ function appendNotShownData(){    // [remove] 버튼 클릭시 첨부파일 관�
     for (let i=0; i<removeFileList.length; i++){
       // const {a,b} = {10,20} => 구조분할할당
       const {uuid, fileName} = removeFileList[i]  // removeFileList.push({uuid, fileName})
-      str += `<input type='hidden', name='fileNames' value="${uuid}_vb_${fileName}">`
+      str += `<input type='hidden', name='fileNames' value="${uuid}==vb==${fileName}">`
     }
     target.innerHTML += str;
 
