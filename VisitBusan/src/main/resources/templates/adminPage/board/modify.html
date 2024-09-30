@@ -57,9 +57,9 @@
                             <option value="information" th:selected="${dto.category=='information'}">여행정보</option>
                             <option value="schedule" th:selected="${dto.category=='schedule'}">여행일정</option>
                             <option value="review" th:selected="${dto.category=='review'}">후기</option>
-                            <option value="performance" th:selected="${dto.category=='performance'}">공연·전시</option>
-                            <option value="festival" th:selected="${dto.category=='festival'}">축제·행사</option>
-                            <option value="sportsGame" th:selected="${dto.category=='sportsGame'}">스포츠 경기</option>
+                            <option value="performance, all1" th:selected="${dto.category=='performance, all1'}">공연·전시</option>
+                            <option value="festival, all1" th:selected="${dto.category=='festival, all1'}">축제·행사</option>
+                            <option value="sports, all1" th:selected="${dto.category=='sports, all1'}">스포츠 경기</option>
                         </select>
                     </div>
 
@@ -94,7 +94,7 @@
 
                 <!-- 내용 -->
                 <div class="contentBox">
-                    <textarea class="form-control" name="content" placeholder="내용 입력 1000자 제한">[[${dto.content}]]</textarea>
+                    <textarea class="form-control" name="content" placeholder="내용 입력 2000자 제한">[[${dto.content}]]</textarea>
                 </div>
 
                 <!-- 태그 -->
@@ -515,8 +515,8 @@
 
         }
 
-        if (content.value.length < 3 || content.value.length > 1000) {
-            alert("3자 이상 1000자 이내에 글을 써주세요 bitch :b");
+        if (content.value.length < 3 || content.value.length > 2000) {
+            alert("3자 이상 2000자 이내에 글을 써주세요 bitch :b");
             content.focus();
             return;
 

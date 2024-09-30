@@ -51,6 +51,7 @@ public class ReplyController {
             PageRequestDTO pageRequestDTO) {
 
         PageResponseDTO<ReplyDTO> responseDTO = replyService.getListOBoard(board_id, pageRequestDTO);
+        log.info("==> getDtoList: "+responseDTO.getDtoList());
 
         return responseDTO;
     }

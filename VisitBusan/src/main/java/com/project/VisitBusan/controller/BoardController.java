@@ -3,11 +3,16 @@ package com.project.VisitBusan.controller;
 
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
+import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.repository.BoardRepository;
+import com.project.VisitBusan.repository.MemberRepository;
 import com.project.VisitBusan.service.BoardService;
+import com.project.VisitBusan.service.ProfileImageService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,8 +29,9 @@ import java.util.List;
 public class BoardController {
 
     private final BoardService boardService;
+    private final ProfileImageService profileImageService;
+    private final MemberRepository memberRepository;
 
-    private final BoardRepository boardRepository;
 
     // 카테고리
     // 관리자 게시판 :
@@ -36,6 +42,19 @@ public class BoardController {
     // 유저 게시판 :
     //  - 유저게시판(userBoard) : 여행정보(information), 여행일정(schedule), 후기(review)
 
+    @GetMapping("/main/list")
+    public @ResponseBody PageResponseDTO<BoardListAllDTO> mainList(PageRequestDTO pageRequestDTO){
+
+        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
+//        log.info("=> "+responseDTO);
+
+//        List<String> day = Arrays.asList("월", "화", "수", "목", "금", "토", "일");
+//        // 모델에 데이터를 담아 타임리프 템플릿에 전달합니다.
+//        model.addAttribute("day", day);
+
+        return responseDTO;
+
+    } // end get list
 
     // 게시글 목록 조회 및 검색
     @GetMapping("/{menu}/list")
@@ -66,6 +85,7 @@ public class BoardController {
         return "boards/"+menu+"/list";
 
     } // end get list
+
 
     // 게시글 등록
     @GetMapping("/{menu}/create")
@@ -127,6 +147,17 @@ public class BoardController {
         log.info("==> after service boardDTO: "+boardDTO);
 
         boardService.viewCount(boardDTO);
+
+        //프로필 이미지 조회
+        ProfileImageDTO profileImageDTO = new ProfileImageDTO();
+        profileImageService.findImage(profileImageDTO, boardDTO.getWriterId());
+        model.addAttribute("writerProfileImage", profileImageDTO);
+
+
+//        Member member = memberRepository.findByUserId(boardDTO.getWriterId()).orElseThrow();
+//        replyDTO.setReplierProfileImageName(member.getProfileImage().getFileName());
+//        @NotEmpty
+//        private String replierProfileImageName;
 
         /*
         반환값을 void로 할 경우

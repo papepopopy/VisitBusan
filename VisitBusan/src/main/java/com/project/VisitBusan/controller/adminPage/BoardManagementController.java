@@ -4,6 +4,7 @@ package com.project.VisitBusan.controller.adminPage;
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
 import com.project.VisitBusan.service.BoardService;
+import com.project.VisitBusan.service.ProfileImageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +24,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class BoardManagementController {
 
     private final BoardService boardService;
+    private final ProfileImageService profileImageService;
 
     // 게시글 목록 조회 및 검색
     @GetMapping("/list")
@@ -67,6 +69,12 @@ public class BoardManagementController {
         return 생략하면 "board/read" 형태으로 자동 포워딩  (return "board/read";)
         */
 //        return "boards/userBoard/read";
+
+        //프로필 이미지 조회
+        ProfileImageDTO profileImageDTO = new ProfileImageDTO();
+        profileImageService.findImage(profileImageDTO, boardDTO.getWriterId());
+        model.addAttribute("writerProfileImage", profileImageDTO);
+
 
         return "adminPage/board/read";
 

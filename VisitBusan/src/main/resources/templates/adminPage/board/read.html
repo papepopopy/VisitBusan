@@ -45,10 +45,19 @@
                 <!-- 작성자 정보 -->
                 <div class="d-flex gap-3">
                     <div class="imgBox">
-                        <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli1.jpg|"></div>
+                        <div class="imgdiv rounded-circle mx-auto">
+                            <!--기본 이미지-->
+                            <th:block th:if="${writerProfileImage.fileName == 'profile_img.jpg'}" >
+                                <img th:src="@{/images/profileImage/profile_img.jpg}">
+                            </th:block>
+                            <!--업로드 이미지-->
+                            <th:block th:if="${writerProfileImage.fileName != 'profile_img.jpg'}" >
+                                <img th:src="@{/profile/view/{fileName}(fileName=${writerProfileImage.fileName})}" />
+                            </th:block>
+                        </div>
                     </div>
                     <div class="info">
-                        <div>닉네임</div>
+                        <div>닉네임 [[${dto.writer}]]</div>
                         <div>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}]]/[[${dto.viewCount}]]</div>
                     </div>
                 </div>
@@ -169,7 +178,12 @@
 
     </div> <!-- end postBox -->
 
-    <!--/*<div>[[${dto}]]</div>*/-->
+    <div class="dataCon" hidden th:data-errors="${errors}" th:data-menu="${menu}" th:data-link="${pageRequestDTO.getLink()}"
+         th:data-id="${dto.id}">
+        <th:block th:each="fileName:${dto.fileNames}">
+            <div class="fileName" th:text="${fileName}"></div>
+        </th:block>
+    </div>
 
     <!-- Axios 라이브러리 연결 -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
@@ -178,83 +192,12 @@
 
 </div> <!-- end fragment="content" -->
 
+<!-- 게시판 읽기 스크립트 연결 -->
+<script th:src="@{/js/boardRead.js}" layout:fragment="basescript"></script>
 
 <!--/* 현재 페이지에서만 사용하는 script 정의 */-->
 <script layout:fragment="myscript" th:inline="javascript">
-
-    // ------------------------ //
-    // 서버 첨부파일 삭제 함수 정의
-    // ------------------------ //
-
-    function callRemoveFiles() {
-
-        // 삭제할 첨부파일 목록이 없으면 삭제 작업 중단
-        if (removeFileList.length == 0) return;
-
-        // removeFileList 구조 [{uuid, fileName}, {uuid, fileName}, ...]
-        console.log("removeFileList: ",removeFileList);
-        console.log("removeFileList[0].uuid: ",removeFileList[0].uuid);
-        console.log("removeFileList[0].fileName: ",removeFileList[0].fileName);
-
-        // 삭제할 첨부파일 목록: [{xx.xx},...]
-        removeFileList.forEach( ({uuid, fileName}) => {
-            // 업로드파일 삭제 요청: axios
-            removeFileToServer({uuid, fileName})
-                .then(response => {
-                    // 삭제후 서버로부터 응답
-                    console.log(response)
-
-                }).catch( e => {
-                    alert("오류입니다~");
-                    console.log("오류입니다~ ",e);
-                });
-
-        })
-
-    }
-
-
-    // ------------------------ //
-    //        삭제 버튼
-    // ------------------------ //
-
-    const removeFileList = [];
-    document.querySelector('.removeBtn').addEventListener('click', function(e) {
-        e.preventDefault();  // 기본 이벤트 제거
-        e.stopPropagation();  // 버블링(현재 이벤트가 발생한 요소의 상위 요소들에 대해서 이벤트 감지되는 현상) 방지
-
-        let doubleChk = confirm('삭제하겠습니까?');
-        if (doubleChk) {
-
-            // 첨부파일 이미지 목록속성만 추출하여 삭제목록에 저장 => 전역배열 => removeFileList
-            const delFiles = [[${dto.fileNames}]]
-            if (delFiles.length > 0) {
-                console.log('delFiles', delFiles,[[${dto.fileNames}]])
-
-                for (fName of delFiles){
-                  const arr = fName.split("==vb==")
-                  const uuid = arr[0]
-                  const fileName = arr[1]
-
-                  //console.log(uuid, fileName)
-                  // 삭제할 첨부파일 목록에 저장된 => callRemoveFiles()메서드에서 삭제요청
-                  // 구조분해할당형식의 값전달 시: 보내쪽과 받는쪽의 매개변수가 동일해야 함.
-                  removeFileList.push({uuid,fileName})
-                }
-
-                //console.log("remove button :"+removeFileList)
-                //console.log("remove button :"+removeFileList[0])
-            }
-
-            callRemoveFiles();
-
-            const formObj = document.querySelector('.removeForm');
-            formObj.action = "/admin/board/remove?id="+[[${dto.id}]]+"&"+[[${pageRequestDTO.getLink()}]];
-            formObj.method = "post";
-            formObj.submit();
-        }
-    })
-
+    console.log("스크립트 실행2 :b");
 </script>
 
 </html>

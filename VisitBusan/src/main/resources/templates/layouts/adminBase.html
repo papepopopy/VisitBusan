@@ -11,6 +11,7 @@
     <th:block layout:fragment="mystyle"></th:block>
     <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
 </head>
+
 <body>
     <div class="admin-page">
         <!--header-->
@@ -27,6 +28,10 @@
     <th:block th:replace="~{fragments/footer :: f-inner}"></th:block>
 
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+    <th:block layout:fragment="basescript"></th:block>
+
     <th:block layout:fragment="myscript"></th:block>
+
 </body>
 </html>

@@ -31,6 +31,7 @@ public class BoardServiceImpl implements BoardService {
     private final BoardLikeRepository boardLikeRepository;
     private final ReplyLikeRepository replyLikeRepository;
     private final FestivalInfoRepository festivalInfoRepository;
+    private final ProfileImageRepository profileImageRepository;
 
     // 게시글 등록
     @Override
@@ -125,11 +126,25 @@ public class BoardServiceImpl implements BoardService {
         }
         // ------------------------------------------------------- //
 
-//        if (boardDTO.getStartDate() != null || boardDTO.getEndDate() != null) {
-//            festivalInfoRepository.findByBoard_id(boardDTO.getId());
-//            FestivalInfo festivalInfo = toFestivalInfo(boardDTO, board);
-//            festivalInfoRepository.save(festivalInfo);
-//        }
+        FestivalInfo festivalInfo = festivalInfoRepository.findByBoard_id(boardDTO.getId());
+        if (festivalInfo != null) {
+            festivalInfo.change(
+                    boardDTO.getContactNum(),
+                    boardDTO.getPlace(),
+                    boardDTO.getHost(),
+                    boardDTO.getSupervision(),
+                    boardDTO.getHomepage(),
+                    boardDTO.getStartDate(),
+                    boardDTO.getEndDate()
+                    );
+            festivalInfoRepository.save(festivalInfo);
+
+        } else if (boardDTO.getStartDate() != null || boardDTO.getEndDate() != null) {
+
+            festivalInfo = toFestivalInfo(boardDTO, board);
+            festivalInfoRepository.save(festivalInfo);
+
+        }
 
         // 저장하기
         Board modifiedBoard = boardRepository.save(board);
@@ -148,6 +163,7 @@ public class BoardServiceImpl implements BoardService {
 
         // 1. 댓글 그냥 삭제 (체크 안해도 상관없음)
         replyRepository.deleteByBoard_id(id);
+        festivalInfoRepository.deleteByBoard_id(id);
 
         // 2. 댓글이 있는지 체크 후 댓글 삭제
 //        List<Reply> replies = replyRepository.findByBoard_id(id);

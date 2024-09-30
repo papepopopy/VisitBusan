@@ -24,8 +24,6 @@ public class ProfileImageDTO {
 
     @NotEmpty
     private String fileName;    // 파일이름
-    @NotEmpty
-    private int ord;            // 순번
 
     public static ProfileImageDTO toProfileImageDTO(ProfileImage profileImage) {
         ProfileImageDTO dto = new ProfileImageDTO();
