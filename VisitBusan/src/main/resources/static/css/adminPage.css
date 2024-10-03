@@ -453,3 +453,13 @@ a {
 .contant-box {
     width: 100%;
 }
+
+/*버튼 스타일*/
+.blueBtn {
+    background-color: #1a73e8;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 20px;
+    color: #fff;
+    display: inline-block;
+}

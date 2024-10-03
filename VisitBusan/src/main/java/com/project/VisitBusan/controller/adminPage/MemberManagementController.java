@@ -35,6 +35,7 @@ public class MemberManagementController {
     private final MemberService memberService;
     private final PasswordEncoder passwordEncoder;
 
+    //회원 정보 조회
     @GetMapping("/list")
     public String memberPage(PageRequestDTO pageRequestDTO,
                              Model model) {
@@ -46,6 +47,22 @@ public class MemberManagementController {
 
         return "adminPage/member/list";
     }
+    /*2. 멤버 조회*/
+    /*@GetMapping("/read/{id}")
+    public String memberDetail(@PathVariable String id,
+                               Model model) {
+        //멤버 조회
+        MemberDTO memberDTO = memberService.findMember(id);
+
+        if(memberDTO == null) {
+            //멤버 존재x
+            model.addAttribute("errorMessage", "해당 멤버를 찾을수 없습니다.");
+            return "adminPage/member/error";
+        }
+        model.addAttribute("member", memberDTO);
+
+        return "adminPage/member/read";
+    }*/
 
     // 회원 등록: GET, POST
     @GetMapping(value = "/create")
