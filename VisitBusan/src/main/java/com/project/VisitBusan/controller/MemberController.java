@@ -55,6 +55,7 @@ public class MemberController {
                                  Model model) {
 
         log.info("=> memberDTO: " + memberDTO);
+
         try {
             // dto -> entity -> email중복 체크 ->  save
             memberService.saveMember(memberDTO);

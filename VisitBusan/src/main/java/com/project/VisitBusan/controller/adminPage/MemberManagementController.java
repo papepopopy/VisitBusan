@@ -47,22 +47,29 @@ public class MemberManagementController {
 
         return "adminPage/member/list";
     }
-    /*2. 멤버 조회*/
-    /*@GetMapping("/read/{id}")
-    public String memberDetail(@PathVariable String id,
+//2. 멤버 조회
+
+    @GetMapping("/read/{userId}")
+    public String memberDetail(@PathVariable String userId,
                                Model model) {
+        log.info("userId : " + userId);
+
+        MemberDTO memberDTO = memberService.findMember(userId);
         //멤버 조회
-        MemberDTO memberDTO = memberService.findMember(id);
+        model.addAttribute("dto", memberDTO);
 
         if(memberDTO == null) {
-            //멤버 존재x
+            //멤버 존재하지 않음
             model.addAttribute("errorMessage", "해당 멤버를 찾을수 없습니다.");
+            log.info("errorMessage");
             return "adminPage/member/error";
         }
-        model.addAttribute("member", memberDTO);
+
+        //멤버 존재시
+//        model.addAttribute("member", memberDTO);
 
         return "adminPage/member/read";
-    }*/
+    }
 
     // 회원 등록: GET, POST
     @GetMapping(value = "/create")
@@ -129,7 +136,8 @@ public class MemberManagementController {
         return ResponseEntity.ok(response);
     }
 
-    /*2. 마이페이지 조회*/
+//2. 마이페이지 조회
+
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @GetMapping(value = "/mypage")
     public String memberMyPageForm(Model model) {
@@ -172,7 +180,8 @@ public class MemberManagementController {
     }
 
 
-    /*3. 회원정보 수정*/
+//3. 회원정보 수정
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @PostMapping(value = "/mypage/modify") //데이터 전송
@@ -214,7 +223,8 @@ public class MemberManagementController {
         return "redirect:/mypage";
     }
 
-    /*4. 회원정보 삭제*/
+//4. 회원정보 삭제
+
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @PostMapping(value = "/mypage/delete")
     public String removeMember(@ModelAttribute MemberDTO memberDTO,
