@@ -59,32 +59,33 @@
         <!--/*<table class="table" th:with="link=${pageRequestDTO.getLink()}">*/-->
         <table class="table">
             <thead>
-                <tr>
-                    <th scope="col">회원번호</th>
-                    <th scope="col">권한</th>
-                    <th scope="col">회원아이디</th>
-                    <th scope="col">이름</th>
-                    <th scope="col">이메일</th>
-                    <th scope="col">주소</th>
-                    <th scope="col">가입일</th>
-                    <!--<th scope="col">회원수정</th>-->
-                    <!--<th scope="col">비로그인 일수</th>-->
-                    <!--<th scope="col">차단</th>-->
-                </tr>
+            <tr>
+                <th scope="col">회원번호</th>
+                <th scope="col">권한</th>
+                <th scope="col">회원아이디</th>
+                <th scope="col">이름</th>
+                <th scope="col">이메일</th>
+                <th scope="col">주소</th>
+                <th scope="col">가입일</th>
+                <!--<th scope="col">회원수정</th>-->
+                <!--<th scope="col">비로그인 일수</th>-->
+                <!--<th scope="col">차단</th>-->
+            </tr>
             </thead>
             <tbody>
-                <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
-                <tr th:each="dto:${memberDTOList}">
-                    <!--/*<th scope="row" th:text="${dto.id}"></th>*/-->
-                    <th scope="row">num</th>
-                    <td class="informationBtn" th:text="${dto.role}">role</td>
-                    <td class="informationBtn" th:text="${dto.userId}"></td>
-                    <td class="informationBtn" th:text="${dto.name}"></td>
-                    <td class="informationBtn" th:text="${dto.email}"></td>
-                    <td class="informationBtn" th:text="${dto.address}"></td>
-                    <!--/*<td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>*/-->
-                    <td>date</td>
-                </tr>
+            <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
+            <!--<tr th:each="dto:${memberDTOList}">-->
+            <tr th:each="dto:${memberDTOList}" th:data-link="@{/admin/member/read/{userId}(userId=${dto.userId})}">
+                <!--/*<th scope="row" th:text="${dto.id}"></th>*/-->
+                <th onclick="fetchMemberData('${dto.userId}')" class="informationBtn" scope="row">num</th>
+                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.role}">role</td>
+                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.userId}"></td>
+                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.name}"></td>
+                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.email}"></td>
+                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.address}"></td>
+                <!--/*<td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>*/-->
+                <td>date</td>
+            </tr>
             </tbody>
         </table>
     </div>
@@ -101,38 +102,43 @@
     </nav>
 
     <!--회원 수정 팝업-->
-    <div class="informationModal modal">
+    <div class="informationModal modal" id="informationModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content p-5">
                 <h2 class="text-center">회원정보 관리</h2>
                 <hr>
                 <!--/*<form th:action="@{/admin/member/read/{memberId}(memberId=${member.memberId})}" method="POST" id="modifyForm">*/-->
-                <form th:if="${dto != null}" th:action="@{/admin/member/read/{userId}(userId=${dto.userId})}" method="POST" id="modifyForm">
+                <form th:if="${memberDTOList.size() > 0}" th:action="@{/admin/member/read/{userId}(userId=${memberDTOList[0].userId})}" method="POST" id="modifyForm">
                     <!--<input type="hidden" name="memberId" th:value="${dto.name}">-->
-                   <!--<div class="mb-2">
-                        <label for="inputName" class="col-form-label">닉네임</label>
-                        <input type="text" id="inputName" name="name" th:value="${dto.name}">
-                    </div>
-                    <div class="mb-2">
-                        <label for="inputEmail" class="col-form-label">이메일</label>
-                        <input type="email" id="inputEmail" name="email" th:value="${dto.email}">
-                    </div>
-                    <div class="mb-2">
-                        <label for="inputAddress" class="col-form-label">주소</label>
-                        <input type="text" id="inputAddress" name="address" th:value="${dto.address}">
-                    </div>
-                    <div class="mb-2">
-                        <label for="inputprofileText" class="col-form-label">소개말</label>
-                        <input type="text" id="inputprofileText" name="profileText" th:value="${dto.profileText}">
-                    </div>
-                    <div class="row align-items-end mt-5 mb-4">
-                        <div class="col">
-                            <button type="button" class="closeBtn btn btn-danger w-100">취소하기</button>
-                        </div>
-                        <div class="col">
-                            <button type="submit" class="modBtn btn btn-primary w-100">회원정보 변경</button>
-                        </div>
-                    </div>-->
+                    <!--<input type="hidden" name="memberId" th:value="${MemberDTO.name}">-->
+                    <input type="text" id="inputName" class="form-control" />
+                    <input type="email" id="inputEmail" class="form-control" />
+                    <input type="text" id="inputAddress" class="form-control" />
+                    <input type="text" id="inputprofileText" class="form-control" />
+                    <!--<div class="mb-2">
+                         <label for="inputName" class="col-form-label">닉네임</label>
+                         <input type="text" id="inputName" name="name" th:value="${memberDTOList.name}">
+                     </div>
+                     <div class="mb-2">
+                         <label for="inputEmail" class="col-form-label">이메일</label>
+                         <input type="email" id="inputEmail" name="email" th:value="${memberDTOList.email}">
+                     </div>
+                     <div class="mb-2">
+                         <label for="inputAddress" class="col-form-label">주소</label>
+                         <input type="text" id="inputAddress" name="address" th:value="${memberDTOList.address}">
+                     </div>
+                     <div class="mb-2">
+                         <label for="inputprofileText" class="col-form-label">소개말</label>
+                         <input type="text" id="inputprofileText" name="profileText" th:value="${memberDTOList.profileText}">
+                     </div>
+                     <div class="row align-items-end mt-5 mb-4">
+                         <div class="col">
+                             <button type="button" class="closeBtn btn btn-danger w-100">취소하기</button>
+                         </div>
+                         <div class="col">
+                             <button type="submit" class="modBtn btn btn-primary w-100">회원정보 변경</button>
+                         </div>
+                     </div>-->
                 </form>
             </div>
         </div>
@@ -147,17 +153,16 @@
     console.log("스크립트 실행! :b");
 
     /* 게시글 링크 동작 */
-
     const table = document.querySelector('.table');
     const rows = table.getElementsByTagName('tr');
 
     // 각 행에 클릭 이벤트 리스너 추가
     for (let i = 1; i < rows.length; i++) { // 헤더를 제외하기 위해 i를 1로 시작
       rows[i].addEventListener('click', function(e) {
-        console.log(e.target);
-        console.log(this.getAttribute('data-link'));
         const link = this.getAttribute('data-link');
-        location.href= link;
+        if (link) {
+            location.href = link;
+        }
       });
     } /* end table listener */
 
@@ -167,11 +172,14 @@
         const closeBtn = document.querySelectorAll('.closeBtn');
 
         // 열기
-        informationBtns.forEach(function(btn) {
+        informationBtns.forEach(btn => {
             btn.addEventListener("click", function(e) {
+                console.log("test 팝업");
                 e.stopPropagation();
-                const modal = new bootstrap.Modal(informationModal);
-                modal.show();
+                //tr 요소에서 data-link 속성 들고와서 가장 마지막 배열 userId 들고오기
+                const userId = this.closest('tr').getAttribute('data-link').split('/').pop();
+                //회원정보 업데이트
+                fetchMemberData(userId);
             });
         });
 
@@ -182,6 +190,42 @@
                 modal.hide();
             });
         });
+
+        function fetchMemberData(userId) {
+            console.log("userId : ", userId)
+            fetch(`/admin/member/read/${userId}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("Network response was not ok");
+                    }
+                    return response.json(); // JSON으로 변환
+                })
+                .then(data => {
+                    //팝업열기
+                    const modal = new bootstrap.Modal(document.getElementById('informationModal'));
+                    // 모달에 데이터 설정
+                    document.getElementById('inputName').value = data.name;
+                    document.getElementById('inputEmail').value = data.email;
+                    document.getElementById('inputAddress').value = data.address;
+                    document.getElementById('inputprofileText').value = data.profileText;
+                    modal.show();
+                })
+                .catch(error => {
+                    console.error("Error fetching member data:", error);
+                });
+        }
+
+        function openModal(data) {
+            // 각 입력 필드에 데이터 설정
+            document.querySelector('#inputName').value = data.name || '';
+            document.querySelector('#inputEmail').value = data.email || '';
+            document.querySelector('#inputAddress').value = data.address || '';
+            document.querySelector('#inputprofileText').value = data.profileText || '';
+
+            const informationModal = document.getElementById('.informationModal'); // 여기에 실제 modal ID로 수정
+            const modal = new bootstrap.Modal(informationModal);
+            modal.show();
+        }
     });
 </script>
 

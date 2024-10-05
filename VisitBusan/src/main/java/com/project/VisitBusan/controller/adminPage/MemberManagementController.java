@@ -47,28 +47,23 @@ public class MemberManagementController {
 
         return "adminPage/member/list";
     }
-//2. 멤버 조회
 
     @GetMapping("/read/{userId}")
-    public String memberDetail(@PathVariable String userId,
-                               Model model) {
-        log.info("userId : " + userId);
+    public ResponseEntity<MemberDTO> readMember(@PathVariable String userId,
+                                                Model model) {
 
-        MemberDTO memberDTO = memberService.findMember(userId);
-        //멤버 조회
-        model.addAttribute("dto", memberDTO);
+        MemberDTO member = memberService.findMember(userId);
+        List<MemberDTO> memberDTOList = memberService.findAll();
+        model.addAttribute("memberDTOList", memberDTOList);
 
-        if(memberDTO == null) {
-            //멤버 존재하지 않음
-            model.addAttribute("errorMessage", "해당 멤버를 찾을수 없습니다.");
-            log.info("errorMessage");
-            return "adminPage/member/error";
+        if (member == null) {
+            return ResponseEntity.notFound().build();
         }
 
-        //멤버 존재시
-//        model.addAttribute("member", memberDTO);
+        log.info("===> userId : " + userId);
+        log.info("===> memberDTOList : " + memberDTOList);
 
-        return "adminPage/member/read";
+        return ResponseEntity.ok(member);
     }
 
     // 회원 등록: GET, POST
