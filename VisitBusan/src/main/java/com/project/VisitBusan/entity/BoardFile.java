@@ -1,5 +1,6 @@
 package com.project.VisitBusan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -20,6 +21,7 @@ public class BoardFile implements Comparable<BoardFile> {
 
     @ManyToOne(fetch = FetchType.LAZY)
     //@JoinColumn(name="board_id")  // 생략시 자동 설정
+    @JsonIgnore  // 순환 참조 방지
     private Board board;
 
     @Override

@@ -2,10 +2,13 @@ package com.project.VisitBusan.repository;
 
 import com.project.VisitBusan.entity.Board;
 import com.project.VisitBusan.repository.search.BoardSearch;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch {
@@ -18,6 +21,14 @@ public interface BoardRepository extends JpaRepository<Board, Long>, BoardSearch
     @Query("select b from Board b where b.id = :id")
     Optional<Board> findByIdWithFiles(Long id);
 
+    // 카테고리별로 그룹화된 게시물 리스트를 JPQL로 가져오기 (카테고리 기준 정렬)
+    @Query("SELECT b FROM Board b ORDER BY b.category, b.id")
+    List<Board> findAllGroupedByCategory();
+
+    @Query("SELECT b FROM Board b WHERE b.category = :category")
+    List<Board> findTop5ByCategory(@Param("category") String category, Pageable pageable);
+
+    List<Board> findAll();
 }
 
 /*

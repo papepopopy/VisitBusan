@@ -4,6 +4,7 @@ const dataCon = document.querySelector('.dataCon');
 const errors = dataCon.getAttribute('data-errors');
 const menu = dataCon.getAttribute('data-menu');
 const link = dataCon.getAttribute('data-link');
+const linkList = dataCon.getAttribute('data-link-list');
 
 const content = document.querySelector('.content');
 const rowCountDisplay = document.getElementById("rowCount");
@@ -68,7 +69,8 @@ document.querySelector('.cancelBtn').addEventListener('click', function(e) {
 
     })
 
-    location.href = `/board/${menu}/list?${link}`;
+    // location.href = `/board/${menu}/list?${link}`;
+    location.href = linkList;
 
 })
 
@@ -316,8 +318,6 @@ document.querySelector('.submitBtn').addEventListener('click', function(e) {
     // html 태그의 id 이름을 submit, reset 이런 기능있는 애들로 주면 해당 기능이 동작 안함
     // id="submit"으로 버튼에 ID를 설정하면, 기본적으로 document 객체에서 submit() 메서드를 덮어쓰게 됩니다. 이 때문에 submit() 메서드를 호출해도 해당 메서드가 아니라 버튼 요소를 참조하게 되어 폼이 제출되지 않습니다.
 
-    formObj.action = "#";
     formObj.submit();
-
 
 })

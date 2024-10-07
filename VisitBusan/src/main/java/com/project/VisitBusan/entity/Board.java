@@ -1,5 +1,6 @@
 package com.project.VisitBusan.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
@@ -71,6 +72,7 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
     // 'N+1' 쿼리문 실행, N: 게시물 마다 각각 실행되는 쿼리, 1은 목을 가져오는 쿼리
     // BoardFile을 조회할 때 한번에 in 조건으로 사용
     @BatchSize(size=20)  // 20개를 한번에 검색
+    @JsonIgnore  // 직렬화에서 무시
     private Set<BoardFile> boardFileSet = new HashSet<>();
 
     // Board 객체에서 BoardImage 엔티티는 별도의 JPARepository를 생성하지 않아도

@@ -185,7 +185,7 @@
     </div>
 
     <div class="dataCon" hidden th:data-errors="${errors}" th:data-menu="${menu}" th:data-link="${pageRequestDTO.getLink()}"
-         th:data-id="${dto.id}">
+         th:data-id="${dto.id}" th:data-link-read="|/board/${menu}/read?id=${dto.id}&${pageRequestDTO.getLink()}|">
         <th:block th:each="fileName:${dto.fileNames}">
             <div class="fileName" th:text="${fileName}"></div>
         </th:block>

@@ -5,6 +5,7 @@ import com.project.VisitBusan.entity.Board;
 import com.project.VisitBusan.entity.FestivalInfo;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public interface BoardService {
@@ -35,6 +36,10 @@ public interface BoardService {
 
     // 게시글 댓글 카운트
     void baordLikeCount(Long board_id);
+
+    // 메인 게시물 리스트
+    Map<String, List<Board>> mainList();
+    Map<String, List<Board>> mainList2();
 
     // DTO -> Entity : List<String> fileName -> Board에서 Set<boardImage> 타입으로 변환
     default Board dtoToEntity(BoardDTO boardDTO) {

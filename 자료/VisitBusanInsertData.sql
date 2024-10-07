@@ -69,9 +69,20 @@ INSERT INTO board
 VALUES
 ('festival, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
 ('festival, all1','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
+('festival, all1','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
+('festival, all1','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
+('festival, all1','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
 ('performance, all1','title3','content3','admin','admin',SYSDATE(),SYSDATE()),
 ('performance, all1','title4','content4','admin','admin',SYSDATE(),SYSDATE()),
+('sports, all1','title21','content21','admin','admin',SYSDATE(),SYSDATE()),
+('sports, all1','title22','content22','admin','admin',SYSDATE(),SYSDATE()),
 ('place','title5','content5','admin','admin',SYSDATE(),SYSDATE()),
+('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
+('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
+('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
+('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
+('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
+('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
 ('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
 ('food','title7','content7','admin','admin',SYSDATE(),SYSDATE()),
 ('food','title8','content8','admin','admin',SYSDATE(),SYSDATE()),
@@ -87,8 +98,14 @@ VALUES
 ('schedule','title18','content18','user','user',SYSDATE(),SYSDATE()),
 ('review','title19','content19','user','user',SYSDATE(),SYSDATE()),
 ('review','title20','content20','user','user',SYSDATE(),SYSDATE()),
-('sports, all1','title21','content21','user','user',SYSDATE(),SYSDATE()),
-('sports, all1','title22','content22','user','user',SYSDATE(),SYSDATE());
+('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE());
 SHOW COLUMNS FROM board;
 SELECT * FROM board;
 
@@ -115,7 +132,7 @@ UPDATE visit_busan.board SET title='2024 부산나이트워크42K', content='장
                 ■ 정규티켓 구매
                 2024. 06. 03. (월) 11:00 ~ 2024. 08. 09 (금) 17:00
                 (아래 홈페이지 클릭)'
-WHERE id=1 OR id=2 OR id=3 OR id=4 OR id=21 OR id=22;
+WHERE id>=1 AND id <= 9;
 
 -- ------------------------------
 --        축제 게시글 정보
@@ -128,8 +145,11 @@ VALUES
 (2, '2024-06-25', '2024-09-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
 (3, '2024-05-25', '2024-08-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
 (4, '2024-04-25', '2024-07-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
-(21, '2024-03-25', '2024-06-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
-(22, '2024-02-25', '2024-05-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' );
+(5, '2024-03-25', '2024-06-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(6, '2024-03-25', '2024-06-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(7, '2024-03-25', '2024-06-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(8, '2024-03-25', '2024-06-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' ),
+(9, '2024-02-25', '2024-05-15', '070-4705-2008', '㈜블렌트, 부산일보사', 'APEC 나루공원 일대', '어반스포츠', 'https://urbansports.kr/shop_view/?idx=77' );
 SHOW COLUMNS FROM festival_info;
 SELECT * FROM festival_info;
 

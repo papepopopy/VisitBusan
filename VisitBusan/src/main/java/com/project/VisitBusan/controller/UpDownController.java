@@ -89,15 +89,23 @@ public class UpDownController {
     // image view
 //    @Operation(summary="View 파일", description="GET방식으로 첨부파일 조회")
     @GetMapping(value="/view/{fileName}")
-    public ResponseEntity<Resource> viewFileGET(@PathVariable("fileName") String fileName) {  // 클라이언트로부터 받은 첨부파일 매개 변수
+    public ResponseEntity<Resource> viewFileGET(@PathVariable("fileName") String fileName) throws IOException {  // 클라이언트로부터 받은 첨부파일 매개 변수
 
         Resource resource = new FileSystemResource(uploadPath+File.separator+fileName);
         String resourceName = resource.getFilename();
 
+        String contentType = Files.probeContentType(resource.getFile().toPath());
+
+        // MIME 타입이 감지되지 않는 경우 기본값 설정
+        if (contentType == null) {
+            contentType = "application/octet-stream";
+        }
+
         HttpHeaders headers = new HttpHeaders();
 
         try {
-            headers.add("Content-Type", Files.probeContentType(resource.getFile().toPath()));
+            headers.add("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+            headers.add("Content-Type", contentType);
         } catch (Exception e) {
             return ResponseEntity.internalServerError().build();
         }

@@ -4,18 +4,19 @@ import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
 import com.project.VisitBusan.entity.FestivalInfo;
 import com.project.VisitBusan.repository.*;
+import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service  // 서비스
@@ -30,8 +31,8 @@ public class BoardServiceImpl implements BoardService {
     private final ReplyRepository replyRepository;
     private final BoardLikeRepository boardLikeRepository;
     private final ReplyLikeRepository replyLikeRepository;
-    private final FestivalInfoRepository festivalInfoRepository;
-    private final ProfileImageRepository profileImageRepository;
+    private final FestivalInfoRepository festivalInfoRepository;;
+    private final EntityManager entityManager;
 
     // 게시글 등록
     @Override
@@ -107,6 +108,7 @@ public class BoardServiceImpl implements BoardService {
         Optional<Board> result = boardRepository.findById(boardDTO.getId());
         Board board = result.orElseThrow();
         log.info("==> from service board: "+board);
+        log.info("==> from service board.getImageSet(): "+board.getBoardFileSet());
 
         // entity값을 dto값으로 변경
         board.change(boardDTO.getCategory(), boardDTO.getTitle(), boardDTO.getContent());
@@ -114,6 +116,8 @@ public class BoardServiceImpl implements BoardService {
         // ------------------------------------------------------- //
         // 기존 첨부파일 있을 경우 처리 : 기존에 첨부파일 삭제 후 추가하는 방식
         board.clearFiles();
+        entityManager.flush();  // 영속성 컨텍스트에서 삭제된 엔티티 반영
+
         log.info("==> from service board: "+board);
         log.info("==> from service board.getImageSet(): "+board.getBoardFileSet());
 
@@ -122,12 +126,18 @@ public class BoardServiceImpl implements BoardService {
             for (String fileName : boardDTO.getFileNames()) {
                 String[] arr = fileName.split("==vb==");
                 board.addFile(arr[0],arr[1]);
+                log.info("==> arr[0]: "+arr[0]);
+                log.info("==> arr[1]: "+arr[1]);
+
             }
         }
         // ------------------------------------------------------- //
+        log.info("==> before save board1: "+board);
 
-        FestivalInfo festivalInfo = festivalInfoRepository.findByBoard_id(boardDTO.getId());
+        FestivalInfo festivalInfo = festivalInfoRepository.findByBoard_id(board.getId());
+        log.info("case1");
         if (festivalInfo != null) {
+            log.info("case2");
             festivalInfo.change(
                     boardDTO.getContactNum(),
                     boardDTO.getPlace(),
@@ -140,14 +150,17 @@ public class BoardServiceImpl implements BoardService {
             festivalInfoRepository.save(festivalInfo);
 
         } else if (boardDTO.getStartDate() != null || boardDTO.getEndDate() != null) {
+            log.info("case3");
 
             festivalInfo = toFestivalInfo(boardDTO, board);
             festivalInfoRepository.save(festivalInfo);
 
         }
 
+        log.info("==> before save board2: "+board);
         // 저장하기
         Board modifiedBoard = boardRepository.save(board);
+        log.info("==> after save board: "+modifiedBoard);
 
         return modifiedBoard;  // 수정된 board
 
@@ -269,6 +282,42 @@ public class BoardServiceImpl implements BoardService {
 
     @Override
     public void baordLikeCount(Long board_id) {
+    }
+
+    // 모든 게시물을 카테고리별로 그룹화하여 가져오기
+    public Map<String, List<Board>> mainList() {
+        List<Board> allBoards = boardRepository.findAll();
+        Map<String, List<Board>> groupedByCategory = new HashMap<>();
+
+        // 카테고리별로 게시물을 나누어 맵에 저장
+        for (Board board : allBoards) {
+            groupedByCategory  // 맵에 해당 카테고리가 없으면 새 리스트를 생성하고, 게시물을 추가
+                    .computeIfAbsent(board.getCategory(), k -> new ArrayList<>())
+                    .add(board);
+        }
+
+        return groupedByCategory;  // 카테고리별로 그룹화된 결과 반환
+    }
+
+    public Map<String, List<Board>> mainList2() {
+        // 카테고리 목록을 가져온다고 가정합니다.
+        List<String> categories = getCategories(); // 카테고리 목록을 가져오는 메서드 구현 필요
+
+        Map<String, List<Board>> groupedByCategory = new HashMap<>();
+
+        for (String category : categories) {
+            Pageable pageable = PageRequest.of(0, 5); // 페이지 번호는 0, 페이지 크기는 5로 설정
+            List<Board> boards = boardRepository.findTop5ByCategory(category, pageable);
+            groupedByCategory.put(category, boards);
+        }
+
+        return groupedByCategory;
+    }
+
+    private List<String> getCategories() {
+        // 이 메서드에서 카테고리 목록을 반환합니다.
+        // 예: return List.of("category1", "category2", "category3");
+        return List.of("schedule", "sports, all1", "review");
     }
 
 } // end class

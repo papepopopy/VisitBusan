@@ -124,7 +124,8 @@
         </div>
     </div>
 
-    <div class="dataCon" hidden th:data-errors="${errors}" th:data-menu="${menu}" th:data-link="${pageRequestDTO.getLink()}"></div>
+    <div class="dataCon" hidden th:data-errors="${errors}" th:data-menu="${menu}" th:data-link="${pageRequestDTO.getLink()}"
+        th:data-link-list="|/board/${menu}/list?${pageRequestDTO.getLink()}|"></div>
 
     <!-- Axios 라이브러리 연결 -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

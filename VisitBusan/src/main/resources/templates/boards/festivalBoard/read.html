@@ -110,7 +110,10 @@
             <h3 class="mb-3">첨부파일 다운로드</h3>
             <div class="downloadBox">
                 <th:block th:if="${dto.fileNames != null || dto.fileNames.length>0}" th:each="fileName:${dto.fileNames}">
-                    <div class="btnDownload" th:text="${(#strings.arraySplit(#strings.replace(fileName, '==vb==', 'UNIQUE_SPLIT_STRING'), 'UNIQUE_SPLIT_STRING'))[1]}"></div>
+                    <div class="btnDownload" th:with="realFileName=${fileName.split('==vb==')[1]}">
+<!--/*                        <a download th:href="|/view/${fileName}|" th:text="${(#strings.arraySplit(#strings.replace(fileName, '==vb==', 'UNIQUE_SPLIT_STRING'), 'UNIQUE_SPLIT_STRING'))[1]}"></a> */-->
+                        <a th:download="${realFileName}" th:href="|/view/${fileName}|" th:text="${realFileName}"></a>
+                    </div>
                 </th:block>
 <!--                <div class="btnDownload">2024부산나이트워크42k포스터.png</div>-->
 <!--                <div class="btnDownload">2024부산나이트워크42k포스터.pdf</div>-->
@@ -147,7 +150,7 @@
     </div>
 
     <div class="dataCon" hidden th:data-errors="${errors}" th:data-menu="${menu}" th:data-link="${pageRequestDTO.getLink()}"
-         th:data-id="${dto.id}">
+         th:data-id="${dto.id}" th:data-link-remove="|/board/${menu}/remove?id=${dto.id}&${pageRequestDTO.getLink()}|">
         <th:block th:each="fileName:${dto.fileNames}">
             <div class="fileName" th:text="${fileName}"></div>
         </th:block>

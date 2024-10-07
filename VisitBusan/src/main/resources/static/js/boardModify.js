@@ -4,6 +4,7 @@ const dataCon = document.querySelector('.dataCon');
 const errors = dataCon.getAttribute('data-errors');
 const menu = dataCon.getAttribute('data-menu');
 const link = dataCon.getAttribute('data-link');
+const linkRead = dataCon.getAttribute('data-link-read');
 const dto_id = dataCon.getAttribute('data-id');
 const fileNames = document.querySelectorAll('.dataCon .fileName');
 console.log("errors: " ,errors)
@@ -44,7 +45,8 @@ document.querySelector('.cancelBtn').addEventListener('click', function(e) {
 
     callRemoveFiles();  // 업로드된 파일 삭제
 
-    location.href =`/board/${menu}/read?id=${dto_id}&${link}`;
+    // location.href =`/board/${menu}/read?id=${dto_id}&${link}`;
+    location.href = linkRead;
 })
 
 
@@ -374,8 +376,8 @@ document.querySelector('.confirmBtn').addEventListener('click', function(e) {
 
     // self .location= "/board/"+menu+"/modify?"+link;  // Get방식(수정페이지 요청)
 
-    formObj.action = `/board/${menu}/modify?${link}`;  // 전송할 링크 설정
-    formObj.method = 'post';  // 전송 방식 설정  // 설정 안하면 기본값 Get
+    // formObj.action = `/board/${menu}/modify?${link}`;  // 전송할 링크 설정
+    // formObj.method = 'post';  // 전송 방식 설정  // 설정 안하면 기본값 Get
 
     //const modDateBox = document.querySelector('#modDateBox');
     //modDateBox.innerHTML = '<>';

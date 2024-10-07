@@ -12,6 +12,7 @@ SHOW TABLES;
 SHOW COLUMNS FROM board;
 SELECT * FROM board;
 SELECT * FROM board ORDER BY id desc;
+SELECT * FROM board ORDER BY category,id desc;
 SELECT * FROM board WHERE (title is not NULL OR content is not NULL OR writer is not NULL) AND category = 'review' or reg_date > '2024-09-10' ORDER BY id desc;
 DELETE FROM board;
 DROP TABLE board_file;

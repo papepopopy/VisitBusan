@@ -8,7 +8,7 @@
     <div class="body">
 
         <div class="topBox">
-            <h1>[[${dto.category=='information'?'여행정보':dto.category=='schedule'?'여행일정':'후기'}]]</h1>
+            <h1>가이드북</h1>
         </div>
 
         <div class="postBox border rounded-4 mt-4 mx-auto py-3 px-5">
@@ -89,54 +89,6 @@
                 </div>
             </div>
             <hr>
-
-            <!-- 댓글 창-->
-            <div class="replyBox">
-                <div class="d-flex mt-3 gap-3">
-                    <div>등록순</div>
-                    <div>최신순</div>
-                </div>
-
-                <!-- 댓글1 -->
-                <div class="reply d-flex mt-3 gap-3">
-                    <div class="imgBox">
-                        <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli2.jpg|"></div>
-                    </div>
-                    <div>
-                        <div>작성자</div>
-                        <div>댓글 내용</div>
-                        <div class="d-flex gap-3">
-                            <div>작성날자/시간</div>
-                            <div>답글쓰기</div>
-                            <div>좋아요</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 댓글2 -->
-                <div class="reply d-flex mt-3 gap-3">
-                    <div class="imgBox">
-                        <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli3.jpg|"></div>
-                    </div>
-                    <div>
-                        <div>작성자</div>
-                        <div>댓글 내용</div>
-                        <div class="d-flex gap-3">
-                            <div>작성날자/시간</div>
-                            <div>답글쓰기</div>
-                            <div>좋아요</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- 댓글 등록 -->
-                <div class="d-flex my-4">
-                    <textarea class="form-control col me-3" name="" id="" placeholder="댓글 입력"></textarea>
-                    <div class=""><button class="btn btn-outline-secondary w-100 h-100">등록</button></div>
-
-                </div>
-
-            </div> <!-- end 댓글창 -->
 
             <!-- 하단 버튼 -->
             <div class="buttonBox d-flex mt-3">

@@ -9,31 +9,33 @@
 
 <div class="main" layout:fragment="content">
     <!-- 지금 부산에 가면 -->
-    <div id="carouselExample" class="slide mainSildeBox">
+    <div class="mainSildeBox">
         <div class="carousel-title">
             <h1>지금 <b>부산</b>에 가면<br><span>VISIT BUSAN</span></h1>
             <div class="arrow-btn">
-                <span class="l-btn"></span>
-                <span class="r-btn"></span>
+                <span class="l-btn" onclick="prevSlide()"></span>
+                <span class="r-btn" onclick="nextSlide()"></span>
             </div>
         </div>
-        <div class="carousel-inner f-sliderList">
-            <div class="carousel-item active f-sliderBox">
-                <div class="f-slider-title">
-                    <h2>바다 따라, <br>WATERBOMB</h2>
-                    <span class="date">기간 2024. 7. 27.(토)</span>
+        <div class="slider-container">
+            <div class="slider f-sliderList">
+                <div class="f-sliderBox">
+                    <div class="f-slider-title">
+                        <h2>바다 따라, <br>WATERBOMB</h2>
+                        <span class="date">기간 2024. 7. 27.(토)</span>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item active f-sliderBox">
-                <div class="f-slider-title">
-                    <h2>바다 따라, <br>WATERBOMB</h2>
-                    <span class="date">기간 2024. 7. 27.(토)</span>
+                <div class="f-sliderBox">
+                    <div class="f-slider-title">
+                        <h2>바다 따라, <br>WATERBOMB</h2>
+                        <span class="date">기간 2024. 7. 27.(토)</span>
+                    </div>
                 </div>
-            </div>
-            <div class="carousel-item f-sliderBox">
-                <div class="f-slider-title">
-                    <h2>바다 따라, <br>WATERBOMB</h2>
-                    <span class="date">기간 2024. 7. 27.(토)</span>
+                <div class="f-sliderBox">
+                    <div class="f-slider-title">
+                        <h2>바다 따라, <br>WATERBOMB</h2>
+                        <span class="date">기간 2024. 7. 27.(토)</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,12 +94,20 @@
                 <div class="link">바로가기</div>
             </div>
             <div class="t-imgBox">
-                <div class="t-item"><img src="/images/mainpage/cloudStroe.jpg">
+                <div class="t-item">
+                    <div class="image-container">
+                        <img class="img-tag" src="/images/samples/busan1.jpg">
+                        <!-- <img src="/images/mainpage/cloudStroe.jpg"> -->
+                    </div>
                     <div class="t-tag">#광안리해수욕장</div>
                     <div class="t-title">Buy 부산, bye 부산: 부산의 추억을 담아갈 수 있는 소품샵 3곳Buy 부산, bye 부산: 부산의 추억을 담아갈 수 있는 소품샵 3곳</div>
                     <div class="t-date">2024.07.12</div>
                 </div>
-                <div class="t-item"><img src="/images/mainpage/cloudStroe.jpg">
+                <div class="t-item">
+                    <div class="image-container">
+                        <img class="img-tag" src="/images/samples/busan1.jpg">
+                        <!-- <img src="/images/mainpage/cloudStroe.jpg"> -->
+                    </div>
                     <div class="t-tag">#광안리해수욕장</div>
                     <div class="t-title">Buy 부산, bye 부산: 부산의 추억을 담아갈 수 있는 소품샵 3곳Buy 부산, bye 부산: 부산의 추억을 담아갈 수 있는 소품샵 3곳</div>
                     <div class="t-date">2024.07.12</div>
@@ -116,9 +126,7 @@
             </div>
 
             <div class="ord-imgBox">
-                <!-- 슬라이더 position 셋팅필요-->
                 <ul class="ord-imgSlide">
-                    <!-- 이미지 position 셋팅 해서 가운데 꽉차게 -->
                     <li></li>
                     <li></li>
                     <li></li>
@@ -130,12 +138,17 @@
         </div> <!-- end outOfOrdinary-->
     </div> <!-- end myBox-->
 
-    <!-- end myContainer-->
+    <!-- Axios 라이브러리 연결 -->
+    <!-- <script src="https://unpkg.com/axios/dist/axios.min.js"></script> -->
 
 </div>
 
+<!-- 메인 스크립트 연결 -->
+<script th:src="@{/js/main.js}" layout:fragment="basescript"></script>
 
+<!--/* 현재 페이지에서만 사용하는 script 정의 */-->
 <script layout:fragment="myscript" th:inline="javascript">
+    console.log("스크립트 실행2 :b");
 
 </script>
 

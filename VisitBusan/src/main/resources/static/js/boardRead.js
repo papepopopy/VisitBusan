@@ -4,6 +4,7 @@ const dataCon = document.querySelector('.dataCon');
 const errors = dataCon.getAttribute('data-errors');
 const menu = dataCon.getAttribute('data-menu');
 const link = dataCon.getAttribute('data-link');
+const linkRemove = dataCon.getAttribute('data-link-remove');
 const dto_id = dataCon.getAttribute('data-id');
 const fileNames = document.querySelectorAll('.dataCon .fileName');
 console.log("errors: " ,errors)
@@ -83,7 +84,8 @@ document.querySelector('.removeBtn').addEventListener('click', function(e) {
         callRemoveFiles();
 
         const formObj = document.querySelector('.removeForm');
-        formObj.action = `/board/${menu}/remove?id=${dto_id}&${link}`;
+        // formObj.action = `/board/${menu}/remove?id=${dto_id}&${link}`;
+        formObj.action = linkRemove;
         formObj.method = "post";
         formObj.submit();
     }

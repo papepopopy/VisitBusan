@@ -12,6 +12,7 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/board")
@@ -42,8 +44,14 @@ public class BoardController {
     // 유저 게시판 :
     //  - 유저게시판(userBoard) : 여행정보(information), 여행일정(schedule), 후기(review)
 
+    @GetMapping("/category")
+    public @ResponseBody ResponseEntity<Map<String, List<Board>>> getBoardsByCategory() {
+        Map<String, List<Board>> boardsByCategory = boardService.mainList2();
+        return ResponseEntity.ok(boardsByCategory);
+    }
+
     @GetMapping("/main/list")
-    public @ResponseBody PageResponseDTO<BoardListAllDTO> mainList(PageRequestDTO pageRequestDTO){
+    public @ResponseBody ResponseEntity<List<BoardListAllDTO>> mainList(PageRequestDTO pageRequestDTO){
 
         PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
 //        log.info("=> "+responseDTO);
@@ -52,7 +60,7 @@ public class BoardController {
 //        // 모델에 데이터를 담아 타임리프 템플릿에 전달합니다.
 //        model.addAttribute("day", day);
 
-        return responseDTO;
+        return ResponseEntity.ok(responseDTO.getDtoList());
 
     } // end get list
 
