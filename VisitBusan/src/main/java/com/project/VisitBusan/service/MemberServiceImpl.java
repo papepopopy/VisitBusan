@@ -1,5 +1,6 @@
 package com.project.VisitBusan.service;
 
+<<<<<<< HEAD
 import com.project.VisitBusan.config.CustomSecurityConfig;
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.dto.ProfileImageDTO;
@@ -23,6 +24,18 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+=======
+import com.project.VisitBusan.dto.MemberDTO;
+import com.project.VisitBusan.entity.Member;
+import com.project.VisitBusan.repository.MemberRepository;
+import jakarta.transaction.Transactional;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+>>>>>>> 96e56902718561b200ab9ad54d209b423b20b8d1
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -30,6 +43,7 @@ import java.util.UUID;
 public class MemberServiceImpl implements MemberService {
     private final MemberRepository memberRepository;
     private final PasswordEncoder passwordEncoder;
+<<<<<<< HEAD
     private final ProfileImageRepository profileImageRepository;
 
     //사용자 추가
@@ -153,5 +167,18 @@ public class MemberServiceImpl implements MemberService {
         }
 
         return memberDTOList;
+=======
+
+    public Member saveMember(MemberDTO memberDTO) {
+        Member member = dtoToEntity(memberDTO, passwordEncoder);
+
+        validateDuplicateMember(member);
+
+        return memberRepository.save(member);
+    }
+    private void validateDuplicateMember(Member member) {
+        Member findMember = memberRepository.findByEmail(member.getEmail());
+        if (findMember != null) throw new IllegalAccessException("이미 가입된 이메일입니다.");
+>>>>>>> 96e56902718561b200ab9ad54d209b423b20b8d1
     }
 }

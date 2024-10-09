@@ -67,10 +67,10 @@ SELECT * FROM member_role_set;
 INSERT INTO board
 (category,title,content,writer,writer_id,reg_date,mod_date)
 VALUES
-('festival, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
-('festival, all1','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
-('performance, all1','title3','content3','admin','admin',SYSDATE(),SYSDATE()),
-('performance, all1','title4','content4','admin','admin',SYSDATE(),SYSDATE()),
+('festival','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
+('festival','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
+('performance','title3','content3','admin','admin',SYSDATE(),SYSDATE()),
+('performance','title4','content4','admin','admin',SYSDATE(),SYSDATE()),
 ('place','title5','content5','admin','admin',SYSDATE(),SYSDATE()),
 ('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
 ('food','title7','content7','admin','admin',SYSDATE(),SYSDATE()),
@@ -86,9 +86,7 @@ VALUES
 ('schedule','title17','content17','user','user',SYSDATE(),SYSDATE()),
 ('schedule','title18','content18','user','user',SYSDATE(),SYSDATE()),
 ('review','title19','content19','user','user',SYSDATE(),SYSDATE()),
-('review','title20','content20','user','user',SYSDATE(),SYSDATE()),
-('sports, all1','title21','content21','user','user',SYSDATE(),SYSDATE()),
-('sports, all1','title22','content22','user','user',SYSDATE(),SYSDATE());
+('review','title20','content20','user','user',SYSDATE(),SYSDATE());
 SHOW COLUMNS FROM board;
 SELECT * FROM board;
 
