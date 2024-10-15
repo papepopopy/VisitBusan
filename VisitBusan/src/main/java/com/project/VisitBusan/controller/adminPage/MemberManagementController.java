@@ -1,11 +1,9 @@
 package com.project.VisitBusan.controller.adminPage;
-
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.dto.PageRequestDTO;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
-import com.project.VisitBusan.service.BoardService;
 import com.project.VisitBusan.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.HashMap;
@@ -33,7 +30,6 @@ import java.util.Map;
 public class MemberManagementController {
 
     private final MemberService memberService;
-    private final PasswordEncoder passwordEncoder;
 
     //회원 정보 조회
     @GetMapping("/list")
@@ -49,39 +45,35 @@ public class MemberManagementController {
     }
 
     @GetMapping("/read/{userId}")
-    public ResponseEntity<MemberDTO> readMember(@PathVariable String userId,
-                                                Model model) {
-
+    public ResponseEntity<MemberDTO> readMember(@PathVariable String userId) {
         MemberDTO member = memberService.findMember(userId);
-        List<MemberDTO> memberDTOList = memberService.findAll();
-        model.addAttribute("memberDTOList", memberDTOList);
 
         if (member == null) {
             return ResponseEntity.notFound().build();
         }
 
         log.info("===> userId : " + userId);
-        log.info("===> memberDTOList : " + memberDTOList);
 
         return ResponseEntity.ok(member);
     }
 
     // 회원 등록: GET, POST
-    @GetMapping(value = "/create")
+    @GetMapping(value = "/list/create")
     public String memberRegisterForm(Model model) {
+
         // 데이터가 없는 memberDTO생성 : form에 입력한 데이터와 1:1 맵핑
         model.addAttribute("memberDTO", new MemberDTO());
 
         // 포워딩: 뷰리졸브
-        return "adminPage/member/create";
+        return "adminPage/member/list";
     }
 
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/list/create")
     public String memberRegister(@Valid @ModelAttribute MemberDTO memberDTO,
-                                 BindingResult bindingResult,
                                  Model model) {
 
         log.info("=> memberDTO: " + memberDTO);
+
         try {
             // dto -> entity -> email중복 체크 ->  save
             memberService.saveMember(memberDTO);
@@ -90,8 +82,7 @@ public class MemberManagementController {
             return "adminPage/member/create";// 입력폼으로 포워딩
         }
 
-        //회원가입 후 로그인 페이지 이동
-        return "redirect:/login";
+        return "redirect:/admin/member/list";
     }
 
     // 중복 체크 처리
@@ -130,29 +121,51 @@ public class MemberManagementController {
         //결과 반환
         return ResponseEntity.ok(response);
     }
+/*
+    //3. 회원정보 수정
+    @PostMapping(value = "/list/modify") //데이터 전송
+    public String updateMember(@Valid @ModelAttribute MemberDTO memberDTO, //valid 유효성 검사
+                               BindingResult bindingResult, //유효성 검사 후 데이터 담는 객체
+                               RedirectAttributes redirectAttributes) { //일회성 데이터 전달
+        System.out.println("수정 요청 받음: " + memberDTO);
 
-//2. 마이페이지 조회
+        // 유효성 검사 오류 처리
+        if (bindingResult.hasErrors()) {
+            // 1회용 정보유지 : redirect방식으로 요청시 정보관리하는 객체
+            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호를 입력해주세요.");
+            return "redirect:/admin/member/list";
+        }
 
+        //회원정보 수정
+        memberService.modify(memberDTO);
+        Member updatedMember = memberService.modify(memberDTO);
+        System.out.println("수정된 회원 정보: " + updatedMember);
+
+        redirectAttributes.addFlashAttribute("message", "회원정보가 수정되었습니다.");
+
+        return "redirect:/admin/member/list";
+    }
+*/
+    //4. 회원정보 삭제
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @GetMapping(value = "/mypage")
-    public String memberMyPageForm(Model model) {
-        //로그인한 사용자 ID
-        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
+    @PostMapping(value = "/list/delete")
+    public String removeMember(@RequestParam("userId") String userId, RedirectAttributes redirectAttributes) {
 
-        //회원 정보 조회
-        MemberDTO memberDTO = memberService.findMember(userId);
-        model.addAttribute("member", memberDTO);
-        return "adminPage/member/myPage";
+        try {
+            memberService.remove(userId);
+            redirectAttributes.addFlashAttribute("result","deleted");
+        } catch (Exception e) {
+            redirectAttributes.addFlashAttribute("error", "회원 삭제를 실패하였습니다.");
+            return "redirect:/admin/member/list";
+        }
+        return "redirect:/admin/member/list";
     }
 
-
-    @PostMapping(value = "/mypage/modify/check") //데이터 전송
+    @PostMapping(value = "/modify/check") //데이터 전송
     public String updateMemberCheck(@Valid @ModelAttribute MemberDTO memberDTO, //valid 유효성 검사
                                     BindingResult bindingResult){ //유효성 검사 후 데이터 담는 객체
 
         log.info("updateMemberCheck ================>"+memberDTO);
-
-
         String errorMessage = "";
 
         // 유효성 검사 오류 처리
@@ -163,81 +176,6 @@ public class MemberManagementController {
 
         // 멤버 조회
         MemberDTO member = memberService.findMember(memberDTO.getUserId());
-
-        // 비밀번호 확인
-        if(!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
-            log.info("test3 ================>");
-            errorMessage ="비밀번호가 일치하지 않습니다.";
-        }
-        log.info("errorMessage ================>"+errorMessage);
-
         return errorMessage;
-    }
-
-
-//3. 회원정보 수정
-
-    @ExceptionHandler(MethodArgumentNotValidException.class)
-    @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @PostMapping(value = "/mypage/modify") //데이터 전송
-    public String updateMember(@Valid @ModelAttribute MemberDTO memberDTO, //valid 유효성 검사
-                               BindingResult bindingResult, //유효성 검사 후 데이터 담는 객체
-                               RedirectAttributes redirectAttributes) { //일회성 데이터 전달
-        log.info("test ================>");
-        String showswich = "1";
-
-        // 유효성 검사 오류 처리
-        if (bindingResult.hasErrors()) {
-            log.info("test2 ================>");
-
-            // 1회용 정보유지 : redirect방식으로 요청시 정보관리하는 객체
-            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호를 입력해주세요.");
-            redirectAttributes.addFlashAttribute("showswich", showswich);
-            return "redirect:/mypage"; // 유효성 검사 오류 시 다시 마이페이지로 이동
-
-        }
-        // 멤버 조회
-        MemberDTO member = memberService.findMember(memberDTO.getUserId());
-
-        //비밀번호 확인
-        if(!passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
-            log.info("test3 ================>");
-            // 비밀번호 불일치 예외 처리
-
-            // 1회용 정보유지 : redirect방식으로 요청시 정보관리하는 객체
-            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호가 일치하지 않습니다.");
-            redirectAttributes.addFlashAttribute("showswich", showswich);
-            return "redirect:/mypage";
-        }
-        log.info("test4 ================>");
-
-        //회원정보 수정
-        memberService.modify(memberDTO);
-        redirectAttributes.addFlashAttribute("message", "회원정보가 수정되었습니다.");
-
-        return "redirect:/mypage";
-    }
-
-//4. 회원정보 삭제
-
-    @PreAuthorize("isAuthenticated") //로그인 인증 완료
-    @PostMapping(value = "/mypage/delete")
-    public String removeMember(@ModelAttribute MemberDTO memberDTO,
-//                               @RequestParam String userId,
-                               RedirectAttributes redirectAttributes,
-                               Model model) {
-
-        //해당 userId 회원 정보 들고오기
-        String userId = SecurityContextHolder.getContext().getAuthentication().getName();
-        MemberDTO member = memberService.findMember(userId);
-
-        try {
-            memberService.remove(userId);
-            redirectAttributes.addFlashAttribute("result","deleted");
-        } catch (Exception e) {
-            redirectAttributes.addFlashAttribute("error", "회원 삭제를 실패하였습니다.");
-            return "redirect:/mypage";
-        }
-        return "redirect:/logout";
     }
 }

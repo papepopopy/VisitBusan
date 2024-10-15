@@ -1,233 +1,152 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/adminBase}">
+    <html xmlns:th="http://www.thymeleaf.org"
+          xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+          xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+          layout:decorate="~{layouts/adminBase}">
 
 
-<!--현재 페이지에서만 사용하는 css 정의-->
-<style layout:fragment="mystyle" th:inline="css">
-</style>
+    <!--현재 페이지에서만 사용하는 css 정의-->
+    <style layout:fragment="mystyle" th:inline="css">
+    </style>
 
 
-<!--회원 관리 페이지-->
-<div class="cate cate_1 h-100vh" layout:fragment="content">
-    <div class="topBox">
-        <div class="box_1">
-            <h5 class="pageTitle">회원 관리</h5>
-        </div>
-        <form>
-            <div class="search-box">
-                <div class="input-group-prepend">
-                    <select class="form-select" name="type">
-                        <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>
-                        <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">제목+내용+작성자</option>
-                        <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
-                        <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
-                        <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
-                    </select>
+    <!--회원 관리 페이지-->
+    <div class="cate cate_1 h-100vh" layout:fragment="content">
+        <div class="topBox">
+            <div class="box_1">
+                <h5 class="pageTitle">회원 관리</h5>
+            </div>
+            <form>
+                <div class="search-box">
+                    <div class="input-group-prepend">
+                        <select class="form-select" name="type">
+                            <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>
+                            <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">제목+내용+작성자</option>
+                            <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
+                            <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
+                            <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
+                        </select>
+                    </div>
+                    <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search"
+                           th:value="${pageRequestDTO.keyword}">
+                    <button class="btn btn-light" type="submit">Search</button>
+                    <!--/*
+                    <a href="/board/userBoard/create" th:href="|@{/admin/member/create}?${pageRequestDTO.getLink()}|" class="ms-auto">
+                        <button type="button" class="btn createBtn createBtn2">회원등록</button>
+                    </a>
+                    */-->
+                    <a class="btn createBtn createBtn2 ms-auto" href="/board/userBoard/create" th:href="|@{/admin/member/create}?${pageRequestDTO.getLink()}|">회원등록</a>
                 </div>
-                <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search"
-                       th:value="${pageRequestDTO.keyword}">
-                <button class="btn btn-light" type="submit">Search</button>
-                <!--/*
-                <a href="/board/userBoard/create" th:href="|@{/admin/member/create}?${pageRequestDTO.getLink()}|" class="ms-auto">
-                    <button type="button" class="btn createBtn createBtn2">회원등록</button>
-                </a>
-                */-->
-                <a class="btn createBtn createBtn2 ms-auto" href="/board/userBoard/create" th:href="|@{/admin/member/create}?${pageRequestDTO.getLink()}|">회원등록</a>
+            </form>
+        </div>
+        <div class="search-box2">
+            <div class="search_array">
+                <div class="search-inner">
+                    <!--<div class="all">총 회원수 <span th:text="${responseDTO.total}">3,852</span>명 차단 n명 탈퇴 n명</div>-->
+                    <div class="all">총 회원 n명 차단 n명 탈퇴 n명</div>
+                </div>
+                <div class="search-inner">
+                    <div class="sort">
+                        <a href="#">아이디순</a>
+                        <a href="#">이름순</a>
+                        <a href="#">가입순</a>
+                    </div>
+                </div>
             </div>
-        </form>
-    </div>
-    <div class="search-box2">
-        <div class="search_array">
-            <div class="search-inner">
-                <!--<div class="all">총 회원수 <span th:text="${responseDTO.total}">3,852</span>명 차단 n명 탈퇴 n명</div>-->
-                <div class="all">총 회원 n명 차단 n명 탈퇴 n명</div>
-            </div>
-            <div class="search-inner">
-                <div class="sort">
-                    <a href="#">아이디순</a>
-                    <a href="#">이름순</a>
-                    <a href="#">가입순</a>
+        </div>
+        <br>
+        <div class="tableBox PostBox">
+            <!--/*<table class="table" th:with="link=${pageRequestDTO.getLink()}">*/-->
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">회원번호</th>
+                    <th scope="col">권한</th>
+                    <th scope="col">회원아이디</th>
+                    <th scope="col">이름</th>
+                    <th scope="col">이메일</th>
+                    <th scope="col">주소</th>
+                    <th scope="col">가입일</th>
+                    <!--<th scope="col">회원수정</th>-->
+                    <!--<th scope="col">비로그인 일수</th>-->
+                    <!--<th scope="col">차단</th>-->
+                </tr>
+                </thead>
+                <tbody>
+                <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
+                <!--/*<tr th:each="dto:${memberDTOList}">*/-->
+                <!--/*<tr th:each="dto:${memberDTOList}" th:data-userId="${dto.userId}">*/-->
+                <tr class="informationBtn" th:each="dto:${memberDTOList}" th:data-userId="@{|read/${dto.userId}|}">
+                        <th scope="row" th:text="${dto.userId}">num</th>
+                        <!--<th th:text="${dto.id}" scope="row">num</th>-->
+                        <td th:text="${dto.role}">role</td>
+                        <td class="userId" th:text="${dto.userId}"></td>
+                        <td th:text="${dto.name}"></td>
+                        <td th:text="${dto.email}"></td>
+                        <td th:text="${dto.address}"></td>
+                        <!--<td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>-->
+                        <td>date</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!--페이지 버튼-->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
+
+        <!--회원 수정 팝업-->
+        <div class="modal fade informationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content p-5">
+                    <h2 class="text-center">회원정보 관리</h2>
+                    <hr>
+                    <!--/*<form th:if="${memberDTOList.size() > 0}" th:action="@{/admin/member/read/{userId}(userId=${memberDTOList[0].userId})}" method="POST" id="modifyForm">*/-->
+                    <form th:if="${memberDTOList.size() > 0}" method="POST" id="modifyForm">
+                        <input type="hidden" id="inputUserId" name="userId" th:value="${memberDTOList[0].userId}" />
+                        <!--이름-->
+                        <label for="inputName" class="col-form-label">이름</label>
+                        <input type="text"  id="inputName" class="form-control" />
+                        <!--이메일 주소-->
+                        <label for="inputEmail" class="col-form-label">이메일</label>
+                        <input type="email" id="inputEmail" class="form-control" />
+                        <!--주소-->
+                        <label for="inputAddress" class="col-form-label">주소</label>
+                        <input type="text" id="inputAddress" class="form-control" />
+                        <!--가입일(고정)-->
+                        <label for="inputDate" class="col-form-label">가입일</label>
+                        <input type="text" id="inputDate" class="form-control" />
+
+                        <!-- 오류 메시지 표시 -->
+                        <div id="modify-error"></div>
+
+                        <!--버튼-->
+                        <div class="row align-items-end mt-5 mb-4">
+                            <div class="col">
+                                <button type="button" class="secessionBtn btn btn-danger w-100">회원 삭제</button>
+                            </div>
+                            <div class="col">
+                                <button type="button" class="modBtn btn btn-primary w-100">회원정보 변경</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <br>
-    <div class="tableBox">
-        <!--/*<table class="table" th:with="link=${pageRequestDTO.getLink()}">*/-->
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">회원번호</th>
-                <th scope="col">권한</th>
-                <th scope="col">회원아이디</th>
-                <th scope="col">이름</th>
-                <th scope="col">이메일</th>
-                <th scope="col">주소</th>
-                <th scope="col">가입일</th>
-                <!--<th scope="col">회원수정</th>-->
-                <!--<th scope="col">비로그인 일수</th>-->
-                <!--<th scope="col">차단</th>-->
-            </tr>
-            </thead>
-            <tbody>
-            <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
-            <!--<tr th:each="dto:${memberDTOList}">-->
-            <tr th:each="dto:${memberDTOList}" th:data-link="@{/admin/member/read/{userId}(userId=${dto.userId})}">
-                <!--/*<th scope="row" th:text="${dto.id}"></th>*/-->
-                <th onclick="fetchMemberData('${dto.userId}')" class="informationBtn" scope="row">num</th>
-                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.role}">role</td>
-                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.userId}"></td>
-                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.name}"></td>
-                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.email}"></td>
-                <td onclick="fetchMemberData('${dto.userId}')" class="informationBtn" th:text="${dto.address}"></td>
-                <!--/*<td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>*/-->
-                <td>date</td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+    <!--end fragment="content"-->
 
-    <!--페이지 버튼-->
-    <nav aria-label="Page navigation">
-        <ul class="pagination justify-content-center">
-            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-            <li class="page-item"><a class="page-link" href="#">2</a></li>
-            <li class="page-item"><a class="page-link" href="#">3</a></li>
-            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-        </ul>
-    </nav>
-
-    <!--회원 수정 팝업-->
-    <div class="informationModal modal" id="informationModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content p-5">
-                <h2 class="text-center">회원정보 관리</h2>
-                <hr>
-                <!--/*<form th:action="@{/admin/member/read/{memberId}(memberId=${member.memberId})}" method="POST" id="modifyForm">*/-->
-                <form th:if="${memberDTOList.size() > 0}" th:action="@{/admin/member/read/{userId}(userId=${memberDTOList[0].userId})}" method="POST" id="modifyForm">
-                    <!--<input type="hidden" name="memberId" th:value="${dto.name}">-->
-                    <!--<input type="hidden" name="memberId" th:value="${MemberDTO.name}">-->
-                    <input type="text" id="inputName" class="form-control" />
-                    <input type="email" id="inputEmail" class="form-control" />
-                    <input type="text" id="inputAddress" class="form-control" />
-                    <input type="text" id="inputprofileText" class="form-control" />
-                    <!--<div class="mb-2">
-                         <label for="inputName" class="col-form-label">닉네임</label>
-                         <input type="text" id="inputName" name="name" th:value="${memberDTOList.name}">
-                     </div>
-                     <div class="mb-2">
-                         <label for="inputEmail" class="col-form-label">이메일</label>
-                         <input type="email" id="inputEmail" name="email" th:value="${memberDTOList.email}">
-                     </div>
-                     <div class="mb-2">
-                         <label for="inputAddress" class="col-form-label">주소</label>
-                         <input type="text" id="inputAddress" name="address" th:value="${memberDTOList.address}">
-                     </div>
-                     <div class="mb-2">
-                         <label for="inputprofileText" class="col-form-label">소개말</label>
-                         <input type="text" id="inputprofileText" name="profileText" th:value="${memberDTOList.profileText}">
-                     </div>
-                     <div class="row align-items-end mt-5 mb-4">
-                         <div class="col">
-                             <button type="button" class="closeBtn btn btn-danger w-100">취소하기</button>
-                         </div>
-                         <div class="col">
-                             <button type="submit" class="modBtn btn btn-primary w-100">회원정보 변경</button>
-                         </div>
-                     </div>-->
-                </form>
-            </div>
-        </div>
-    </div>
-</div>
-<!--end fragment="content"-->
-
-
-<!--현재 페이지에서만 사용하는 script 정의-->
-<script layout:fragment="myscript" th:inline="javascript">
-
-    console.log("스크립트 실행! :b");
-
-    /* 게시글 링크 동작 */
-    const table = document.querySelector('.table');
-    const rows = table.getElementsByTagName('tr');
-
-    // 각 행에 클릭 이벤트 리스너 추가
-    for (let i = 1; i < rows.length; i++) { // 헤더를 제외하기 위해 i를 1로 시작
-      rows[i].addEventListener('click', function(e) {
-        const link = this.getAttribute('data-link');
-        if (link) {
-            location.href = link;
-        }
-      });
-    } /* end table listener */
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const informationModal = document.querySelector('.informationModal');
-        const informationBtns = document.querySelectorAll('.informationBtn');
-        const closeBtn = document.querySelectorAll('.closeBtn');
-
-        // 열기
-        informationBtns.forEach(btn => {
-            btn.addEventListener("click", function(e) {
-                console.log("test 팝업");
-                e.stopPropagation();
-                //tr 요소에서 data-link 속성 들고와서 가장 마지막 배열 userId 들고오기
-                const userId = this.closest('tr').getAttribute('data-link').split('/').pop();
-                //회원정보 업데이트
-                fetchMemberData(userId);
-            });
-        });
-
-        // 닫기
-        closeBtn.forEach(function(btn) {
-            btn.addEventListener("click", function() {
-                const modal = new bootstrap.Modal.getInstance(informationModal);
-                modal.hide();
-            });
-        });
-
-        function fetchMemberData(userId) {
-            console.log("userId : ", userId)
-            fetch(`/admin/member/read/${userId}`)
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error("Network response was not ok");
-                    }
-                    return response.json(); // JSON으로 변환
-                })
-                .then(data => {
-                    //팝업열기
-                    const modal = new bootstrap.Modal(document.getElementById('informationModal'));
-                    // 모달에 데이터 설정
-                    document.getElementById('inputName').value = data.name;
-                    document.getElementById('inputEmail').value = data.email;
-                    document.getElementById('inputAddress').value = data.address;
-                    document.getElementById('inputprofileText').value = data.profileText;
-                    modal.show();
-                })
-                .catch(error => {
-                    console.error("Error fetching member data:", error);
-                });
-        }
-
-        function openModal(data) {
-            // 각 입력 필드에 데이터 설정
-            document.querySelector('#inputName').value = data.name || '';
-            document.querySelector('#inputEmail').value = data.email || '';
-            document.querySelector('#inputAddress').value = data.address || '';
-            document.querySelector('#inputprofileText').value = data.profileText || '';
-
-            const informationModal = document.getElementById('.informationModal'); // 여기에 실제 modal ID로 수정
-            const modal = new bootstrap.Modal(informationModal);
-            modal.show();
-        }
-    });
-</script>
-
-
+    <!-- 게시판 리스트 스크립트 연결 -->
+    <script th:src="@{/js/memberList.js}" layout:fragment="basescript"></script>
+    <script layout:fragment="myscript" th:inline="javascript">
+        console.log("스크립트 실행! :b");
+    </script>
+    <!--현재 페이지에서만 사용하는 script 정의-->
 </html>

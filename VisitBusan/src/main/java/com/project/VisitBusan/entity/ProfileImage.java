@@ -9,7 +9,6 @@ import lombok.*;
 @Getter @Setter
 @AllArgsConstructor @NoArgsConstructor
 @Builder
-@ToString(exclude="member")
 public class ProfileImage {
 
     @Id
@@ -21,6 +20,7 @@ public class ProfileImage {
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
+    @ToString.Exclude
     private Member member; //사용자 ID
 
     // 회원 설정

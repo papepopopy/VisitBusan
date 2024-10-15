@@ -61,7 +61,10 @@ public class Member {
     public void change(String name,
                        String email,
                        String address,
-                       String profileText) {
+                       String profileText
+                       //String userId
+                        ) {
+        //this.userId = userId; //닉네임
         this.name = name; //닉네임
         this.email = email; //이메일
         this.address = address; //주소

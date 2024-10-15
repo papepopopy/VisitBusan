@@ -21,6 +21,8 @@ import java.util.List;
 @Builder
 public class MemberDTO {
 
+    //private String memberId;
+
     @NotBlank(message = "아이디 입력은 필수입니다.")
     private String userId;
     @NotBlank(message = "이름은 입력은 필수입니다.")  // Null 체크 및 문자열의 경우 길이 0인지 및 빈문자열("") 검사

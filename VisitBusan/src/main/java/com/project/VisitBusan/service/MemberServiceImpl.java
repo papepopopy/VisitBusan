@@ -91,44 +91,53 @@ public class MemberServiceImpl implements MemberService {
     //회원 조회
     @Override
     public MemberDTO findMember(String userId) {
-        Member member = memberRepository.findByUserId(userId)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
-        return MemberDTO.toMemberDTO(member);
+        log.info("회원 조회 요청: userId = " + userId);
+
+        Optional<Member> memberOptional = memberRepository.findByUserId(userId);
+
+        if (memberOptional.isPresent()) {
+            Member member = memberOptional.get();
+            log.info("조회된 회원: " + member);
+            return MemberDTO.toMemberDTO(member);
+        } else {
+            log.info("회원이 존재하지 않습니다.");
+            throw new IllegalArgumentException("해당 회원이 없습니다.");
+        }
+
+//        Member member = memberRepository.findByUserId(userId)
+//                .orElseThrow(() -> new IllegalArgumentException("해당 회원이 없습니다."));
+//        return MemberDTO.toMemberDTO(member);
     }
 
     //회원 수정
     @Override
     public Member modify(MemberDTO memberDTO) {
+        log.info("멤버 정보: {}", memberDTO);
+        System.out.println("회원 ID: " + memberDTO.getUserId());
         //회원 조회
         Member member = memberRepository.findByUserId(memberDTO.getUserId())
                 .orElseThrow(() -> new EntityNotFoundException("해당 회원을 찾을 수 없습니다."));
         //비밀번호 검증
-        if (memberDTO.getPassword() != null && !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
+        /*if (memberDTO.getPassword() != null && !passwordEncoder.matches(memberDTO.getPassword(), member.getPassword())) {
             // 비밀번호가 맞지 않을시 예외 발생
             throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
         } else if (memberDTO.getPassword() == null){
             // 비밀번호가 적혀있지 않을시 예외 발생
             throw new IllegalArgumentException("비밀번호 작성이 필요합니다.");
-        }
+        }*/
 
-        //회원정보 변경
+    // 회원정보 변경
         member.change(
                 memberDTO.getName(),
                 memberDTO.getEmail(),
                 memberDTO.getAddress(),
-                memberDTO.getProfileText()
+                memberDTO.getProfileText() // 추가 정보가 필요한 경우 포함
         );
-//
-//        //프로필 이미지가 변경된 경우 처리
-//        if(memberDTO.getProfileImage() != null) {
-//            //엔티티 변환
-//            ProfileImage profileImage = ProfileImageDTO.toEntity(memberDTO.getProfileImage());
-//            member.setProfileImage(profileImage);
-//        } else {
-//            member.clearProfileImage();
-//        }
-
+        System.out.println("======================");
+        System.out.println(member);
+        System.out.println("======================");
         //저장하기
+//        member.setName(memberDTO.getName());
         return memberRepository.save(member);
     }
 
