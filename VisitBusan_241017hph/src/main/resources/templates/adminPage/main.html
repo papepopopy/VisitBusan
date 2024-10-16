@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminBase}">
+
+<!-- 현재 페이지에서만 사용하는 css 정의 -->
+<style layout:fragment="mystyle" th:inline="css">
+</style>
+<body>
+    <div class="adminMain container" layout:fragment="content">
+        <div class="cate cate_1">
+            <div class="box_1">
+                <h5 class="ms-2">회원 N건</h5>
+                <p>총 회원 n명 차단 n명 탈퇴 n명</p>
+            </div>
+            <br>
+            <div class="tableBox table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col" width="10%">순번</th>
+                            <th scope="col">권한</th>
+                            <th scope="col">회원아이디</th>
+                            <th scope="col">이름</th>
+                            <th scope="col" width="30%">이메일</th>
+                            <th scope="col">주소</th>
+                            <th scope="col">가입일</th>
+                            <!-- <th scope="col">비로그인 일수</th> -->
+                            <!-- <th scope="col">차단</th> -->
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
+                    <tr th:each="dto:${memberDTOList}">
+                        <!--/*<th scope="row" th:text="${dto.id}"></th>*/-->
+                        <td>num</td>
+                        <td th:text="${dto.role}">role</td>
+                        <td th:text="${dto.userId}"></td>
+                        <td th:text="${dto.name}"></td>
+                        <td th:text="${dto.email}"></td>
+                        <td th:text="${dto.address}"></td>
+                        <!--/*<td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>*/-->
+                        <td>date</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-end">
+                <a th:href="@{/admin/member/list}">
+                    <button type="button" class="btn btn-dark me-3">회원 전체보기</button>
+                </a>
+            </div>
+        </div>
+        <div class="cate cate_2">
+            <h5 class="ms-2" >게시글 N건</h5>
+            <br>
+
+            <div class="tableBox table-responsive">
+                <table class="table" th:with="link=${pageRequestDTO.getLink()}">
+                    <thead>
+                        <tr class="text-center">
+                            <th scope="col" width="10%">순번</th>
+                            <th scope="col">게시판</th>
+                            <th scope="col" width="30%">제목</th>
+                            <th scope="col">이름</th>
+                            <th scope="col">등록일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
+                        <!--/*<tr th:each="i : ${#numbers.sequence(0, 4, +1)}" th:with="dto=${responseDTO.dtoList[i]}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">*/-->
+                        <td th:text="${dto.id}" style="width:10%;"></td>
+                        <td th:text="${dto.category}"></td>
+                        <td th:text="${dto.title}"></td>
+                        <td th:text="${dto.writer}"></td>
+                        <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>
+                    </tr>
+                    <!--/*
+                    <tr th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
+                        <th scope="row" th:text="${dto.id}"></th>
+                        <td th:text="${dto.category}"></td>
+                        <td th:text="${dto.title}"></td>
+                        <td th:text="${dto.writer}"></td>
+                        <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>
+                    </tr>*/-->
+                    </tbody>
+                </table>
+            </div>
+            <div class="d-flex justify-content-end">
+                <a th:href="@{/admin/board/list}">
+                    <button type="button" class="btn btn-dark me-3">게시글 전체보기</button>
+                </a>
+            </div>
+
+        </div> <!-- end cate_2 -->
+        <div class="cate cate_3">
+        <h5 class="ms-2" >신고 N건</h5>
+        <br>
+
+        <div class="tableBox table-responsive">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col" width="5%">순번</th>
+                        <th scope="col">게시판</th>
+                        <th scope="col" width="30%">제목</th>
+                        <th scope="col" width="30%">신고사유</th>
+                        <th scope="col">신고자</th>
+                        <th scope="col">신고일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>여행일정</td>
+                    <td>게시글 제목</td>
+                    <td>청소년에게 유해한 내용</td>
+                    <td>유저1</td>
+                    <td>2018-11-27</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>여행정보</td>
+                    <td>게시글 제목</td>
+                    <td>청소년에게 유해한 내용</td>
+                    <td>유저2</td>
+                    <td>2018-11-27</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>여행리뷰</td>
+                    <td>게시글 제목</td>
+                    <td>청소년에게 유해한 내용</td>
+                    <td>유저3</td>
+                    <td>2018-11-27</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>여행리뷰</td>
+                    <td>게시글 제목</td>
+                    <td>청소년에게 유해한 내용</td>
+                    <td>유저4</td>
+                    <td>2018-11-27</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a th:href="@{/admin/report/list}">
+                <button type="button" class="btn btn-dark me-3">신고관리 전체보기</button>
+            </a>
+        </div>
+
+    </div> <!-- end cate_3 -->
+    </div> <!-- end fragment="content" -->
+</body>
+
+<!--회원 수정 팝업-->
+<div class="uploadModal modal">
+    <div class="modal-dialog">
+        <div class="modal-content p-5">
+            <h2 class="text-center">회원정보 관리</h2>
+            <hr>
+            <form th:action="@{/mypage/modify}" method="POST" id="modifyForm">
+                <input type="hidden" name="userId" th:value="${member.userId}">
+                <div class="mb-2">
+                    <label for="inputName" class="col-form-label">닉네임</label>
+                    <input type="text" id="inputName" name="name" th:value="${member.name}">
+                </div>
+                <div class="mb-2">
+                    <label for="inputEmail" class="col-form-label">이메일</label>
+                    <input type="email" id="inputEmail" name="email" th:value="${member.email}">
+                </div>
+                <div class="mb-2">
+                    <label for="inputAddress" class="col-form-label">주소</label>
+                    <input type="text" id="inputAddress" name="address" th:value="${member.address}">
+                </div>
+                <div class="mb-2">
+                    <label for="inputprofileText" class="col-form-label">소개말</label>
+                    <input type="text" id="inputprofileText" name="profileText" th:value="${member.profileText}">
+                </div>
+                <div class="mb-2">
+                    <label for="inputPassword" class="col-form-label">비밀번호 확인(필수)</label>
+                    <input type="password" id="inputPassword" name="password">
+                </div>
+
+                <!-- 오류 메시지 표시 -->
+                <div id="modify-error"></div>
+
+                <div class="row align-items-end mt-5 mb-4">
+                    <div class="col">
+                        <button type="button" class="closeBtn btn btn-danger w-100">취소하기</button>
+                    </div>
+                    <div class="col">
+                        <button type="submit" class="modBtn btn btn-primary w-100">회원정보 변경</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/bootstrap.min.js}"></script>
+<script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+
+<!--/* 현재 페이지에서만 사용하는 script 정의 */-->
+<script layout:fragment="myscript" th:inline="javascript">
+    console.log("test 시작");
+        /* 게시글 링크 동작 */
+
+        const table = document.querySelector('.cate_2 .table');
+        const rows = table.getElementsByTagName('tr');
+
+        // 각 행에 클릭 이벤트 리스너 추가
+        for (let i = 1; i < rows.length; i++) { // 헤더를 제외하기 위해 i를 1로 시작
+          rows[i].addEventListener('click', function(e) {
+            console.log(e.target);
+            console.log(this.getAttribute('data-link'));
+            const link = this.getAttribute('data-link');
+            location.href= link;
+          });
+        } /* end table listener */
+
+        //팝업 추가
+        document.addEventListener('DOMContentLoaded', function() {
+            const uploadModal = new bootstrap.Modal(document.querySelector(".uploadModal"));
+
+            // 수정
+            document.querySelector(".cate_1 table td").addEventListener('click', function(e) {
+               console.log("test");
+               uploadModal.show();
+
+                console.log("test 시작");
+            });
+        });
+
+</script>
+
+</html>

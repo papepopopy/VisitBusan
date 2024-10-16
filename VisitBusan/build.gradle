@@ -36,6 +36,10 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'  	// JPA
+<<<<<<< HEAD
+=======
+	//비번 비밀번호 때문에..
+>>>>>>> 96e56902718561b200ab9ad54d209b423b20b8d1
 	implementation 'org.springframework.boot:spring-boot-starter-security' 		// 시큐리티
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'  	// 타임리프
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'		    // 타임리프 레이아웃
