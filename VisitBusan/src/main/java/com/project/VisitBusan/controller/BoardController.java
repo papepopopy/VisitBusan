@@ -12,15 +12,8 @@ import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-<<<<<<< HEAD
 import org.springframework.http.ResponseEntity;
-=======
-<<<<<<< HEAD
->>>>>>> d5f03d5b18d0c06472285f031a3b8496073ae6ec
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-=======
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
->>>>>>> 32c6784296bc95e7106fe3060e25f705bbc43c02
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -117,11 +110,9 @@ public class BoardController {
                                @Valid BoardDTO boardDTO,  // @Valid 넘어온 데이터 BoardDTO의 에러 유무 체크
                                BindingResult bindingResult,  // 감지한 에러 데이터
                                PageRequestDTO pageRequestDTO,
-                               RedirectAttributes redirectAttributes,
-                               @AuthenticationPrincipal Member member) { //현재 로그인 사용자
+                               RedirectAttributes redirectAttributes) {
 
         log.info("==> boardDTO: "+boardDTO);
-        log.info("==> member: "+member);
 
         // 수정 페이지에서 넘겨받은 페이징 정보
         String link = pageRequestDTO.getLink();
@@ -139,7 +130,7 @@ public class BoardController {
 
         log.info("==> "+boardDTO);
         // 게시글 등록 서비스 호출(DB에 저장)
-        Long id = boardService.register(boardDTO, member);
+        Long id = boardService.register(boardDTO);
 
         redirectAttributes.addFlashAttribute("id",id);
         redirectAttributes.addFlashAttribute("result", "created");
@@ -153,8 +144,7 @@ public class BoardController {
     public String read(@PathVariable("menu") String menu,
                        Long id,
                        PageRequestDTO pageRequestDTO,
-                       Model model,
-                       Member member) {
+                       Model model) {
 
         log.info("==> id: "+id);
         log.info("==> pageRequestDTO: "+pageRequestDTO);
@@ -164,7 +154,7 @@ public class BoardController {
         model.addAttribute("dto",boardDTO);
         log.info("==> after service boardDTO: "+boardDTO);
 
-        boardService.viewCount(boardDTO, member);
+        boardService.viewCount(boardDTO);
 
         //프로필 이미지 조회
         ProfileImageDTO profileImageDTO = new ProfileImageDTO();

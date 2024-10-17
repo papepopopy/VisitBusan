@@ -21,7 +21,7 @@ import java.util.List;
 @Builder
 public class MemberDTO {
 
-    //private String memberId;
+    private String id;
 
     @NotBlank(message = "아이디 입력은 필수입니다.")
     private String userId;

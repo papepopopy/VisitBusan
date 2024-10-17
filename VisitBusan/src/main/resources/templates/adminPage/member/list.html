@@ -76,8 +76,8 @@
                 <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
                 <!--/*<tr th:each="dto:${memberDTOList}">*/-->
                 <!--/*<tr th:each="dto:${memberDTOList}" th:data-userId="${dto.userId}">*/-->
-                <tr class="informationBtn" th:each="dto:${memberDTOList}" th:data-userId="@{|read/${dto.userId}|}">
-                        <th scope="row" th:text="${dto.userId}">num</th>
+                    <tr class="informationBtn" th:each="dto:${memberDTOList}" th:data-userId="@{|read/${dto.userId}|}">
+                        <th scope="row" th:text="${dto.id}">num</th>
                         <!--<th th:text="${dto.id}" scope="row">num</th>-->
                         <td th:text="${dto.role}">role</td>
                         <td class="userId" th:text="${dto.userId}"></td>

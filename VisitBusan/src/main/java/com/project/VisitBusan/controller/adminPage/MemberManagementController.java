@@ -146,6 +146,8 @@ public class MemberManagementController {
         return "redirect:/admin/member/list";
     }
 */
+/*
+
     //4. 회원정보 삭제
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @PostMapping(value = "/list/delete")
@@ -160,6 +162,7 @@ public class MemberManagementController {
         }
         return "redirect:/admin/member/list";
     }
+*/
 
     @PostMapping(value = "/modify/check") //데이터 전송
     public String updateMemberCheck(@Valid @ModelAttribute MemberDTO memberDTO, //valid 유효성 검사

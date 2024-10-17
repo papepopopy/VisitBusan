@@ -27,7 +27,6 @@ public class Member {
 
     @Column(unique = true, nullable = false)
     private String userId;
-
     @Column(nullable = false)
     private String password;
     @Column(nullable = false)

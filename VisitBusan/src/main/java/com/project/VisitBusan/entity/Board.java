@@ -27,16 +27,12 @@ public class Board extends BaseEntity{  //extends BaseEntity 하면 BaseEntity�
     private String title;
     @Column(length = 2000, nullable = false)  // length = (max = 16383)
     private String content;
-
-    @Column(length = 50, nullable = false) //member (name과 일치)
+    @Column(length = 50, nullable = false)
     private String writer;
 
     // 현재 로그인 사용자와 게시글 작성자가 동일한지 판별하기 위한 항목
-    //@Column(length = 50, nullable = false) //member (id와 일치)
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member writerId;
-    //private String writerId;
+    @Column(length = 50, nullable = false)
+    private String writerId;
 
 //    @Column(name = "view_count")
     @ColumnDefault("0")  // 기본값 설정, null일 때 에러걸려서 설정.

@@ -11,6 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @RestController
 @RequiredArgsConstructor
 @Log4j2
@@ -26,13 +29,6 @@ public class ApiAdminController {
                                        RedirectAttributes redirectAttributes) { //일회성 데이터 전달
         System.out.println("수정 요청 받음: " + memberDTO);
 
-        // 유효성 검사 오류 처리
-       /* if (bindingResult.hasErrors()) {
-            // 1회용 정보유지 : redirect방식으로 요청시 정보관리하는 객체
-            redirectAttributes.addFlashAttribute("errorMessage", "비밀번호를 입력해주세요.");
-            return ResponseEntity.ok("SU");
-        }*/
-
         //회원정보 수정
         memberService.modify(memberDTO);
         Member updatedMember = memberService.modify(memberDTO);
@@ -42,4 +38,16 @@ public class ApiAdminController {
 
         return ResponseEntity.ok("SU");
     }
+
+    //4. 회원정보 삭제
+    @DeleteMapping("/list/delete/{userId}")
+    public ResponseEntity<?> deleteMember(@PathVariable String userId) {
+        try {
+            memberService.remove(userId);  // userId를 기반으로 삭제 처리
+            return ResponseEntity.ok("회원이 성공적으로 삭제되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("회원 삭제를 실패하였습니다.");
+        }
+    }
 }
+

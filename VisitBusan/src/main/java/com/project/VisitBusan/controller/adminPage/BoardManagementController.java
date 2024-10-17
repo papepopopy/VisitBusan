@@ -3,13 +3,11 @@ package com.project.VisitBusan.controller.adminPage;
 
 import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Board;
-import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.service.BoardService;
 import com.project.VisitBusan.service.ProfileImageService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,7 +52,7 @@ public class BoardManagementController {
     @GetMapping("/read")
     public String read(Long id,
                        PageRequestDTO pageRequestDTO,
-                       Model model, Member member) {
+                       Model model) {
 
         log.info("==> id: "+id);
         log.info("==> pageRequestDTO: "+pageRequestDTO);
@@ -64,7 +62,7 @@ public class BoardManagementController {
         model.addAttribute("dto",boardDTO);
         log.info("==> after service boardDTO: "+boardDTO);
 
-        boardService.viewCount(boardDTO, member);
+        boardService.viewCount(boardDTO);
 
         /*
         반환값을 void로 할 경우
@@ -96,8 +94,7 @@ public class BoardManagementController {
     public String registerPost(@Valid BoardDTO boardDTO,  // @Valid 넘어온 데이터 BoardDTO의 에러 유무 체크
                                BindingResult bindingResult,  // 감지한 에러 데이터
                                PageRequestDTO pageRequestDTO,
-                               RedirectAttributes redirectAttributes,
-                               @AuthenticationPrincipal Member member) {
+                               RedirectAttributes redirectAttributes) {
 
         log.info("==> boardDTO: "+boardDTO);
 
@@ -117,7 +114,7 @@ public class BoardManagementController {
 
         log.info("==> "+boardDTO);
         // 게시글 등록 서비스 호출(DB에 저장)
-        Long id = boardService.register(boardDTO, member);
+        Long id = boardService.register(boardDTO);
 
         redirectAttributes.addFlashAttribute("id",id);
         redirectAttributes.addFlashAttribute("result", "created");

@@ -66,7 +66,6 @@ document.querySelector('.modBtn').addEventListener('click', function(e) {
     fetch('/admin/member/list/modify', {
         method: 'POST',
         headers: {
-            //'Content-Type': 'application/json',
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(memberData)
@@ -90,3 +89,29 @@ document.querySelector('.modBtn').addEventListener('click', function(e) {
     });
 });
 
+// 삭제
+document.querySelector('.secessionBtn').addEventListener('click', function(e) {
+    e.stopPropagation();
+    console.log("test 시작");
+
+    const userId = document.getElementById('inputUserId').value;
+    console.log("삭제 ID : ", userId);
+
+    // 서버에 POST 요청을 보냅니다.
+    fetch(`/admin/member/list/delete/${userId}`, {
+        method: 'DELETE',
+    })
+    .then(response => {
+        console.log("서버 응답 상태:", response.status);  // 상태 코드 출력
+
+        if (response.ok) {
+            window.location.href = "/admin/member/list"; // 응답 텍스트를 반환
+        } else {
+            throw new Error("서버 응답에 문제가 있습니다.");
+        }
+    })
+    .catch(error => {
+        console.log("5");
+        console.error("Error: ", error);
+    });
+});
