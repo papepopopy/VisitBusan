@@ -1,5 +1,3 @@
-console.log("스크립트 실행2! :b");
-
 /* 게시글 링크 동작 */
 const table = document.querySelector('.table');
 const rows = table.getElementsByTagName('tr');

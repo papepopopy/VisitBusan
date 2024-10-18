@@ -58,17 +58,17 @@ public class MemberManagementController {
     }
 
     // 회원 등록: GET, POST
-    @GetMapping(value = "/list/create")
+    @GetMapping(value = "/create")
     public String memberRegisterForm(Model model) {
 
         // 데이터가 없는 memberDTO생성 : form에 입력한 데이터와 1:1 맵핑
         model.addAttribute("memberDTO", new MemberDTO());
 
         // 포워딩: 뷰리졸브
-        return "adminPage/member/list";
+        return "adminPage/member/create";
     }
 
-    @PostMapping(value = "/list/create")
+    @PostMapping(value = "/create")
     public String memberRegister(@Valid @ModelAttribute MemberDTO memberDTO,
                                  Model model) {
 

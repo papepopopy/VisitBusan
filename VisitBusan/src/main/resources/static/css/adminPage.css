@@ -436,9 +436,9 @@ a {
     color: #aaa;
     line-height: 46px;
 }
-.memberjoin .step-content { display: none; }
+/*.memberjoin .step-content { display: none; }
 .memberjoin .step-content.active { display: block; }
-.memberjoin .join-box .col.active { font-weight: bold; }
+.memberjoin .join-box .col.active { font-weight: bold; }*/
 
 
 .h-100vh {height: 100vh;}
