@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -149,6 +150,7 @@ public class MemberServiceImpl implements MemberService {
         //회원정보만 삭제
         memberRepository.delete(member);
     }
+
 
     //전체 조회
     @Override

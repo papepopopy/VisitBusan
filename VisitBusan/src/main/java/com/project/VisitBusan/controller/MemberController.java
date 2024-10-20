@@ -1,10 +1,10 @@
 package com.project.VisitBusan.controller;
 
-import com.project.VisitBusan.dto.MemberDTO;
-import com.project.VisitBusan.dto.ProfileImageDTO;
+import com.project.VisitBusan.dto.*;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
+import com.project.VisitBusan.service.BoardService;
 import com.project.VisitBusan.service.MemberService;
 import com.project.VisitBusan.service.MemberServiceImpl;
 import com.project.VisitBusan.service.ProfileImageService;
@@ -35,6 +35,7 @@ public class MemberController {
     private final MemberServiceImpl memberServiceImpl;
     private final PasswordEncoder passwordEncoder;
     private final ProfileImageService profileImageService;
+    private final BoardService boardService;
 
     //----------------------- //
     // 회원가입
@@ -141,7 +142,8 @@ public class MemberController {
     /*2. 마이페이지 조회*/
     @PreAuthorize("isAuthenticated") //로그인 인증 완료
     @GetMapping(value = "/mypage")
-    public String memberMyPageForm(Model model) {
+    public String memberMyPageForm(Model model,
+                                   PageRequestDTO pageRequestDTO) {
         //로그인한 사용자 ID
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
 
@@ -152,11 +154,15 @@ public class MemberController {
         ProfileImageDTO profileImageDTO = new ProfileImageDTO();
         profileImageService.findImage(profileImageDTO, userId);
 
+        // 1-3. 게시글 댓글 개수 있는 List 조회
+        PageResponseDTO<BoardListAllDTO> responseDTO = boardService.listWithAll(pageRequestDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
         model.addAttribute("member", memberDTO);
         model.addAttribute("profileImage", profileImageDTO);
         model.addAttribute("fileName", profileImageDTO.getFileName());
         log.info("profileImageDTO ==> " + profileImageDTO);
-
+        log.info("게시판 : {}", responseDTO);
         return "members/myPage";
     }
 

@@ -17,6 +17,8 @@
                 <h5 class="pageTitle">회원 관리</h5>
             </div>
             <form>
+            <!--<form action="/board/userBoard/list" th:action="|@{/board/}${menu}/list|" method="get" role="search" class="search searchForm">
+                <input type="hidden" name="bCategory" th:value="${pageRequestDTO.getBCategory()}">-->
                 <div class="search-box">
                     <div class="input-group-prepend">
                         <select class="form-select" name="type">
@@ -80,28 +82,43 @@
                     <tr class="informationBtn" th:each="dto:${memberDTOList}" th:data-userId="@{|read/${dto.userId}|}">
                         <th scope="row" th:text="${dto.id}">num</th>
                         <!--<th th:text="${dto.id}" scope="row">num</th>-->
-                        <td th:text="${dto.role}">role</td>
+                        <!--<td th:text="${dto.roleSet}">role</td>-->
+                        <td th:text="${dto.formattedRoleSet}">role</td>
                         <td class="userId" th:text="${dto.userId}"></td>
                         <td th:text="${dto.name}"></td>
                         <td th:text="${dto.email}"></td>
                         <td th:text="${dto.address}"></td>
-                        <!--<td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>-->
-                        <td>date</td>
+                        <td th:text="${dto.formattedCreatedAt}"></td>
                     </tr>
                 </tbody>
             </table>
         </div>
 
-        <!--페이지 버튼-->
+        <!-- 페이지 버튼 -->
         <nav aria-label="Page navigation">
-            <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            <ul class="pagination my_pagination justify-content-center mt-4">
+
+                <!-- 불러올 이전 페이지가 있으면 활성화 -->
+                <li th:if="${responseDTO.prev}" class="page-item">
+                    <a class="page-link" href="#" th:data-num="${responseDTO.start-1}">Previous</a>
+                </li>
+
+                <!-- 해당 블럭의 시작 페이지 번호와 마지막 번호   시작번호 1 끝번호 10 -->
+                <!-- th:each="i : ${#numbers.sequence(${pageResponseDTO.start}, ${pageResponseDTO.end}, +1)}" 이렇게 하면 에러 ${}안에 ${}또 넣으면 안됨 -->
+                <th:block th:each="i : ${#numbers.sequence(responseDTO.start, responseDTO.end, +1)}">
+                    <li class="page-item"
+                        th:classappend="${responseDTO.page==i?'active':''}"> <!--  -->
+                        <a class="page-link" href="#" th:data-num="${i}">[[${i}]]</a>
+                    </li>
+                </th:block>
+
+                <!-- 불러올 다음 페이지가 있으면 활성화 -->
+                <li th:if="${responseDTO.next}" class="page-item">
+                    <a class="page-link" href="#" th:data-num="${responseDTO.end+1}">Next</a>
+                </li>
+
             </ul>
-        </nav>
+        </nav> <!-- end page -->
 
         <!--회원 수정 팝업-->
         <div class="modal fade informationModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -121,9 +138,6 @@
                         <!--주소-->
                         <label for="inputAddress" class="col-form-label">주소</label>
                         <input type="text" id="inputAddress" class="form-control" />
-                        <!--가입일(고정)-->
-                        <label for="inputDate" class="col-form-label">가입일</label>
-                        <input type="text" id="inputDate" class="form-control" />
 
                         <!-- 오류 메시지 표시 -->
                         <div id="modify-error"></div>
@@ -146,8 +160,7 @@
 
     <!-- 게시판 리스트 스크립트 연결 -->
     <script th:src="@{/js/memberList.js}" layout:fragment="basescript"></script>
-    <script layout:fragment="myscript" th:inline="javascript">
-        console.log("스크립트 실행! :b");
-    </script>
     <!--현재 페이지에서만 사용하는 script 정의-->
+    <script layout:fragment="myscript" th:inline="javascript">
+    </script>
 </html>

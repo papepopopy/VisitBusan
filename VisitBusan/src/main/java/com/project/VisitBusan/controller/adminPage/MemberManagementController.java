@@ -1,9 +1,12 @@
 package com.project.VisitBusan.controller.adminPage;
+import com.project.VisitBusan.dto.BoardListReplyCountDTO;
 import com.project.VisitBusan.dto.MemberDTO;
 import com.project.VisitBusan.dto.PageRequestDTO;
+import com.project.VisitBusan.dto.PageResponseDTO;
 import com.project.VisitBusan.entity.Member;
 import com.project.VisitBusan.exception.DuplicateEmailException;
 import com.project.VisitBusan.exception.DuplicateUserIdException;
+import com.project.VisitBusan.service.BoardService;
 import com.project.VisitBusan.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +31,7 @@ import java.util.Map;
 @Log4j2
 @RequestMapping("/admin/member")
 public class MemberManagementController {
-
+    private final BoardService boardService;
     private final MemberService memberService;
 
     //회원 정보 조회
@@ -39,6 +42,9 @@ public class MemberManagementController {
         List<MemberDTO> memberDTOList = memberService.findAll();
         log.info("=> memberDTOList: "+memberDTOList);
 
+        PageResponseDTO<BoardListReplyCountDTO> responseDTO = boardService.listWithReplyCount(pageRequestDTO);
+
+        model.addAttribute("responseDTO", responseDTO);
         model.addAttribute("memberDTOList", memberDTOList);
 
         return "adminPage/member/list";

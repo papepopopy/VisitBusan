@@ -113,3 +113,29 @@ document.querySelector('.secessionBtn').addEventListener('click', function(e) {
         console.error("Error: ", error);
     });
 });
+
+// 페이징 번호 클릭시 처리하는 함수
+document.querySelector('.my_pagination').addEventListener('click',function(e) {
+    e.preventDefault();  // 기본 이벤트 제거
+    e.stopPropagation();  // 버블링(현재 이벤트가 발생한 요소의 상위 요소들에 대해서 이벤트 감지되는 현상) 방지
+
+    console.log('e: ',e);
+
+    const target = e.target;
+    if (target.tagName != 'A') {
+        return;  // <a>태그가 아니면 종료
+    }
+
+    const num = target.getAttribute('data-num');  // 현재 클릭된 요소의 data-num을 읽어옴
+
+    // 검색 기능 폼(form)에서 전송
+
+    // document.querySelector('form');  // 폼이 하나면 이렇게 해도 상관없음 // 나중을 위해 비추(까먹고있다가 한참 찾야함)
+    const formObj = document.querySelector('.searchForm');
+
+    formObj.innerHTML += `<input type='hidden' name='page' value='${num}'>`
+    formObj.submit();  // 전송
+
+    // location.href="/board/list?page="+num  // 클릭한 페이지 번호
+
+}) /* end pagination listener */

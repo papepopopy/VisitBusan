@@ -19,11 +19,11 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th scope="col" width="10%">순번</th>
+                            <th scope="col" style="width='10%'">순번</th>
                             <th scope="col">권한</th>
                             <th scope="col">회원아이디</th>
                             <th scope="col">이름</th>
-                            <th scope="col" width="30%">이메일</th>
+                            <th scope="col" style="width='30%'">이메일</th>
                             <th scope="col">주소</th>
                             <th scope="col">가입일</th>
                             <!-- <th scope="col">비로그인 일수</th> -->
@@ -34,14 +34,14 @@
                     <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
                     <tr th:each="dto:${memberDTOList}">
                         <!--/*<th scope="row" th:text="${dto.id}"></th>*/-->
-                        <td>num</td>
-                        <td th:text="${dto.role}">role</td>
+                        <th scope="row" th:text="${dto.id}">num</th>
+                        <td th:text="${dto.formattedRoleSet}">role</td>
+                        <!--<td th:text="${dto.roleSet}">role</td>-->
                         <td th:text="${dto.userId}"></td>
                         <td th:text="${dto.name}"></td>
                         <td th:text="${dto.email}"></td>
                         <td th:text="${dto.address}"></td>
-                        <!--/*<td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>*/-->
-                        <td>date</td>
+                        <td th:text="${dto.formattedCreatedAt}"></td>
                     </tr>
                     </tbody>
                 </table>

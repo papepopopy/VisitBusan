@@ -21,12 +21,12 @@ USE visit_busan;
 -- 비밀번호 1234
 
 INSERT INTO member
-(address, email, NAME, PASSWORD, user_id)
+(address, email, NAME, PASSWORD, user_id, created_at)
 VALUES
-('root','root@test.com', 'root', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'root'),
-('admin','admin@test.com', 'admin', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'admin'),
-('user','user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user'),
-('test','test@test.com', 'test', '$2a$10$igbSPNnBeZCoUqdy6VV49.ey1oGjpFItEkg.jVByHzhEEYd22mhJm', 'test');
+('root', 'root@test.com', 'root', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'root', CURRENT_TIMESTAMP),
+('admin', 'admin@test.com', 'admin', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'admin', CURRENT_TIMESTAMP),
+('user', 'user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user', CURRENT_TIMESTAMP),
+('test', 'test@test.com', 'test', '$2a$10$igbSPNnBeZCoUqdy6VV49.ey1oGjpFItEkg.jVByHzhEEYd22mhJm', 'test', CURRENT_TIMESTAMP);
 SHOW COLUMNS FROM member;
 SELECT * FROM member;
 
@@ -67,7 +67,6 @@ SELECT * FROM member_role_set;
 INSERT INTO board
 (category,title,content,writer,writer_id,reg_date,mod_date)
 VALUES
-<<<<<<< HEAD
 ('festival, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
 ('festival, all1','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
 ('festival, all1','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
@@ -77,12 +76,6 @@ VALUES
 ('performance, all1','title4','content4','admin','admin',SYSDATE(),SYSDATE()),
 ('sports, all1','title21','content21','admin','admin',SYSDATE(),SYSDATE()),
 ('sports, all1','title22','content22','admin','admin',SYSDATE(),SYSDATE()),
-=======
-('festival','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
-('festival','title2','content2','admin','admin',SYSDATE(),SYSDATE()),
-('performance','title3','content3','admin','admin',SYSDATE(),SYSDATE()),
-('performance','title4','content4','admin','admin',SYSDATE(),SYSDATE()),
->>>>>>> d5f03d5b18d0c06472285f031a3b8496073ae6ec
 ('place','title5','content5','admin','admin',SYSDATE(),SYSDATE()),
 ('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
 ('place','title6','content6','admin','admin',SYSDATE(),SYSDATE()),
@@ -104,7 +97,6 @@ VALUES
 ('schedule','title17','content17','user','user',SYSDATE(),SYSDATE()),
 ('schedule','title18','content18','user','user',SYSDATE(),SYSDATE()),
 ('review','title19','content19','user','user',SYSDATE(),SYSDATE()),
-<<<<<<< HEAD
 ('review','title20','content20','user','user',SYSDATE(),SYSDATE()),
 ('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
 ('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
@@ -114,9 +106,6 @@ VALUES
 ('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
 ('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE()),
 ('themeTravel, all1','title1','content1','admin','admin',SYSDATE(),SYSDATE());
-=======
-('review','title20','content20','user','user',SYSDATE(),SYSDATE());
->>>>>>> d5f03d5b18d0c06472285f031a3b8496073ae6ec
 SHOW COLUMNS FROM board;
 SELECT * FROM board;
 

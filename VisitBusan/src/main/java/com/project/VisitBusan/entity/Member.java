@@ -4,8 +4,10 @@ import com.project.VisitBusan.constant.Role;
 import com.project.VisitBusan.dto.MemberDTO;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedDate;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -39,6 +41,11 @@ public class Member {
     @OneToOne(mappedBy = "member", fetch = FetchType.LAZY, orphanRemoval = true)
     @JoinColumn(name = "profile_image_id") //프로필 이미지 ID 연결
     private ProfileImage profileImage;
+    
+
+    @CreatedDate
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdAt; //가입날짜
 
     //------------------ 사용자 권한 ----------------------//
 
@@ -82,6 +89,7 @@ public class Member {
         member.setName(memberDTO.getName());
         member.setEmail(memberDTO.getEmail());
         member.setAddress(memberDTO.getAddress());
+        member.setCreatedAt(LocalDateTime.now());
 
         // 비밀번호 -> 암호화 작업
         String password = passwordEncoder.encode(memberDTO.getPassword());

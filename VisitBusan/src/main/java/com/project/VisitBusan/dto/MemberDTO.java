@@ -11,7 +11,11 @@ import org.hibernate.validator.constraints.Length;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Getter
 @Setter
@@ -21,7 +25,7 @@ import java.util.List;
 @Builder
 public class MemberDTO {
 
-    private String id;
+    private Long id;
 
     @NotBlank(message = "아이디 입력은 필수입니다.")
     private String userId;
@@ -39,9 +43,13 @@ public class MemberDTO {
     private String profileText;
     private ProfileImageDTO profileImage;
 
+    private LocalDateTime createdAt;
+
     // 사용자 정의 User 객체(AuthMemberDTO) 생성해서 사용
     // Role data 임시 저장 용
-    private Role role;
+    //private Role role;
+    //Role 변경
+    private Set<Role> roleSet;
 
     public static ModelMapper modelMapper = new ModelMapper();
 
@@ -52,11 +60,20 @@ public class MemberDTO {
                 .name(name)
                 .password(passwordEncoder.encode(password))
                 .address(address)
+                .roleSet(roleSet)
                 .build();
     }
 
     public static MemberDTO toMemberDTO(Member member) {
         MemberDTO memberDTO = modelMapper.map(member, MemberDTO.class);
+
+        memberDTO.setId(member.getId());
+        memberDTO.setUserId(member.getUserId());
+        memberDTO.setName(member.getName());
+        memberDTO.setEmail(member.getEmail());
+        memberDTO.setAddress(member.getAddress());
+        memberDTO.setProfileText(member.getProfileText());
+        memberDTO.setCreatedAt(member.getCreatedAt()); // createdAt 필드 설정
 
         if (member.getProfileImage() != null) {
             ProfileImageDTO profileImageDTO = ProfileImageDTO.toProfileImageDTO(member.getProfileImage());
@@ -74,4 +91,17 @@ public class MemberDTO {
         }
         return member;
     }
+
+    //날짜 포맷팅
+    public String getFormattedCreatedAt() {
+        return createdAt.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+    }
+
+    //권한명 포맷팅
+    public String getFormattedRoleSet() {
+        return roleSet.stream()
+                .map(role -> String.format("%s", role.name(), role.getRoleName()))
+                .collect(Collectors.joining(", ")); // 각 항목을 쉼표로 구분하여 문자열로 합칩니다.
+    }
+
 }
