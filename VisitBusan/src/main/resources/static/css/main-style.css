@@ -87,21 +87,11 @@ h4 {
     object-fit: cover; /* 이미지 비율을 유지하면서 부모 요소를 덮도록 설정 */
 }
 
-.t-item .image-container{
-    /* 원하는 가로 세로 비율 설정 (예: 16:9 비율) */
-    aspect-ratio: 16 / 9; 
-    /* aspect-ratio: 4 / 3; */
-}
 
-.g-imgBox .imgBox {
-    overflow: hidden;
-}
-.g-imgBox .imgBox img {width: 100%;background: #000;height: 100%;}
-/* 지금 부산에 가면 */
-
+/* 메인 */
 .slider-container {
-position: relative;
-overflow: hidden;
+    position: relative;
+    overflow: hidden;
 }
 
 .festivalList {
@@ -116,7 +106,7 @@ overflow: hidden;
 .main .mainSildeBox {
     display: flex;
     gap: 100px;
-    margin: 130px 0 100px;
+    margin: 160px 0 100px;
 }
 .main .mainSildeBox .carousel-title {
     margin: 175px 0 0 300px;

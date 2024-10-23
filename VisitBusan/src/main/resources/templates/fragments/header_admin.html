@@ -4,23 +4,45 @@
       layout:decorate="~{layouts/base}">
 <!-- header -->
 <div class="header-inner" th:fragment="header-inner">
-    <div class="header-box">
-        <div class="main_head d-flex">
-            <div class="list pt-3">
-                <a href="#" class="link-light">=</a>
+    <div class="header-wrap">
+        <div class="header-box">
+            <div class="logo-box">
+                <a href="/" class="logo">
+                    <img src="/images/mainpage/header_logo.png" alt="로고이미지">
+                </a>
             </div>
-            <a th:href="@{/admin}">
-                <div class=" text-white pt-4 ps-4">관리자 홈</div>
-            </a>
-            <a th:href="@{/}">
-                <div class=" text-white pt-4 ps-4">메인페이지</div>
-            </a>
-        </div><!-- end main_head -->
-
-        <!--<div class="main_body">
-            &lt;!&ndash; content &ndash;&gt;
-            <div layout:fragment="content"></div>
-        </div>-->
+        </div>
+        <ul class="menu">
+            <li>
+                <a href="#" th:href="@{/admin}">홈</a>
+            </li>
+            <li>
+                <a href="#" th:href="@{/admin/report/list}">신고 관리</a>
+                <ul class="sub-menu">
+                    <li><a href="#">신고된 회원</a></li>
+                    <li><a href="#">신고된 게시물</a></li>
+                    <li><a href="#">신고된 댓글</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#" th:href="@{/admin/board/list}">게시글 관리</a>
+            </li>
+            <li>
+                <a href="#" th:href="@{/admin/member/list}">회원 관리</a>
+                <ul class="sub-menu">
+                    <li><a href="#" th:href="@{/admin/member/list}">회원 목록</a></li>
+                    <li><a href="#">회원 등록</a></li>
+                </ul>
+            </li>
+            <!-- <li>
+                <a href="#">알림판</a>
+            </li> -->
+        </ul>
+    </div>
+    <div class="user-box">
+        <img th:src="@{/images/profileImage/flower1.jfif}" alt="로고이미지">
+        <p class="name">관리자</p>
     </div>
 </div>
+<!-- /header -->
 </html>

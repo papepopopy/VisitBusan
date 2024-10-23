@@ -59,8 +59,8 @@
                 <li>
                     <a th:href="@{/board/userBoard/list?bCategory=information}">여행공유</a>
                     <ul class="sub-menu01">
-                        <li><a th:href="@{/board/userBoard/list?bCategory=information}">여행정보</a></li>
-                        <li><a th:href="@{/board/userBoard/list?bCategory=schedule}">여행일정</a></li>
+                        <!--<li><a th:href="@{/board/userBoard/list?bCategory=information}">여행정보</a></li>-->
+                        <!--<li><a th:href="@{/board/userBoard/list?bCategory=schedule}">여행일정</a></li>-->
                         <li><a th:href="@{/board/userBoard/list?bCategory=review}">리뷰</a></li>
                     </ul>
                 </li>
@@ -83,7 +83,9 @@
                     <!--<a th:href="@{'/mypage/' + ${currentUser.username}}">마이페이지</a>-->
                     <a th:href="@{/mypage}">마이페이지</a>
                 </li>
-                <li><a th:href="@{/admin}">관리자</a></li>
+                <li sec:authorize="isAuthenticated()">
+                    <a th:href="@{/admin}">관리자</a>
+                </li>
                 <li sec:authorize="isAnonymous()">
                     <a th:href="@{/signup}">회원가입</a>
                 </li>

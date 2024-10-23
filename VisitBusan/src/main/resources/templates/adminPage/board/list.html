@@ -11,15 +11,13 @@
 
 
 <!-- 게시글 관리 페이지 -->
-<div class="cate cate_2 h-100vh" layout:fragment="content">
-
+<div class="contant-box" layout:fragment="content">
+    <h1 class="main-tit">게시판 관리</h1>
+    <div class="all search-info">전체 <span th:text="${responseDTO.total}">3,852</span>건</div>
     <!-- 페이지 이름 -->
-    <div class="topBox">
-
-        <form action="/admin/board" th:action="@{/admin/board/list}" method="get" role="search" class="search searchForm">
-            <!--/*            <div>[[${responseDTO}]]</div>*/-->
-            <div class="select-box">
-                <select class="categoryName" name="bCategory">
+    <form action="/admin/board" th:action="@{/admin/board/list}" method="get" role="search" class="search searchForm">
+            <!--/*<div>[[${responseDTO}]]</div>*/-->
+            <select class="form-select" name="bCategory">
                     <option value="">전체</option>
                     <option value="place" th:selected="${pageRequestDTO.bCategory=='place'}">명소</option>
                     <option value="food" th:selected="${pageRequestDTO.bCategory=='food'}">음식</option>
@@ -35,51 +33,40 @@
                     <option value="festival" th:selected="${pageRequestDTO.bCategory=='festival'}">축제·행사</option>
                     <option value="sportsGame" th:selected="${pageRequestDTO.bCategory=='sportsGame'}">스포츠 경기</option>
                 </select>
-            </div>
-            <ul class="controlBox">
+            <!--<ul class="controlBox">
                 <li class="aBtn">#전체</li>
                 <li class="Btn1">#맛집</li>
                 <li class="Btn2">#해수욕장</li>
                 <li class="Btn3">#축제</li>
                 <li class="Btn4">#마켓</li>
-            </ul>
-            <div class="search-box">
-                <div class="input-group-prepend">
-                    <select class="form-select" name="type">
-                        <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>
-                        <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">제목+내용+작성자</option>
-                        <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
-                        <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
-                        <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
-                    </select>
-                </div>
-                <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search"
-                       th:value="${pageRequestDTO.keyword}">
-                <button class="btn btn-light" type="submit">Search</button>
-                <a href="/board/userBoard/create" th:href="|@{/admin/board/create}?${pageRequestDTO.getLink()}|" class="ms-auto">
-                    <button type="button" class="btn createBtn">글쓰기</button>
-                </a>
-            </div>
+            </ul>-->
+            <select class="form-select" name="type">
+                <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">전체</option>
+                <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>
+                <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
+                <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
+                <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
+            </select>
+            <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search"
+                   th:value="${pageRequestDTO.keyword}">
+            <button class="btn submitBtn" type="submit">Search</button>
         </form>
-    </div>
-
-    <div class="search-box2">
+    <!--<div class="search-box">
         <div class="search_array">
             <div class="search-inner">
                 <div class="all">전체 <span th:text="${responseDTO.total}">3,852</span>건</div>
+                <a class="createBtn" href="/board/userBoard/create" th:href="|@{/admin/board/create}?${pageRequestDTO.getLink()}|">글쓰기</a>
             </div>
-            <div class="search-inner">
+            &lt;!&ndash;<div class="search-inner">
                 <div class="sort">
                     <a href="#">최신순</a>
                     <a href="#">조회순</a>
                     <a href="#">좋아요순</a>
                 </div>
-            </div>
+            </div>&ndash;&gt;
         </div>
-    </div>
-    <br>
-    <div class="tableBox postsBox">
-        <table class="table" th:with="link=${pageRequestDTO.getLink()}">
+    </div>-->
+    <table class="table table-responsive" th:with="link=${pageRequestDTO.getLink()}">
             <thead>
                 <tr class="text-center">
                     <th scope="col">글번호</th>
@@ -99,7 +86,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
 
     <!-- 페이지 버튼 -->
     <nav aria-label="Page navigation">
@@ -134,7 +120,6 @@
 
 <!--/* 현재 페이지에서만 사용하는 script 정의 */-->
 <script layout:fragment="myscript" th:inline="javascript">
-    console.log("스크립트 실행2 :b");
 </script>
 
 </html>

@@ -11,43 +11,33 @@
 
 
     <!--회원 관리 페이지-->
-    <div class="cate cate_1 h-100vh" layout:fragment="content">
-        <div class="topBox">
-            <div class="box_1">
-                <h5 class="pageTitle">회원 관리</h5>
-            </div>
-            <form>
-            <!--<form action="/board/userBoard/list" th:action="|@{/board/}${menu}/list|" method="get" role="search" class="search searchForm">
-                <input type="hidden" name="bCategory" th:value="${pageRequestDTO.getBCategory()}">-->
-                <div class="search-box">
-                    <div class="input-group-prepend">
-                        <select class="form-select" name="type">
-                            <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>
-                            <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">제목+내용+작성자</option>
-                            <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
-                            <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
-                            <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
-                        </select>
-                    </div>
-                    <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search"
-                           th:value="${pageRequestDTO.keyword}">
-                    <button class="btn btn-light" type="submit">Search</button>
-                    <!--/*
-                    <a href="/board/userBoard/create" th:href="|@{/admin/member/create}?${pageRequestDTO.getLink()}|" class="ms-auto">
-                        <button type="button" class="btn createBtn createBtn2">회원등록</button>
-                    </a>
-                    */-->
-                    <!--<a class="btn createBtn createBtn2 ms-auto" href="/board/userBoard/create" th:href="|@{/admin/member/create}?${pageRequestDTO.getLink()}|">회원등록</a>-->
-                    <a class="btn createBtn createBtn2 ms-auto" href="/board/userBoard/create" th:href="|@{/admin/member/create}|">회원등록</a>
-                </div>
-            </form>
-        </div>
-        <div class="search-box2">
-            <div class="search_array">
-                <div class="search-inner">
-                    <!--<div class="all">총 회원수 <span th:text="${responseDTO.total}">3,852</span>명 차단 n명 탈퇴 n명</div>-->
-                    <div class="all">총 회원 n명 차단 n명 탈퇴 n명</div>
-                </div>
+    <div class="contant-box" layout:fragment="content">
+        <h1 class="main-tit">회원 관리</h1>
+        <div class="all search-info">총 회원 <span>n</span>명 차단 <span>n</span>명 탈퇴 <span>n</span>명</div>
+        <!--<form>-->
+        <form action="/admin/member/list" method="get" role="search" class="search searchForm">
+            <select class="form-select" name="type">
+                <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>
+                <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">제목+내용+작성자</option>
+                <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
+                <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
+                <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
+            </select>
+            <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search"
+                   th:value="${pageRequestDTO.keyword}">
+            <button class="btn submitBtn" type="submit">Search</button>
+            <!--/*
+            <a href="/board/userBoard/create" th:href="|@{/admin/member/create}?${pageRequestDTO.getLink()}|" class="ms-auto">
+                <button type="button" class="btn createBtn createBtn2">회원등록</button>
+            </a>
+            */-->
+            <!--<a class="btn createBtn createBtn2 ms-auto" href="/board/userBoard/create" th:href="|@{/admin/member/create}?${pageRequestDTO.getLink()}|">회원등록</a>-->
+
+        </form>
+        <!--<div class="search-box">
+            <div class="search-inner">
+                &lt;!&ndash;<div class="all">총 회원수 <span th:text="${responseDTO.total}">3,852</span>명 차단 n명 탈퇴 n명</div>&ndash;&gt;
+                <div class="all">총 회원 n명 차단 n명 탈퇴 n명</div>
                 <div class="search-inner">
                     <div class="sort">
                         <a href="#">아이디순</a>
@@ -55,13 +45,12 @@
                         <a href="#">가입순</a>
                     </div>
                 </div>
+                <a class="btn createBtn" href="/board/userBoard/create" th:href="|@{/admin/member/create}|">회원등록</a>
             </div>
-        </div>
-        <br>
-        <div class="tableBox PostBox">
-            <!--/*<table class="table" th:with="link=${pageRequestDTO.getLink()}">*/-->
-            <table class="table">
-                <thead>
+        </div>-->
+        <!--/*<table class="table" th:with="link=${pageRequestDTO.getLink()}">*/-->
+        <table class="table table-responsive">
+            <thead>
                 <tr>
                     <th scope="col">회원번호</th>
                     <th scope="col">권한</th>
@@ -74,25 +63,24 @@
                     <!--<th scope="col">비로그인 일수</th>-->
                     <!--<th scope="col">차단</th>-->
                 </tr>
-                </thead>
-                <tbody>
-                <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
-                <!--/*<tr th:each="dto:${memberDTOList}">*/-->
-                <!--/*<tr th:each="dto:${memberDTOList}" th:data-userId="${dto.userId}">*/-->
-                    <tr class="informationBtn" th:each="dto:${memberDTOList}" th:data-userId="@{|read/${dto.userId}|}">
-                        <th scope="row" th:text="${dto.id}">num</th>
-                        <!--<th th:text="${dto.id}" scope="row">num</th>-->
-                        <!--<td th:text="${dto.roleSet}">role</td>-->
-                        <td th:text="${dto.formattedRoleSet}">role</td>
-                        <td class="userId" th:text="${dto.userId}"></td>
-                        <td th:text="${dto.name}"></td>
-                        <td th:text="${dto.email}"></td>
-                        <td th:text="${dto.address}"></td>
-                        <td th:text="${dto.formattedCreatedAt}"></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+            </thead>
+            <tbody>
+            <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
+            <!--/*<tr th:each="dto:${memberDTOList}">*/-->
+            <!--/*<tr th:each="dto:${memberDTOList}" th:data-userId="${dto.userId}">*/-->
+                <tr class="informationBtn" th:each="dto:${memberDTOList}" th:data-userId="@{|read/${dto.userId}|}">
+                    <th scope="row" th:text="${dto.id}">num</th>
+                    <!--<th th:text="${dto.id}" scope="row">num</th>-->
+                    <!--<td th:text="${dto.roleSet}">role</td>-->
+                    <td th:text="${dto.formattedRoleSet}">role</td>
+                    <td class="userId" th:text="${dto.userId}"></td>
+                    <td th:text="${dto.name}"></td>
+                    <td th:text="${dto.email}"></td>
+                    <td th:text="${dto.address}"></td>
+                    <td th:text="${dto.formattedCreatedAt}"></td>
+                </tr>
+            </tbody>
+        </table>
 
         <!-- 페이지 버튼 -->
         <nav aria-label="Page navigation">

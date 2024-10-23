@@ -1,27 +1,72 @@
 /* 아이콘 링크 */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 
+/* 기본설정 */
+@font-face {
+    font-family: 'NotoSansKR';
+    font-style: normal;
+    font-weight: 400;
+    src: url('/fonts/NotoSansKR-Regular.ttf') format('truetype');
+    letter-spacing: -0.003em;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    color: #333;
+    font-family: 'NotoSansKR', sans-serif;
+    letter-spacing: -0.5px;
+}
+ul, li {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+a {
+    color: #333;
+    text-decoration: none;
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 800;
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+h4 {
+    font-size: 14px;
+}
+
 a {
     text-decoration: none;
 }
+
 .myContainer {
     display: flex;
     height: 100vh;
 }
-.sideBar {
-    /* border: 1px solid red; */
-    background-color: #353535;
-    text-align: center;
-}
+
+.sideBar {background-color: #353535;text-align: center;padding: 0 20px;height: 100%;min-width: 300px;}
 
 .sb_1 {
-    margin-top: 100px;
+    padding: 80px 0;
 }
 
 .admin_img {
     width: 70px;
     height: 70px;
-    /* border: 1px solid green; */
     margin: auto;
     overflow: hidden;
 }
@@ -36,11 +81,11 @@ a {
 }
 
 .sb_3 {
-    padding-top: 50px;
+    /* padding-top: 50px; */
 }
 
 .sb_3 {
-    padding-top: 50px;
+    /* padding-top: 50px; */
 }
 
 .main {
@@ -50,8 +95,6 @@ a {
 }
 
 .main_head {
-    position: absolute;
-    z-index:99;
     width: 100%;
     height: 70px;
     background-color: #353535;
@@ -93,10 +136,10 @@ a {
 
     .box_1 {
         display: flex;
-        gap: 30px;
-        p {
-            width: 90%;
-        }
+        justify-content: space-between;
+    }
+    .box_1 p {
+    color: #888;
     }
 
     .topBox {
@@ -194,6 +237,7 @@ a {
 .cate {
     .tableBox {
         flex-grow: 1;
+        margin-bottom: 15px;
     }
     .table {
         table-layout: fixed;
@@ -207,15 +251,6 @@ a {
 }
 
 .cate_1 {
-    .table thead tr {
-        th:nth-child(1) { width: 100px; }
-        th:nth-child(2) { width: 100px; }
-        th:nth-child(3) { width: 150px; }
-        th:nth-child(4) { width: 150px; }
-        th:nth-child(5) { width: 250px; }
-        th:nth-child(6) { width: auto; }
-        th:nth-child(7) { width: 200px; }
-    }
     .table tbody tr {
         text-align: center;
         td:nth-child(6) {
@@ -227,43 +262,24 @@ a {
 }
 
 .cate_2 {
-    .table thead tr {
-        th:nth-child(1) { width: 100px; }
-        th:nth-child(2) { width: 200px; }
-        th:nth-child(3) { width: auto; }
-        th:nth-child(4) { width: 150px; }
-        th:nth-child(5) { width: 200px; }
-    }
     .table tbody tr {
-        th:nth-child(1) { text-align: center; }
-        td:nth-child(2) { padding-left: 40px; }
-        td:nth-child(3) {
-            padding-left: 20px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        td:nth-child(1) { text-align: center; }
+        td:nth-child(2) { text-align: center;  }
+        td:nth-child(3) {text-align: center; }
         td:nth-child(4) { text-align: center; }
         td:nth-child(5) { text-align: center; }
     }
 } /* end .cate_2 */
 
 .cate_3 {
-    .table thead tr {
-        th:nth-child(1) { width: 100px; }
-        th:nth-child(2) { width: 200px; }
-        th:nth-child(3) { width: auto; }
-        th:nth-child(4) { width: 300px; }
-        th:nth-child(5) { width: 150px; }
-        th:nth-child(6) { width: 200px; }
-    }
     .table tbody tr {
         text-align: center;
-        td:nth-child(2) { text-align: left; padding-left: 40px; }
+        td:nth-child(2) {text-align: center;}
         td:nth-child(3) {
-            text-align: left; padding-left: 20px;
             white-space: nowrap;
-            overflow: hidden;
             text-overflow: ellipsis;
         }
     }
@@ -273,7 +289,6 @@ a {
 .adminMain {
     display:flex;
     flex-direction: column;
-    gap: 50px;
 }
 
 /* board read */
@@ -283,7 +298,7 @@ a {
     width: 60px;
 }
 
-/* 이미지를 동그랗게 만듬 */
+/* 이미지 수정 */
 .userPost .imgdiv {
     overflow: hidden;
     position: relative;
@@ -415,15 +430,36 @@ a {
     border-radius: 50px;
     bottom: 40px;
     left: 40%;
-    background: #ffffff;
+    background: #fff;
     border: 1px solid #aaa;
     transition: all .3s ease;
     color: #aaa;
     line-height: 46px;
 }
-.memberjoin .step-content { display: none; }
+/*.memberjoin .step-content { display: none; }
 .memberjoin .step-content.active { display: block; }
-.memberjoin .join-box .col.active { font-weight: bold; }
+.memberjoin .join-box .col.active { font-weight: bold; }*/
 
 
 .h-100vh {height: 100vh;}
+
+/*hph 240923 스타일 추가*/
+.admin-page {
+    display: flex;
+}
+.admin-page .header-side-inner {
+    padding: 0;
+}
+.contant-box {
+    width: 100%;
+}
+
+/*버튼 스타일*/
+.blueBtn {
+    background-color: #1a73e8;
+    padding: 8px 16px;
+    font-size: 14px;
+    border-radius: 20px;
+    color: #fff;
+    display: inline-block;
+}

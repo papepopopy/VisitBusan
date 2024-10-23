@@ -12,13 +12,12 @@
 </head>
 
 <body>
-    <div class="admin-page">
+    <div class="body">
         <!--header-->
-        <th:block th:replace="~{fragments/header_side_admin :: header-side-inner}"></th:block>
-
+        <th:block th:replace="~{fragments/header_admin :: header-inner}"></th:block>
+        <!--<th:block th:replace="~{fragments/header_admin :: header-inner}"></th:block>-->
         <!--content-->
         <div class="contant-box">
-            <th:block th:replace="~{fragments/header_admin :: header-inner}"></th:block>
             <div layout:fragment="content"></div>
         </div>
     </div>
