@@ -134,8 +134,12 @@ footer .container {
     background-color: #292828;
     border-bottom: 1px solid #555;
 }
+.sub-menu>li:last-child a {
+    border-bottom: 0;
+}
 .sub-menu>li>a:hover {
     background: #222;
+    color: #fff;
 }
 
 /*로고*/

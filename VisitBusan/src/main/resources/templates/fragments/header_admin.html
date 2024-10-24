@@ -16,24 +16,33 @@
             <li>
                 <a href="#" th:href="@{/admin}">홈</a>
             </li>
-            <li>
+            <!--<li>
                 <a href="#" th:href="@{/admin/report/list}">신고 관리</a>
                 <ul class="sub-menu">
                     <li><a href="#">신고된 회원</a></li>
                     <li><a href="#">신고된 게시물</a></li>
                     <li><a href="#">신고된 댓글</a></li>
                 </ul>
-            </li>
+            </li>-->
             <li>
                 <a href="#" th:href="@{/admin/board/list}">게시글 관리</a>
             </li>
+            <!--<li class="dropdown">
+                <a class="dropdown-toggle" href="#" th:href="@{/admin/member/list}">회원 관리</a>
+                <ul class="sub-menu navbar-nav">
+                    <li class="dropdown-item"><a href="#" th:href="@{/admin/member/list}">회원 목록</a></li>
+                    <li class="dropdown-item"><a href="#" th:href="@{/admin/member/list}">회원 등록</a></li>
+                </ul>
+            </li>-->
+
             <li>
-                <a href="#" th:href="@{/admin/member/list}">회원 관리</a>
-                <ul class="sub-menu">
-                    <li><a href="#" th:href="@{/admin/member/list}">회원 목록</a></li>
-                    <li><a href="#">회원 등록</a></li>
+                <a data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo03" aria-controls="navbarTogglerDemo03" aria-expanded="true" aria-label="Toggle navigation" th:href="@{/admin/member/list}">회원 관리</a>
+                <ul class="sub-menu collapse" id="navbarTogglerDemo03">
+                    <li class="nav-item"><a class="nav-link active" href="#" th:href="@{/admin/member/list}">회원 목록</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#" th:href="@{/admin/member/list}">회원 등록</a></li>
                 </ul>
             </li>
+
             <!-- <li>
                 <a href="#">알림판</a>
             </li> -->

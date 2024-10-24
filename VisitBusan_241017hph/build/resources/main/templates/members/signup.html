@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/base}">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>main</title>
+</head>
+
+<body>
+<div class="container memberjoin" layout:fragment="content">
+    <div class="body">
+        <form action="/signup" method="post" class="login-box mt-4">
+            <h1 class="text-center">회원가입</h1>
+            <div class="row mb-5 join-box">
+                <div class="col text-center active" id="step1-tab">본인확인</div>
+                <div class="col text-center" id="step2-tab">정보입력</div>
+                <div class="col text-center" id="step3-tab">가입완료</div>
+            </div>
+            <div id="step1" class="step-content active">
+                <h2>본인인증</h2>
+                <hr>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" id="privacyCheck">
+                    <label class="form-check-label" for="privacyCheck">
+                        개인정보 수집 및 이용안내<span class="text-info">(필수)</span>
+                    </label>
+                </div>
+                <!--관리자 및 유저 권한 선택 후에 추가-->
+                <div class="form-text mb-4">
+                    입력하신 정보는 회원 유무 확인용으로 수집/이용되며, 가입 회원에 한해 입력하신 모든 정보가 저장되는데 동의합니다.
+                </div>
+                <button id="step1-btn" type="button" class="btn btn-primary w-100">다음 단계</button>
+            </div>
+            <div id="step2" class="step-content">
+                <h2>회원정보 입력</h2>
+                <hr>
+                    <div class="form-floating mb-2">
+                        <input name="userId" type="text" class="form-control" id="floatingId" placeholder="아이디">
+                        <label for="floatingId">아이디 필수</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
+                        <label for="floatingPassword">비밀번호 필수(대/소문자 구분)</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input name="name" type="text" class="form-control" id="floatingName" placeholder="이름">
+                        <label for="floatingName">이름 필수</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input name="email" type="email" class="form-control" id="floatingEmail" placeholder="이메일 주소" value="test@email.com">
+                        <label for="floatingEmail">이메일 주소(필수, 아이디 찾기에 사용됩니다.)</label>
+                    </div>
+                    <div class="form-floating mb-2">
+                        <input name="address" type="text" class="form-control" id="floatingAddress" placeholder="주소">
+                        <label for="floatingAddress">주소</label>
+                    </div>
+                    <button id="step2-btn" type="button" class="btn btn-primary w-100">다음 단계</button>
+            </div>
+            <div id="step3" class="step-content">
+                    <h3 class="mb-4 text-center">
+                        회원가입이 완료되었어요.
+                        <br>다양한 콘텐츠를 감상해보세요
+                    </h3>
+                    <button id="step3-btn" type="submit" class="btn btn-primary w-100">가입 완료</button>
+            </div>
+        </form>
+
+
+    </div>
+</div>
+<script layout:fragment="myscript" th:inline="javascript">
+    function showStep(step) {
+        // 단계 전환
+        document.querySelectorAll('.join-box > div').forEach((element, index) => {
+            element.classList.toggle('active', index + 1 === step);
+        });
+        document.querySelectorAll('.step-content').forEach((element, index) => {
+            element.classList.toggle('active', index + 1 === step);
+        });
+
+        /*
+            //URL 업데이트!(로그인페이지를 3단계로 나누기위해 추가함)
+            const url = new URL(window.location.href);
+            url.searchParams.set("step", step);
+            window.history.pushState({step:step}, `Step ${step}`, url);
+        */
+    }
+
+    // 유효성 검사 처리
+    function validateStep1() {
+        const privacyCheck = document.getElementById('privacyCheck');
+        if (!privacyCheck.checked) {
+            alert("개인정보 수집 및 이용안내에 동의해야 합니다.");
+            privacyCheck.focus();
+            return false;
+        }
+        return true;
+    }
+
+    async function validateStep2() {
+        console.log("validateStep2");
+
+        const userId = document.querySelector('#floatingId');
+        const password = document.querySelector('#floatingPassword');
+        const name = document.querySelector('#floatingName');
+        const email = document.querySelector('#floatingEmail');
+        const address = document.querySelector('#floatingAddress');
+
+        if (userId.value.trim() === "") {
+            alert("아이디 입력은 필수입니다.");
+            userId.focus();
+            return false;
+        }
+        if (password.value.trim() === "") {
+            alert("비밀번호 입력은 필수입니다.");
+            password.focus();
+            return false;
+        }
+        if (password.value.length < 4 || password.value.length > 16) {
+            alert("비밀번호는 4자 이상 16자 이내로 입력해주세요.");
+            password.focus();
+            return false;
+        }
+        if (name.value.trim() === "") {
+            alert("이름 입력은 필수입니다.");
+            name.focus();
+            return false;
+        }
+        const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; //이메일 주소 형식
+        if (email.value.trim() === "") {
+            alert("이메일 입력은 필수입니다.");
+            email.focus();
+            return false;
+        } else if (!emailPattern.test(email.value.trim())) {
+            alert("이메일 형식이 올바르지 않습니다.");
+            email.focus();
+            return false;
+        }
+        if (address.value.trim() === "") {
+            alert("주소 입력은 필수입니다.");
+            address.focus();
+            return false;
+        }
+        try {
+            // ID 또는 이메일이 이미 존재하는지 확인 API 호출
+            const response = await fetch("/check-existing", {
+                method : "POST", //데이터가 서버로 전송
+                headers : {"Content-Type":"application/json"}, //JSON 형식
+                body : JSON.stringify({userId: userId.value.trim(), email: email.value.trim()}) // db로 보내는 데이터 id, email
+            });
+            // 응답 상태 코드 확인
+            if (!response.ok) {
+                throw new Error(`서버 오류: ${response.statusText}`);
+            }
+
+            // 응답 결과 처리
+            const result = await response.json(); //await: 작업완료 후 response 실행
+            console.log("API 응답 결과:", result);
+
+            if (result.exists) { // 중복하는 userId, 이메일이 있을 때
+                if(result.type === "userId"){
+                    alert("이미 존재하는 아이디입니다.");
+                    userId.focus();
+                    return false;
+                } else if (result.type === "email") {
+                    alert("이미 존재하는 이메일입니다.");
+                    email.focus();
+                    return false;
+                }
+            }
+            console.log("validateStep2 완료");
+        } catch (e) {
+            console.error("API 호출 오류:", e);
+            alert("서버와의 통신 중 오류가 발생했습니다.");
+            return false;
+        }
+        // 모든 유효성 검사를 통과하면 단계 전환
+        return true;
+    }
+
+    // 기본 설정 1단계
+    document.addEventListener("DOMContentLoaded", function() {
+        showStep(1);
+    });
+
+    // 이벤트 리스너 등록
+    document.querySelector('#step1-btn').addEventListener('click', function(e) {
+        if (validateStep1()) {
+            console.log("1단계");
+            showStep(2); // 유효성 검사를 통과하면 2단계로 이동
+        }
+    });
+    document.querySelector('#step2-btn').addEventListener('click', async function(e) {
+        if (await validateStep2()) {
+            console.log("2단계");
+            showStep(3); // 유효성 검사를 통과하면 3단계로 이동
+        }
+    });
+    //3단계에서 form 제출
+    const formObj = document.querySelector('form')
+    document.querySelector('#step3-btn').addEventListener('click', function(e) {
+        formObj.submit();
+    });
+
+</script>
+</body>
+</html>

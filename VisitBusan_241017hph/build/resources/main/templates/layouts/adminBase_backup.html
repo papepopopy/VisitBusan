@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Visit Busan AdminPage</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+<!--/*    <link th:href="@{/css/adminPage.css}" rel="stylesheet">*/-->
+    <link th:href="@{/css/adminPage_backup.css}" rel="stylesheet">
+    <th:block layout:fragment="mystyle"></th:block>
+    <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
+</head>
+<body>
+<div class="myContainer">
+    <div class="sideBar col-2">
+        <div class="sb_1">
+            <div class="admin_img">
+                <img th:src="@{/images/profileImage/flower1.jfif}" class="w-100" alt="#">
+            </div>
+            <div class="admin_name text-white mt-3">name</div>
+        </div>
+        <!--/*
+        <div class="sb_2">
+            <div class="home_btn text-white">
+                <a href="#" class="link-light" th:href="@{/admin}">home</a>
+            </div>
+            <div class="back_btn text-white">
+                <a href="#" class="link-light">back</a>
+            </div>
+        </div>*/-->
+        <div class="sb_3">
+            <div>
+                <a href="#" class="menu1 d-flex justify-content-start mb-3 gap-2"
+                   th:href="@{/admin}">
+                    <div class="menu_logo ms-3 mb-3">🏠</div>
+                    <div class="text-white">홈</div>
+                </a>
+            </div>
+            <div>
+                <a href="#" class="menu2 d-flex justify-content-start mb-3 gap-2"
+                   th:href="@{/admin/report/list}">
+                    <div class="menu_logo ms-3 mb-3">🚨</div>
+                    <div class="text-white">신고 관리</div>
+                </a>
+            </div>
+            <div>
+                <a href="#" class="menu3 d-flex justify-content-start mb-3 gap-2"
+                   th:href="@{/admin/board/list}">
+                    <div class="menu_logo ms-3 mb-3">📋</div>
+                    <div class="text-white">게시글 관리</div>
+                </a>
+            </div>
+            <div>
+                <a href="#" class="menu4 d-flex justify-content-start mb-3 gap-2"
+                   th:href="@{/admin/member/list}">
+                    <div class="menu_logo ms-3">👬</div>
+                    <div class="text-white">회원 관리</div>
+                </a>
+            </div>
+            <!-- <div>
+                <a href="#" class="menu5 d-flex justify-content-start mb-3 gap-2">
+                    <div class="menu_logo ms-3">💡</div>
+                    <div class="text-white">알림판</div>
+                </a>
+            </div> -->
+        </div>
+    </div>
+    <div class="main col-10">
+        <div class="main_head d-flex">
+            <div class="list pt-3">
+                <a href="#" class="link-light">=</a>
+            </div>
+            <a th:href="@{/admin}">
+                <div class=" text-white pt-4 ps-4">관리자 홈</div>
+            </a>
+        </div><!-- end main_head -->
+
+        <div class="main_body">
+
+            <!-- content -->
+            <div layout:fragment="content"></div>
+
+        </div>
+
+    </div> <!-- end main -->
+
+</div> <!-- end mycontainer -->
+
+<script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+<th:block layout:fragment="myscript"></th:block>
+
+</body>
+</html>

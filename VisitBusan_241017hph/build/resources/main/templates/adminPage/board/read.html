@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminBase}">
+
+<!-- 현재 페이지에서만 사용하는 css 정의 -->
+<style layout:fragment="mystyle" th:inline="css">
+</style>
+
+<!-- main_body  -->
+<div class="userPost myBox" layout:fragment="content">
+
+    <div class="topBox">
+        <h1 class="categoryName" th:switch="${dto.category}">
+            <th:block th:case="'place'">명소</th:block>
+            <th:block th:case="'food'">음식</th:block>
+            <th:block th:case="'accommodation'">숙박</th:block>
+            <th:block th:case="'scheduledTravel'">일정여행</th:block>
+            <th:block th:case="'themeTravel'">테마여행</th:block>
+            <th:block th:case="'preparation'">여행준비정보</th:block>
+            <th:block th:case="'guide'">가이드북</th:block>
+            <th:block th:case="'information'">여행정보</th:block>
+            <th:block th:case="'schedule'">여행일정</th:block>
+            <th:block th:case="'review'">후기</th:block>
+            <th:block th:case="'performance, all1'">공연·전시</th:block>
+            <th:block th:case="'festival, all1'">축제·행사</th:block>
+            <th:block th:case="'sports, all1'">스포츠 경기</th:block>
+            <th:block th:case="*">전체</th:block>
+        </h1>
+    </div>
+
+    <div class="postBox border rounded-4 mt-4 mx-auto py-3 px-5">
+        <div class="topBox mt-4">
+
+            <!-- 카테고리 -->
+            <div class="category mt-3"></div>
+
+            <!-- 제목 -->
+            <div class="title mt-3">
+                <h2>[[${dto.title}]]</h2>
+            </div>
+
+            <div class="infobox d-flex gap-3 mt-3">
+                <!-- 작성자 정보 -->
+                <div class="d-flex gap-3">
+                    <div class="imgBox">
+                        <div class="imgdiv rounded-circle mx-auto">
+                            <!--기본 이미지-->
+                            <th:block th:if="${writerProfileImage.fileName == 'profile_img.jpg'}" >
+                                <img th:src="@{/images/profileImage/profile_img.jpg}">
+                            </th:block>
+                            <!--업로드 이미지-->
+                            <th:block th:if="${writerProfileImage.fileName != 'profile_img.jpg'}" >
+                                <img th:src="@{/profile/view/{fileName}(fileName=${writerProfileImage.fileName})}" />
+                            </th:block>
+                        </div>
+                    </div>
+                    <div class="info">
+                        <div>닉네임 [[${dto.writer}]]</div>
+                        <div>[[${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}]]/[[${dto.viewCount}]]</div>
+                    </div>
+                </div>
+
+                <div class="ms-auto">
+                    댓글수
+                </div>
+
+                <div>
+                    url복사...
+                </div>
+
+            </div>
+        </div>
+        <hr>
+        <div class="middleBox">
+            <!-- 내용 -->
+            <div class="content">[[${dto.content}]]</div>
+
+            <!-- 첨부파일 -->
+            <div class="mb-3 row">
+                <div class="col d-flex">
+                    <!-- 3. 게시글에 대한 이미지 첨부파일 -->
+                    <div class="py-2 thumbnail" id="thumbnailBox" th:if="${dto.fileNames != null && dto.fileNames.size() > 0 }">
+                        <!-- img-thumbnail 부트스트랩 -->
+                        <img style="" class="w-100"
+                             th:each="fileName: ${dto.fileNames}"
+                             th:src="|/view/${fileName}|"/>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 태그 -->
+            <div class="tagBox d-flex gap-2 mt-3">
+                태그:
+                <div class="tag">여행</div>
+                <div class="tag">시티버스투어</div>
+                <div class="tag">송도해수욕장</div>
+                <div class="tag">암남공원</div>
+            </div>
+
+            <!-- 좋아요, 댓글, 공유, 신고 -->
+            <div class="d-flex gap-3 mt-3">
+                <div class="">좋아요 7</div>
+                <div>댓글 12</div>
+                <div class="ms-auto">공유</div>
+                <div>신고</div>
+            </div>
+        </div>
+        <hr>
+
+        <!-- 댓글 창-->
+        <div class="replyBox">
+            <div class="d-flex mt-3 gap-3">
+                <div>등록순</div>
+                <div>최신순</div>
+            </div>
+
+            <!-- 댓글1 -->
+            <div class="reply d-flex mt-3 gap-3">
+                <div class="imgBox">
+                    <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli2.jpg|"></div>
+                </div>
+                <div>
+                    <div>작성자</div>
+                    <div>댓글 내용</div>
+                    <div class="d-flex gap-3">
+                        <div>작성날자/시간</div>
+                        <div>답글쓰기</div>
+                        <div>좋아요</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 댓글2 -->
+            <div class="reply d-flex mt-3 gap-3">
+                <div class="imgBox">
+                    <div class="imgdiv rounded-circle mx-auto"><img th:src="|@{/images/profileImage/}gwanganli3.jpg|"></div>
+                </div>
+                <div>
+                    <div>작성자</div>
+                    <div>댓글 내용</div>
+                    <div class="d-flex gap-3">
+                        <div>작성날자/시간</div>
+                        <div>답글쓰기</div>
+                        <div>좋아요</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 댓글 등록 -->
+            <div class="d-flex my-4">
+                <textarea class="form-control col me-3" name="" id="" placeholder="댓글 입력"></textarea>
+                <div class=""><button class="btn btn-outline-secondary w-100 h-100">등록</button></div>
+
+            </div>
+
+        </div> <!-- end 댓글창 -->
+
+        <!-- 하단 버튼 -->
+        <div class="buttonBox d-flex mt-3">
+            <div class="ms-auto">
+                <a href="/admin/board/list" th:href="|@{/admin/board/list}?${pageRequestDTO.getLink()}|" class="ms-auto">
+                    <button type="button" class="form-control border d-inline listBtn">리스트</button>
+                </a>
+            </div>
+            <div class="ms-2">
+                <form class="removeForm">
+                    <button type="button" class="form-control border d-inline removeBtn">삭제</button>
+                </form>
+            </div>
+            <div class="ms-2">
+                <a href="/board/userBoard/modify" th:href="|@{/admin/board/modify(id=${dto.id})}&${pageRequestDTO.getLink()}|" class="ms-auto">
+                    <button type="button" class="form-control border d-inline modifyBtn">수정</button>
+                </a>
+            </div>
+        </div>
+
+    </div> <!-- end postBox -->
+
+    <div class="dataCon" hidden th:data-errors="${errors}" th:data-menu="${menu}" th:data-link="${pageRequestDTO.getLink()}"
+         th:data-id="${dto.id}" th:data-link-remove="|/admin/board/remove?id=${dto.id}&${pageRequestDTO.getLink()}|">
+        <th:block th:each="fileName:${dto.fileNames}">
+            <div class="fileName" th:text="${fileName}"></div>
+        </th:block>
+    </div>
+
+    <!-- Axios 라이브러리 연결 -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!-- file upload 처리하는 javascript 연결 -->
+    <script src="/js/upload.js"></script>
+
+</div> <!-- end fragment="content" -->
+
+<!-- 게시판 읽기 스크립트 연결 -->
+<script th:src="@{/js/boardRead.js}" layout:fragment="basescript"></script>
+
+<!--/* 현재 페이지에서만 사용하는 script 정의 */-->
+<script layout:fragment="myscript" th:inline="javascript">
+    console.log("스크립트 실행2 :b");
+</script>
+
+</html>

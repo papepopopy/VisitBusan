@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminBase}">
+
+
+<!-- 현재 페이지에서만 사용하는 css 정의 -->
+<style layout:fragment="mystyle" th:inline="css">
+</style>
+
+
+<!-- 회원 관리 페이지 -->
+<div class="cate cate_3 h-100vh" layout:fragment="content">
+    <div class="topBox">
+        <div class="box_1">
+            <h5 class="pageTitle">신고 관리</h5>
+        </div>
+        <form>
+            <div class="search-box">
+                <div class="input-group-prepend">
+                    <select class="form-select" name="type">
+                        <option value="tc" th:selected="${pageRequestDTO.type=='tc'}">제목+내용</option>
+                        <option value="tcw" th:selected="${pageRequestDTO.type=='tcw'}">제목+내용+작성자</option>
+                        <option value="t" th:selected="${pageRequestDTO.type=='t'}">제목</option>
+                        <option value="c" th:selected="${pageRequestDTO.type=='c'}">내용</option>
+                        <option value="w" th:selected="${pageRequestDTO.type=='w'}">작성자</option>
+                    </select>
+                </div>
+                <input class="form-control" type="search" name="keyword" placeholder="Search" aria-label="Search"
+                       th:value="${pageRequestDTO.keyword}">
+                <button class="btn btn-light" type="submit">Search</button>
+                <a href="/board/userBoard/create" th:href="|@{/admin/report/create}?${pageRequestDTO.getLink()}|" class="ms-auto">
+                    <button type="button" class="btn createBtn createBtn2">경고주기</button>
+                </a>
+            </div>
+        </form>
+    </div>
+    <div class="search-box2">
+        <div class="search_array">
+            <div class="search-inner">
+                <!--/*<div class="all">총 회원수 <span th:text="${responseDTO.total}">3,852</span>명 차단 n명 탈퇴 n명</div>*/-->
+                <div class="all">신고 건수 n건</div>
+            </div>
+            <div class="search-inner">
+                <div class="sort">
+                    <a href="#">신고분류</a>
+                    <a href="#">신고자</a>
+                    <a href="#">신고일</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="tableBox">
+        <!--/*<table class="table" th:with="link=${pageRequestDTO.getLink()}">*/-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">번호</th>
+                    <th scope="col">게시판</th>
+                    <th scope="col">제목</th>
+                    <th scope="col">사유선택</th>
+                    <th scope="col">신고자</th>
+                    <th scope="col">신고일</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th scope="row">1</th>
+                    <td>여행일정</td>
+                    <td>게시글 제목</td>
+                    <td>청소년에게 유해한 내용</td>
+                    <td>유저1</td>
+                    <td>2018-11-27</td>
+                </tr>
+                <tr>
+                    <th scope="row">2</th>
+                    <td>여행정보</td>
+                    <td>게시글 제목</td>
+                    <td>청소년에게 유해한 내용</td>
+                    <td>유저2</td>
+                    <td>2018-11-27</td>
+                </tr>
+                <tr>
+                    <th scope="row">3</th>
+                    <td>여행리뷰</td>
+                    <td>게시글 제목</td>
+                    <td>청소년에게 유해한 내용</td>
+                    <td>유저3</td>
+                    <td>2018-11-27</td>
+                </tr>
+                <tr>
+                    <th scope="row">4</th>
+                    <td>여행리뷰</td>
+                    <td>게시글 제목</td>
+                    <td>청소년에게 유해한 내용</td>
+                    <td>유저4</td>
+                    <td>2018-11-27</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 페이지 버튼 -->
+    <nav aria-label="Page navigation">
+        <ul class="pagination justify-content-center">
+            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+        </ul>
+    </nav>
+
+</div> <!-- end fragment="content" -->
+
+
+<!--/* 현재 페이지에서만 사용하는 script 정의 */-->
+<script layout:fragment="myscript" th:inline="javascript">
+
+    console.log("스크립트 실행! :b");
+
+    /* 게시글 링크 동작 */
+
+    const table = document.querySelector('.table');
+    const rows = table.getElementsByTagName('tr');
+
+    // 각 행에 클릭 이벤트 리스너 추가
+    for (let i = 1; i < rows.length; i++) { // 헤더를 제외하기 위해 i를 1로 시작
+      rows[i].addEventListener('click', function(e) {
+        console.log(e.target);
+        console.log(this.getAttribute('data-link'));
+        const link = this.getAttribute('data-link');
+        location.href= link;
+      });
+    } /* end table listener */
+
+</script>
+
+
+</html>
