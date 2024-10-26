@@ -83,7 +83,6 @@ h4 {
 }
 .image-container .img-tag {
     min-width: 100%;
-    min-height: 100%;
     object-fit: cover; /* 이미지 비율을 유지하면서 부모 요소를 덮도록 설정 */
 }
 
@@ -368,13 +367,14 @@ h4 {
 .travelPictures .t-imgBox {
     display: flex;
     gap: 40px;
-    /* flex-wrap: wrap; */
+    flex-wrap: wrap;
 }
-.travelPictures .t-item {
-    width:100%;
-    img {
-        width:100%;
-    }
+.travelPictures .t-imgBox .t-item {
+    padding: 0;
+    width: 100%;
+}
+.travelPictures .t-imgBox .t-item .image-container img {
+    height: 350px;
 }
 
 /* 색다른 테마여행 */
@@ -395,9 +395,9 @@ h4 {
     scroll-snap-type: x mandatory;
     /* 스크롤바 없애기 */
     /* 인터넷 익스플로러 */
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
     /* 파이어폭스 */
-    scrollbar-width: none; 
+    scrollbar-width: none;
     overflow: scroll;
 }
 /* 스크롤바 없애기 */
@@ -512,6 +512,13 @@ h4 {
 }
 
 @media (min-width: 992px) {
+    .travelPictures .t-imgBox .t-item {
+        width: 47.4%;
+    }
+    .travelPictures .t-imgBox .t-item .image-container img {
+        height: 300px;
+    }
+
     .innerbox {
         width: 90%;
         padding: 0;

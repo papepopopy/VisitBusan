@@ -1,9 +1,8 @@
-console.log("123123123123123")
+
 let currentIndex = 0;
 let slides = document.querySelectorAll('.slider .f-sliderBox');
 let totalSlides = slides.length;
 // const totalSlides = 2;
-console.log("789789789798")
 
 function showSlide(index) {
     const slider = document.querySelector('.slider');
@@ -144,14 +143,14 @@ pageRequests.forEach(request => {
                 let htmlTag = '';
                 if (data[i].boardFiles.length == 0 ) {
                     htmlTag +=
-                    `<div class="t-item">
+                    `<div class="t-item col-md-6">
                         <div class="image-container">
                             <img class="img-tag" src="../images/samples/busan1.jpg">
                         </div>`
                 }
                 if (data[i].boardFiles.length > 0 ) {
                     htmlTag +=
-                    `<div class="t-item">
+                    `<div class="t-item col-md-6">
                         <div class="image-container">
                             <img class="img-tag" src="/view/${data[i].boardFiles[0].uuid}==vb==${data[i].boardFiles[0].fileName}">
                         </div>`
