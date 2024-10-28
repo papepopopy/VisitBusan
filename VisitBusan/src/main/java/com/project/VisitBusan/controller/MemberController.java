@@ -163,6 +163,7 @@ public class MemberController {
         model.addAttribute("fileName", profileImageDTO.getFileName());
         log.info("profileImageDTO ==> " + profileImageDTO);
         log.info("게시판 : {}", responseDTO);
+
         return "members/myPage";
     }
 

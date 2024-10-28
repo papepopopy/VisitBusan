@@ -21,12 +21,12 @@ USE visit_busan;
 -- 비밀번호 1234
 
 INSERT INTO member
-(address, email, NAME, PASSWORD, user_id, created_at)
+(address, email, NAME, PASSWORD, user_id, created_at, profileImage)
 VALUES
-('root', 'root@test.com', 'root', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'root', CURRENT_TIMESTAMP),
-('admin', 'admin@test.com', 'admin', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'admin', CURRENT_TIMESTAMP),
-('user', 'user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user', CURRENT_TIMESTAMP),
-('test', 'test@test.com', 'test', '$2a$10$igbSPNnBeZCoUqdy6VV49.ey1oGjpFItEkg.jVByHzhEEYd22mhJm', 'test', CURRENT_TIMESTAMP);
+('root', 'root@test.com', 'root', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'root', CURRENT_TIMESTAMP, 'profile_img'),
+('admin', 'admin@test.com', 'admin', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'admin', CURRENT_TIMESTAMP, 'profile_img'),
+('user', 'user@test.com', 'user', '$2a$10$WnW8tFgaxGe.CHuv2UjrG.1HmWPkayetVCKkXLVRkplvWjr7T7R4O', 'user', CURRENT_TIMESTAMP, 'profile_img'),
+('test', 'test@test.com', 'test', '$2a$10$igbSPNnBeZCoUqdy6VV49.ey1omemberGjpFItEkg.jVByHzhEEYd22mhJm', 'test', CURRENT_TIMESTAMP, 'profile_img');
 SHOW COLUMNS FROM member;
 SELECT * FROM member;
 

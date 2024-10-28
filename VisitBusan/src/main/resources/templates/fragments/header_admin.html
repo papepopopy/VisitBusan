@@ -49,9 +49,16 @@
             </li> -->
         </ul>
     </div>
-    <div class="user-box">
-        <img th:src="@{/images/profileImage/flower1.jfif}" alt="로고이미지">
-        <p class="name">관리자</p>
+
+    <!--기본 이미지-->
+    <div class="user-box" th:if="${profileImage.fileName == 'profile_img.jpg'}">
+        <img th:src="@{/images/profileImage/profile_img.jpg}" alt="로고이미지">
+        <p class="name" th:text="${member.name}">관리자</p>
+    </div>
+    <!--업로드 이미지-->
+    <div class="user-box" th:if="${profileImage.fileName != 'profile_img.jpg'}" >
+        <img th:src="@{/profile/view/{fileName}(fileName=${profileImage.fileName})}" />
+        <p class="name" th:text="${member.name}">관리자</p>
     </div>
 </div>
 <!-- /header -->

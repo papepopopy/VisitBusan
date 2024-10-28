@@ -67,25 +67,25 @@
         </div>
     </div>-->
     <table class="table table-responsive" th:with="link=${pageRequestDTO.getLink()}">
-            <thead>
-                <tr class="text-center">
-                    <th scope="col">글번호</th>
-                    <th scope="col">게시판</th>
-                    <th scope="col">제목</th>
-                    <th scope="col">이름</th>
-                    <th scope="col">일시</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="post" th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
-                    <th scope="row" th:text="${dto.id}"></th>
-                    <td th:text="${dto.category}"></td>
-                    <td th:text="${dto.title}"></td>
-                    <td th:text="${dto.writer}"></td>
-                    <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>
-                </tr>
-            </tbody>
-        </table>
+        <thead>
+            <tr class="text-center">
+                <th scope="col">글번호</th>
+                <th scope="col">게시판</th>
+                <th scope="col">제목</th>
+                <th scope="col">이름</th>
+                <th scope="col">일시</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="post" th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
+                <th scope="row" th:text="${dto.id}"></th>
+                <td th:text="${dto.category}"></td>
+                <td th:text="${dto.title}"></td>
+                <td th:text="${dto.writer}"></td>
+                <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>
+            </tr>
+        </tbody>
+    </table>
 
     <!-- 페이지 버튼 -->
     <nav aria-label="Page navigation">
