@@ -9,76 +9,75 @@
     </style>
 
     <body>
-        <div class="contant-box container admin" layout:fragment="content">
+        <div class="contant-box admin" layout:fragment="content">
             <h1 class="main-tit">관리자 모드</h1>
-            <div class="content-box">
-                <div class="content-sub-box">
-                    <div class="sub-tab">
-                        <h2 class="sub-tit">회원 N건</h2>
-                        <a th:href="@{/admin/member/list}">
-                            더보기
-                        </a>
-                    </div>
-                    <table class="table table-responsive">
-                            <thead>
-                                <tr>
-                                    <th scope="col" style="width='10%'">순번</th>
-                                    <th scope="col">권한</th>
-                                    <th scope="col">회원아이디</th>
-                                    <th scope="col">이름</th>
-                                    <th scope="col" style="width='30%'">이메일</th>
-                                    <!--<th scope="col">주소</th>-->
-                                    <th scope="col">가입일</th>
-                                    <!-- <th scope="col">비로그인 일수</th> -->
-                                    <!-- <th scope="col">차단</th> -->
-                                </tr>
-                            </thead>
-                            <tbody>
-                            <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
-                            <tr th:each="dto:${memberDTOList}">
-                                <!--/*<th scope="row" th:text="${dto.id}"></th>*/-->
-                                <th style="width='10%'" scope="row" th:text="${dto.id}">num</th>
-                                <td th:text="${dto.formattedRoleSet}">role</td>
-                                <!--<td th:text="${dto.roleSet}">role</td>-->
-                                <td th:text="${dto.userId}"></td>
-                                <td th:text="${dto.name}"></td>
-                                <td th:text="${dto.email}"></td>
-                                <!--<td th:text="${dto.address}"></td>-->
-                                <td th:text="${dto.formattedCreatedAt}"></td>
-                            </tr>
-                            </tbody>
-                        </table>
+            <div class="content-sub-box">
+                <div class="sub-tab">
+                    <h2 class="sub-tit">회원 N건</h2>
+                    <a th:href="@{/admin/member/list}">
+                        더보기
+                    </a>
                 </div>
-                <div class="content-sub-box">
-                    <div class="sub-tab">
-                        <h2 class="sub-tit">게시글 N건</h2>
-                        <a th:href="@{/admin/board/list}">
-                            더보기
-                        </a>
-                    </div>
-                    <table class="table table-responsive" th:with="link=${pageRequestDTO.getLink()}">
+                <table class="table table-responsive">
                         <thead>
                             <tr>
                                 <th scope="col" style="width='10%'">순번</th>
-                                <th scope="col">게시판</th>
-                                <th scope="col" style="width='10%'">제목</th>
+                                <th scope="col">권한</th>
+                                <th scope="col">회원아이디</th>
                                 <th scope="col">이름</th>
-                                <th scope="col">등록일</th>
+                                <th scope="col" style="width='30%'">이메일</th>
+                                <!--<th scope="col">주소</th>-->
+                                <th scope="col">가입일</th>
+                                <!-- <th scope="col">비로그인 일수</th> -->
+                                <!-- <th scope="col">차단</th> -->
                             </tr>
                         </thead>
                         <tbody>
-                            <tr th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
-                                <!--/*<tr th:each="i : ${#numbers.sequence(0, 4, +1)}" th:with="dto=${responseDTO.dtoList[i]}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">*/-->
-                                <td th:text="${dto.id}"></td>
-                                <td th:text="${dto.category}"></td>
-                                <td th:text="${dto.title}"></td>
-                                <td th:text="${dto.writer}"></td>
-                                <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>
-                            </tr>
+                        <!--/*<tr th:each="dto:${memberDTOList}" th:data-link="|@{/admin/member/read}?id=${dto.id}&${link}|">*/-->
+                        <tr th:each="dto:${memberDTOList}">
+                            <!--/*<th scope="row" th:text="${dto.id}"></th>*/-->
+                            <th style="width='10%'" scope="row" th:text="${dto.id}">num</th>
+                            <td th:text="${dto.formattedRoleSet}">role</td>
+                            <!--<td th:text="${dto.roleSet}">role</td>-->
+                            <td th:text="${dto.userId}"></td>
+                            <td th:text="${dto.name}"></td>
+                            <td th:text="${dto.email}"></td>
+                            <!--<td th:text="${dto.address}"></td>-->
+                            <td th:text="${dto.formattedCreatedAt}"></td>
+                        </tr>
                         </tbody>
                     </table>
+            </div>
+            <div class="content-sub-box">
+                <div class="sub-tab">
+                    <h2 class="sub-tit">게시글 N건</h2>
+                    <a th:href="@{/admin/board/list}">
+                        더보기
+                    </a>
                 </div>
-                <div class="content-sub-box">
+                <table class="table table-responsive" th:with="link=${pageRequestDTO.getLink()}">
+                    <thead>
+                        <tr>
+                            <th scope="col" style="width='10%'">순번</th>
+                            <th scope="col">게시판</th>
+                            <th scope="col" style="width='10%'">제목</th>
+                            <th scope="col">이름</th>
+                            <th scope="col">등록일</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="dto:${responseDTO.dtoList}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">
+                            <!--/*<tr th:each="i : ${#numbers.sequence(0, 4, +1)}" th:with="dto=${responseDTO.dtoList[i]}" th:data-link="|@{/admin/board/read}?id=${dto.id}&${link}|">*/-->
+                            <td th:text="${dto.id}"></td>
+                            <td th:text="${dto.category}"></td>
+                            <td th:text="${dto.title}"></td>
+                            <td th:text="${dto.writer}"></td>
+                            <td th:text="${#temporals.format(dto.regDate, 'yyyy-MM-dd hh:mm')}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="content-sub-box">
                     <div class="sub-tab">
                         <h2 class="sub-tit">신고 N건</h2>
                         <!--<a th:href="@{/admin/report/list}">-->
@@ -133,9 +132,9 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
         </div> <!-- end fragment="content" -->
     </body>
+
     <!--회원 수정 팝업-->
     <div class="uploadModal modal">
     <div class="modal-dialog">
