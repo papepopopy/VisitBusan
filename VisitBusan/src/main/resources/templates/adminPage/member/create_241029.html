@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/adminBase}">
+
+    <!--현재 페이지에서만 사용하는 css 정의-->
+    <style layout:fragment="mystyle" th:inline="css">
+    </style>
+
+    <!--회원 추가 페이지-->
+    <div class="memberjoin contant-box" layout:fragment="content">
+        <h1 class="main-tit">신규 추가</h1>
+        <form action="/admin/member/create" method="post">
+            <div id="step2" class="step-content">
+                <div class="form-floating mb-2">
+                    <input name="userId" type="text" class="form-control" id="floatingId" placeholder="아이디">
+                    <label for="floatingId">아이디 필수</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="비밀번호">
+                    <label for="floatingPassword">비밀번호 필수(대/소문자 구분)</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input name="name" type="text" class="form-control" id="floatingName" placeholder="이름">
+                    <label for="floatingName">이름 필수</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input name="email" type="email" class="form-control" id="floatingEmail" placeholder="이메일 주소" value="test@email.com">
+                    <label for="floatingEmail">이메일 주소(필수, 아이디 찾기에 사용됩니다.)</label>
+                </div>
+                <div class="form-floating mb-2">
+                    <input name="address" type="text" class="form-control" id="floatingAddress" placeholder="주소">
+                    <label for="floatingAddress">주소</label>
+                </div>
+                <button id="step2-btn" type="button" class="btn btn-primary w-100">회원 추가</button>
+            </div>
+        </form>
+    </div>
+    <!-- end fragment="content" -->
+
+    <script th:src="@{/js/memberCreate.js}" layout:fragment="basescript"></script>
+    <script layout:fragment="myscript" th:inline="javascript">
+    </script>
+</html>

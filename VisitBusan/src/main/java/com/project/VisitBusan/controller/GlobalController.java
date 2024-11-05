@@ -24,6 +24,15 @@ public class GlobalController {
 
     @ModelAttribute
     public void addUserData(Model model, @AuthenticationPrincipal UserDetails userDetails) {
+
+        // 로그인하지 않은 경우
+        if (userDetails == null) {
+            log.info("사용자가 로그인하지 않았습니다.");
+            model.addAttribute("member", null);
+            model.addAttribute("profileImage", null);
+            return;
+        }
+
         //로그인한 사용자 ID
         String userId = SecurityContextHolder.getContext().getAuthentication().getName();
         log.info("=> userId: "+userId);

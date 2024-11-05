@@ -249,3 +249,24 @@ footer .container {
     width: auto;
     background: #333;
 }
+
+/*회원관리 페이지*/
+.form-create {
+    gap: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.form-create span {
+    display: flex;
+    gap: 6px;
+}
+.form-create .form-btn {
+    cursor: pointer;
+    background: #696969;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    border-radius: 5px;
+}

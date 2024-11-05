@@ -1,7 +1,7 @@
 -- Visit Busan
 
 -- 데이터베이스 생성
-CREATE DATABASE visit_busan;
+visit_busanCREATE DATABASE visit_busan;
 -- 데이터베이스 삭제
 DROP DATABASE visit_busan;
 -- 데이터베이스 선택

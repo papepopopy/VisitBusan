@@ -78,8 +78,6 @@ public class MemberManagementController {
     public String memberRegister(@Valid @ModelAttribute MemberDTO memberDTO,
                                  Model model) {
 
-        log.info("=> memberDTO: " + memberDTO);
-
         try {
             // dto -> entity -> email중복 체크 ->  save
             memberService.saveMember(memberDTO);

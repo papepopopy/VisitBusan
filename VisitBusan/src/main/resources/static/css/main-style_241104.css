@@ -1,7 +1,7 @@
-/* ì•„ì´ì½˜ ë§í¬ */
+/* 아이콘 링크 */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 
-/* ê¸°ë³¸ì„¤ì • */
+/* 기본설정 */
 @font-face {
     font-family: 'NotoSansKR';
     font-style: normal;
@@ -60,110 +60,37 @@ h4 {
 
 .arrow-btn {
     display: flex;
-    margin-top: 30px;
+    margin-top: 60px;
 }
-
-/*241104 ë°˜ì‘í˜• ìˆ˜ì •*/
 .l-btn {
     background-image: url('../images/mainpage/visual-arrow-left.svg');
-    width: 40px;
-    height: 40px;
-    background-size: cover;
+    width: 60px;
+    height: 60px;
 }
 .r-btn {
     background-image: url('../images/mainpage/visual-arrow-right.svg');
-    width: 40px;
-    height: 40px;
-    background-size: cover;
+    width: 60px;
+    height: 60px;
 }
 
-.main .mainSildeBox {
-    display: block;
-    position: relative;
-    margin-top: 90px;
-}
-.main .mainSildeBox .carousel-title {
-    margin: 0;
-    position: absolute;
-    z-index: 99;
-    top: 160px;
-    left: 40px;
-}
-.main .mainSildeBox .carousel-title h1 {
-    font-size: 38px;
-    letter-spacing: -2px;
-    color: #fff;
-    text-shadow: 2px 2px #00000029;
-    font-weight: 900;
-}
-.main .mainSildeBox .carousel-title h1 b {
-    color: #fff;
-}
-.main .mainSildeBox .carousel-title h1 span {
-    font-weight: 900;
-    color: #3eceff;
-    margin-left: 10px;
-}
-
-.f-sliderList:before {
-    content: "";
-    background-color: #00000060;
-    width: 100%;
-    height: 100%;
-    z-index: 98;
-    background-size: contain;
-    position: absolute;
-    right: 0;
-    top: 0;
-}
-
-.f-sliderList .f-sliderBox {
-    width: 100%;
-    height: 400px;
-    border-radius: 0;
-    overflow: hidden;
-    margin: 0;
-    padding: 60px;
-    background-size: cover;
-    object-fit: cover;
-    background-position: center;
-}
-/* .f-sliderList .f-sliderBox::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    background: #00000040;
-} */
-.f-sliderList .f-sliderBox .f-slider-title {
-    position: absolute;
-    bottom: 55px;
-    z-index: 1;
-    display: none;
-}
-
-
-/* ì´ë¯¸ì§€ ì„¤ì • */
+/* 이미지 설정 */
 .image-container {
-    width: 100%; /* ì›í•˜ëŠ” ë„ˆë¹„ */
-    overflow: hidden; /* ë¶€ëª¨ ìš”ì†Œë¥¼ ë²—ì–´ë‚œ ë¶€ë¶„ì„ ìˆ¨ê¹€ */
+    width: 100%; /* 원하는 너비 */
+    overflow: hidden; /* 부모 요소를 벗어난 부분을 숨김 */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .image-container .img-tag {
     min-width: 100%;
-    object-fit: cover; /* ì´ë¯¸ì§€ ë¹„ìœ¨ì„ ìœ ì§€í•˜ë©´ì„œ ë¶€ëª¨ ìš”ì†Œë¥¼ ë®ë„ë¡ ì„¤ì • */
+    object-fit: cover; /* 이미지 비율을 유지하면서 부모 요소를 덮도록 설정 */
 }
 
 
-/* ë©”ì¸ */
+/* 메인 */
 .slider-container {
     position: relative;
     overflow: hidden;
-    height: 400px;
 }
 
 .festivalList {
@@ -175,8 +102,25 @@ h4 {
     padding-left: 200px;
     font-size: 45px;
 }
-
-
+.main .mainSildeBox {
+    display: flex;
+    gap: 100px;
+    margin: 160px 0 100px;
+}
+.main .mainSildeBox .carousel-title {
+    margin: 175px 0 0 300px;
+    flex: 1 1 0;
+}
+.main .mainSildeBox .carousel-title h1 {
+    font-size: 52px;
+    letter-spacing: -6px;
+    line-height: 1.4;
+    font-weight: 400;
+}
+.main .mainSildeBox .carousel-title h1 span {
+    font-weight: 400;
+    color: #38aed6;
+}
 
 /* .f-rightImgBox {
     flex: 65%;
@@ -194,6 +138,14 @@ h4 {
     flex: none;
 }
 
+.f-sliderList .f-sliderBox {
+    width: 612px;
+    height: 662px;
+    border-top-left-radius: 300px;
+    overflow: hidden;
+    margin: 0;
+    padding: 60px;
+}
 /* .f-sliderList .f-sliderBox::after {
     content: "";
     position: absolute;
@@ -203,7 +155,10 @@ h4 {
     top: 0;
     background: #00000040;
 } */
-
+.f-sliderList .f-sliderBox {
+    background-size: cover;
+    background-position: center;
+}
 .f-sliderList .f-sliderBox:nth-child(1) {
     background-image: url('../images/mainpage/main-1.jpg');
 }
@@ -213,7 +168,7 @@ h4 {
 .f-sliderList .f-sliderBox:nth-child(3) {
     background-image: url('../images/mainpage/main-3.jpg');
 }
-
+.f-sliderList .f-sliderBox .f-slider-title {position: absolute;bottom: 55px;z-index: 1;}
 .f-sliderList .f-sliderBox .f-slider-title h2 {
     color: #ffff;
     font-size: 38px;
@@ -231,7 +186,7 @@ h4 {
 }
 
 
-/* ì°¾ì•„ê°€ëŠ” ëª…ì†Œ */
+/* 찾아가는 명소 */
 .goodPlaces {
     background-color: #E2F2FF;
     padding: 80px 0;
@@ -283,15 +238,15 @@ h4 {
     width: 80%;
 }
 .goodPlaces .innerbox {
-    /* ìŠ¤í¬ë¡¤ë°” ì—†ì• ê¸° */
-    -ms-overflow-style: none; /* ì¸í„°ë„· ìµìŠ¤í”Œë¡œëŸ¬ */
-    scrollbar-width: none; /* íŒŒì´ì–´í­ìŠ¤ */
+    /* 스크롤바 없애기 */
+    -ms-overflow-style: none; /* 인터넷 익스플로러 */
+    scrollbar-width: none; /* 파이어폭스 */
     margin-bottom: 80px;
     border-radius: 10px;
     overflow: auto;
     height: 600px;
 }
-/* ìŠ¤í¬ë¡¤ë°” ì—†ì• ê¸° */
+/* 스크롤바 없애기 */
 .goodPlaces .innerbox::-webkit-scrollbar {
     display: none;
 }
@@ -365,7 +320,7 @@ h4 {
 }
 
 
-/* ê°€ì´ë“œ ë©”ë‰´ */
+/* 가이드 메뉴 */
 .guideMenu {
     width: 100%; height: 100%;
 }
@@ -397,7 +352,7 @@ h4 {
     font-weight: 600;
     line-height: 145px;
 }
-/* ë¶€ì‚° ì—¬í–‰ ì‚¬ì§„ì§‘ */
+/* 부산 여행 사진집 */
 .travelPictures {
     padding: 80px 0;
 }
@@ -422,7 +377,7 @@ h4 {
     height: 350px;
 }
 
-/* ìƒ‰ë‹¤ë¥¸ í…Œë§ˆì—¬í–‰ */
+/* 색다른 테마여행 */
 .outOfOrdinary {
     width: 100%; height: 100%;
     padding: 80px 0;
@@ -438,14 +393,14 @@ h4 {
     flex-wrap: nowrap;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
-    /* ìŠ¤í¬ë¡¤ë°” ì—†ì• ê¸° */
-    /* ì¸í„°ë„· ìµìŠ¤í”Œë¡œëŸ¬ */
+    /* 스크롤바 없애기 */
+    /* 인터넷 익스플로러 */
     -ms-overflow-style: none;
-    /* íŒŒì´ì–´í­ìŠ¤ */
+    /* 파이어폭스 */
     scrollbar-width: none;
     overflow: scroll;
 }
-/* ìŠ¤í¬ë¡¤ë°” ì—†ì• ê¸° */
+/* 스크롤바 없애기 */
 .ord-imgSlide::-webkit-scrollbar {
     display: none;
 }
@@ -478,12 +433,6 @@ h4 {
     background-image: url('../images/mainpage/ord-img6.jpg');
 }
 @media (min-width: 576px) {
-    .arrow-btn {
-        display: flex;
-        margin-top: 40px;
-    }
-
-
     .g-imgBox {
         grid-template-rows: repeat(4, 1fr);
         grid-template-columns: min-content;
@@ -524,90 +473,6 @@ h4 {
 }
 
 @media (min-width: 768px) {
-
-    /*241104 ë°˜ì‘í˜• ìˆ˜ì •*/
-    .guide-imgBox {
-        position: relative;
-        height: 900px;
-        overflow: hidden;
-    }
-    .slider-container {
-        overflow: hidden;
-        height: 650px;
-        left: 48.3%;
-        top: 180px;
-    }
-    .l-btn {
-        background-image: url('../images/mainpage/visual-arrow-left.svg');
-        width: 60px;
-        height: 60px;
-    }
-    .r-btn {
-        background-image: url('../images/mainpage/visual-arrow-right.svg');
-        width: 60px;
-        height: 60px;
-    }
-
-    .main .mainSildeBox {
-        display: flex;
-        gap: 100px;
-        margin: 0;
-        height: 980px;
-        flex-direction: row;
-    }
-    .main .mainSildeBox .carousel-title {
-        flex: 1 1 0;
-        top: 300px;
-        left: 15%;
-    }
-    .main .mainSildeBox .carousel-title h1 {
-        font-size: 52px;
-        letter-spacing: -6px;
-        line-height: 1.4;
-        font-weight: 400;
-        color: #333;
-    }
-    .main .mainSildeBox .carousel-title h1 span {
-        font-weight: 400;
-        color: #38aed6;
-        display: block;
-        margin: 0;
-    }
-
-    .main .mainSildeBox .carousel-title h1 b {
-        letter-spacing: -6px;
-        line-height: 1.4;
-        font-weight: bold;
-        color: #333;
-    }
-    .f-sliderList {
-        transition: transform 0.5s ease-in-out;
-        height: 100%;
-        display: flex;
-    }
-    .f-sliderList:before {
-        content: "";
-        display: none;
-    }
-
-    .f-sliderList .f-sliderBox {
-        width: 500px;
-        height: 650px;
-        border-top-left-radius: 300px;
-        overflow: hidden;-
-        margin: 0;
-        padding: 60px;
-        background-size: cover;
-        background-position: center;
-    }
-    .f-sliderList .f-sliderBox .f-slider-title {
-        position: absolute;
-        bottom: 55px;
-        z-index: 1;
-    }
-
-
-
     .g-imgBox {
         grid-template-rows: repeat(5, 1fr);
         grid-template-columns: repeat(4, 1fr);
