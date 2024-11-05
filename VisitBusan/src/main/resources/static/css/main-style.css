@@ -1,7 +1,7 @@
-/* ì•„ì´ì½˜ ë§í¬ */
+/* Ã¬â€¢â€žÃ¬ÂÂ´Ã¬Â½Ëœ Ã«Â§ÂÃ­ÂÂ¬ */
 @import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css');
 
-/* ê¸°ë³¸ì„¤ì • */
+/* ÃªÂ¸Â°Ã«Â³Â¸Ã¬â€žÂ¤Ã¬Â â€¢ */
 @font-face {
     font-family: 'NotoSansKR';
     font-style: normal;
@@ -63,7 +63,7 @@ h4 {
     margin-top: 30px;
 }
 
-/*241104 ë°˜ì‘í˜• ìˆ˜ì •*/
+/*241104 Ã«Â°ËœÃ¬Ââ€˜Ã­Ëœâ€¢ Ã¬Ë†ËœÃ¬Â â€¢*/
 .l-btn {
     background-image: url('../images/mainpage/visual-arrow-left.svg');
     width: 40px;
@@ -145,21 +145,21 @@ h4 {
 }
 
 
-/* ì´ë¯¸ì§€ ì„¤ì • */
+/* Ã¬ÂÂ´Ã«Â¯Â¸Ã¬Â§â‚¬ Ã¬â€žÂ¤Ã¬Â â€¢ */
 .image-container {
-    width: 100%; /* ì›í•˜ëŠ” ë„ˆë¹„ */
-    overflow: hidden; /* ë¶€ëª¨ ìš”ì†Œë¥¼ ë²—ì–´ë‚œ ë¶€ë¶„ì„ ìˆ¨ê¹€ */
+    width: 100%; /* Ã¬â€ºÂÃ­â€¢ËœÃ«Å â€ Ã«â€žË†Ã«Â¹â€ž */
+    overflow: hidden; /* Ã«Â¶â‚¬Ã«ÂªÂ¨ Ã¬Å¡â€Ã¬â€ Å’Ã«Â¥Â¼ Ã«Â²â€”Ã¬â€“Â´Ã«â€šÅ“ Ã«Â¶â‚¬Ã«Â¶â€žÃ¬Ââ€ž Ã¬Ë†Â¨ÃªÂ¹â‚¬ */
     display: flex;
     justify-content: center;
     align-items: center;
 }
 .image-container .img-tag {
     min-width: 100%;
-    object-fit: cover; /* ì´ë¯¸ì§€ ë¹„ìœ¨ì„ ìœ ì§€í•˜ë©´ì„œ ë¶€ëª¨ ìš”ì†Œë¥¼ ë®ë„ë¡ ì„¤ì • */
+    object-fit: cover; /* Ã¬ÂÂ´Ã«Â¯Â¸Ã¬Â§â‚¬ Ã«Â¹â€žÃ¬Å“Â¨Ã¬Ââ€ž Ã¬Å“Â Ã¬Â§â‚¬Ã­â€¢ËœÃ«Â©Â´Ã¬â€žÅ“ Ã«Â¶â‚¬Ã«ÂªÂ¨ Ã¬Å¡â€Ã¬â€ Å’Ã«Â¥Â¼ Ã«ÂÂ®Ã«Ââ€žÃ«Â¡Â Ã¬â€žÂ¤Ã¬Â â€¢ */
 }
 
 
-/* ë©”ì¸ */
+/* Ã«Â©â€Ã¬ÂÂ¸ */
 .slider-container {
     position: relative;
     overflow: hidden;
@@ -231,7 +231,7 @@ h4 {
 }
 
 
-/* ì°¾ì•„ê°€ëŠ” ëª…ì†Œ */
+/* Ã¬Â°Â¾Ã¬â€¢â€žÃªÂ°â‚¬Ã«Å â€ Ã«Âªâ€¦Ã¬â€ Å’ */
 .goodPlaces {
     background-color: #E2F2FF;
     padding: 80px 0;
@@ -283,15 +283,15 @@ h4 {
     width: 80%;
 }
 .goodPlaces .innerbox {
-    /* ìŠ¤í¬ë¡¤ë°” ì—†ì• ê¸° */
-    -ms-overflow-style: none; /* ì¸í„°ë„· ìµìŠ¤í”Œë¡œëŸ¬ */
-    scrollbar-width: none; /* íŒŒì´ì–´í­ìŠ¤ */
+    /* Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€ Ã¬â€”â€ Ã¬â€¢Â ÃªÂ¸Â° */
+    -ms-overflow-style: none; /* Ã¬ÂÂ¸Ã­â€žÂ°Ã«â€žÂ· Ã¬ÂÂµÃ¬Å Â¤Ã­â€Å’Ã«Â¡Å“Ã«Å¸Â¬ */
+    scrollbar-width: none; /* Ã­Å’Å’Ã¬ÂÂ´Ã¬â€“Â´Ã­ÂÂ­Ã¬Å Â¤ */
     margin-bottom: 80px;
     border-radius: 10px;
     overflow: auto;
     height: 600px;
 }
-/* ìŠ¤í¬ë¡¤ë°” ì—†ì• ê¸° */
+/* Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€ Ã¬â€”â€ Ã¬â€¢Â ÃªÂ¸Â° */
 .goodPlaces .innerbox::-webkit-scrollbar {
     display: none;
 }
@@ -365,39 +365,36 @@ h4 {
 }
 
 
-/* ê°€ì´ë“œ ë©”ë‰´ */
+/* ÃªÂ°â‚¬Ã¬ÂÂ´Ã«â€œÅ“ Ã«Â©â€Ã«â€°Â´ */
 .guideMenu {
-    width: 100%; height: 100%;
+    width: 100%;
 }
 .guide-imgBox {
-    position: relative;
-    height: 900px;
+    height: 600px;
     overflow: hidden;
+    background-image: url("../images/mainpage/food.jpg");
 }
 .guide-imgBox img {
     height: 900px;
 }
 .guide-text {
-    position: absolute;
     background-color: rgba(0, 0, 0, 0.553);
-    left: 50%;
     height: 100%;
-    font-size: 80px;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 150px;
+    padding: 0 100px;
 }
 .guide-text img {
     height: 100%;
 }
 .guide-text div {
     color: #fff;
-    font-size: 100px;
+    font-size: 70px;
     font-weight: 600;
-    line-height: 145px;
+    display: inline-block;
 }
-/* ë¶€ì‚° ì—¬í–‰ ì‚¬ì§„ì§‘ */
+/* Ã«Â¶â‚¬Ã¬â€šÂ° Ã¬â€”Â¬Ã­â€“â€° Ã¬â€šÂ¬Ã¬Â§â€žÃ¬Â§â€˜ */
 .travelPictures {
     padding: 80px 0;
 }
@@ -422,7 +419,7 @@ h4 {
     height: 350px;
 }
 
-/* ìƒ‰ë‹¤ë¥¸ í…Œë§ˆì—¬í–‰ */
+/* Ã¬Æ’â€°Ã«â€¹Â¤Ã«Â¥Â¸ Ã­â€¦Å’Ã«Â§Ë†Ã¬â€”Â¬Ã­â€“â€° */
 .outOfOrdinary {
     width: 100%; height: 100%;
     padding: 80px 0;
@@ -438,14 +435,14 @@ h4 {
     flex-wrap: nowrap;
     overflow-x: scroll;
     scroll-snap-type: x mandatory;
-    /* ìŠ¤í¬ë¡¤ë°” ì—†ì• ê¸° */
-    /* ì¸í„°ë„· ìµìŠ¤í”Œë¡œëŸ¬ */
+    /* Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€ Ã¬â€”â€ Ã¬â€¢Â ÃªÂ¸Â° */
+    /* Ã¬ÂÂ¸Ã­â€žÂ°Ã«â€žÂ· Ã¬ÂÂµÃ¬Å Â¤Ã­â€Å’Ã«Â¡Å“Ã«Å¸Â¬ */
     -ms-overflow-style: none;
-    /* íŒŒì´ì–´í­ìŠ¤ */
+    /* Ã­Å’Å’Ã¬ÂÂ´Ã¬â€“Â´Ã­ÂÂ­Ã¬Å Â¤ */
     scrollbar-width: none;
     overflow: scroll;
 }
-/* ìŠ¤í¬ë¡¤ë°” ì—†ì• ê¸° */
+/* Ã¬Å Â¤Ã­ÂÂ¬Ã«Â¡Â¤Ã«Â°â€ Ã¬â€”â€ Ã¬â€¢Â ÃªÂ¸Â° */
 .ord-imgSlide::-webkit-scrollbar {
     display: none;
 }
@@ -478,11 +475,22 @@ h4 {
     background-image: url('../images/mainpage/ord-img6.jpg');
 }
 @media (min-width: 576px) {
+    .guide-imgBox {
+        height: 700px;
+        overflow: hidden;
+        background-image: url("../images/mainpage/food.jpg");
+    }
+
     .arrow-btn {
         display: flex;
         margin-top: 40px;
     }
-
+    .guide-text div {
+        color: #fff;
+        font-size: 100px;
+        font-weight: 600;
+        display: inline-block;
+    }
 
     .g-imgBox {
         grid-template-rows: repeat(4, 1fr);
@@ -524,10 +532,19 @@ h4 {
 }
 
 @media (min-width: 768px) {
+    .guide-text {
+        background-color: rgba(0, 0, 0, 0.553);
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        padding: 0 150px;
+        width: 50%;
+        float: right;
+    }
 
-    /*241104 ë°˜ì‘í˜• ìˆ˜ì •*/
+    /*241104 Ã«Â°ËœÃ¬Ââ€˜Ã­Ëœâ€¢ Ã¬Ë†ËœÃ¬Â â€¢*/
     .guide-imgBox {
-        position: relative;
         height: 900px;
         overflow: hidden;
     }
