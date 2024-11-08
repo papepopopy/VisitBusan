@@ -4,6 +4,8 @@
 .header-inner {
     display: flex;
     justify-content: center;
+    z-index: 99;
+    position: relative;
 }
 .menu-list {
     display: flex;
