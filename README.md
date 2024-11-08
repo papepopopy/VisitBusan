@@ -1,3 +1,6 @@
+[![Netlify Status](https://api.netlify.com/api/v1/badges/a2e39721-2781-4c09-af09-2aa4af12dc29/deploy-status)](https://app.netlify.com/sites/portfolio-papepopopy/deploys)
+
+
 # TeamProject
 올리는 양식 : 이름 날짜 - 제목 (그날 하루에 올리는 제목이 같을 경우 숫자 카운트(제목1, 제목2 이런식)  
 프로젝트 시작 전 항상 동기화(또는 Pull)버튼 눌러서 동기화 시켜놓고 시작하기  
