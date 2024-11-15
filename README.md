@@ -1,4 +1,3 @@
-[![Netlify Status](https://api.netlify.com/api/v1/badges/a2e39721-2781-4c09-af09-2aa4af12dc29/deploy-status)](https://app.netlify.com/sites/portfolio-papepopopy/deploys)
 
 
 # TeamProject
