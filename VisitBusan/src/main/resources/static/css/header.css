@@ -28,7 +28,6 @@
     padding: 5px 0;
     display: inline-block;
 }
-
 .link-box {
     display: flex;
     margin-bottom: 28px;
@@ -125,7 +124,9 @@ header {
     transform: rotate(135deg);
     position: absolute;
 }
-
+.menu-list li a {
+    position: relative;
+}
 /*===================== ë°˜ì‘í˜• ìˆ˜ì • =====================*/
 
 /*ë©”ë‰´ ì˜¤í”ˆ ë²„íŠ¼*/
@@ -324,7 +325,7 @@ header {
     }
     .header-box .logo-box a {
         text-align: center;
-        padding: 38px 30px;
+        padding: 41px 30px;
         display: inline-block;
         background-color: #38aed6;
     }
@@ -392,6 +393,11 @@ header {
         background : transparent;
     }
 
+    /*test*/
+    .on {
+        color: red !important;
+    }
+
     /*ë¡œê·¸ì¸ ë©”ë‰´*/
     .link-box {
         display: flex;
@@ -439,6 +445,7 @@ header {
     .header-box.scroll .menu-list>li>a {
         color: #fff;
     }
+
     .header-box.scroll .link-box>li {
         padding: 22px 0;
     }

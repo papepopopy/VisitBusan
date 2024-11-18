@@ -179,7 +179,7 @@ footer .container {
 .postsBox {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 19px;
 }
 .postsBox .post {
     max-width: 100%;

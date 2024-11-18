@@ -36,11 +36,11 @@
                 </div>
             </div>
             <ul class="menu-list">
-                <li><a th:href="@{/board/travelInfo/list?bCategory=place}">부산에 가면</a>
+                <li><a th:href="@{/board/travelInfo/list?bCategory=place}" class="">부산에 가면</a>
                     <ul class="sub-menu01">
-                        <li><a th:href="@{/board/travelInfo/list?bCategory=place}">명소</a></li>
-                        <li><a th:href="@{/board/travelInfo/list?bCategory=food}">음식</a></li>
-                        <li><a th:href="@{/board/travelInfo/list?bCategory=accommodation}">숙박</a></li>
+                        <li><a th:href="@{/board/travelInfo/list?bCategory=place}" class="">명소</a></li>
+                        <li><a th:href="@{/board/travelInfo/list?bCategory=food}" class="">음식</a></li>
+                        <li><a th:href="@{/board/travelInfo/list?bCategory=accommodation}" class="">숙박</a></li>
                     </ul>
                 </li>
                 <li><a th:href="@{/board/travelRecommend/list?bCategory=scheduledTravel}">추천여행</a>
@@ -92,48 +92,66 @@
                 </li>
             </ul>
         </div>
+
         <script th:src="@{/js/jquery-3.7.1.min.js}"></script>
         <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
         <script th:src="@{/js/bootstrap.min.js}"></script>
+
         <script th:inline="javascript">
-            $(document).ready(function() {
-                console.log("test-header");
+            console.log("test-header");
 
-                $(window).scroll(function() {
-                    var winScr = $(window).scrollTop();
-                    if(winScr > 130) {
-                        $(".header-box").addClass("scroll");
-                    } else {
-                        $(".header-box").removeClass("scroll");
-                    }
-                });
-
-                //메뉴 반응형
-                const menuBox = document.querySelector(".menu-box");
-                //열기
-                document.querySelector('.menu_open').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    menuBox.classList.add("active");
-                });
-                //닫기
-                document.querySelector('.menu_close').addEventListener('click', function(e) {
-                    e.preventDefault();
-                    e.stopPropagation();
-
-                    menuBox.classList.remove("active");
-                });
-
-                //1200이상 자동 닫기
-                $(window).resize(function() {
-                    var innerWidth = window.outerWidth;
-
-                    if(innerWidth >= 1200) {
-                        menuBox.classList.remove("active");
-                    }
-                })
+            // 스크롤 이벤트: 헤더 스타일 변경
+            $(window).scroll(function() {
+                const winScr = $(window).scrollTop();
+                $(".header-box").toggleClass("scroll", winScr > 130);
             });
+
+            // 메뉴 열기/닫기
+            const menuBox = document.querySelector(".menu-box");
+            document.querySelector('.menu_open').addEventListener('click', function(e) {
+                e.preventDefault();
+                menuBox.classList.add("active");
+            });
+            document.querySelector('.menu_close').addEventListener('click', function(e) {
+                e.preventDefault();
+                menuBox.classList.remove("active");
+            });
+
+            // 반응형: 1200px 이상일 때 메뉴 닫기
+            $(window).resize(function() {
+                if (window.outerWidth >= 1200) {
+                    menuBox.classList.remove("active");
+                }
+            });
+
+            // 메뉴 클릭 관리
+            const menuList = document.querySelectorAll(".menu-list > li > a");
+            const currentURL = window.location.href;
+            const activeMenu = localStorage.getItem("activeMenu");
+            const boardPath = "http://localhost:9089/board";
+
+            menuList.forEach(menu => {
+                menu.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    const changeUrl = menu.getAttribute("href");
+
+                    // 모든 메뉴 초기화 후 현재 메뉴 활성화
+                    menuList.forEach(m => m.classList.remove("on"));
+                    menu.classList.add("on");
+                    localStorage.setItem("activeMenu", changeUrl);
+
+                    // URL 이동
+                    setTimeout(() => window.location.href = changeUrl, 100);
+                });
+            });
+
+            // 로컬 저장소 기반 활성 메뉴 복원
+            if (activeMenu) {
+                menuList.forEach(menu => {
+                    const menuHref = menu.getAttribute("href");
+                    menu.classList.toggle("on", menuHref === activeMenu && menuHref.startsWith(boardPath));
+                });
+            }
         </script>
     </div>
 </header>
