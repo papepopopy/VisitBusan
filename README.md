@@ -16,7 +16,6 @@ visit busan : https://www.visitbusan.net/kr/index.do
 - **Database:**
   MySQL
 
-
-![비짓부산1](https://github.com/user-attachments/assets/78ee85e8-d9c8-4272-901f-77d90e15fbc1)
-![비짓부산2](https://github.com/user-attachments/assets/e0bbd119-c42c-43aa-b6bf-bef452121ec6)
-![비짓부산3](https://github.com/user-attachments/assets/47bfd0aa-bc2d-4118-9dde-044b124c0cca)
+![비짓부산1](https://github.com/user-attachments/assets/1d7521b1-6c44-4d4a-b4dd-4230a491d8fb)
+![비짓부산2](https://github.com/user-attachments/assets/b82689ea-65d7-4e4b-8c20-2293fee6ee32)
+![비짓부산3](https://github.com/user-attachments/assets/db8af690-6d3b-4445-9e55-0c3a6638da0e)
