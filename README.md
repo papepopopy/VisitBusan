@@ -21,9 +21,5 @@ visit busan : https://www.visitbusan.net/kr/index.do
 ![비짓부산3](https://github.com/user-attachments/assets/db8af690-6d3b-4445-9e55-0c3a6638da0e)
 
 
-![bandicam 2024-12-22 18-04-02-900](https://github.com/user-attachments/assets/2456c30b-5168-4d87-ac98-aee47afdb57e)
 
-
-
-https://github.com/user-attachments/assets/be2a0ae7-fc0f-4525-9e85-c4b242be79db
-
+![bandicam 2024-12-22 18-04-02-900 (2)](https://github.com/user-attachments/assets/2776480a-a926-4f56-81f8-7d9e35c83bd7)
