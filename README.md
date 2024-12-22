@@ -21,5 +21,8 @@ visit busan : https://www.visitbusan.net/kr/index.do
 ![비짓부산3](https://github.com/user-attachments/assets/db8af690-6d3b-4445-9e55-0c3a6638da0e)
 
 
-Uploading bandicam 2024-12-22 17-31-20-661 (1).mp4…
+
+
+
+https://github.com/user-attachments/assets/be2a0ae7-fc0f-4525-9e85-c4b242be79db
 
